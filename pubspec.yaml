@@ -1,0 +1,12 @@
+name: ludixa_workspace
+description: Monorepo de Ludixa (app de juegos de lógica y sus paquetes).
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+# Cada paquete se agrega aquí cuando la tarea que lo implementa lo crea.
+workspace:
+  - apps/ludixa
+  - packages/puzzle_core
+  - packages/game_api
