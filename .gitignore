@@ -1,0 +1,16 @@
+# Dart / Flutter
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+coverage/
+*.iml
+.idea/
+.vscode/
+.DS_Store
+
+# Android: secretos de firma y rutas locales (nunca al repositorio)
+**/android/key.properties
+**/android/local.properties
+*.jks
+*.keystore
