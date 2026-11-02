@@ -1,3 +1,4 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,6 +13,7 @@ import 'features/settings/data/settings_repository.dart';
 /// correctos se vean desde el inicio.
 Future<void> bootstrap(AppEnvironment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerDesignSystemLicenses();
   final settingsRepository = await SharedPreferencesSettingsRepository.create();
   runApp(
     ProviderScope(

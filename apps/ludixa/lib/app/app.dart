@@ -1,3 +1,4 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,9 +9,8 @@ import '../l10n/generated/app_localizations.dart';
 import 'environment.dart';
 import 'locales.dart';
 import 'router.dart';
-import 'theme.dart';
 
-/// Raíz de la app: tema e idioma salen de los ajustes y cambian en caliente.
+/// Raíz de la app: tema, paleta e idioma salen de los ajustes y cambian en caliente.
 class LudixaApp extends ConsumerWidget {
   const LudixaApp({super.key});
 
@@ -19,13 +19,14 @@ class LudixaApp extends ConsumerWidget {
     final environment = ref.watch(environmentProvider);
     final settings = ref.watch(settingsProvider);
     final supported = supportedLocalesFor(environment);
+    final variant = settings.colorblindPalette ? PaletteVariant.colorblind : PaletteVariant.standard;
 
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appName,
       debugShowCheckedModeBanner: false,
       routerConfig: ref.watch(routerProvider),
-      theme: buildTheme(Brightness.light),
-      darkTheme: buildTheme(Brightness.dark),
+      theme: buildLudixaTheme(brightness: Brightness.light, variant: variant),
+      darkTheme: buildLudixaTheme(brightness: Brightness.dark, variant: variant),
       themeMode: switch (settings.theme) {
         ThemePreference.system => ThemeMode.system,
         ThemePreference.light => ThemeMode.light,

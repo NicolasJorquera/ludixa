@@ -54,6 +54,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get themeDark => 'Dark';
 
   @override
+  String get colorblindPalette => 'Colorblind palette';
+
+  @override
+  String get colorblindPaletteHint => 'Swaps reds and greens for oranges and blues';
+
+  @override
   String get settingsLanguageSection => 'Language';
 
   @override
@@ -123,6 +129,12 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get themeDark => '[Ðáŕķ ··]';
+
+  @override
+  String get colorblindPalette => '[Çöļöŕƀļîñð þáļéţţé ·······]';
+
+  @override
+  String get colorblindPaletteHint => '[Šŵáþš ŕéðš áñð ĝŕééñš ƒöŕ öŕáñĝéš áñð ƀļûéš ···············]';
 
   @override
   String get settingsLanguageSection => '[Ļáñĝûáĝé ····]';

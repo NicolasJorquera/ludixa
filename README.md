@@ -14,6 +14,7 @@ apps/ludixa/                  App (raíz de composición, pantallas transversale
 packages/puzzle_core/         Dart puro: PRNG determinista, semillas, fechas, tipos comunes
 packages/game_api/            Contratos GameModule y GameHost
 packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, benchmark)
+packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura
 ```

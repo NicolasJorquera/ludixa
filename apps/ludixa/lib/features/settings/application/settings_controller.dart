@@ -22,6 +22,8 @@ class SettingsController extends Notifier<AppSettings> {
   /// `null` vuelve a seguir el idioma del sistema.
   Future<void> setLocale(Locale? locale) => _update(state.copyWith(locale: () => locale));
 
+  Future<void> setColorblindPalette(bool enabled) => _update(state.copyWith(colorblindPalette: enabled));
+
   Future<void> _update(AppSettings next) async {
     state = next;
     await ref.read(settingsRepositoryProvider).save(next);
