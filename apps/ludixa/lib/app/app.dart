@@ -1,24 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../features/settings/application/settings_controller.dart';
+import '../features/settings/domain/app_settings.dart';
+import '../l10n/generated/app_localizations.dart';
 import 'environment.dart';
+import 'locales.dart';
+import 'router.dart';
+import 'theme.dart';
 
-/// Raíz de la app.
-///
-/// Por ahora solo arranca y muestra el entorno. La navegación con 4 pestañas,
-/// el tema y los idiomas llegan en H1-06 y H1-07.
-class LudixaApp extends StatelessWidget {
-  const LudixaApp({super.key, required this.environment});
-
-  final AppEnvironment environment;
+/// Raíz de la app: tema e idioma salen de los ajustes y cambian en caliente.
+class LudixaApp extends ConsumerWidget {
+  const LudixaApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Ludixa',
+  Widget build(BuildContext context, WidgetRef ref) {
+    final environment = ref.watch(environmentProvider);
+    final settings = ref.watch(settingsProvider);
+    final supported = supportedLocalesFor(environment);
+
+    return MaterialApp.router(
+      onGenerateTitle: (context) => AppLocalizations.of(context).appName,
       debugShowCheckedModeBanner: false,
+      routerConfig: ref.watch(routerProvider),
+      theme: buildTheme(Brightness.light),
+      darkTheme: buildTheme(Brightness.dark),
+      themeMode: switch (settings.theme) {
+        ThemePreference.system => ThemeMode.system,
+        ThemePreference.light => ThemeMode.light,
+        ThemePreference.dark => ThemeMode.dark,
+      },
+      locale: settings.locale,
+      supportedLocales: supported,
+      localeListResolutionCallback: (preferred, _) => resolveLocale(preferred, supported),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       builder: (context, child) =>
           environment.isProduction ? child! : Banner(message: 'DEV', location: BannerLocation.topEnd, child: child),
-      home: const Scaffold(body: Center(child: Text('Ludixa'))),
     );
   }
 }

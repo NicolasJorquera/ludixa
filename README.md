@@ -26,7 +26,14 @@ Es un monorepo con [pub workspaces](https://dart.dev/tools/pub/workspaces). Cada
 flutter pub get                                    # una vez, en la raíz
 bash tool/test_all.sh                              # pruebas de todos los paquetes
 flutter analyze --fatal-infos                      # análisis estático
-dart format --line-length 120 .                    # formato
+dart format .                                      # formato (ancho 120, en analysis_options.yaml)
+```
+
+Idiomas (desde `apps/ludixa`). Los textos viven en `lib/l10n/app_es.arb` (plantilla, con descripciones) y `app_en.arb`. Tras editarlos:
+
+```bash
+dart run tool/pseudo_l10n.dart   # regenera la pseudolocalización en_XA (solo dev)
+flutter gen-l10n                 # regenera lib/l10n/generated (se versiona; CI verifica que esté al día)
 ```
 
 Ejecutar la app (desde `apps/ludixa`):

@@ -21,8 +21,14 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
+      - name: Textos generados al día
+        working-directory: apps/ludixa
+        run: |
+          dart run tool/pseudo_l10n.dart
+          flutter gen-l10n
+          git diff --exit-code -- lib/l10n || (echo "::error::Regenera los idiomas: dart run tool/pseudo_l10n.dart && flutter gen-l10n" && exit 1)
       - name: Formato
-        run: dart format --output=none --set-exit-if-changed --line-length 120 .
+        run: dart format --output=none --set-exit-if-changed .
       - name: Análisis
         run: flutter analyze --fatal-infos
       - name: Pruebas
