@@ -10,3 +10,4 @@ workspace:
   - apps/ludixa
   - packages/puzzle_core
   - packages/game_api
+  - packages/minesweeper_engine
