@@ -1,6 +1,9 @@
 # Reglas compartidas. Cada paquete incluye este archivo desde su propio
 # analysis_options.yaml y suma el conjunto base que le corresponde
 # (lints para Dart puro, flutter_lints para paquetes Flutter).
+formatter:
+  page_width: 120
+
 analyzer:
   language:
     strict-casts: true
