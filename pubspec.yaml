@@ -11,3 +11,4 @@ workspace:
   - packages/puzzle_core
   - packages/game_api
   - packages/minesweeper_engine
+  - packages/design_system

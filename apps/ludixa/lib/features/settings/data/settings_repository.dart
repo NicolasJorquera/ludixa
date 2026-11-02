@@ -18,12 +18,13 @@ final class SharedPreferencesSettingsRepository implements SettingsRepository {
 
   static const _themeKey = 'settings.theme';
   static const _localeKey = 'settings.locale';
+  static const _colorblindKey = 'settings.colorblind';
 
   final SharedPreferencesWithCache _prefs;
 
   static Future<SharedPreferencesSettingsRepository> create() async {
     final prefs = await SharedPreferencesWithCache.create(
-      cacheOptions: const SharedPreferencesWithCacheOptions(allowList: {_themeKey, _localeKey}),
+      cacheOptions: const SharedPreferencesWithCacheOptions(allowList: {_themeKey, _localeKey, _colorblindKey}),
     );
     return SharedPreferencesSettingsRepository._(prefs);
   }
@@ -33,12 +34,17 @@ final class SharedPreferencesSettingsRepository implements SettingsRepository {
     final themeName = _prefs.getString(_themeKey);
     final theme = ThemePreference.values.where((t) => t.name == themeName).firstOrNull ?? ThemePreference.system;
     final tag = _prefs.getString(_localeKey);
-    return AppSettings(theme: theme, locale: tag == null ? null : _parseTag(tag));
+    return AppSettings(
+      theme: theme,
+      locale: tag == null ? null : _parseTag(tag),
+      colorblindPalette: _prefs.getBool(_colorblindKey) ?? false,
+    );
   }
 
   @override
   Future<void> save(AppSettings settings) async {
     await _prefs.setString(_themeKey, settings.theme.name);
+    await _prefs.setBool(_colorblindKey, settings.colorblindPalette);
     final locale = settings.locale;
     if (locale == null) {
       await _prefs.remove(_localeKey);

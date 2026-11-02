@@ -1,3 +1,4 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ludixa/app/environment.dart';
@@ -15,11 +16,17 @@ String _appBarTitle(WidgetTester tester) {
   return (titles.last.title! as Text).data!;
 }
 
-Future<void> _openLicenses(WidgetTester tester) async {
-  await tester.scrollUntilVisible(find.text('Licencias de código abierto'), 200);
-  await tester.tap(find.text('Licencias de código abierto'));
+/// Desplaza la lista hasta que la fila quede entera a la vista y la toca.
+Future<void> _tapListItem(WidgetTester tester, String text) async {
+  final finder = find.text(text);
+  await tester.scrollUntilVisible(finder, 200);
+  await tester.ensureVisible(finder);
+  await tester.pumpAndSettle();
+  await tester.tap(finder);
   await tester.pumpAndSettle();
 }
+
+Future<void> _openLicenses(WidgetTester tester) => _tapListItem(tester, 'Licencias de código abierto');
 
 void main() {
   group('entorno', () {
@@ -101,13 +108,30 @@ void main() {
     testWidgets('cambiar el idioma traduce la app sin reiniciar y se guarda', (tester) async {
       final repository = await pumpLudixa(tester);
       await _tapTab(tester, 'Ajustes');
-      await tester.scrollUntilVisible(find.text('English'), 200);
-      await tester.tap(find.text('English'));
-      await tester.pumpAndSettle();
+      await _tapListItem(tester, 'English');
 
       expect(find.text('Settings'), findsWidgets);
       expect(find.text('Home'), findsOneWidget);
       expect(repository.stored.locale, const Locale('en'));
+    });
+
+    testWidgets('la paleta para daltonismo se aplica al instante y se guarda', (tester) async {
+      final repository = await pumpLudixa(tester);
+      PaletteVariant activeVariant() =>
+          Theme.of(tester.element(find.byType(NavigationBar))).extension<LudixaColors>()!.variant;
+      expect(activeVariant(), PaletteVariant.standard);
+
+      await _tapTab(tester, 'Ajustes');
+      await _tapListItem(tester, 'Paleta para daltonismo');
+
+      expect(activeVariant(), PaletteVariant.colorblind);
+      expect(repository.stored.colorblindPalette, isTrue);
+    });
+
+    testWidgets('la app usa las fuentes del sistema visual', (tester) async {
+      await pumpLudixa(tester);
+      final style = Theme.of(tester.element(find.byType(NavigationBar))).textTheme.bodyMedium!;
+      expect(style.fontFamily, 'packages/design_system/Lexend');
     });
 
     testWidgets('los ajustes guardados se aplican al abrir la app', (tester) async {

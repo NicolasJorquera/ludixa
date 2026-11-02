@@ -8,7 +8,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../application/settings_controller.dart';
 import '../domain/app_settings.dart';
 
-/// Ajustes generales. Por ahora: tema, idioma y licencias. El resto llega en H4-09.
+/// Ajustes generales. Por ahora: tema, paleta, idioma y licencias. El resto llega en H4-09.
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
@@ -36,6 +36,12 @@ class SettingsPage extends ConsumerWidget {
                 RadioListTile(value: ThemePreference.dark, title: Text(l10n.themeDark)),
               ],
             ),
+          ),
+          SwitchListTile(
+            value: settings.colorblindPalette,
+            onChanged: controller.setColorblindPalette,
+            title: Text(l10n.colorblindPalette),
+            subtitle: Text(l10n.colorblindPaletteHint),
           ),
           _SectionHeader(l10n.settingsLanguageSection),
           RadioGroup<_LanguageOption>(

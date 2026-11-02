@@ -182,6 +182,18 @@ abstract class AppLocalizations {
   /// **'Oscuro'**
   String get themeDark;
 
+  /// Interruptor de la paleta que no depende de distinguir rojo y verde.
+  ///
+  /// In es, this message translates to:
+  /// **'Paleta para daltonismo'**
+  String get colorblindPalette;
+
+  /// Explicación breve bajo el interruptor de daltonismo.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambia rojos y verdes por naranjas y azules'**
+  String get colorblindPaletteHint;
+
   /// Encabezado de la sección de idioma.
   ///
   /// In es, this message translates to:

@@ -54,6 +54,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get themeDark => 'Oscuro';
 
   @override
+  String get colorblindPalette => 'Paleta para daltonismo';
+
+  @override
+  String get colorblindPaletteHint => 'Cambia rojos y verdes por naranjas y azules';
+
+  @override
   String get settingsLanguageSection => 'Idioma';
 
   @override

@@ -1,0 +1,29 @@
+name: design_system
+description: Sistema visual de Ludixa (tokens claro/oscuro/daltonismo, tipografías incluidas y tema).
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  fonts:
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend-Variable.ttf
+    - family: BricolageGrotesque
+      fonts:
+        - asset: assets/fonts/BricolageGrotesque-Variable.ttf
+  assets:
+    - assets/fonts/OFL-Lexend.txt
+    - assets/fonts/OFL-BricolageGrotesque.txt
