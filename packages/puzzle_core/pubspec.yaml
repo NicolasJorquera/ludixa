@@ -1,0 +1,12 @@
+name: puzzle_core
+description: Núcleo en Dart puro compartido por los motores de juego (aleatoriedad determinista, semillas, fechas y tipos comunes).
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.0
