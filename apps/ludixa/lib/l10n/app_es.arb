@@ -46,6 +46,8 @@
   "@languagePseudo": {"description": "Idioma de prueba que alarga y acentúa los textos. Solo en desarrollo."},
   "settingsAboutSection": "Información",
   "@settingsAboutSection": {"description": "Encabezado de la sección de información."},
+  "settingsComponentCatalog": "Catálogo de componentes (desarrollo)",
+  "@settingsComponentCatalog": {"description": "Entrada al catálogo del sistema visual. Solo en desarrollo."},
   "settingsLicenses": "Licencias de código abierto",
   "@settingsLicenses": {"description": "Entrada que abre las licencias de las dependencias."}
 }

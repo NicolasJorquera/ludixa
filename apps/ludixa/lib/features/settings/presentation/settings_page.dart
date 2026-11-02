@@ -1,9 +1,11 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../app/environment.dart';
 import '../../../app/locales.dart';
+import '../../../app/router.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../application/settings_controller.dart';
 import '../domain/app_settings.dart';
@@ -23,7 +25,7 @@ class SettingsPage extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: ListView(
         children: [
-          _SectionHeader(l10n.settingsThemeSection),
+          LudixaSectionLabel(l10n.settingsThemeSection),
           RadioGroup<ThemePreference>(
             groupValue: settings.theme,
             onChanged: (value) {
@@ -37,13 +39,13 @@ class SettingsPage extends ConsumerWidget {
               ],
             ),
           ),
-          SwitchListTile(
+          LudixaSwitchRow(
+            title: l10n.colorblindPalette,
+            subtitle: l10n.colorblindPaletteHint,
             value: settings.colorblindPalette,
             onChanged: controller.setColorblindPalette,
-            title: Text(l10n.colorblindPalette),
-            subtitle: Text(l10n.colorblindPaletteHint),
           ),
-          _SectionHeader(l10n.settingsLanguageSection),
+          LudixaSectionLabel(l10n.settingsLanguageSection),
           RadioGroup<_LanguageOption>(
             groupValue: _LanguageOption.fromLocale(settings.locale),
             onChanged: (value) {
@@ -59,12 +61,10 @@ class SettingsPage extends ConsumerWidget {
               ],
             ),
           ),
-          _SectionHeader(l10n.settingsAboutSection),
-          ListTile(
-            title: Text(l10n.settingsLicenses),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.go('/settings/licenses'),
-          ),
+          LudixaSectionLabel(l10n.settingsAboutSection),
+          LudixaListRow(title: l10n.settingsLicenses, onTap: () => context.go(AppRoutes.licenses)),
+          if (!environment.isProduction)
+            LudixaListRow(title: l10n.settingsComponentCatalog, onTap: () => context.go(AppRoutes.catalog)),
         ],
       ),
     );
@@ -83,24 +83,4 @@ enum _LanguageOption {
 
   static _LanguageOption fromLocale(Locale? locale) =>
       values.firstWhere((option) => option.locale == locale, orElse: () => _LanguageOption.system);
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(16, 24, 16, 8),
-      child: Semantics(
-        header: true,
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(color: Theme.of(context).colorScheme.primary),
-        ),
-      ),
-    );
-  }
 }

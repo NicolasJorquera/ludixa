@@ -23,5 +23,6 @@
   "languageEnglish": "English",
   "languagePseudo": "Pseudo-localization (development)",
   "settingsAboutSection": "About",
+  "settingsComponentCatalog": "Component catalog (development)",
   "settingsLicenses": "Open source licenses"
 }

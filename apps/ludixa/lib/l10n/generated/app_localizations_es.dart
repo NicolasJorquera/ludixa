@@ -78,5 +78,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsAboutSection => 'Información';
 
   @override
+  String get settingsComponentCatalog => 'Catálogo de componentes (desarrollo)';
+
+  @override
   String get settingsLicenses => 'Licencias de código abierto';
 }
