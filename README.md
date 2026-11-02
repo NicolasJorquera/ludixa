@@ -10,11 +10,12 @@ Colección de juegos de lógica para Android (Sudoku, Buscaminas sin adivinar y 
 ## Estructura
 
 ```
-apps/ludixa/          App (raíz de composición, pantallas transversales)
-packages/puzzle_core/ Dart puro: PRNG determinista, semillas, fechas, tipos comunes
-packages/game_api/    Contratos GameModule y GameHost
-tool/                 Scripts de desarrollo
-docs/adr/             Decisiones de arquitectura
+apps/ludixa/                  App (raíz de composición, pantallas transversales)
+packages/puzzle_core/         Dart puro: PRNG determinista, semillas, fechas, tipos comunes
+packages/game_api/            Contratos GameModule y GameHost
+packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, benchmark)
+tool/                         Scripts de desarrollo
+docs/adr/                     Decisiones de arquitectura
 ```
 
 Es un monorepo con [pub workspaces](https://dart.dev/tools/pub/workspaces). Cada paquete se agrega a `pubspec.yaml` (raíz) cuando la tarea que lo implementa lo crea. Los motores de juego nunca dependen de Flutter.
