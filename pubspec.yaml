@@ -12,3 +12,4 @@ workspace:
   - packages/game_api
   - packages/minesweeper_engine
   - packages/design_system
+  - packages/sudoku_engine
