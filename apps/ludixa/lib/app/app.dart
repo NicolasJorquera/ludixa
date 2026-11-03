@@ -2,6 +2,7 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:game_minesweeper/game_minesweeper.dart';
 import 'package:game_sudoku/game_sudoku.dart';
 
 import '../features/settings/application/settings_controller.dart';
@@ -39,6 +40,7 @@ class LudixaApp extends ConsumerWidget {
       localizationsDelegates: const [
         AppLocalizations.delegate,
         SudokuLocalizations.delegate,
+        MinesLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

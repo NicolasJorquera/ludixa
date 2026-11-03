@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:game_minesweeper/game_minesweeper.dart';
 import 'package:game_sudoku/game_sudoku.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -33,4 +34,36 @@ final class PrefsSudokuSettingsStore implements SudokuSettingsStore {
 
   @override
   Future<void> save(SudokuSettings settings) => _prefs.setString(_key, jsonEncode(settings.toJson()));
+}
+
+/// Ajustes del Buscaminas. En memoria por defecto; bootstrap pone el real.
+final minesweeperSettingsStoreProvider = Provider<MinesweeperSettingsStore>(
+  (ref) => InMemoryMinesweeperSettingsStore(),
+);
+
+/// Ajustes del Buscaminas en `shared_preferences`, como JSON en una sola clave.
+final class PrefsMinesweeperSettingsStore implements MinesweeperSettingsStore {
+  PrefsMinesweeperSettingsStore._(this._prefs);
+
+  static const _key = 'games.minesweeper.settings';
+
+  final SharedPreferencesWithCache _prefs;
+
+  static Future<PrefsMinesweeperSettingsStore> create() async => PrefsMinesweeperSettingsStore._(
+    await SharedPreferencesWithCache.create(cacheOptions: const SharedPreferencesWithCacheOptions(allowList: {_key})),
+  );
+
+  @override
+  MinesweeperSettings load() {
+    final raw = _prefs.getString(_key);
+    if (raw == null) return const MinesweeperSettings();
+    try {
+      return MinesweeperSettings.fromJson(jsonDecode(raw) as Map<String, Object?>);
+    } on FormatException {
+      return const MinesweeperSettings();
+    }
+  }
+
+  @override
+  Future<void> save(MinesweeperSettings settings) => _prefs.setString(_key, jsonEncode(settings.toJson()));
 }

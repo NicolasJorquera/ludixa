@@ -242,6 +242,12 @@ abstract class AppLocalizations {
   /// **'Probar Sudoku (desarrollo)'**
   String get settingsDevSudoku;
 
+  /// Entrada para jugar una partida de Buscaminas de prueba. Solo en desarrollo.
+  ///
+  /// In es, this message translates to:
+  /// **'Probar Buscaminas (desarrollo)'**
+  String get settingsDevMinesweeper;
+
   /// Entrada que abre las licencias de las dependencias.
   ///
   /// In es, this message translates to:

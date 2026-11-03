@@ -300,4 +300,18 @@ void main() {
       expect(_playWithHints(a), GameStatus.won);
     });
   });
+
+  test('reintentar este tablero: mismas minas, desde cero, con el primer toque como inicio', () {
+    final seed = PuzzleSeed.fromKey('replay');
+    final game = MinesweeperGame.free(spec: BoardSpec.beginner, seed: seed);
+    const start = 40;
+    game.begin(MinesweeperGame.generateBoard(BoardSpec.beginner, seed.key, start));
+    game.reveal(start);
+    final again = game.replay(start: start);
+    expect(again.status, GameStatus.playing);
+    expect(again.suggestedStart, start);
+    expect([for (var i = 0; i < 81; i++) again.viewAt(i)].every((v) => v == CellView.hidden), isTrue);
+    expect(again.toJson()['mines'], game.toJson()['mines']);
+    expect(() => MinesweeperGame.free(spec: BoardSpec.beginner, seed: seed).replay(start: 0), throwsStateError);
+  });
 }

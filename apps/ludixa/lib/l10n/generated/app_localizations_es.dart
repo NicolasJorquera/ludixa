@@ -84,5 +84,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsDevSudoku => 'Probar Sudoku (desarrollo)';
 
   @override
+  String get settingsDevMinesweeper => 'Probar Buscaminas (desarrollo)';
+
+  @override
   String get settingsLicenses => 'Licencias de código abierto';
 }

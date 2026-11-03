@@ -50,6 +50,8 @@
   "@settingsComponentCatalog": {"description": "Entrada al catálogo del sistema visual. Solo en desarrollo."},
   "settingsDevSudoku": "Probar Sudoku (desarrollo)",
   "@settingsDevSudoku": {"description": "Entrada para jugar una partida de Sudoku de prueba. Solo en desarrollo."},
+  "settingsDevMinesweeper": "Probar Buscaminas (desarrollo)",
+  "@settingsDevMinesweeper": {"description": "Entrada para jugar una partida de Buscaminas de prueba. Solo en desarrollo."},
   "settingsLicenses": "Licencias de código abierto",
   "@settingsLicenses": {"description": "Entrada que abre las licencias de las dependencias."}
 }

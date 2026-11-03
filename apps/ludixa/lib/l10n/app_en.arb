@@ -25,5 +25,6 @@
   "settingsAboutSection": "About",
   "settingsComponentCatalog": "Component catalog (development)",
   "settingsDevSudoku": "Try Sudoku (development)",
+  "settingsDevMinesweeper": "Try Minesweeper (development)",
   "settingsLicenses": "Open source licenses"
 }
