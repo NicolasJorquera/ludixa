@@ -1,0 +1,2316 @@
+[
+  {
+    "day": "2026-11-02",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "403090710090010305721003000860730021235000467140025083000400136306070050084060209"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 49,
+      "mines": [
+        10,
+        16,
+        19,
+        25,
+        33,
+        45,
+        54,
+        64,
+        65,
+        71
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "herramientas"
+        ],
+        "words": [
+          "ESCUADRA",
+          "BISAGRA",
+          "MACHETE",
+          "COMPAS",
+          "BROCA",
+          "LLANA"
+        ],
+        "letters": "ESMAUOECSBISAGRACOMPASVEUEUNACEPAMACHETEDSLRREEDROLLANATAESBROCA"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "herramientas"
+        ],
+        "words": [
+          "CROWBAR",
+          "MACHETE",
+          "HINGE",
+          "ANVIL",
+          "DRILL",
+          "NAIL"
+        ],
+        "letters": "NAILCHAUTIAMRIDDEANAONSDEAVCWGMRATIHBEJIROLEADELRHTTRAELTIMEAWED"
+      }
+    }
+  },
+  {
+    "day": "2026-11-03",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "590000730028073010043051920006082159300000002982510300039740680060120570057000094"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 23,
+      "mines": [
+        1,
+        18,
+        20,
+        35,
+        36,
+        40,
+        46,
+        58,
+        64,
+        69
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "salvajes"
+        ],
+        "words": [
+          "GUEPARDO",
+          "TORTUGA",
+          "OKAPI",
+          "COBRA",
+          "TIGRE",
+          "RANA"
+        ],
+        "letters": "GCEATRARUCOAOTIAETKPRVSNPTACTPBAAIPOUANERGIBGNRUDRERAQESOEPARCEO"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "salvajes"
+        ],
+        "words": [
+          "MONGOOSE",
+          "OPOSSUM",
+          "FERRET",
+          "JAGUAR",
+          "COYOTE",
+          "KOALA"
+        ],
+        "letters": "TAKOALAUNETESNEFMONGOOSECOYOTENRFERRETENJAGUARDHOIAIMENILOPOSSUM"
+      }
+    }
+  },
+  {
+    "day": "2026-11-04",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "000210090200409700000060504100800050004000300030005001709080000006702009080091000"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 113,
+      "mines": [
+        1,
+        7,
+        12,
+        15,
+        18,
+        34,
+        39,
+        41,
+        47,
+        49,
+        57,
+        61,
+        65,
+        70,
+        75,
+        93,
+        105,
+        106,
+        127,
+        129,
+        134,
+        143
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "aves"
+        ],
+        "words": [
+          "CERNICALO",
+          "JILGUERO",
+          "RUISEÑOR",
+          "PARDILLO",
+          "FLAMENCO",
+          "GORRION",
+          "LECHUZA",
+          "PALOMA",
+          "PAVO"
+        ],
+        "letters": "LEJOQINRELRUISEÑORGELFLMPVYFOCRLGIAOFMRHEAUPRNSCRUEMELDDCTIZCERNICALOAONOELKGUNEICPALOMAAEDOAAOINNRE"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "aves"
+        ],
+        "words": [
+          "KINGFISHER",
+          "ORIOLE",
+          "EAGLE",
+          "KITE",
+          "IBIS",
+          "KIWI",
+          "DOVE",
+          "SWAN",
+          "EMU"
+        ],
+        "letters": "OTIARUINYODHHBUKFCRDKINGFISHEROIBRSWDWCHRSTIRIDOAUISWESIODONOHAREDVOEPLIEAGLESADENMDESEMRHEBUREEVNPE"
+      }
+    }
+  },
+  {
+    "day": "2026-11-05",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "060208000012900000050100290005004900026000740004800500031005070000002450000309020"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 84,
+      "mines": [
+        9,
+        17,
+        23,
+        27,
+        35,
+        46,
+        53,
+        54,
+        66,
+        75,
+        76,
+        91,
+        92,
+        106,
+        108,
+        111,
+        117,
+        119,
+        121,
+        123,
+        131,
+        143
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "deportes"
+        ],
+        "words": [
+          "EQUITACION",
+          "BADMINTON",
+          "JUGADOR",
+          "FRONTON",
+          "ESGRIMA",
+          "BILLAR",
+          "HOCKEY",
+          "ESQUI",
+          "SALTO"
+        ],
+        "letters": "NBILLARARESMAOOORMPAHNRDOTLCEFODTJMZLAERCESQUITREOKLOSCGNEONESGRIMATATYOEBCOLDOOEQUITACIONDINOSSSETR"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "deportes"
+        ],
+        "words": [
+          "SOFTBALL",
+          "SWIMMING",
+          "HURDLES",
+          "STADIUM",
+          "SKATING",
+          "TENNIS",
+          "RIDING",
+          "MEDAL",
+          "JUMP"
+        ],
+        "letters": "LSOFTBALLRMWETDLNSHRIILLDTLKATRMDIMAOAHMCMJTDIRTULTIUEGSIIRNANMNTGDNDSSGPNLAIGLANSUITMNLETIPTSHUGWSN"
+      }
+    }
+  },
+  {
+    "day": "2026-11-06",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "300580049540060700009000000000038170000405000063210000000000200004050086830026001"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 55,
+      "mines": [
+        14,
+        22,
+        23,
+        31,
+        42,
+        50,
+        51,
+        59,
+        67,
+        69,
+        77,
+        82,
+        85,
+        87,
+        91,
+        95,
+        96,
+        104,
+        106,
+        116,
+        127,
+        133,
+        135,
+        141,
+        144,
+        160,
+        162,
+        173,
+        174,
+        180,
+        183,
+        198,
+        211,
+        213,
+        214,
+        230,
+        231,
+        238,
+        239,
+        252
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "frutas"
+        ],
+        "words": [
+          "ALBARICOQUE",
+          "MELOCOTON",
+          "FRAMBUESA",
+          "NECTARINA",
+          "MEMBRILLO",
+          "TAMARINDO",
+          "PLATANO",
+          "CIRUELA",
+          "GRANADA",
+          "SANDIA",
+          "DATIL",
+          "MORA"
+        ],
+        "letters": "FSOAYHNMORAOSNOACIRUELAÑTOAMOOANBDEÑATLEODFAAADJNMQLSNRNIVUPIBROIIAODOCCRNSCCRMTNRDAANSOGABDATILTIQTEMUMSLYLCUGOBAEEEEPGEANNLTSCOMYLNAASALAHTOPD"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "frutas"
+        ],
+        "words": [
+          "GOOSEBERRY",
+          "CRANBERRY",
+          "CURRANT",
+          "BANANA",
+          "CHERRY",
+          "ALMOND",
+          "LEMON",
+          "PEACH",
+          "ACORN",
+          "MANGO",
+          "OLIVE",
+          "GRAPE"
+        ],
+        "letters": "NUAEVILOAOSBPIBYTEBCCOSODJTDRYUESEVTVOOTERNMAAMEOPYYRREBNARCYATAHEDHNTOOEUNSCBNGCOTIRTAEAEOROADPOEANESMNSCPJHJAWPOLEMONHINHELOAHGRIGAEPARGNEKNET"
+      }
+    }
+  },
+  {
+    "day": "2026-11-07",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "000625400000091006007000009090000704001804900403000050700000600600580000002163000"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 110,
+      "mines": [
+        6,
+        9,
+        14,
+        15,
+        16,
+        21,
+        23,
+        31,
+        40,
+        51,
+        58,
+        59,
+        63,
+        66,
+        68,
+        77,
+        78,
+        82,
+        85,
+        86,
+        87,
+        89,
+        117,
+        130,
+        133,
+        139,
+        148,
+        155,
+        169,
+        172,
+        174,
+        176,
+        180,
+        182,
+        185,
+        224,
+        226,
+        227,
+        231,
+        248
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "clima"
+        ],
+        "words": [
+          "TERMOMETRO",
+          "ATARDECER",
+          "DESHIELO",
+          "LLUVIOSO",
+          "ESTACION",
+          "AMANECER",
+          "DILUVIO",
+          "VIENTO",
+          "VERANO",
+          "MONZON",
+          "CALOR",
+          "NUBE"
+        ],
+        "letters": "OEQCAREDLNOHRRDRTSOTNEIVARECEDRATAELDOSSQCTDCRXCNLHDOEEAAARDSAIIOSMNOEURRCELOTOCADRLINLUNAMICMVNYLOVDCRGVDAECBEIGIEOFUBONNAOEOTLEULRIOPLRNOZNOML"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "clima"
+        ],
+        "words": [
+          "LIGHTNING",
+          "FORECAST",
+          "AURORA",
+          "WINTER",
+          "SHOWER",
+          "FOGGY",
+          "FROST",
+          "SLEET",
+          "FALL",
+          "WIND",
+          "DAWN",
+          "ICE"
+        ],
+        "letters": "AROIFSNDGGKSIFORECASTTHGHTCOAOONFONIETFIEDCRWIHFMSIRNPIENFHFRCLDARRTOAVOKTLHTAHNALSGCTATUGFIGLOGUSERIOSWEBTYAOOLNODEPCHHDRNYCVTTSEIAAFHNWADNIWII"
+      }
+    }
+  },
+  {
+    "day": "2026-11-08",
+    "sudoku": {
+      "difficulty": "hard",
+      "givens": "006004000020068000070300005050000740007902600094000080300001070000250090000600200"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 131,
+      "mines": [
+        0,
+        5,
+        14,
+        16,
+        23,
+        25,
+        33,
+        40,
+        43,
+        47,
+        48,
+        54,
+        69,
+        75,
+        81,
+        84,
+        94,
+        99,
+        104,
+        121,
+        122,
+        129,
+        138,
+        144,
+        149,
+        160,
+        168,
+        185,
+        190,
+        191,
+        192,
+        194,
+        196,
+        197,
+        206,
+        211,
+        234,
+        236,
+        240,
+        241
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "verduras",
+          "colores",
+          "cuerpo"
+        ],
+        "words": [
+          "ALCAPARRA",
+          "ESCARLATA",
+          "CHAMPIÑON",
+          "ARENA",
+          "BEIGE",
+          "BERZA",
+          "GRANA",
+          "AÑIL",
+          "ROJO",
+          "GRIS",
+          "ÑAME",
+          "VENA"
+        ],
+        "letters": "CIABERZAHAAÑLCHAMPIÑONSADMOVRVNALAGMOANODRNDNROENISAAEAEIGOGLDAVREVPGASILCPATALRACSEPEDICIIOUCIBRPELÑSSJERLIZSVAUIIOTRSAEDDDAAAEUPBTCSPMSMDTONAT"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "verduras",
+          "colores",
+          "cuerpo"
+        ],
+        "words": [
+          "MAGENTA",
+          "PARSNIP",
+          "OREGANO",
+          "SOYBEAN",
+          "VANILLA",
+          "MUSCLE",
+          "YELLOW",
+          "LUNG",
+          "PLUM",
+          "OKRA",
+          "BONE",
+          "EYE"
+        ],
+        "letters": "RHRETNANENOOOFLYELLOWOTDAVTTLVEONPEPMSMIBYIOOTTORUNAEBYOSTAHTANPGIBROERRVRAIOEOTRDBEBTSNLTNLERXYOMUSCLETGYRGFOARKOLTARSANHGAIELUNGAOCTEPLUMEOEAG"
+      }
+    }
+  },
+  {
+    "day": "2026-11-09",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "760140058000035079900002003000296085020518060680473000400300001830920000510084037"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 18,
+      "mines": [
+        4,
+        8,
+        12,
+        26,
+        32,
+        34,
+        38,
+        57,
+        60,
+        68
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "mar"
+        ],
+        "words": [
+          "PLANCTON",
+          "MERLUZA",
+          "TIBURON",
+          "TORTUGA",
+          "MARLIN",
+          "MORSA"
+        ],
+        "letters": "MERLUZAERMARLINLEPOAONLRITIBURONNRMORSAATNUEMPAQPLANCTONTORTUGAE"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "mar"
+        ],
+        "words": [
+          "STINGRAY",
+          "OCTOPUS",
+          "DOLPHIN",
+          "MUSSEL",
+          "CLAM",
+          "KELP"
+        ],
+        "letters": "SAMUSSELIDOLPHINIONPAUITRAAEDMIIONLCLAMHSTINGRAYKELPAMMOOOCTOPUS"
+      }
+    }
+  },
+  {
+    "day": "2026-11-10",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "046000005350000040987050132070028014010503070590170020139080267060000051400000890"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 44,
+      "mines": [
+        18,
+        19,
+        25,
+        31,
+        32,
+        48,
+        58,
+        59,
+        60,
+        74
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "granja"
+        ],
+        "words": [
+          "GRANERO",
+          "CORDERO",
+          "PASTOR",
+          "CHIVO",
+          "BURRO",
+          "PERRO"
+        ],
+        "letters": "CORDEROEAPASTORBDAEDCOEUEENOETBRFMPERRORRRDCHIVOAASNPAANGRANEROT"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "granja"
+        ],
+        "words": [
+          "DUCKLING",
+          "ROOSTER",
+          "RABBIT",
+          "HORSE",
+          "BULL",
+          "PIG"
+        ],
+        "letters": "EIDDAIRBEEHUDUOURTOCOROLWTRKKASLTSSLPBTGEIEIIBEHMIINGIROVAEGATHH"
+      }
+    }
+  },
+  {
+    "day": "2026-11-11",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "095001000700400690300007051000000206000184000807000000580700002039006005000300910"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 102,
+      "mines": [
+        9,
+        13,
+        21,
+        24,
+        31,
+        34,
+        44,
+        51,
+        61,
+        66,
+        70,
+        72,
+        76,
+        82,
+        98,
+        105,
+        108,
+        118,
+        120,
+        123,
+        124,
+        142
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "transportes"
+        ],
+        "words": [
+          "AMBULANCIA",
+          "TELESILLA",
+          "DIRIGIBLE",
+          "TRANVIA",
+          "PIRAGUA",
+          "VELERO",
+          "FERRY",
+          "TAXI",
+          "BOTE"
+        ],
+        "letters": "AARCOBFHABPDMSUEEACOIFTRANVIATRDIRIGIBLEAMBULANCIAGNVELEROALUNYAIFERRYATELESILLATAXISUVASOOEFIACRDSE"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "transportes"
+        ],
+        "words": [
+          "CATAMARAN",
+          "FREIGHTER",
+          "EXCAVATOR",
+          "CARRIAGE",
+          "MONORAIL",
+          "FORKLIFT",
+          "ROCKET",
+          "TAXI",
+          "TRAM"
+        ],
+        "letters": "EOFORKLIFTXREFODXFRRCARRIAGEMOAMNETLBIOCVTAIDULNNKAAOGTTALOETIBHRAIIRTOCATAMARANREIEMNREITEMNRIHLALM"
+      }
+    }
+  },
+  {
+    "day": "2026-11-12",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "905020000020004058400000007000008100003192700001600000500000009870400020000060804"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 67,
+      "mines": [
+        3,
+        7,
+        14,
+        27,
+        28,
+        30,
+        42,
+        59,
+        69,
+        70,
+        95,
+        97,
+        104,
+        107,
+        108,
+        110,
+        115,
+        123,
+        124,
+        134,
+        135,
+        137
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "musica"
+        ],
+        "words": [
+          "TRIANGULO",
+          "BANDONEON",
+          "ACORDEON",
+          "CAMPANA",
+          "MARIMBA",
+          "BANJO",
+          "GUIRO",
+          "CAJON",
+          "TUBA"
+        ],
+        "letters": "MULEAAICAMONDNOCSABACLOAIILJARCACORDEONIPELSNESNDMTRIANGULOBNCBCAMPANAAUARAOEOENTOAAGUIROJSNURLOMINO"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "musica"
+        ],
+        "words": [
+          "ACCORDION",
+          "SAXOPHONE",
+          "KEYBOARD",
+          "WHISTLE",
+          "LYRICS",
+          "CHORD",
+          "PIANO",
+          "OPERA",
+          "STAFF"
+        ],
+        "letters": "SEAWHISTLEACCORDIONTHAKNTNCOTWYLEMOOHDNOIYYALPOELRPRBHOERTCBTIOXIRDWZPECASTAFFSSESRNALITOREEDSOHESHE"
+      }
+    }
+  },
+  {
+    "day": "2026-11-13",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "100000000030400520609203000900030700470000018005070004000601205042009060000000003"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 180,
+      "mines": [
+        10,
+        17,
+        21,
+        27,
+        35,
+        36,
+        39,
+        41,
+        45,
+        50,
+        58,
+        62,
+        74,
+        80,
+        91,
+        93,
+        100,
+        102,
+        109,
+        111,
+        113,
+        120,
+        124,
+        128,
+        133,
+        137,
+        141,
+        149,
+        160,
+        199,
+        205,
+        214,
+        219,
+        223,
+        227,
+        247,
+        248,
+        249,
+        252,
+        253
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "profesiones"
+        ],
+        "words": [
+          "ELECTRICISTA",
+          "PROGRAMADOR",
+          "ASTRONAUTA",
+          "CIENTIFICO",
+          "DENTISTA",
+          "CAMARERO",
+          "BIOLOGO",
+          "CARTERO",
+          "BOMBERO",
+          "PLOMERO",
+          "MEDICO",
+          "POETA"
+        ],
+        "letters": "OUROREBMOBRMPECADLSORNCMMSASSEGGEEEYESMTRCDTTDBRDAARPTNNRLIOIPROGRAMADORCIENTIFICOLEOTRACCRGADOMASOUCIOASTGODENTISTACIOLNEEACTDTERUPTIECOAOCRNEZ"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "profesiones"
+        ],
+        "words": [
+          "ELECTRICIAN",
+          "FIREFIGHTER",
+          "CARPENTER",
+          "GARDENER",
+          "PLUMBER",
+          "PAINTER",
+          "WAITER",
+          "DRIVER",
+          "EDITOR",
+          "BARBER",
+          "DANCER",
+          "POET"
+        ],
+        "letters": "RNUATICFDOETKGABFNIATTNFHMPINNPOGAEIWNRDCLUEGRPRDEMUUIHASOEEBNRMHORDETEFIRBDKDBTIIFIRETNEPRACDNGRVFNSTWOREAHYIEANAMMHBLTRRETNIAPWREEIDANCEREOORR"
+      }
+    }
+  },
+  {
+    "day": "2026-11-14",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "003104700050060009040080002004000100200000006006000800300040050800020040005308200"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 136,
+      "mines": [
+        2,
+        10,
+        15,
+        19,
+        23,
+        24,
+        29,
+        38,
+        47,
+        48,
+        49,
+        70,
+        83,
+        84,
+        85,
+        87,
+        88,
+        95,
+        102,
+        106,
+        112,
+        126,
+        128,
+        139,
+        146,
+        155,
+        175,
+        176,
+        179,
+        180,
+        183,
+        209,
+        213,
+        216,
+        217,
+        223,
+        227,
+        231,
+        235,
+        244
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "insectos"
+        ],
+        "words": [
+          "METAMORFOSIS",
+          "ESCARABAJO",
+          "TELARAÑA",
+          "TIJERETA",
+          "TERMITA",
+          "EFIMERA",
+          "CAPULLO",
+          "ZANGANO",
+          "BABOSA",
+          "POLEN",
+          "PANAL",
+          "ORUGA"
+        ],
+        "letters": "OAMAAAACIBACNADNESPENOEAEROEOMOEELTPAEJBEEAFAIZULEAELAIGMRALLBBSPMURBENLIOATEREJITGOOGRROTALANAPÑEAÑARALETNREOCEDAVNELOPSISOFROMATEMEQEEPSEABEEC"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "insectos"
+        ],
+        "words": [
+          "TARANTULA",
+          "SCORPION",
+          "KATYDID",
+          "ANTENNA",
+          "HORNET",
+          "POLLEN",
+          "APHID",
+          "MITE",
+          "FLEA",
+          "MOTH",
+          "SLUG",
+          "FLY"
+        ],
+        "letters": "FESCLINSCYHWEPVTMITERLRNMNSHHUAELFWNALDAATDTILBUEUMNSCORPIONDNENLHGMOGWPIDOECOSTEAASDARTARANTULAYNTNTNPIAUATTUOAIEHOGEFSAHSYHTIOAAEMKTRONODEWDHH"
+      }
+    }
+  },
+  {
+    "day": "2026-11-15",
+    "sudoku": {
+      "difficulty": "hard",
+      "givens": "506000009090000057700501608000006002005000900200400000107802005430000060900000203"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 225,
+      "mines": [
+        27,
+        43,
+        49,
+        51,
+        68,
+        70,
+        71,
+        72,
+        73,
+        84,
+        91,
+        98,
+        99,
+        100,
+        101,
+        103,
+        112,
+        116,
+        121,
+        128,
+        133,
+        146,
+        148,
+        149,
+        153,
+        163,
+        172,
+        173,
+        174,
+        192,
+        211,
+        214,
+        220,
+        223,
+        227,
+        229,
+        239,
+        249,
+        252,
+        253
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "naturaleza",
+          "ropa",
+          "comidas"
+        ],
+        "words": [
+          "MANTEQUILLA",
+          "ESPAGUETI",
+          "BILLETERA",
+          "CALCETIN",
+          "PAÑUELO",
+          "BAÑADOR",
+          "CORBATA",
+          "MESETA",
+          "JUNGLA",
+          "GAFAS",
+          "MIEL",
+          "RIO"
+        ],
+        "letters": "CALCETINBEAOEARIOTTDINERSTOOLOEQLTBEMANTEQUILLAGXBZEURGEEAÑARROSÑGALTAAAAOSEASPEELDECCLFPUSIRGODCRAYAEEMANRIDSEAMQNTAUSISGTUEDALTJNRRVMCNTIASESS"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "naturaleza",
+          "ropa",
+          "comidas"
+        ],
+        "words": [
+          "CROISSANT",
+          "WATERFALL",
+          "LEMONADE",
+          "PRETZEL",
+          "COLLAR",
+          "GEYSER",
+          "BOWTIE",
+          "BAGEL",
+          "MARSH",
+          "CAKE",
+          "TACO",
+          "SOIL"
+        ],
+        "letters": "LEERBSWTEIIEOGBNCAKEPRAEWPDEBAGTLARNHSALECGEYSERCOLLARZOLYOFFIEALTRWOTCSTLTFEGWDGEASSRCROISSANTUSNPEDANOMELFSOWTROEFSAIEHSRAMNMTHTVTEITWOBEBTINO"
+      }
+    }
+  },
+  {
+    "day": "2026-11-16",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "000500209100469358495008760010970530004000900057031080021800475568742003709003000"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 8,
+      "mines": [
+        2,
+        4,
+        11,
+        28,
+        38,
+        40,
+        44,
+        48,
+        59,
+        80
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "cocina"
+        ],
+        "words": [
+          "RALLADOR",
+          "DELANTAL",
+          "COLADOR",
+          "PANERA",
+          "CUENCO",
+          "HORNO"
+        ],
+        "letters": "EEPAALPARLNMOMALHORNOAERRALLADORCUENCOTIDELANTALCOLADORPÑPANERAP"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "cocina"
+        ],
+        "words": [
+          "SIFTER",
+          "PEELER",
+          "MORTAR",
+          "KNIFE",
+          "SPOON",
+          "BOWL"
+        ],
+        "letters": "PTMORTARETSIFTEREKRAENERLEEOBOWLEOKNIFEBROAACTAMOANEIOIESPOONIEE"
+      }
+    }
+  },
+  {
+    "day": "2026-11-17",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "009800070270305800548200106807050604000106000906040501103007458004501062090008700"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 32,
+      "mines": [
+        5,
+        8,
+        11,
+        15,
+        16,
+        19,
+        21,
+        46,
+        67,
+        69
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "casa"
+        ],
+        "words": [
+          "CHIMENEA",
+          "ESCALERA",
+          "COLCHON",
+          "CORTINA",
+          "BAÑO",
+          "SOFA"
+        ],
+        "letters": "CECSAETNHLOOCSEBIELFOCIAMACARAYÑECHUTLDONLOOIEOIEANMNRERAOSRAAAR"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "casa"
+        ],
+        "words": [
+          "PAINTING",
+          "CUSHION",
+          "PILLOW",
+          "SINK",
+          "DOOR",
+          "SOFA"
+        ],
+        "letters": "ENTENEHHPAINTINGOMEHADWPEDOORSEICUSHIONLFGTSELELCUSOFADOFWISINKW"
+      }
+    }
+  },
+  {
+    "day": "2026-11-18",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "007000060400360007060700000830010600270000081001080053000005010300021009010000400"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 103,
+      "mines": [
+        15,
+        16,
+        25,
+        29,
+        47,
+        48,
+        63,
+        67,
+        71,
+        82,
+        85,
+        86,
+        87,
+        88,
+        96,
+        107,
+        121,
+        122,
+        130,
+        132,
+        136,
+        137
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "herramientas"
+        ],
+        "words": [
+          "ESCOFINA",
+          "ALICATE",
+          "TUERCA",
+          "NIVEL",
+          "POLEA",
+          "REGLA",
+          "TORNO",
+          "BALDE",
+          "LLAVE"
+        ],
+        "letters": "DEEDEOOEOEOPVSHAOEEOIORLCTSDSÑIOERPOLEAAUREGLAFNELRULNBOCIJITORNOEAVNCMURINODERAANSTEIALFTOEERILLAVE"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "herramientas"
+        ],
+        "words": [
+          "FLASHLIGHT",
+          "CHAINSAW",
+          "STAPLER",
+          "ROLLER",
+          "PLANE",
+          "LEVER",
+          "HOSE",
+          "FILE",
+          "AXE"
+        ],
+        "letters": "FLASHLIGHTHMNMONBEHBGWTCSAEONEEFILEVERGASAROLLERSOAPLSCLDARGNSLEPAPSEEWCHAINSAWHHRTINHTOXNOSTIMERSOE"
+      }
+    }
+  },
+  {
+    "day": "2026-11-19",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "700000830000004960690350004100000400800040003009000006400097052075100000028000007"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 29,
+      "mines": [
+        5,
+        8,
+        20,
+        24,
+        33,
+        36,
+        46,
+        47,
+        53,
+        57,
+        75,
+        77,
+        81,
+        87,
+        90,
+        92,
+        112,
+        114,
+        117,
+        119,
+        128,
+        138
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "salvajes"
+        ],
+        "words": [
+          "ELEFANTE",
+          "SURICATA",
+          "MARMOTA",
+          "COYOTE",
+          "JAGUAR",
+          "COBRA",
+          "HURON",
+          "TOPO",
+          "OSO"
+        ],
+        "letters": "CDELMMASITHFTCJAGUARNOOORRBRERAOSYPMBIECHURONOUCRSQNFTCTEAJRTELEFANTEOADNTAMIAIDIALONECSBOEGCACTOMEI"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "salvajes"
+        ],
+        "words": [
+          "WOLVERINE",
+          "ARMADILLO",
+          "GORILLA",
+          "GIRAFFE",
+          "BOBCAT",
+          "DEER",
+          "WOLF",
+          "LYNX",
+          "FOX"
+        ],
+        "letters": "TTSBWDLNOEEENATSELWEAHWRNFGENMSLAMFIOIRDDONALYRXDXBORDUEIENVRINIVTLYTQGODLUILEDTCWOLFDATRCFWBOBCATIM"
+      }
+    }
+  },
+  {
+    "day": "2026-11-20",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "201030500406001900000004006004010050060000030030050800700100000005400209003090405"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 46,
+      "mines": [
+        3,
+        10,
+        13,
+        18,
+        35,
+        39,
+        53,
+        56,
+        58,
+        64,
+        68,
+        82,
+        90,
+        92,
+        94,
+        102,
+        109,
+        113,
+        114,
+        115,
+        123,
+        126,
+        131,
+        147,
+        149,
+        151,
+        153,
+        161,
+        162,
+        165,
+        173,
+        174,
+        177,
+        194,
+        236,
+        239,
+        240,
+        243,
+        250,
+        251
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "aves"
+        ],
+        "words": [
+          "OROPENDOLA",
+          "ABUBILLA",
+          "ALBATROS",
+          "TORTOLA",
+          "LECHUZA",
+          "AGUILA",
+          "BUITRE",
+          "GRULLA",
+          "PERDIZ",
+          "CISNE",
+          "ÑANDU",
+          "GARZA"
+        ],
+        "letters": "ATTREAANLAAERAGEPERDIZLMNEALSJADUAIUERTIUBUHULUSPAOSFECDENGIZOROPENDOLAPCOTTLAGSOAZIPQORÑREOINRSJELTURSCICADDAALLIBUBAGORULZXDDSOIEACASORTABLAAI"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "aves"
+        ],
+        "words": [
+          "CORMORANT",
+          "PARAKEET",
+          "CONDOR",
+          "MAGPIE",
+          "PIGEON",
+          "CANARY",
+          "RAVEN",
+          "STORK",
+          "ROBIN",
+          "DOVE",
+          "EMU",
+          "JAY"
+        ],
+        "letters": "KNEDTRFTTANBACSNNNYENRHJRMAGPIEPAAANOPDNFKOIRYRESUHOAHAGOHBVTMLRARAEMNGAAEAKOSYORSHRIPVBRODNOCGULIIOTOOECOEHDNEVDOTSKTHEOITDIOOSTMMTIROOTHTRHEHE"
+      }
+    }
+  },
+  {
+    "day": "2026-11-21",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "000408900000051070800000401100007060500102003040600005901000006030710000002806000"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 195,
+      "mines": [
+        1,
+        7,
+        10,
+        17,
+        28,
+        33,
+        34,
+        40,
+        43,
+        46,
+        53,
+        59,
+        63,
+        69,
+        86,
+        87,
+        91,
+        100,
+        102,
+        108,
+        117,
+        119,
+        124,
+        126,
+        129,
+        136,
+        164,
+        169,
+        172,
+        173,
+        184,
+        187,
+        199,
+        207,
+        214,
+        217,
+        224,
+        239,
+        243,
+        251
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "deportes"
+        ],
+        "words": [
+          "BALONCESTO",
+          "NATACION",
+          "VOLEIBOL",
+          "GIMNASIA",
+          "CRIQUET",
+          "CARRERA",
+          "AJEDREZ",
+          "EQUIPO",
+          "BOLOS",
+          "DISCO",
+          "VELA",
+          "TIRO"
+        ],
+        "letters": "RDANTEPEELBUCARRERALLBLPCJCNUTPDAEYSJEWLQEALEVNNRDQOIOOEETOOEREBRNAQDICUIEIICEUECFSEBZTEAISANMIGOUSLPLTNNCDALTEODATDARDTOEMVNURRDOSRSNAESISDUDDA"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "deportes"
+        ],
+        "words": [
+          "VOLLEYBALL",
+          "TRIATHLON",
+          "CLIMBING",
+          "BASEBALL",
+          "SOFTBALL",
+          "ARCHERY",
+          "RIDING",
+          "TENNIS",
+          "SKIING",
+          "DISCUS",
+          "HOCKEY",
+          "JUDO"
+        ],
+        "letters": "IDBNRRTUCYKBGJANHMHIRHYTLTSOSWNEALSELEELOAHNWTHNADBHOCKEYIINBSATRIDINGAIYULALLABTFOSECLIMBINGDKELSRRCRFEUITNLIDTFEBJIREOODEEERRNSHKAVHIOOEGWAEAH"
+      }
+    }
+  },
+  {
+    "day": "2026-11-22",
+    "sudoku": {
+      "difficulty": "hard",
+      "givens": "000078000030000108007003000609000014270000063340000907000400300806000040000610000"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 74,
+      "mines": [
+        3,
+        5,
+        11,
+        18,
+        22,
+        24,
+        27,
+        47,
+        49,
+        53,
+        61,
+        63,
+        71,
+        79,
+        96,
+        102,
+        103,
+        107,
+        110,
+        115,
+        118,
+        121,
+        127,
+        137,
+        147,
+        150,
+        165,
+        169,
+        172,
+        179,
+        183,
+        191,
+        194,
+        198,
+        218,
+        220,
+        239,
+        244,
+        245,
+        254
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "frutas",
+          "clima",
+          "verduras"
+        ],
+        "words": [
+          "BERENJENA",
+          "ESPARRAGO",
+          "MANGOSTAN",
+          "BAROMETRO",
+          "ESCARCHA",
+          "CEBOLLA",
+          "ENDIBIA",
+          "PEREJIL",
+          "AURORA",
+          "ENELDO",
+          "RAYO",
+          "OKRA"
+        ],
+        "letters": "BERENJENAMSOOGTIAURORAESONIETAONMNRSTDESPARRAGOTDMNLSLTEAOETPITRELEVDSLEENELDOMDCTOFRROIYBOAAAMRETKAEERDCNARJDRMSCABORIEISASHABSEEEOLIDAIBIDNEST"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "frutas",
+          "clima",
+          "verduras"
+        ],
+        "words": [
+          "ROSEMARY",
+          "PRESSURE",
+          "CHESTNUT",
+          "AVOCADO",
+          "CLIMATE",
+          "SHALLOT",
+          "SUNRISE",
+          "SQUASH",
+          "PUDDLE",
+          "SHOWER",
+          "LEEK",
+          "PEA"
+        ],
+        "letters": "YRAMESORDACDPCSEYPUDDLEERYHRDRJEIKEPEGAELNNMWSTDSILWSEAHINHRSNLOATERTSIIUWOHEYNKANRDRBTSEUOUMEEBETNYSOQTTPMVPIHEESENOWIOCEODACOVAOGRAVTDHTNSOTAD"
+      }
+    }
+  },
+  {
+    "day": "2026-11-23",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "209040700173650904060000010801062009020000030600490502010000040706014358002080601"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 9,
+      "mines": [
+        3,
+        6,
+        25,
+        32,
+        43,
+        64,
+        68,
+        73,
+        77,
+        78
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "colores"
+        ],
+        "words": [
+          "MAGENTA",
+          "LAVANDA",
+          "CARMESI",
+          "BLANCO",
+          "AMBAR",
+          "AZUL"
+        ],
+        "letters": "IBDNACMISLLLSAAMOAAFARGTONVUMMEASCACBENZTONNASTUUADTRIALASAPSMCH"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "colores"
+        ],
+        "words": [
+          "YELLOW",
+          "COBALT",
+          "LILAC",
+          "MAUVE",
+          "LIME",
+          "JADE"
+        ],
+        "letters": "NSMAUVEEDNFBAPMLCOBALTSNHRELILACONFYLIMERDRJADESAYELLOWNLEDEAEAS"
+      }
+    }
+  },
+  {
+    "day": "2026-11-24",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "008400200035209001721300690100002483500000002372600009043001956200906140006005300"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 27,
+      "mines": [
+        10,
+        15,
+        32,
+        44,
+        46,
+        48,
+        58,
+        67,
+        70,
+        79
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "cuerpo"
+        ],
+        "words": [
+          "CINTURA",
+          "ARTERIA",
+          "MUÑECA",
+          "HOMBRO",
+          "BRAZO",
+          "DEDO"
+        ],
+        "letters": "EYOSDDBMBCAAESYURIIRDHLÑANCTOOSEZTAENMACOUCRLBAAERIIIRRIXAIAROSL"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "cuerpo"
+        ],
+        "words": [
+          "KNUCKLE",
+          "SKULL",
+          "PUPIL",
+          "TOOTH",
+          "EYE",
+          "ARM"
+        ],
+        "letters": "KTOATAESNUAAAAIKUWARMETUCBOEYEOLKPUPILOLLHOHLUTUEHUGDOHORTMEAEOS"
+      }
+    }
+  },
+  {
+    "day": "2026-11-25",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "070520680000304090000000203080090100130000052009050070801000000040905000097042060"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 91,
+      "mines": [
+        10,
+        21,
+        25,
+        36,
+        37,
+        40,
+        53,
+        68,
+        74,
+        76,
+        85,
+        93,
+        97,
+        101,
+        108,
+        112,
+        114,
+        118,
+        129,
+        130,
+        136,
+        142
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "mar"
+        ],
+        "words": [
+          "PLANCTON",
+          "ANEMONA",
+          "TIBURON",
+          "ESPONJA",
+          "SARDINA",
+          "MANATI",
+          "PUERTO",
+          "CORAL",
+          "ALGA"
+        ],
+        "letters": "MMACENUUEOCSARDINASEPLANCTONFPUCORALLECLECSGNTNMRSREOACOIOAITTIBURONCSOESPONJADFCSOEÑAAEPSADSARALGAE"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "mar"
+        ],
+        "words": [
+          "LIGHTHOUSE",
+          "SARDINE",
+          "SHRIMP",
+          "TROUT",
+          "ORCA",
+          "SEAL",
+          "FISH",
+          "WAVE",
+          "COD"
+        ],
+        "letters": "LANLTEHHILDISEBATNEILEGOXCSEALFISHRIMPYSIHNMTCTOAAFAECRHAIFRSFALOWOEEDITOCUDOUSIANITTTNHSNBNEEOTWAVE"
+      }
+    }
+  },
+  {
+    "day": "2026-11-26",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "200080710000001802000420039980006070000000000040100068630074000402500000095060007"
+    },
+    "minesweeper": {
+      "spec": "12x12/22",
+      "start": 0,
+      "mines": [
+        2,
+        6,
+        7,
+        9,
+        19,
+        28,
+        39,
+        47,
+        48,
+        51,
+        56,
+        57,
+        68,
+        72,
+        74,
+        80,
+        90,
+        93,
+        110,
+        119,
+        127,
+        139
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "medium",
+        "themes": [
+          "granja"
+        ],
+        "words": [
+          "ABREVADERO",
+          "HERRADURA",
+          "CORDERO",
+          "CUADRA",
+          "BURRO",
+          "ABEJA",
+          "SURCO",
+          "PONI",
+          "PATO"
+        ],
+        "letters": "LEFLNTTNADTNECUADRASRIOENOUJEEAECORDEROPNDSRABENWAEPURASENITABREVADEROSECICMESRTHPONIONMAUSSFDIMEESM"
+      },
+      "en": {
+        "difficulty": "medium",
+        "themes": [
+          "granja"
+        ],
+        "words": [
+          "SHEPHERD",
+          "TRACTOR",
+          "BUFFALO",
+          "ORCHARD",
+          "TURKEY",
+          "ALPACA",
+          "FOAL",
+          "MULE",
+          "CAT"
+        ],
+        "letters": "CALAANMMOCEDSDUVLADSDTTHAYORRDRDRRELCWRRTCWKAPPAIOIMRFECHATOFUFEDCTECETUOIROLORABTAOWUYDRDRELNMTLPAK"
+      }
+    }
+  },
+  {
+    "day": "2026-11-27",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "805703004000040508002010003000007190000020000096300000500030400603070000200504309"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 125,
+      "mines": [
+        10,
+        12,
+        16,
+        17,
+        31,
+        33,
+        35,
+        39,
+        43,
+        48,
+        70,
+        72,
+        76,
+        82,
+        89,
+        95,
+        127,
+        133,
+        152,
+        161,
+        162,
+        164,
+        178,
+        180,
+        184,
+        191,
+        194,
+        195,
+        205,
+        214,
+        216,
+        225,
+        228,
+        233,
+        234,
+        235,
+        236,
+        239,
+        247,
+        251
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "transportes"
+        ],
+        "words": [
+          "MOTOCICLETA",
+          "EXCAVADORA",
+          "AMBULANCIA",
+          "AUTOMOVIL",
+          "AVIONETA",
+          "PATINETE",
+          "TRICICLO",
+          "TRANVIA",
+          "CARRETA",
+          "TRACTOR",
+          "GLOBO",
+          "FERRY"
+        ],
+        "letters": "RLEATRACTOROMIMNEGVEPUNANVCDLPIEAEEUCOEOREOXTAEBAMBULANCIAFMROBELMEANEEURTSRDPTVEDRAEUREGIAATCRETALBSEEDENYEATELCICOTOMCSOLCICIRTSRMOENAIVNARTUS"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "transportes"
+        ],
+        "words": [
+          "MOTORCYCLE",
+          "LIMOUSINE",
+          "GONDOLA",
+          "KAYAK",
+          "LINER",
+          "WAGON",
+          "BIKE",
+          "TAXI",
+          "SHIP",
+          "TRAM",
+          "VAN",
+          "BUS"
+        ],
+        "letters": "RTOMEFNOGFSTTTLSPMNEHHUMEIEIAOEONNBNCNHEMTODGTNEESHLHOTARARCIBIKERUAELWEVSNEACHSNOATDPTMTYIMIDPONAVAACADLNHSHHAMXLAKIOEFHPEIIEMNMGTHDHEMMRNTHQAS"
+      }
+    }
+  },
+  {
+    "day": "2026-11-28",
+    "sudoku": {
+      "difficulty": "medium",
+      "givens": "070060054050014300400007000030600002704000809600002040000400005002750090140080030"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 243,
+      "mines": [
+        3,
+        4,
+        5,
+        6,
+        10,
+        12,
+        18,
+        20,
+        23,
+        26,
+        27,
+        33,
+        35,
+        39,
+        74,
+        89,
+        92,
+        116,
+        117,
+        118,
+        120,
+        127,
+        134,
+        141,
+        142,
+        147,
+        149,
+        151,
+        159,
+        165,
+        166,
+        175,
+        194,
+        204,
+        218,
+        223,
+        225,
+        238,
+        241,
+        249
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "musica"
+        ],
+        "words": [
+          "CASTAÑUELAS",
+          "ORQUESTA",
+          "GUITARRA",
+          "PLATILLO",
+          "BATERIA",
+          "SILBATO",
+          "MELODIA",
+          "FLAUTA",
+          "BONGO",
+          "CONGA",
+          "RITMO",
+          "TUBA"
+        ],
+        "letters": "AORPABONGODSUEOMTIRCEMBRONAZEUAPPAACTIRONLOFTROEAUEPRSOEGIVSLEBLOQRDPFSEARRATIUGILRACASTAÑUELASNUEOIBGQMSULSAOPLLANDQTCLYPBLIREOSAAUAUEOSRSRCATI"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "musica"
+        ],
+        "words": [
+          "METRONOME",
+          "ACCORDION",
+          "SAXOPHONE",
+          "SYMPHONY",
+          "STAFF",
+          "VERSE",
+          "PIANO",
+          "CHOIR",
+          "TUNE",
+          "DRUM",
+          "BELL",
+          "CLEF"
+        ],
+        "letters": "MEOLTCHOIRENEDDLTHNORSASESREVASMISTTPUUBICATEOAEOWMPICXSAFTOIONTPOOYHFDLEEUCSRPMOEFARNMSEDHPALNMNHUEUIOHDCTPAMETRONOMESNHLEERNENHAPDEEOTONOYBYEH"
+      }
+    }
+  },
+  {
+    "day": "2026-11-29",
+    "sudoku": {
+      "difficulty": "hard",
+      "givens": "830600200607034000000208060008001090000823000060500800070402000000350401002006087"
+    },
+    "minesweeper": {
+      "spec": "16x16/40",
+      "start": 219,
+      "mines": [
+        11,
+        13,
+        30,
+        38,
+        40,
+        53,
+        73,
+        74,
+        79,
+        80,
+        83,
+        89,
+        94,
+        96,
+        100,
+        101,
+        106,
+        113,
+        120,
+        130,
+        133,
+        138,
+        141,
+        152,
+        160,
+        162,
+        165,
+        169,
+        171,
+        175,
+        178,
+        183,
+        186,
+        188,
+        206,
+        217,
+        221,
+        232,
+        241,
+        248
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "hard",
+        "themes": [
+          "profesiones",
+          "insectos",
+          "naturaleza"
+        ],
+        "words": [
+          "ACANTILADO",
+          "CRISALIDA",
+          "INGENIERO",
+          "MARINERO",
+          "ENJAMBRE",
+          "BOMBERO",
+          "PINTOR",
+          "TABANO",
+          "PULGON",
+          "ABEJA",
+          "ACARO",
+          "BARRO"
+        ],
+        "letters": "SDORALMINUOLEOERBMAJNENDOCRISALIDAOBARAEPRJTEAOARACHIILEAMATRPOLNNOEBLADQCPETEEEAAAOTMUEORRGDSONETLCRONTNLRADRGDROIANIABEAODALITNACABENEBOOIEEAT"
+      },
+      "en": {
+        "difficulty": "hard",
+        "themes": [
+          "profesiones",
+          "insectos",
+          "naturaleza"
+        ],
+        "words": [
+          "HONEYCOMB",
+          "PENINSULA",
+          "BUMBLEBEE",
+          "BUTTERFLY",
+          "MOUNTAIN",
+          "LADYBUG",
+          "EARWIG",
+          "COCOON",
+          "BRANCH",
+          "REEF",
+          "FLEA",
+          "MOSS"
+        ],
+        "letters": "NHSABPFRDHHLCYLFRETTUBORONSRENGAHENECIARTIRYETENOOEPWNNIANYIONTRGSBRANCHNIATNUOMSSOMAEEBELBMUBMIEELUSAEYREBOWTFSNOCODHEMEENMRISONAWYSSNTEOLOENLH"
+      }
+    }
+  },
+  {
+    "day": "2026-11-30",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "310046700087029415000007009104250930500010008098063501700600000821430690003870054"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 58,
+      "mines": [
+        0,
+        12,
+        16,
+        23,
+        36,
+        41,
+        45,
+        52,
+        60,
+        65
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "ropa"
+        ],
+        "words": [
+          "BOLSILLO",
+          "CHANCLA",
+          "CAMISA",
+          "MANGA",
+          "BLUSA",
+          "BOTA"
+        ],
+        "letters": "RRQLBCBMBCMOOAORLHASLMTNUANESIAISNGEISAUACANLANTELMRLXSAEAMCONRA"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "ropa"
+        ],
+        "words": [
+          "UMBRELLA",
+          "BACKPACK",
+          "BUTTON",
+          "KIMONO",
+          "SLEEVE",
+          "ZIPPER"
+        ],
+        "letters": "ENUDBEZDDSMDADIBKLBACOPUIERRKEPTMEESPHETOVLAASRONELNCIMNOOAWKNSD"
+      }
+    }
+  },
+  {
+    "day": "2026-12-01",
+    "sudoku": {
+      "difficulty": "easy",
+      "givens": "639504002020000530800920064304175020760090015010846903940081007057000040200407691"
+    },
+    "minesweeper": {
+      "spec": "9x9/10",
+      "start": 4,
+      "mines": [
+        2,
+        9,
+        23,
+        29,
+        51,
+        54,
+        61,
+        65,
+        67,
+        75
+      ]
+    },
+    "wordsearch": {
+      "es": {
+        "difficulty": "easy",
+        "themes": [
+          "comidas"
+        ],
+        "words": [
+          "CROQUETA",
+          "GALLETA",
+          "PESCADO",
+          "CHURRO",
+          "SALSA",
+          "GUISO"
+        ],
+        "letters": "SGICCEPETAGHRLELOLUUOPSNILIRQSCSUESRUDAAVTOOESDLEAAATROSSEERAIAA"
+      },
+      "en": {
+        "difficulty": "easy",
+        "themes": [
+          "comidas"
+        ],
+        "words": [
+          "SANDWICH",
+          "PANCAKE",
+          "BURRITO",
+          "COOKIE",
+          "PASTA",
+          "PIE"
+        ],
+        "letters": "SANDWICHPANCAKERJUURITIOTNIVEHAIPAENAEWAIBURRITOEGCOOKIEPASTAAKB"
+      }
+    }
+  }
+]

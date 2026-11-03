@@ -14,3 +14,4 @@ workspace:
   - packages/design_system
   - packages/sudoku_engine
   - packages/wordsearch_engine
+  - packages/daily_challenge
