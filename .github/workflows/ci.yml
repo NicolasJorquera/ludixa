@@ -34,6 +34,27 @@ jobs:
       - name: Pruebas
         run: bash tool/test_all.sh
 
+  properties:
+    name: Propiedades · ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [minesweeper_engine, sudoku_engine, wordsearch_engine, daily_challenge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.41.4
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: 1.000 semillas por nivel, verificadas (informe en el resumen)
+        working-directory: packages/${{ matrix.package }}
+        shell: bash
+        run: bash ../../tool/properties.sh "${{ matrix.package }}" 1000 bench 730 | tee -a "$GITHUB_STEP_SUMMARY"
+
   build:
     name: Compilar Android (dev)
     needs: check

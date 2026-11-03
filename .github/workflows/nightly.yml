@@ -1,0 +1,43 @@
+name: Propiedades nocturnas
+
+# 20.000 semillas por nivel con semillas nuevas cada noche y diez años de
+# retos diarios. GitHub avisa por correo si falla. El resumen de cada
+# ejecución trae la tabla de p95.
+on:
+  schedule:
+    - cron: '0 7 * * *' # 04:00 en Chile (UTC−3)
+  workflow_dispatch:
+    inputs:
+      count:
+        description: Semillas por nivel
+        default: '20000'
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+jobs:
+  properties:
+    name: Propiedades · ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [minesweeper_engine, sudoku_engine, wordsearch_engine, daily_challenge]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.41.4
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Semillas nuevas, verificadas (informe en el resumen)
+        working-directory: packages/${{ matrix.package }}
+        shell: bash
+        run: |
+          salt="nightly-$(date -u +%F)"
+          echo "Para reproducir un fallo: build/properties --count N --salt $salt --verify" >&2
+          bash ../../tool/properties.sh "${{ matrix.package }}" "${{ inputs.count || '20000' }}" "$salt" 3650 \
+            | tee -a "$GITHUB_STEP_SUMMARY"

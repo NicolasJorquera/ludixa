@@ -49,6 +49,19 @@ flutter run --flavor prod -t lib/main_prod.dart
 
 `dev` instala `io.github.nicolasjorquera.ludixa.dev` ("Ludixa Dev"), que convive con la de producción.
 
+## Propiedades y benchmarks
+
+Cada motor tiene `tool/benchmark.dart`, que genera puzzles, verifica sus propiedades (`--verify`) e imprime una tabla Markdown con p50/p95/p99. `daily_challenge` tiene `tool/check_days.dart`, que genera el reto de muchos días seguidos. Sale con código 1 ante cualquier violación.
+
+- **En cada PR** (job *Propiedades* de `ci.yml`): 1.000 semillas fijas por nivel y dos años de retos diarios. La tabla queda en el resumen de la ejecución.
+- **Cada noche** (`nightly.yml`, también se puede lanzar a mano): 20.000 semillas por nivel, nuevas cada noche (`nightly-AAAA-MM-DD`), y diez años de retos. GitHub avisa por correo si falla.
+
+Para reproducir un fallo, desde el paquete:
+
+```bash
+bash ../../tool/properties.sh sudoku_engine 20000 nightly-2026-11-03 0
+```
+
 ## Firma de versiones
 
 Las versiones release se firman con la clave de carga de Google Play. Ni la clave ni sus contraseñas se suben al repositorio.
