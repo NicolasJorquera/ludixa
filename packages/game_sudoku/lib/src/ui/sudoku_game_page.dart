@@ -34,6 +34,7 @@ class SudokuGamePage extends StatefulWidget {
 
 class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProviderStateMixin {
   static const _tick = Duration(seconds: 1);
+  static const _maxCellExtent = 40.0;
 
   late final AnimationController _celebration;
   late final AppLifecycleListener _lifecycle;
@@ -69,7 +70,12 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
 
   void _startTimer() {
     _timer?.cancel();
-    _timer = Timer.periodic(_tick, (_) => _c.tick(_tick));
+    // Solo cuenta con la app al frente, aunque se pierda un aviso del ciclo de
+    // vida (en Android el temporizador puede seguir disparando de fondo).
+    _timer = Timer.periodic(_tick, (_) {
+      final state = WidgetsBinding.instance.lifecycleState;
+      if (state == null || state == AppLifecycleState.resumed) _c.tick(_tick);
+    });
   }
 
   void _onChange() {
@@ -98,6 +104,7 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
     final width = MediaQuery.sizeOf(context).width;
     final compact = width < 360;
     final gutter = compact ? 8.0 : 16.0;
+    final boardSide = (((width - 2 * gutter) / 9).clamp(0.0, _maxCellExtent)).floorToDouble() * 9;
 
     return Scaffold(
       appBar: AppBar(
@@ -127,19 +134,38 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
           ),
         ],
       ),
+      // La grilla arriba y los controles abajo, cerca del pulgar. Si no cabe
+      // (pantallas bajas o texto grande), todo se desplaza.
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(gutter, 8, gutter, 16),
-          child: Column(
-            children: [
-              _c.paused
-                  ? _PausedBoard(onResume: _c.resume, size: width - 2 * gutter, palette: p)
-                  : SudokuBoard(controller: _c, maxCellExtent: 40, celebration: _celebrating ? _celebration : null),
-              const SizedBox(height: 16),
-              SudokuTools(controller: _c, freeHintsLeft: _c.host.freeHintsLeft),
-              const SizedBox(height: 12),
-              SudokuKeypad(controller: _c, keyHeight: compact ? 56 : 68),
-            ],
+        child: LayoutBuilder(
+          builder: (context, viewport) => SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(gutter, 8, gutter, 16),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: (viewport.maxHeight - 24).clamp(0.0, double.infinity)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _c.paused
+                      ? _PausedBoard(onResume: _c.resume, side: boardSide, palette: p)
+                      : SudokuBoard(
+                          controller: _c,
+                          maxCellExtent: _maxCellExtent,
+                          celebration: _celebrating ? _celebration : null,
+                        ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SudokuTools(controller: _c, freeHintsLeft: _c.host.freeHintsLeft),
+                        const SizedBox(height: 12),
+                        SudokuKeypad(controller: _c, keyHeight: compact ? 56 : 68),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -157,20 +183,25 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
 /// El tablero queda oculto en pausa para que el tiempo detenido no sirva para
 /// pensar. La pantalla de pausa completa llega en H4-05.
 class _PausedBoard extends StatelessWidget {
-  const _PausedBoard({required this.onResume, required this.size, required this.palette});
+  const _PausedBoard({required this.onResume, required this.side, required this.palette});
 
   final VoidCallback onResume;
-  final double size;
+
+  /// Mismo tamaño que la grilla, para que nada salte al pausar.
+  final double side;
   final LudixaPalette palette;
 
   @override
   Widget build(BuildContext context) {
     final l10n = SudokuLocalizations.of(context);
-    final side = size.clamp(0.0, 360.0);
     return Container(
       width: side,
       height: side,
-      decoration: BoxDecoration(color: palette.surfaceMuted, borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(
+        color: palette.surface,
+        border: Border.all(color: palette.line, width: 2),
+        borderRadius: BorderRadius.circular(4),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

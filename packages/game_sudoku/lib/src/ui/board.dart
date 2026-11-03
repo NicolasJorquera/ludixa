@@ -171,11 +171,15 @@ class _GridLines extends CustomPainter {
       ..color = colors.thickLine
       ..strokeWidth = 2;
     final step = size.width / 9;
-    for (var k = 1; k < 9; k++) {
-      final paint = k % 3 == 0 ? thick : thin;
-      canvas
-        ..drawLine(Offset(k * step, 0), Offset(k * step, size.height), paint)
-        ..drawLine(Offset(0, k * step), Offset(size.width, k * step), paint);
+    // Primero las finas y después las gruesas, para que un cruce no corte la
+    // línea de una caja.
+    for (final paint in [thin, thick]) {
+      for (var k = 1; k < 9; k++) {
+        if ((k % 3 == 0) != (paint == thick)) continue;
+        canvas
+          ..drawLine(Offset(k * step, 0), Offset(k * step, size.height), paint)
+          ..drawLine(Offset(0, k * step), Offset(size.width, k * step), paint);
+      }
     }
     canvas.drawRect(
       (Offset.zero & size).deflate(1),

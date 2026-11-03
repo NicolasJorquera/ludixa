@@ -125,7 +125,7 @@ class SudokuKeypad extends StatelessWidget {
                 final remaining = (9 - c.game.countOf(d)).clamp(0, 9);
                 final complete = remaining == 0;
                 final chosen = c.settings.inputMode == SudokuInputMode.numberFirst && c.activeDigit == d;
-                final ink = complete ? p.inkMuted : p.sudoku;
+                final ink = complete || !active ? p.inkMuted : p.sudoku;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 2),
                   child: Semantics(

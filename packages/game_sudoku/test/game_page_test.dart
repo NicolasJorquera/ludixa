@@ -129,6 +129,29 @@ void main() {
     expect(c.elapsed, const Duration(seconds: 4));
   });
 
+  testWidgets('con la app en segundo plano el tiempo no corre', (tester) async {
+    final c = await pumpGame(tester);
+    await tester.pump(const Duration(seconds: 2));
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    await tester.pump(const Duration(seconds: 6));
+    expect(c.elapsed, const Duration(seconds: 2));
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    await tester.pump(const Duration(seconds: 1));
+    expect(c.elapsed, const Duration(seconds: 3));
+  });
+
+  testWidgets('pausar no mueve los controles', (tester) async {
+    final c = await pumpGame(tester);
+    final before = tester.getTopLeft(key(1));
+    c.pause();
+    await tester.pump();
+    expect(tester.getTopLeft(key(1)), before);
+  });
+
   for (final reduced in [false, true]) {
     testWidgets('al resolver celebra${reduced ? ' (sin animación)' : ''} e informa el resultado una vez', (
       tester,
