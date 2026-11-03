@@ -10,6 +10,7 @@ export 'src/components/sheet.dart';
 export 'src/components/surfaces.dart';
 export 'src/contrast.dart';
 export 'src/game_colors.dart';
+export 'src/icons.dart';
 export 'src/licenses.dart';
 export 'src/palette.dart';
 export 'src/theme.dart';

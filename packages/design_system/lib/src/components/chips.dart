@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../icons.dart';
 import '../theme.dart';
 
 /// Píldora con icono y cifra (por ejemplo, la racha en la portada).
@@ -13,7 +14,7 @@ class LudixaStatChip extends StatelessWidget {
     this.onTap,
   });
 
-  final IconData icon;
+  final LudixaIcons icon;
   final String value;
 
   /// Frase completa para lectores de pantalla ("Racha de 12 días").
@@ -29,7 +30,7 @@ class LudixaStatChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 20, color: iconColor ?? p.minesweeper),
+          LudixaIcon(icon, size: 20, color: iconColor ?? p.minesweeper),
           const SizedBox(width: 6),
           Text(value, style: Theme.of(context).textTheme.labelLarge),
         ],
@@ -60,7 +61,7 @@ class LudixaBadge extends StatelessWidget {
   const LudixaBadge({super.key, required this.label, this.icon});
 
   final String label;
-  final IconData? icon;
+  final LudixaIcons? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class LudixaBadge extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (icon != null) ...[Icon(icon, size: 16, color: p.successInk), const SizedBox(width: 6)],
+            if (icon != null) ...[LudixaIcon(icon!, size: 16, color: p.successInk), const SizedBox(width: 6)],
             Flexible(
               child: Text(
                 label,
