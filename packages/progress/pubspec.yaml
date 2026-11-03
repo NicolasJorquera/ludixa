@@ -1,0 +1,15 @@
+name: progress
+description: Progreso del jugador en Dart puro (racha con comodines, calendario del reto, logros, maestría y estadísticas).
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dependencies:
+  puzzle_core:
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.0
