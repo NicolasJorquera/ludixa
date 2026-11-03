@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../components/ad_slot.dart';
 import '../components/buttons.dart';
 import '../components/chips.dart';
 import '../components/rows.dart';
 import '../components/segmented.dart';
 import '../components/sheet.dart';
 import '../components/surfaces.dart';
+import '../grid/puzzle_grid.dart';
+import '../grid/zoomable_board.dart';
 import '../icons.dart';
 import '../theme.dart';
+import '../typography.dart';
 
 /// Catálogo de componentes. Herramienta de desarrollo: la app solo lo enlaza
 /// en el entorno dev, y sus textos de muestra no se traducen.
@@ -23,6 +27,61 @@ enum _Mode { reveal, flag }
 class _ComponentCatalogState extends State<ComponentCatalog> {
   _Mode _mode = _Mode.reveal;
   bool _sounds = true;
+  bool _showAd = true;
+  int _selectedCell = 40;
+  final _flags = <int>{};
+  final _boardKey = GlobalKey<ZoomableBoardState>();
+
+  static const _sudoku = GridDimensions(columns: 9, rows: 9);
+  static const _expert = GridDimensions(columns: 16, rows: 30);
+  static const _digits = '530070000600195000098000060800060003400803001700020006060000280000419005000080079';
+
+  Widget _sudokuCell(BuildContext context, int index, double extent) {
+    final colors = context.sudokuColors;
+    final row = _sudoku.rowOf(index);
+    final column = _sudoku.columnOf(index);
+    final selectedRow = _sudoku.rowOf(_selectedCell);
+    final selectedColumn = _sudoku.columnOf(_selectedCell);
+    final sameBox = row ~/ 3 == selectedRow ~/ 3 && column ~/ 3 == selectedColumn ~/ 3;
+    final background = index == _selectedCell
+        ? colors.selected
+        : (row == selectedRow || column == selectedColumn || sameBox)
+        ? colors.zone
+        : colors.cell;
+    final digit = _digits[index];
+    BorderSide side(bool thick) => BorderSide(color: thick ? colors.thickLine : colors.thinLine, width: thick ? 2 : 1);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: background,
+        border: Border(
+          right: column == 8 ? BorderSide.none : side(column % 3 == 2),
+          bottom: row == 8 ? BorderSide.none : side(row % 3 == 2),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          digit == '0' ? '' : digit,
+          style: LudixaTypography.gridDigit(entered: false).copyWith(color: colors.given),
+        ),
+      ),
+    );
+  }
+
+  Widget _mineCell(BuildContext context, int index, double extent) {
+    final colors = context.minesweeperColors;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: colors.closed,
+        borderRadius: BorderRadius.circular(LudixaRadii.cell * extent / 36),
+        border: Border(bottom: BorderSide(color: colors.closedEdge, width: 2)),
+      ),
+      child: _flags.contains(index)
+          ? Center(
+              child: LudixaIcon(LudixaIcons.flagFilled, size: extent * 0.6, color: colors.flag),
+            )
+          : null,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +164,92 @@ class _ComponentCatalogState extends State<ComponentCatalog> {
             subtitle: 'Efectos suaves al jugar',
             value: _sounds,
             onChanged: (value) => setState(() => _sounds = value),
+          ),
+          const LudixaSectionLabel('Grilla 9×9'),
+          Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
+            child: DecoratedBox(
+              decoration: BoxDecoration(border: Border.all(color: context.sudokuColors.thickLine, width: 2.5)),
+              child: PuzzleGrid(
+                dimensions: _sudoku,
+                semanticLabel: 'Tablero de ejemplo',
+                semanticLabelFor: (i) =>
+                    'Fila ${_sudoku.rowOf(i) + 1}, columna ${_sudoku.columnOf(i) + 1}'
+                    '${_digits[i] == '0' ? ', vacía' : ', ${_digits[i]}'}',
+                cellBuilder: _sudokuCell,
+                onCellTap: (i) => setState(() => _selectedCell = i),
+              ),
+            ),
+          ),
+          const LudixaSectionLabel('Tablero Experto con zoom'),
+          Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                const gap = 2.0;
+                final extent = PuzzleGrid.fitCellExtent(constraints.maxWidth, _expert, gap: gap).floorToDouble();
+                final board = Size(
+                  extent * _expert.columns + gap * (_expert.columns - 1),
+                  extent * _expert.rows + gap * (_expert.rows - 1),
+                );
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: 320,
+                      child: ClipRect(
+                        child: ZoomableBoard(
+                          key: _boardKey,
+                          boardSize: board,
+                          cellExtent: extent,
+                          child: PuzzleGrid(
+                            dimensions: _expert,
+                            gap: gap,
+                            fixedCellExtent: extent,
+                            semanticLabel: 'Tablero Experto de ejemplo',
+                            semanticLabelFor: (i) =>
+                                'Fila ${_expert.rowOf(i) + 1}, columna ${_expert.columnOf(i) + 1}'
+                                '${_flags.contains(i) ? ', con bandera' : ', cerrada'}',
+                            cellBuilder: _mineCell,
+                            onCellLongPress: (i) =>
+                                setState(() => _flags.contains(i) ? _flags.remove(i) : _flags.add(i)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    LudixaButton(
+                      label: 'Alternar zoom',
+                      variant: LudixaButtonVariant.secondary,
+                      onPressed: () => _boardKey.currentState?.toggleZoom(),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          const LudixaSectionLabel('Espacio publicitario'),
+          LudixaSwitchRow(
+            title: 'Hay anuncio disponible',
+            value: _showAd,
+            onChanged: (value) => setState(() => _showAd = value),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
+            child: LudixaAdSlot(
+              label: 'Anuncio',
+              ad: _showAd
+                  ? Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: p.adOutline, width: 1.5),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text('Banner adaptable de prueba', style: text.bodySmall),
+                    )
+                  : null,
+            ),
           ),
           const LudixaSectionLabel('Estado vacío'),
           LudixaEmptyState(
