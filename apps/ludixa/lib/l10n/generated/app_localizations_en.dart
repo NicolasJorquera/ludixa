@@ -125,9 +125,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get difficultyLast => 'The one you played last';
-
-  @override
   String get resultSolved => 'Solved!';
 
   @override
@@ -218,6 +215,116 @@ class AppLocalizationsEn extends AppLocalizations {
     });
     return '$_temp0';
   }
+
+  @override
+  String difficultyStart(String level) {
+    return 'Start · $level';
+  }
+
+  @override
+  String difficultyBest(String time) {
+    return 'Best $time';
+  }
+
+  @override
+  String get difficultyNoGames => 'No games yet';
+
+  @override
+  String get difficultyLevels => 'Level';
+
+  @override
+  String homeStreak(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count-day streak', one: '1-day streak');
+    return '$_temp0';
+  }
+
+  @override
+  String get homeDailyTitle => 'Today’s challenge';
+
+  @override
+  String get homeDailyFirst => 'Start with today’s challenge';
+
+  @override
+  String homeDailyProgress(int done) {
+    return '$done of 3 done';
+  }
+
+  @override
+  String homeDailyPlay(String game) {
+    return 'Play $game';
+  }
+
+  @override
+  String get homeDailyDone => 'Today: done';
+
+  @override
+  String homeDailyDoneTime(String time) {
+    return 'Total time $time';
+  }
+
+  @override
+  String get homeDailyArchive => 'Previous days';
+
+  @override
+  String get homeDailyStateDone => 'done';
+
+  @override
+  String get homeDailyStatePending => 'to do';
+
+  @override
+  String get homeContinue => 'Continue';
+
+  @override
+  String homeContinueDetail(String game, String level, String time) {
+    return '$game · $level · $time';
+  }
+
+  @override
+  String get homeGames => 'Games';
+
+  @override
+  String homeMastery(String medal, String level) {
+    return '$medal mastery on $level';
+  }
+
+  @override
+  String get homeNoMastery => 'No medals yet';
+
+  @override
+  String homeGameLabel(String game, String mastery) {
+    return '$game, $mastery';
+  }
+
+  @override
+  String get homeWeek => 'Your week';
+
+  @override
+  String homeWeekGames(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count games',
+      one: '1 game',
+      zero: 'no games',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeWeekTime(String time) {
+    return 'Time played $time';
+  }
+
+  @override
+  String homeWeekBest(String time) {
+    return 'best $time';
+  }
+
+  @override
+  String get homeLoadError => 'We couldn’t load your progress';
+
+  @override
+  String get homeRetry => 'Try again';
 }
 
 /// The translations for English (`en_XA`).
@@ -341,9 +448,6 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   }
 
   @override
-  String get difficultyLast => '[Ţĥé öñé ýöû þļáýéð ļášţ ········]';
-
-  @override
   String get resultSolved => '[Šöļṽéð! ···]';
 
   @override
@@ -434,4 +538,114 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
     });
     return '[$_temp0 ]';
   }
+
+  @override
+  String difficultyStart(String level) {
+    return '[Šţáŕţ · $level ··]';
+  }
+
+  @override
+  String difficultyBest(String time) {
+    return '[Ɓéšţ $time ··]';
+  }
+
+  @override
+  String get difficultyNoGames => '[Ñö ĝáɱéš ýéţ ····]';
+
+  @override
+  String get difficultyLevels => '[Ļéṽéļ ··]';
+
+  @override
+  String homeStreak(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count-day streak', one: '1-day streak');
+    return '[$_temp0 ]';
+  }
+
+  @override
+  String get homeDailyTitle => '[Ţöðáý’š çĥáļļéñĝé ······]';
+
+  @override
+  String get homeDailyFirst => '[Šţáŕţ ŵîţĥ ţöðáý’š çĥáļļéñĝé ··········]';
+
+  @override
+  String homeDailyProgress(int done) {
+    return '[$done öƒ 3 ðöñé ···]';
+  }
+
+  @override
+  String homeDailyPlay(String game) {
+    return '[Þļáý $game ··]';
+  }
+
+  @override
+  String get homeDailyDone => '[Ţöðáý: ðöñé ····]';
+
+  @override
+  String homeDailyDoneTime(String time) {
+    return '[Ţöţáļ ţîɱé $time ····]';
+  }
+
+  @override
+  String get homeDailyArchive => '[Þŕéṽîöûš ðáýš ·····]';
+
+  @override
+  String get homeDailyStateDone => '[ðöñé ··]';
+
+  @override
+  String get homeDailyStatePending => '[ţö ðö ··]';
+
+  @override
+  String get homeContinue => '[Çöñţîñûé ····]';
+
+  @override
+  String homeContinueDetail(String game, String level, String time) {
+    return '[$game · $level · $time ]';
+  }
+
+  @override
+  String get homeGames => '[Ĝáɱéš ··]';
+
+  @override
+  String homeMastery(String medal, String level) {
+    return '[$medal ɱášţéŕý öñ $level ····]';
+  }
+
+  @override
+  String get homeNoMastery => '[Ñö ɱéðáļš ýéţ ·····]';
+
+  @override
+  String homeGameLabel(String game, String mastery) {
+    return '[$game, $mastery ]';
+  }
+
+  @override
+  String get homeWeek => '[Ýöûŕ ŵééķ ····]';
+
+  @override
+  String homeWeekGames(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count games',
+      one: '1 game',
+      zero: 'no games',
+    );
+    return '[$_temp0 ]';
+  }
+
+  @override
+  String homeWeekTime(String time) {
+    return '[Ţîɱé þļáýéð $time ····]';
+  }
+
+  @override
+  String homeWeekBest(String time) {
+    return '[ƀéšţ $time ··]';
+  }
+
+  @override
+  String get homeLoadError => '[Ŵé çöûļðñ’ţ ļöáð ýöûŕ þŕöĝŕéšš ··········]';
+
+  @override
+  String get homeRetry => '[Ţŕý áĝáîñ ····]';
 }

@@ -157,10 +157,6 @@
       }
     }
   },
-  "difficultyLast": "La última que jugaste",
-  "@difficultyLast": {
-    "description": "Marca del nivel recordado."
-  },
   "resultSolved": "¡Resuelto!",
   "@resultSolved": {
     "description": "Título del resultado."
@@ -263,5 +259,181 @@
         "type": "String"
       }
     }
+  },
+  "difficultyStart": "Empezar · {level}",
+  "@difficultyStart": {
+    "description": "Botón principal de la hoja de dificultad.",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "difficultyBest": "Récord {time}",
+  "@difficultyBest": {
+    "description": "Mejor tiempo del nivel.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "difficultyNoGames": "Sin partidas",
+  "@difficultyNoGames": {
+    "description": "Nivel sin partidas ganadas."
+  },
+  "difficultyLevels": "Nivel",
+  "@difficultyLevels": {
+    "description": "Nombre del grupo de opciones de nivel."
+  },
+  "homeStreak": "{count, plural, =1{Racha de 1 día} other{Racha de {count} días}}",
+  "@homeStreak": {
+    "description": "Chip de racha en la portada.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeDailyTitle": "Reto de hoy",
+  "@homeDailyTitle": {
+    "description": "Tarjeta del reto en la portada."
+  },
+  "homeDailyFirst": "Empieza con el reto de hoy",
+  "@homeDailyFirst": {
+    "description": "Primera vez: invitación al reto."
+  },
+  "homeDailyProgress": "{done} de 3 hechos",
+  "@homeDailyProgress": {
+    "description": "Avance del reto del día.",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "homeDailyPlay": "Jugar {game}",
+  "@homeDailyPlay": {
+    "description": "Botón principal: el primer reto pendiente.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDailyDone": "Hoy: hecho",
+  "@homeDailyDone": {
+    "description": "Reto del día completo."
+  },
+  "homeDailyDoneTime": "Tiempo total {time}",
+  "@homeDailyDoneTime": {
+    "description": "Tiempo de los tres retos.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDailyArchive": "Días anteriores",
+  "@homeDailyArchive": {
+    "description": "Enlace al archivo (pestaña Reto)."
+  },
+  "homeDailyStateDone": "hecho",
+  "@homeDailyStateDone": {
+    "description": "Estado de un juego en el reto."
+  },
+  "homeDailyStatePending": "pendiente",
+  "@homeDailyStatePending": {
+    "description": "Estado de un juego en el reto."
+  },
+  "homeContinue": "Continuar",
+  "@homeContinue": {
+    "description": "Tarjeta de la partida en curso."
+  },
+  "homeContinueDetail": "{game} · {level} · {time}",
+  "@homeContinueDetail": {
+    "description": "Detalle de la partida en curso.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeGames": "Juegos",
+  "@homeGames": {
+    "description": "Título del catálogo."
+  },
+  "homeMastery": "Maestría {medal} en {level}",
+  "@homeMastery": {
+    "description": "Maestría del juego en la portada.",
+    "placeholders": {
+      "medal": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNoMastery": "Sin medallas todavía",
+  "@homeNoMastery": {
+    "description": "Juego sin partidas ganadas."
+  },
+  "homeGameLabel": "{game}, {mastery}",
+  "@homeGameLabel": {
+    "description": "Etiqueta accesible de una tarjeta de juego.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      },
+      "mastery": {
+        "type": "String"
+      }
+    }
+  },
+  "homeWeek": "Tu semana",
+  "@homeWeek": {
+    "description": "Resumen semanal."
+  },
+  "homeWeekGames": "{count, plural, =0{sin partidas} =1{1 partida} other{{count} partidas}}",
+  "@homeWeekGames": {
+    "description": "Partidas completadas de un juego en la semana.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeWeekTime": "Tiempo jugado {time}",
+  "@homeWeekTime": {
+    "description": "Tiempo total de la semana.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeWeekBest": "mejor {time}",
+  "@homeWeekBest": {
+    "description": "Mejor marca de la semana de un juego.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLoadError": "No pudimos cargar tu progreso",
+  "@homeLoadError": {
+    "description": "Error al leer los datos."
+  },
+  "homeRetry": "Reintentar",
+  "@homeRetry": {
+    "description": "Reintentar la carga."
   }
 }

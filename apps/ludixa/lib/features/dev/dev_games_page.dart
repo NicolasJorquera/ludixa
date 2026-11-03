@@ -1,7 +1,6 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:game_api/game_api.dart';
 
 import '../play/game_session_page.dart';
 import '../play/play_providers.dart';
@@ -45,7 +44,9 @@ class DevGamesPage extends ConsumerWidget {
                     label: 'Tutorial',
                     variant: LudixaButtonVariant.tertiary,
                     onPressed: () => Navigator.of(context, rootNavigator: true).push(
-                      MaterialPageRoute<void>(builder: (context) => module.buildTutorial(context, const _NoHost())),
+                      MaterialPageRoute<void>(
+                        builder: (context) => module.buildTutorial(context, const TutorialHost()),
+                      ),
                     ),
                   ),
                 ],
@@ -57,30 +58,4 @@ class DevGamesPage extends ConsumerWidget {
       ),
     );
   }
-}
-
-/// Los tutoriales no usan el host; este solo cumple el contrato.
-class _NoHost implements GameHost {
-  const _NoHost();
-
-  @override
-  int get freeHintsLeft => 0;
-
-  @override
-  Future<HintGrant> requestHint() async => const HintDenied(HintDenial.unavailable);
-
-  @override
-  Future<RescueOutcome> requestRescue() async => RescueOutcome.unavailable;
-
-  @override
-  Future<void> saveSnapshot(SessionSnapshot snapshot) async {}
-
-  @override
-  Future<void> reportResult(GameResult result) async {}
-
-  @override
-  Future<PauseChoice> showPause() async => PauseChoice.resume;
-
-  @override
-  void playAgain() {}
 }

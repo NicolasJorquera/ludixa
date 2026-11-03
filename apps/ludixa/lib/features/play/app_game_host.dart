@@ -42,6 +42,7 @@ class AppGameHost implements GameHost {
     required this.onShowPause,
     required this.onWon,
     required this.onPlayAgain,
+    this.onChanged,
     this.freeHintsPerPuzzle = 3,
   }) : _session = session,
        _free = freeHintsPerPuzzle;
@@ -50,6 +51,9 @@ class AppGameHost implements GameHost {
   final Future<PauseChoice> Function() onShowPause;
   final void Function(FinishedGame finished) onWon;
   final void Function() onPlayAgain;
+
+  /// Después de guardar o registrar algo en el progreso.
+  final void Function()? onChanged;
   final int freeHintsPerPuzzle;
 
   SessionRecord _session;
@@ -76,6 +80,7 @@ class AppGameHost implements GameHost {
     if (_reported) return;
     _session = _session.withState(snapshot.state, snapshot.elapsed);
     await service.saveInProgress(_session);
+    onChanged?.call();
   }
 
   @override
@@ -98,6 +103,7 @@ class AppGameHost implements GameHost {
     );
     final outcome = await service.recordResult(finished);
     _session = finished;
+    onChanged?.call();
     if (result.outcome != GameOutcome.won) return;
     final after = await service.stats(_session.game, _session.difficulty);
     final day = finished.challengeDay;
