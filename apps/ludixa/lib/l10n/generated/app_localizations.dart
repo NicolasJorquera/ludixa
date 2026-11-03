@@ -152,12 +152,6 @@ abstract class AppLocalizations {
   /// **'Ajustes'**
   String get settingsTitle;
 
-  /// Aviso provisional en pantallas que aún no están construidas.
-  ///
-  /// In es, this message translates to:
-  /// **'Esta pantalla llega en una próxima versión de desarrollo.'**
-  String get comingSoon;
-
   /// Encabezado de la sección de tema.
   ///
   /// In es, this message translates to:
@@ -709,6 +703,192 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Este día ya no está en el archivo.'**
   String get archiveOutside;
+
+  /// Pestaña de estadísticas en Progreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Estadísticas'**
+  String get progressTabStats;
+
+  /// Pestaña de logros en Progreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Logros'**
+  String get progressTabAchievements;
+
+  /// Título del estado vacío de Progreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no hay estadísticas'**
+  String get progressEmptyTitle;
+
+  /// Estado vacío de Progreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Tus estadísticas aparecerán al completar tu primer puzzle.'**
+  String get progressEmpty;
+
+  /// Botón del estado vacío: abre la pestaña Reto.
+  ///
+  /// In es, this message translates to:
+  /// **'Ir al reto de hoy'**
+  String get progressEmptyAction;
+
+  /// Total: partidas ganadas en todos los juegos.
+  ///
+  /// In es, this message translates to:
+  /// **'Puzzles completados'**
+  String get progressCompleted;
+
+  /// Total: tiempo de las partidas terminadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Tiempo total'**
+  String get progressTotalTime;
+
+  /// Total: racha actual del reto diario, en días.
+  ///
+  /// In es, this message translates to:
+  /// **'Racha'**
+  String get progressStreak;
+
+  /// Mejor racha bajo la racha actual.
+  ///
+  /// In es, this message translates to:
+  /// **'Mejor: {count}'**
+  String progressStreakBest(int count);
+
+  /// Total: días con los tres retos completos.
+  ///
+  /// In es, this message translates to:
+  /// **'Días perfectos'**
+  String get progressPerfectDays;
+
+  /// Nombre del selector de juego de la tabla.
+  ///
+  /// In es, this message translates to:
+  /// **'Juego'**
+  String get progressGame;
+
+  /// Encabezado de columna.
+  ///
+  /// In es, this message translates to:
+  /// **'Nivel'**
+  String get progressColLevel;
+
+  /// Encabezado de columna: partidas empezadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Partidas'**
+  String get progressColPlayed;
+
+  /// Encabezado de columna: partidas ganadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Ganadas'**
+  String get progressColWon;
+
+  /// Encabezado de columna: mejor tiempo.
+  ///
+  /// In es, this message translates to:
+  /// **'Mejor'**
+  String get progressColBest;
+
+  /// Encabezado de columna: tiempo medio de las ganadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Media'**
+  String get progressColMean;
+
+  /// Nivel sin partidas.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún sin jugar'**
+  String get progressNotPlayed;
+
+  /// Ganadas con su porcentaje (Buscaminas).
+  ///
+  /// In es, this message translates to:
+  /// **'{won} ({rate})'**
+  String progressWonRate(int won, String rate);
+
+  /// Ayuda bajo la tabla.
+  ///
+  /// In es, this message translates to:
+  /// **'Mantén pulsado un nivel para reiniciar sus estadísticas.'**
+  String get progressTableHint;
+
+  /// Acción al mantener pulsada una fila.
+  ///
+  /// In es, this message translates to:
+  /// **'Reiniciar estadísticas de este nivel'**
+  String get progressResetLevel;
+
+  /// Título de la confirmación.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Reiniciar {game} · {level}?'**
+  String progressResetTitle(String game, String level);
+
+  /// Explica qué se reinicia.
+  ///
+  /// In es, this message translates to:
+  /// **'Partidas, mejor tiempo y media de este nivel vuelven a cero. Tu racha, el calendario y los logros no cambian.'**
+  String get progressResetBody;
+
+  /// Confirma el reinicio.
+  ///
+  /// In es, this message translates to:
+  /// **'Reiniciar'**
+  String get progressResetConfirm;
+
+  /// Aviso tras reiniciar.
+  ///
+  /// In es, this message translates to:
+  /// **'Estadísticas de {level} reiniciadas'**
+  String progressResetDone(String level);
+
+  /// Qué pide un logro, por su id estable.
+  ///
+  /// In es, this message translates to:
+  /// **'{key, select, first_puzzle{Completa tu primer puzzle, en cualquier juego.} all_three_games{Completa al menos un puzzle de cada juego.} streak_3{Juega el reto diario 3 días seguidos.} streak_7{Juega el reto diario 7 días seguidos.} streak_30{Juega el reto diario 30 días seguidos.} streak_100{Juega el reto diario 100 días seguidos.} perfect_day{Completa los tres retos de un mismo día.} full_month{Juega el reto diario 20 días de un mismo mes.} ten_unassisted{Completa 10 puzzles sin pistas ni ayudas.} sudoku_first_hard{Completa un Sudoku en Difícil.} sudoku_first_expert{Completa un Sudoku en Experto.} sudoku_fast_medium{Completa un Sudoku Medio en menos de 6 minutos.} mines_first_expert{Gana un Buscaminas en Experto.} mines_five_in_a_row{Gana 5 partidas de Buscaminas seguidas, sin perder entre medio.} mines_no_flags{Gana un Buscaminas sin poner ninguna bandera.} words_ten_themes{Completa sopas de letras de 10 temas distintos.} words_expert_no_hints{Completa una sopa de letras en Experto sin usar pistas.} other{Completa 50 sopas de letras.}}'**
+  String achievementDescription(String key);
+
+  /// Estado de un logro conseguido.
+  ///
+  /// In es, this message translates to:
+  /// **'Desbloqueado'**
+  String get achievementUnlocked;
+
+  /// Fecha en que se consiguió un logro.
+  ///
+  /// In es, this message translates to:
+  /// **'Desbloqueado el {date}'**
+  String achievementUnlockedOn(String date);
+
+  /// Estado de un logro no conseguido.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente'**
+  String get achievementLocked;
+
+  /// Avance de un logro.
+  ///
+  /// In es, this message translates to:
+  /// **'{progress} de {target}'**
+  String achievementProgress(int progress, int target);
+
+  /// Resumen sobre la grilla.
+  ///
+  /// In es, this message translates to:
+  /// **'{unlocked} de {total} logros'**
+  String achievementsCount(int unlocked, int total);
+
+  /// Lector de pantalla: celda de tiempo vacía (—).
+  ///
+  /// In es, this message translates to:
+  /// **'Sin tiempo'**
+  String get progressNoTime;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -21,9 +21,10 @@ abstract interface class ProgressStore {
   Future<Map<AchievementId, DateTime>> unlocked();
   Future<void> unlock(AchievementId id, DateTime at);
 
-  /// Desde cuándo cuentan las estadísticas de un juego (null: desde siempre).
-  Future<DateTime?> statsResetAt(GameId game);
-  Future<void> putStatsResetAt(GameId game, DateTime at);
+  /// Desde cuándo cuentan las estadísticas de un juego, o de uno de sus
+  /// niveles si se da [difficulty] (null: desde siempre).
+  Future<DateTime?> statsResetAt(GameId game, [Difficulty? difficulty]);
+  Future<void> putStatsResetAt(GameId game, DateTime at, [Difficulty? difficulty]);
 }
 
 /// Almacenamiento del progreso. Registrar un resultado es una sola

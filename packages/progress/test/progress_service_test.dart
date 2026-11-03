@@ -326,6 +326,18 @@ void main() {
       expect((await repo.unlocked()).containsKey(AchievementId.firstPuzzle), isTrue);
     });
 
+    test('reiniciar un nivel no toca los otros niveles del juego', () async {
+      for (final level in ['easy', 'medium']) {
+        await service.recordResult(
+          session(startedAt: at('2026-11-02', hour: 8), mode: PuzzleMode.free, difficulty: level),
+        );
+      }
+      clock.current = at('2026-11-02', hour: 10);
+      await service.resetStats(GameId.sudoku, difficulty: const Difficulty('easy'));
+      expect((await service.stats(GameId.sudoku, const Difficulty('easy'))).started, 0);
+      expect((await service.stats(GameId.sudoku, const Difficulty('medium'))).won, 1);
+    });
+
     test('tu semana: los 7 días que terminan hoy', () async {
       for (final (day, minutes) in [('2026-11-01', 9), ('2026-11-02', 4), ('2026-11-08', 3)]) {
         await service.recordResult(

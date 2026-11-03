@@ -39,9 +39,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsTitle => 'Ajustes';
 
   @override
-  String get comingSoon => 'Esta pantalla llega en una próxima versión de desarrollo.';
-
-  @override
   String get settingsThemeSection => 'Tema';
 
   @override
@@ -448,4 +445,134 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get archiveOutside => 'Este día ya no está en el archivo.';
+
+  @override
+  String get progressTabStats => 'Estadísticas';
+
+  @override
+  String get progressTabAchievements => 'Logros';
+
+  @override
+  String get progressEmptyTitle => 'Aún no hay estadísticas';
+
+  @override
+  String get progressEmpty => 'Tus estadísticas aparecerán al completar tu primer puzzle.';
+
+  @override
+  String get progressEmptyAction => 'Ir al reto de hoy';
+
+  @override
+  String get progressCompleted => 'Puzzles completados';
+
+  @override
+  String get progressTotalTime => 'Tiempo total';
+
+  @override
+  String get progressStreak => 'Racha';
+
+  @override
+  String progressStreakBest(int count) {
+    return 'Mejor: $count';
+  }
+
+  @override
+  String get progressPerfectDays => 'Días perfectos';
+
+  @override
+  String get progressGame => 'Juego';
+
+  @override
+  String get progressColLevel => 'Nivel';
+
+  @override
+  String get progressColPlayed => 'Partidas';
+
+  @override
+  String get progressColWon => 'Ganadas';
+
+  @override
+  String get progressColBest => 'Mejor';
+
+  @override
+  String get progressColMean => 'Media';
+
+  @override
+  String get progressNotPlayed => 'Aún sin jugar';
+
+  @override
+  String progressWonRate(int won, String rate) {
+    return '$won ($rate)';
+  }
+
+  @override
+  String get progressTableHint => 'Mantén pulsado un nivel para reiniciar sus estadísticas.';
+
+  @override
+  String get progressResetLevel => 'Reiniciar estadísticas de este nivel';
+
+  @override
+  String progressResetTitle(String game, String level) {
+    return '¿Reiniciar $game · $level?';
+  }
+
+  @override
+  String get progressResetBody =>
+      'Partidas, mejor tiempo y media de este nivel vuelven a cero. Tu racha, el calendario y los logros no cambian.';
+
+  @override
+  String get progressResetConfirm => 'Reiniciar';
+
+  @override
+  String progressResetDone(String level) {
+    return 'Estadísticas de $level reiniciadas';
+  }
+
+  @override
+  String achievementDescription(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'first_puzzle': 'Completa tu primer puzzle, en cualquier juego.',
+      'all_three_games': 'Completa al menos un puzzle de cada juego.',
+      'streak_3': 'Juega el reto diario 3 días seguidos.',
+      'streak_7': 'Juega el reto diario 7 días seguidos.',
+      'streak_30': 'Juega el reto diario 30 días seguidos.',
+      'streak_100': 'Juega el reto diario 100 días seguidos.',
+      'perfect_day': 'Completa los tres retos de un mismo día.',
+      'full_month': 'Juega el reto diario 20 días de un mismo mes.',
+      'ten_unassisted': 'Completa 10 puzzles sin pistas ni ayudas.',
+      'sudoku_first_hard': 'Completa un Sudoku en Difícil.',
+      'sudoku_first_expert': 'Completa un Sudoku en Experto.',
+      'sudoku_fast_medium': 'Completa un Sudoku Medio en menos de 6 minutos.',
+      'mines_first_expert': 'Gana un Buscaminas en Experto.',
+      'mines_five_in_a_row': 'Gana 5 partidas de Buscaminas seguidas, sin perder entre medio.',
+      'mines_no_flags': 'Gana un Buscaminas sin poner ninguna bandera.',
+      'words_ten_themes': 'Completa sopas de letras de 10 temas distintos.',
+      'words_expert_no_hints': 'Completa una sopa de letras en Experto sin usar pistas.',
+      'other': 'Completa 50 sopas de letras.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get achievementUnlocked => 'Desbloqueado';
+
+  @override
+  String achievementUnlockedOn(String date) {
+    return 'Desbloqueado el $date';
+  }
+
+  @override
+  String get achievementLocked => 'Pendiente';
+
+  @override
+  String achievementProgress(int progress, int target) {
+    return '$progress de $target';
+  }
+
+  @override
+  String achievementsCount(int unlocked, int total) {
+    return '$unlocked de $total logros';
+  }
+
+  @override
+  String get progressNoTime => 'Sin tiempo';
 }

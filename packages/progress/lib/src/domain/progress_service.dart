@@ -103,16 +103,21 @@ final class ProgressService {
 
   /// Estadísticas de un juego por dificultad, desde el último reinicio.
   Future<DifficultyStats> stats(GameId game, Difficulty difficulty) async {
-    final since = await repository.statsResetAt(game);
+    final byGame = await repository.statsResetAt(game);
+    final byLevel = await repository.statsResetAt(game, difficulty);
+    final since = byGame == null || (byLevel != null && byLevel.isAfter(byGame)) ? byLevel : byGame;
     final sessions = (await repository.sessions()).where(
       (s) => s.game == game && (since == null || !s.startedAt.utc.isBefore(since)),
     );
     return ProgressStats.forDifficulty(sessions, game, difficulty);
   }
 
-  /// Reinicia las estadísticas de un juego. No toca racha, calendario,
-  /// maestría ni logros: las partidas siguen guardadas.
-  Future<void> resetStats(GameId game) => repository.putStatsResetAt(game, clock.now().utc);
+  /// Reinicia las estadísticas de un juego o de un nivel. No toca racha,
+  /// calendario, maestría ni logros: las partidas siguen guardadas.
+  /// Con [difficulty], reinicia solo ese nivel (lo que pide la ficha de
+  /// Progreso al mantener pulsada su fila).
+  Future<void> resetStats(GameId game, {Difficulty? difficulty}) =>
+      repository.putStatsResetAt(game, clock.now().utc, difficulty);
 
   Future<WeekSummary> week() async => ProgressStats.week(await repository.sessions(), clock.now().day);
 

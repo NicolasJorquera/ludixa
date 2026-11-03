@@ -42,9 +42,10 @@ final class InMemoryProgressRepository implements ProgressRepository {
   @override
   Future<void> unlock(AchievementId id, DateTime at) => _store.unlock(id, at);
   @override
-  Future<DateTime?> statsResetAt(GameId game) => _store.statsResetAt(game);
+  Future<DateTime?> statsResetAt(GameId game, [Difficulty? difficulty]) => _store.statsResetAt(game, difficulty);
   @override
-  Future<void> putStatsResetAt(GameId game, DateTime at) => _store.putStatsResetAt(game, at);
+  Future<void> putStatsResetAt(GameId game, DateTime at, [Difficulty? difficulty]) =>
+      _store.putStatsResetAt(game, at, difficulty);
 }
 
 final class _State {
@@ -52,7 +53,9 @@ final class _State {
   final days = <LocalDay, DailyDay>{};
   var streak = StreakState.empty;
   final unlocked = <AchievementId, DateTime>{};
-  final statsResetAt = <GameId, DateTime>{};
+
+  /// Clave "juego" o "juego/nivel".
+  final statsResetAt = <String, DateTime>{};
 
   _State copy() => _State()
     ..sessions.addAll(sessions)
@@ -95,7 +98,12 @@ final class _Store implements ProgressStore {
   Future<void> unlock(AchievementId id, DateTime at) async => _s.unlocked.putIfAbsent(id, () => at);
 
   @override
-  Future<DateTime?> statsResetAt(GameId game) async => _s.statsResetAt[game];
+  Future<DateTime?> statsResetAt(GameId game, [Difficulty? difficulty]) async =>
+      _s.statsResetAt[_key(game, difficulty)];
   @override
-  Future<void> putStatsResetAt(GameId game, DateTime at) async => _s.statsResetAt[game] = at;
+  Future<void> putStatsResetAt(GameId game, DateTime at, [Difficulty? difficulty]) async =>
+      _s.statsResetAt[_key(game, difficulty)] = at;
+
+  static String _key(GameId game, Difficulty? difficulty) =>
+      difficulty == null ? game.value : '${game.value}/${difficulty.value}';
 }

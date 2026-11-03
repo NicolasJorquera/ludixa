@@ -39,9 +39,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsTitle => 'Settings';
 
   @override
-  String get comingSoon => 'This screen arrives in an upcoming development build.';
-
-  @override
   String get settingsThemeSection => 'Theme';
 
   @override
@@ -443,6 +440,136 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get archiveOutside => 'This day is no longer in the archive.';
+
+  @override
+  String get progressTabStats => 'Statistics';
+
+  @override
+  String get progressTabAchievements => 'Achievements';
+
+  @override
+  String get progressEmptyTitle => 'No statistics yet';
+
+  @override
+  String get progressEmpty => 'Your statistics will show up once you finish your first puzzle.';
+
+  @override
+  String get progressEmptyAction => 'Go to today\'s challenge';
+
+  @override
+  String get progressCompleted => 'Puzzles completed';
+
+  @override
+  String get progressTotalTime => 'Total time';
+
+  @override
+  String get progressStreak => 'Streak';
+
+  @override
+  String progressStreakBest(int count) {
+    return 'Best: $count';
+  }
+
+  @override
+  String get progressPerfectDays => 'Perfect days';
+
+  @override
+  String get progressGame => 'Game';
+
+  @override
+  String get progressColLevel => 'Level';
+
+  @override
+  String get progressColPlayed => 'Played';
+
+  @override
+  String get progressColWon => 'Won';
+
+  @override
+  String get progressColBest => 'Best';
+
+  @override
+  String get progressColMean => 'Average';
+
+  @override
+  String get progressNotPlayed => 'Not played yet';
+
+  @override
+  String progressWonRate(int won, String rate) {
+    return '$won ($rate)';
+  }
+
+  @override
+  String get progressTableHint => 'Long-press a level to reset its statistics.';
+
+  @override
+  String get progressResetLevel => 'Reset statistics for this level';
+
+  @override
+  String progressResetTitle(String game, String level) {
+    return 'Reset $game · $level?';
+  }
+
+  @override
+  String get progressResetBody =>
+      'Games played, best time and average for this level go back to zero. Your streak, calendar and achievements stay the same.';
+
+  @override
+  String get progressResetConfirm => 'Reset';
+
+  @override
+  String progressResetDone(String level) {
+    return '$level statistics reset';
+  }
+
+  @override
+  String achievementDescription(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'first_puzzle': 'Finish your first puzzle, in any game.',
+      'all_three_games': 'Finish at least one puzzle in each game.',
+      'streak_3': 'Play the daily challenge 3 days in a row.',
+      'streak_7': 'Play the daily challenge 7 days in a row.',
+      'streak_30': 'Play the daily challenge 30 days in a row.',
+      'streak_100': 'Play the daily challenge 100 days in a row.',
+      'perfect_day': 'Finish all three challenges on the same day.',
+      'full_month': 'Play the daily challenge on 20 days of the same month.',
+      'ten_unassisted': 'Finish 10 puzzles with no hints or help.',
+      'sudoku_first_hard': 'Finish a Hard Sudoku.',
+      'sudoku_first_expert': 'Finish an Expert Sudoku.',
+      'sudoku_fast_medium': 'Finish a Medium Sudoku in under 6 minutes.',
+      'mines_first_expert': 'Win an Expert Minesweeper.',
+      'mines_five_in_a_row': 'Win 5 Minesweeper games in a row without losing in between.',
+      'mines_no_flags': 'Win a Minesweeper without placing any flag.',
+      'words_ten_themes': 'Finish word searches from 10 different themes.',
+      'words_expert_no_hints': 'Finish an Expert word search without hints.',
+      'other': 'Finish 50 word searches.',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String get achievementUnlocked => 'Unlocked';
+
+  @override
+  String achievementUnlockedOn(String date) {
+    return 'Unlocked on $date';
+  }
+
+  @override
+  String get achievementLocked => 'Locked';
+
+  @override
+  String achievementProgress(int progress, int target) {
+    return '$progress of $target';
+  }
+
+  @override
+  String achievementsCount(int unlocked, int total) {
+    return '$unlocked of $total achievements';
+  }
+
+  @override
+  String get progressNoTime => 'No time';
 }
 
 /// The translations for English (`en_XA`).
@@ -478,9 +605,6 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsTitle => '[Šéţţîñĝš ····]';
-
-  @override
-  String get comingSoon => '[Ţĥîš šçŕééñ áŕŕîṽéš îñ áñ ûþçöɱîñĝ ðéṽéļöþɱéñţ ƀûîļð. ··················]';
 
   @override
   String get settingsThemeSection => '[Ţĥéɱé ··]';
@@ -884,4 +1008,134 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get archiveOutside => '[Ţĥîš ðáý îš ñö ļöñĝéŕ îñ ţĥé áŕçĥîṽé. ············]';
+
+  @override
+  String get progressTabStats => '[Šţáţîšţîçš ····]';
+
+  @override
+  String get progressTabAchievements => '[Åçĥîéṽéɱéñţš ·····]';
+
+  @override
+  String get progressEmptyTitle => '[Ñö šţáţîšţîçš ýéţ ······]';
+
+  @override
+  String get progressEmpty => '[Ýöûŕ šţáţîšţîçš ŵîļļ šĥöŵ ûþ öñçé ýöû ƒîñîšĥ ýöûŕ ƒîŕšţ þûžžļé. ·····················]';
+
+  @override
+  String get progressEmptyAction => '[Ĝö ţö ţöðáý\'š çĥáļļéñĝé ········]';
+
+  @override
+  String get progressCompleted => '[Þûžžļéš çöɱþļéţéð ·······]';
+
+  @override
+  String get progressTotalTime => '[Ţöţáļ ţîɱé ····]';
+
+  @override
+  String get progressStreak => '[Šţŕéáķ ···]';
+
+  @override
+  String progressStreakBest(int count) {
+    return '[Ɓéšţ: $count ··]';
+  }
+
+  @override
+  String get progressPerfectDays => '[Þéŕƒéçţ ðáýš ·····]';
+
+  @override
+  String get progressGame => '[Ĝáɱé ··]';
+
+  @override
+  String get progressColLevel => '[Ļéṽéļ ··]';
+
+  @override
+  String get progressColPlayed => '[Þļáýéð ···]';
+
+  @override
+  String get progressColWon => '[Ŵöñ ··]';
+
+  @override
+  String get progressColBest => '[Ɓéšţ ··]';
+
+  @override
+  String get progressColMean => '[Åṽéŕáĝé ···]';
+
+  @override
+  String get progressNotPlayed => '[Ñöţ þļáýéð ýéţ ·····]';
+
+  @override
+  String progressWonRate(int won, String rate) {
+    return '[$won ($rate) ]';
+  }
+
+  @override
+  String get progressTableHint => '[Ļöñĝ-þŕéšš á ļéṽéļ ţö ŕéšéţ îţš šţáţîšţîçš. ··············]';
+
+  @override
+  String get progressResetLevel => '[Ŕéšéţ šţáţîšţîçš ƒöŕ ţĥîš ļéṽéļ ···········]';
+
+  @override
+  String progressResetTitle(String game, String level) {
+    return '[Ŕéšéţ $game · $level? ··]';
+  }
+
+  @override
+  String get progressResetBody =>
+      '[Ĝáɱéš þļáýéð, ƀéšţ ţîɱé áñð áṽéŕáĝé ƒöŕ ţĥîš ļéṽéļ ĝö ƀáçķ ţö žéŕö. Ýöûŕ šţŕéáķ, çáļéñðáŕ áñð áçĥîéṽéɱéñţš šţáý ţĥé šáɱé. ·······································]';
+
+  @override
+  String get progressResetConfirm => '[Ŕéšéţ ··]';
+
+  @override
+  String progressResetDone(String level) {
+    return '[$level šţáţîšţîçš ŕéšéţ ······]';
+  }
+
+  @override
+  String achievementDescription(String key) {
+    String _temp0 = intl.Intl.selectLogic(key, {
+      'first_puzzle': 'Finish your first puzzle, in any game.',
+      'all_three_games': 'Finish at least one puzzle in each game.',
+      'streak_3': 'Play the daily challenge 3 days in a row.',
+      'streak_7': 'Play the daily challenge 7 days in a row.',
+      'streak_30': 'Play the daily challenge 30 days in a row.',
+      'streak_100': 'Play the daily challenge 100 days in a row.',
+      'perfect_day': 'Finish all three challenges on the same day.',
+      'full_month': 'Play the daily challenge on 20 days of the same month.',
+      'ten_unassisted': 'Finish 10 puzzles with no hints or help.',
+      'sudoku_first_hard': 'Finish a Hard Sudoku.',
+      'sudoku_first_expert': 'Finish an Expert Sudoku.',
+      'sudoku_fast_medium': 'Finish a Medium Sudoku in under 6 minutes.',
+      'mines_first_expert': 'Win an Expert Minesweeper.',
+      'mines_five_in_a_row': 'Win 5 Minesweeper games in a row without losing in between.',
+      'mines_no_flags': 'Win a Minesweeper without placing any flag.',
+      'words_ten_themes': 'Finish word searches from 10 different themes.',
+      'words_expert_no_hints': 'Finish an Expert word search without hints.',
+      'other': 'Finish 50 word searches.',
+    });
+    return '[$_temp0 ]';
+  }
+
+  @override
+  String get achievementUnlocked => '[Ûñļöçķéð ····]';
+
+  @override
+  String achievementUnlockedOn(String date) {
+    return '[Ûñļöçķéð öñ $date ····]';
+  }
+
+  @override
+  String get achievementLocked => '[Ļöçķéð ···]';
+
+  @override
+  String achievementProgress(int progress, int target) {
+    return '[$progress öƒ $target ·]';
+  }
+
+  @override
+  String achievementsCount(int unlocked, int total) {
+    return '[$unlocked öƒ $total áçĥîéṽéɱéñţš ······]';
+  }
+
+  @override
+  String get progressNoTime => '[Ñö ţîɱé ···]';
 }

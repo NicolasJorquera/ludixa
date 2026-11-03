@@ -40,10 +40,6 @@
   "@settingsTitle": {
     "description": "Título de la pantalla de ajustes."
   },
-  "comingSoon": "Esta pantalla llega en una próxima versión de desarrollo.",
-  "@comingSoon": {
-    "description": "Aviso provisional en pantallas que aún no están construidas."
-  },
   "settingsThemeSection": "Tema",
   "@settingsThemeSection": {
     "description": "Encabezado de la sección de tema."
@@ -588,5 +584,181 @@
   "archiveOutside": "Este día ya no está en el archivo.",
   "@archiveOutside": {
     "description": "Día fuera de la ventana de 30 días."
+  },
+  "progressTabStats": "Estadísticas",
+  "@progressTabStats": {
+    "description": "Pestaña de estadísticas en Progreso."
+  },
+  "progressTabAchievements": "Logros",
+  "@progressTabAchievements": {
+    "description": "Pestaña de logros en Progreso."
+  },
+  "progressEmptyTitle": "Aún no hay estadísticas",
+  "@progressEmptyTitle": {
+    "description": "Título del estado vacío de Progreso."
+  },
+  "progressEmpty": "Tus estadísticas aparecerán al completar tu primer puzzle.",
+  "@progressEmpty": {
+    "description": "Estado vacío de Progreso."
+  },
+  "progressEmptyAction": "Ir al reto de hoy",
+  "@progressEmptyAction": {
+    "description": "Botón del estado vacío: abre la pestaña Reto."
+  },
+  "progressCompleted": "Puzzles completados",
+  "@progressCompleted": {
+    "description": "Total: partidas ganadas en todos los juegos."
+  },
+  "progressTotalTime": "Tiempo total",
+  "@progressTotalTime": {
+    "description": "Total: tiempo de las partidas terminadas."
+  },
+  "progressStreak": "Racha",
+  "@progressStreak": {
+    "description": "Total: racha actual del reto diario, en días."
+  },
+  "progressStreakBest": "Mejor: {count}",
+  "@progressStreakBest": {
+    "description": "Mejor racha bajo la racha actual.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "progressPerfectDays": "Días perfectos",
+  "@progressPerfectDays": {
+    "description": "Total: días con los tres retos completos."
+  },
+  "progressGame": "Juego",
+  "@progressGame": {
+    "description": "Nombre del selector de juego de la tabla."
+  },
+  "progressColLevel": "Nivel",
+  "@progressColLevel": {
+    "description": "Encabezado de columna."
+  },
+  "progressColPlayed": "Partidas",
+  "@progressColPlayed": {
+    "description": "Encabezado de columna: partidas empezadas."
+  },
+  "progressColWon": "Ganadas",
+  "@progressColWon": {
+    "description": "Encabezado de columna: partidas ganadas."
+  },
+  "progressColBest": "Mejor",
+  "@progressColBest": {
+    "description": "Encabezado de columna: mejor tiempo."
+  },
+  "progressColMean": "Media",
+  "@progressColMean": {
+    "description": "Encabezado de columna: tiempo medio de las ganadas."
+  },
+  "progressNotPlayed": "Aún sin jugar",
+  "@progressNotPlayed": {
+    "description": "Nivel sin partidas."
+  },
+  "progressWonRate": "{won} ({rate})",
+  "@progressWonRate": {
+    "description": "Ganadas con su porcentaje (Buscaminas).",
+    "placeholders": {
+      "won": {
+        "type": "int"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "progressTableHint": "Mantén pulsado un nivel para reiniciar sus estadísticas.",
+  "@progressTableHint": {
+    "description": "Ayuda bajo la tabla."
+  },
+  "progressResetLevel": "Reiniciar estadísticas de este nivel",
+  "@progressResetLevel": {
+    "description": "Acción al mantener pulsada una fila."
+  },
+  "progressResetTitle": "¿Reiniciar {game} · {level}?",
+  "@progressResetTitle": {
+    "description": "Título de la confirmación.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "progressResetBody": "Partidas, mejor tiempo y media de este nivel vuelven a cero. Tu racha, el calendario y los logros no cambian.",
+  "@progressResetBody": {
+    "description": "Explica qué se reinicia."
+  },
+  "progressResetConfirm": "Reiniciar",
+  "@progressResetConfirm": {
+    "description": "Confirma el reinicio."
+  },
+  "progressResetDone": "Estadísticas de {level} reiniciadas",
+  "@progressResetDone": {
+    "description": "Aviso tras reiniciar.",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "achievementDescription": "{key, select, first_puzzle{Completa tu primer puzzle, en cualquier juego.} all_three_games{Completa al menos un puzzle de cada juego.} streak_3{Juega el reto diario 3 días seguidos.} streak_7{Juega el reto diario 7 días seguidos.} streak_30{Juega el reto diario 30 días seguidos.} streak_100{Juega el reto diario 100 días seguidos.} perfect_day{Completa los tres retos de un mismo día.} full_month{Juega el reto diario 20 días de un mismo mes.} ten_unassisted{Completa 10 puzzles sin pistas ni ayudas.} sudoku_first_hard{Completa un Sudoku en Difícil.} sudoku_first_expert{Completa un Sudoku en Experto.} sudoku_fast_medium{Completa un Sudoku Medio en menos de 6 minutos.} mines_first_expert{Gana un Buscaminas en Experto.} mines_five_in_a_row{Gana 5 partidas de Buscaminas seguidas, sin perder entre medio.} mines_no_flags{Gana un Buscaminas sin poner ninguna bandera.} words_ten_themes{Completa sopas de letras de 10 temas distintos.} words_expert_no_hints{Completa una sopa de letras en Experto sin usar pistas.} other{Completa 50 sopas de letras.}}",
+  "@achievementDescription": {
+    "description": "Qué pide un logro, por su id estable.",
+    "placeholders": {
+      "key": {
+        "type": "String"
+      }
+    }
+  },
+  "achievementUnlocked": "Desbloqueado",
+  "@achievementUnlocked": {
+    "description": "Estado de un logro conseguido."
+  },
+  "achievementUnlockedOn": "Desbloqueado el {date}",
+  "@achievementUnlockedOn": {
+    "description": "Fecha en que se consiguió un logro.",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "achievementLocked": "Pendiente",
+  "@achievementLocked": {
+    "description": "Estado de un logro no conseguido."
+  },
+  "achievementProgress": "{progress} de {target}",
+  "@achievementProgress": {
+    "description": "Avance de un logro.",
+    "placeholders": {
+      "progress": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "achievementsCount": "{unlocked} de {total} logros",
+  "@achievementsCount": {
+    "description": "Resumen sobre la grilla.",
+    "placeholders": {
+      "unlocked": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "progressNoTime": "Sin tiempo",
+  "@progressNoTime": {
+    "description": "Lector de pantalla: celda de tiempo vacía (—)."
   }
 }

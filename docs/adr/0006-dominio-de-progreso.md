@@ -27,7 +27,7 @@ El PRD define la racha con comodines, el calendario del reto, el archivo, 18 log
 | Mensaje de racha rota | Se guarda el largo de la racha anterior (`previous`) para el texto "Racha anterior: N días". |
 | Logros | "Primer Difícil" y "Primer Experto" exigen esa dificultad exacta. "5 victorias seguidas" cuenta en cualquier dificultad del Buscaminas, y una derrota o un abandono la reinicia. "Mes completo" es la insignia de mes: 20 días jugados. "Explorar 10 temas" suma los tres temas del domingo. "Sin ayuda" excluye pistas gratis, pistas por video y el rescate. |
 | Maestría | Bronce, Plata y Oro con 10, 25 y 50 partidas **ganadas** por juego y dificultad. |
-| Reiniciar estadísticas | Se guarda la fecha del reinicio y las estadísticas ignoran las partidas anteriores. No se borran partidas, racha, calendario, maestría ni logros. |
+| Reiniciar estadísticas | Por juego o por nivel (la ficha de Progreso reinicia un nivel al mantener pulsada su fila). Se guarda la fecha del reinicio y las estadísticas ignoran las partidas anteriores; si hay reinicio de juego y de nivel, cuenta el más reciente. No se borran partidas, racha, calendario, maestría ni logros. |
 
 ## Consecuencias
 
