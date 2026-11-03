@@ -10,13 +10,17 @@ import 'package:sudoku_engine/sudoku_engine.dart';
 import '../l10n/generated/sudoku_localizations.dart';
 import 'controller.dart';
 import 'settings.dart';
+import 'ui/settings_view.dart';
 import 'ui/sudoku_game_page.dart';
+import 'ui/tutorial.dart';
 
 /// Sudoku como módulo de la colección.
 class SudokuModule implements GameModule {
-  const SudokuModule({this.settings = const SudokuSettings(), this.generationBudget = const Duration(seconds: 2)});
+  SudokuModule({SudokuSettingsStore? store, this.generationBudget = const Duration(seconds: 2)})
+    : store = store ?? InMemorySudokuSettingsStore();
 
-  final SudokuSettings settings;
+  /// Ajustes del juego; la app pasa uno que los guarda.
+  final SudokuSettingsStore store;
 
   /// Tiempo máximo para generar una partida libre; después se usa el banco.
   final Duration generationBudget;
@@ -66,15 +70,14 @@ class SudokuModule implements GameModule {
 
   @override
   Widget buildGame(BuildContext context, PuzzleRequest request, GameHost host) =>
-      SudokuGameLoader(request: request, host: host, settings: settings, generationBudget: generationBudget);
+      SudokuGameLoader(request: request, host: host, settings: store.load(), generationBudget: generationBudget);
 
-  /// El tutorial de 4×4 llega en H4-02.
   @override
-  Widget buildTutorial(BuildContext context, GameHost host) => throw UnimplementedError('Tutorial de Sudoku: H4-02');
+  Widget buildTutorial(BuildContext context, GameHost host) =>
+      SudokuTutorial(onDone: () => Navigator.maybePop(context));
 
-  /// Los ajustes del juego llegan en H4-02.
   @override
-  Widget? buildSettings(BuildContext context) => null;
+  Widget? buildSettings(BuildContext context) => SudokuSettingsView(store: store);
 }
 
 /// Prepara el puzzle (retomado, del reto o generado en otro isolate) y abre

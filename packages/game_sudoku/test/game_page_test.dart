@@ -90,27 +90,80 @@ void main() {
     expect(c.game.valueAt(target), 2);
   });
 
-  testWidgets('pista: coloca un número correcto y descuenta; agotadas, se desactiva', (tester) async {
-    final host = FakeHost(free: 1);
+  testWidgets('pista en 3 pasos: zona, técnica y número, con un solo crédito', (tester) async {
+    final host = FakeHost(free: 2);
     final c = await pumpGame(tester, host: host);
     await tester.tap(find.bySemanticsLabel('Pista'));
     await tester.pumpAndSettle();
-    expect(c.freeHints, 1);
-    final s = c.selected!;
-    expect(c.game.valueAt(s), c.game.puzzle.solution[s]);
-    await tester.tap(find.bySemanticsLabel('Pista'));
-    await tester.pumpAndSettle();
-    expect(c.hintsExhausted, isTrue);
-    expect(tester.getSemantics(find.bySemanticsLabel('Pista')).value, 'Sin más pistas en este puzzle');
+    expect(find.text('Pista · paso 1 de 3'), findsOneWidget);
+    expect(find.textContaining('Hay una deducción en '), findsOneWidget);
+    expect(c.hintSession!.zoneCells, isNotEmpty);
+    await tester.tap(find.text('Ver la técnica'));
+    await tester.pump();
+    expect(find.text('Pista · paso 2 de 3'), findsOneWidget);
+    expect(
+      find.text('Único lugar').evaluate().isNotEmpty || find.text('Único candidato').evaluate().isNotEmpty,
+      isTrue,
+    );
+    final target = c.hintSession!.hint.cell!;
+    expect(c.game.valueAt(target), 0);
+    await tester.tap(find.text('Mostrar el número'));
+    await tester.pump();
+    expect(find.text('Pista · paso 3 de 3'), findsOneWidget);
+    expect(c.game.valueAt(target), c.game.puzzle.solution[target]);
+    await tester.tap(find.text('Entendido'));
+    await tester.pump();
+    expect(c.hintSession, isNull);
+    expect((host.free, c.freeHints), (1, 1));
+    expect(key(1), findsOneWidget);
   });
 
-  testWidgets('pista: si hay un número equivocado, primero lo señala', (tester) async {
+  testWidgets('"Lo intento yo" cierra sin colocar; el crédito ya se usó', (tester) async {
+    final host = FakeHost(free: 2);
+    final c = await pumpGame(tester, host: host);
+    final before = c.game.toJson()['values'];
+    await tester.tap(find.bySemanticsLabel('Pista'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Lo intento yo'));
+    await tester.pump();
+    expect(c.hintSession, isNull);
+    expect(c.game.toJson()['values'], before);
+    expect(host.free, 1);
+  });
+
+  testWidgets('la pista pausa el tiempo mientras está abierta', (tester) async {
+    final c = await pumpGame(tester);
+    await tester.pump(const Duration(seconds: 2));
+    await tester.tap(find.bySemanticsLabel('Pista'));
+    await tester.pumpAndSettle();
+    final opened = c.elapsed;
+    await tester.pump(const Duration(seconds: 5));
+    expect(c.elapsed, opened);
+    await tester.tap(find.text('Lo intento yo'));
+    await tester.pump(const Duration(seconds: 1));
+    expect(c.elapsed, opened + const Duration(seconds: 1));
+  });
+
+  testWidgets('si hay un número equivocado, la pista lo señala primero y se puede borrar', (tester) async {
     final c = await pumpGame(tester);
     final target = emptyCell(c.game);
     c.game.place(target, c.game.puzzle.solution[target] % 9 + 1);
     await tester.tap(find.bySemanticsLabel('Pista'));
     await tester.pumpAndSettle();
-    expect(c.selected, target);
+    expect(find.text('Hay un número que no corresponde'), findsOneWidget);
+    expect(c.hintSession!.target, target);
+    await tester.tap(find.text('Borrar el número'));
+    await tester.pump();
+    expect(c.game.valueAt(target), 0);
+    expect(c.hintSession, isNull);
+  });
+
+  testWidgets('agotadas las pistas, el botón se desactiva con su explicación', (tester) async {
+    final c = await pumpGame(tester, host: FakeHost(free: 0));
+    await tester.tap(find.bySemanticsLabel('Pista'));
+    await tester.pumpAndSettle();
+    expect(c.hintsExhausted, isTrue);
+    expect(tester.getSemantics(find.bySemanticsLabel('Pista')).value, 'Sin más pistas en este puzzle');
   });
 
   testWidgets('temporizador: cuenta, se detiene en pausa y oculta el tablero', (tester) async {
@@ -220,5 +273,13 @@ void main() {
         await expectLater(find.byType(SudokuGamePage), matchesGoldenFile('goldens/sudoku_${brightness.name}.png'));
       });
     }
+
+    testWidgets('pista, paso 2', (tester) async {
+      final c = await pumpGame(tester);
+      await c.hint();
+      c.hintNext();
+      await tester.pumpAndSettle();
+      await expectLater(find.byType(SudokuGamePage), matchesGoldenFile('goldens/sudoku_hint_light.png'));
+    });
   });
 }

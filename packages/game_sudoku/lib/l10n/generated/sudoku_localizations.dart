@@ -283,6 +283,264 @@ abstract class SudokuLocalizations {
   /// In es, this message translates to:
   /// **'Preparando el puzzle'**
   String get preparing;
+
+  /// Encabezado de la hoja de pista.
+  ///
+  /// In es, this message translates to:
+  /// **'Pista · paso {step} de 3'**
+  String hintStep(int step);
+
+  /// Paso 1: señala la zona.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay una deducción en {zone}.'**
+  String hintZone(String zone);
+
+  /// Paso 1: ayuda breve.
+  ///
+  /// In es, this message translates to:
+  /// **'Mira dónde puede ir cada número en esa zona.'**
+  String get hintZoneDetail;
+
+  /// Paso 3: coloca el número.
+  ///
+  /// In es, this message translates to:
+  /// **'Va un {digit} en la fila {row}, columna {column}.'**
+  String hintNumber(int digit, int row, int column);
+
+  /// Cuando la técnica no está implementada y se revela la celda.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta celda se resuelve con una técnica que aún no explicamos.'**
+  String get hintNumberRevealed;
+
+  /// Pista que señala un error del jugador.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay un número que no corresponde'**
+  String get hintErrorTitle;
+
+  /// Detalle de la pista de error.
+  ///
+  /// In es, this message translates to:
+  /// **'Revisa la fila {row}, columna {column}. Puedes corregirlo tú o borrarlo.'**
+  String hintErrorDetail(int row, int column);
+
+  /// Cierra la pista sin avanzar.
+  ///
+  /// In es, this message translates to:
+  /// **'Lo intento yo'**
+  String get hintTryMyself;
+
+  /// Avanza del paso 1 al 2.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver la técnica'**
+  String get hintNextStep;
+
+  /// Avanza del paso 2 al 3.
+  ///
+  /// In es, this message translates to:
+  /// **'Mostrar el número'**
+  String get hintShowNumber;
+
+  /// Borra el número equivocado.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar el número'**
+  String get hintEraseError;
+
+  /// Cierra la pista al terminar.
+  ///
+  /// In es, this message translates to:
+  /// **'Entendido'**
+  String get hintDone;
+
+  /// Zona: una fila.
+  ///
+  /// In es, this message translates to:
+  /// **'la fila {n}'**
+  String zoneRow(int n);
+
+  /// Zona: una columna.
+  ///
+  /// In es, this message translates to:
+  /// **'la columna {n}'**
+  String zoneColumn(int n);
+
+  /// Zona: una caja, por posición (0 arriba a la izquierda, 8 abajo a la derecha).
+  ///
+  /// In es, this message translates to:
+  /// **'{index, select, 0{la caja superior izquierda} 1{la caja superior central} 2{la caja superior derecha} 3{la caja central izquierda} 4{la caja central} 5{la caja central derecha} 6{la caja inferior izquierda} 7{la caja inferior central} other{la caja inferior derecha}}'**
+  String zoneBox(String index);
+
+  /// Dos zonas.
+  ///
+  /// In es, this message translates to:
+  /// **'{a} y {b}'**
+  String zoneTwo(String a, String b);
+
+  /// Tres zonas.
+  ///
+  /// In es, this message translates to:
+  /// **'{a}, {b} y {c}'**
+  String zoneThree(String a, String b, String c);
+
+  /// Nombre de la técnica, por id interno.
+  ///
+  /// In es, this message translates to:
+  /// **'{technique, select, nakedSingle{Único candidato} hiddenSingle{Único lugar} pointing{Intersección en la caja} claiming{Intersección en la línea} nakedPair{Par desnudo} hiddenPair{Par oculto} nakedTriple{Trío desnudo} hiddenTriple{Trío oculto} xWing{X-Wing} xyWing{XY-Wing} other{Swordfish}}'**
+  String techniqueName(String technique);
+
+  /// Explicación de 1 o 2 líneas de la técnica.
+  ///
+  /// In es, this message translates to:
+  /// **'{technique, select, nakedSingle{A esta celda solo le queda un número posible: los demás ya están en su fila, columna o caja.} hiddenSingle{En esta zona, ese número solo cabe en una celda.} pointing{Dentro de la caja, el número solo puede ir en una línea; se descarta del resto de esa fila o columna.} claiming{En la fila o columna, el número solo cabe dentro de una caja; se descarta del resto de la caja.} nakedPair{Dos celdas comparten los mismos dos candidatos; esos números se descartan del resto de la zona.} hiddenPair{Dos números solo caben en las mismas dos celdas; ahí se descartan los demás candidatos.} nakedTriple{Tres celdas reparten entre sí los mismos tres candidatos; se descartan del resto de la zona.} hiddenTriple{Tres números solo caben en las mismas tres celdas; ahí se descartan los demás candidatos.} xWing{Un número forma un rectángulo en dos filas y dos columnas; se descarta del resto de esas columnas.} xyWing{Tres celdas de dos candidatos forman una pinza: el número que comparten las puntas se descarta donde ambas lo ven.} other{Como el X-Wing, pero con tres filas y tres columnas.}}'**
+  String techniqueExplanation(String technique);
+
+  /// Botón siempre visible para salir del tutorial.
+  ///
+  /// In es, this message translates to:
+  /// **'Saltar tutorial'**
+  String get tutorialSkip;
+
+  /// Indicador de pasos del tutorial.
+  ///
+  /// In es, this message translates to:
+  /// **'Paso {step} de 3'**
+  String tutorialStep(int step);
+
+  /// Regla del paso 1 (tablero de 4×4: números del 1 al 4).
+  ///
+  /// In es, this message translates to:
+  /// **'Cada fila tiene todos los números, sin repetir.'**
+  String get tutorialRuleRow;
+
+  /// Regla del paso 2.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada columna también.'**
+  String get tutorialRuleColumn;
+
+  /// Regla del paso 3.
+  ///
+  /// In es, this message translates to:
+  /// **'Y cada caja.'**
+  String get tutorialRuleBox;
+
+  /// Pregunta del tutorial.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Qué número va en la celda marcada?'**
+  String get tutorialAsk;
+
+  /// Error explicado, sin castigo.
+  ///
+  /// In es, this message translates to:
+  /// **'El {digit} ya está en esta fila. Prueba con otro.'**
+  String tutorialWrongRow(int digit);
+
+  /// Error explicado, sin castigo.
+  ///
+  /// In es, this message translates to:
+  /// **'El {digit} ya está en esta columna. Prueba con otro.'**
+  String tutorialWrongColumn(int digit);
+
+  /// Error explicado, sin castigo.
+  ///
+  /// In es, this message translates to:
+  /// **'El {digit} ya está en esta caja. Prueba con otro.'**
+  String tutorialWrongBox(int digit);
+
+  /// Respuesta correcta.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Bien! El {digit} es el único que falta.'**
+  String tutorialRight(int digit);
+
+  /// Avanza al siguiente paso.
+  ///
+  /// In es, this message translates to:
+  /// **'Siguiente'**
+  String get tutorialNext;
+
+  /// Cierra el tutorial al final.
+  ///
+  /// In es, this message translates to:
+  /// **'Empezar a jugar'**
+  String get tutorialStart;
+
+  /// Etiqueta accesible del tablero del tutorial.
+  ///
+  /// In es, this message translates to:
+  /// **'Tablero de práctica de 4 por 4'**
+  String get tutorialBoardLabel;
+
+  /// Título del ajuste de entrada.
+  ///
+  /// In es, this message translates to:
+  /// **'Forma de ingresar números'**
+  String get settingsInput;
+
+  /// Opción: tocar celda y luego número.
+  ///
+  /// In es, this message translates to:
+  /// **'Celda primero'**
+  String get settingsInputCellFirst;
+
+  /// Opción: elegir número y luego celdas.
+  ///
+  /// In es, this message translates to:
+  /// **'Número primero'**
+  String get settingsInputNumberFirst;
+
+  /// Título del ajuste de errores.
+  ///
+  /// In es, this message translates to:
+  /// **'Errores'**
+  String get settingsErrors;
+
+  /// Opción: marcar solo conflictos de regla.
+  ///
+  /// In es, this message translates to:
+  /// **'Números repetidos'**
+  String get settingsErrorsConflicts;
+
+  /// Opción: marcar números que no coinciden con la solución.
+  ///
+  /// In es, this message translates to:
+  /// **'Contra la solución'**
+  String get settingsErrorsSolution;
+
+  /// Opción: no marcar errores.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin indicación'**
+  String get settingsErrorsNone;
+
+  /// Ayuda bajo el ajuste de errores.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay límite de errores: solo cambia cómo se señalan.'**
+  String get settingsErrorsHelp;
+
+  /// Ajuste: borra el candidato en la fila, columna y caja.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar notas al colocar un número'**
+  String get settingsRemoveNotes;
+
+  /// Ajuste: resaltar todas las apariciones.
+  ///
+  /// In es, this message translates to:
+  /// **'Resaltar el mismo número'**
+  String get settingsHighlightSame;
+
+  /// Abre el tutorial.
+  ///
+  /// In es, this message translates to:
+  /// **'Cómo se juega'**
+  String get settingsTutorial;
 }
 
 class _SudokuLocalizationsDelegate extends LocalizationsDelegate<SudokuLocalizations> {

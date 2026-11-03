@@ -8,6 +8,7 @@ import '../../l10n/generated/sudoku_localizations.dart';
 import '../controller.dart';
 import 'board.dart';
 import 'controls.dart';
+import 'hint_panel.dart';
 
 /// Pantalla de partida de Sudoku. Sin anuncios.
 ///
@@ -154,14 +155,16 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
                         ),
                   Padding(
                     padding: const EdgeInsets.only(top: 16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SudokuTools(controller: _c, freeHintsLeft: _c.host.freeHintsLeft),
-                        const SizedBox(height: 12),
-                        SudokuKeypad(controller: _c, keyHeight: compact ? 56 : 68),
-                      ],
-                    ),
+                    child: _c.hintSession != null
+                        ? SudokuHintPanel(controller: _c)
+                        : Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SudokuTools(controller: _c, freeHintsLeft: _c.host.freeHintsLeft),
+                              const SizedBox(height: 12),
+                              SudokuKeypad(controller: _c, keyHeight: compact ? 56 : 68),
+                            ],
+                          ),
                   ),
                 ],
               ),
