@@ -15,6 +15,7 @@ packages/puzzle_core/         Dart puro: PRNG determinista, semillas, fechas, ti
 packages/game_api/            Contratos GameModule y GameHost
 packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, partida, benchmark)
 packages/sudoku_engine/       Dart puro: Sudoku (generador, solver humano, calificación, pistas, benchmark)
+packages/wordsearch_engine/   Dart puro: Sopa de letras (normalización es/en, generación validada, partida, benchmark)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura
