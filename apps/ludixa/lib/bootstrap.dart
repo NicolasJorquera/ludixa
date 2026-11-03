@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'app/app.dart';
 import 'app/environment.dart';
 import 'features/games/game_settings.dart';
+import 'features/play/last_difficulty.dart';
+import 'features/play/play_providers.dart';
 import 'features/settings/application/settings_controller.dart';
 import 'features/settings/data/settings_repository.dart';
 
@@ -19,6 +21,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
   final sudokuSettings = await PrefsSudokuSettingsStore.create();
   final minesweeperSettings = await PrefsMinesweeperSettingsStore.create();
   final wordSearchSettings = await PrefsWordSearchSettingsStore.create();
+  final lastDifficulty = await PrefsLastDifficultyStore.create();
   runApp(
     ProviderScope(
       overrides: [
@@ -27,6 +30,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
         sudokuSettingsStoreProvider.overrideWithValue(sudokuSettings),
         minesweeperSettingsStoreProvider.overrideWithValue(minesweeperSettings),
         wordSearchSettingsStoreProvider.overrideWithValue(wordSearchSettings),
+        lastDifficultyStoreProvider.overrideWithValue(lastDifficulty),
       ],
       child: const LudixaApp(),
     ),

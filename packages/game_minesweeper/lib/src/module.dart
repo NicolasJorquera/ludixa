@@ -95,6 +95,7 @@ class MinesweeperModule implements GameModule {
     }
     return MinesweeperPage(
       controller: controller,
+      onResume: controller.reloadSettings,
       levelLabel: MinesweeperLevels.label(MinesLocalizations.of(context), MinesweeperLevels.of(controller.game.spec)),
     );
   }

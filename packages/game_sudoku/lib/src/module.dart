@@ -69,8 +69,13 @@ class SudokuModule implements GameModule {
   DailySpec dailySpec(LocalDay day) => DailySpec(difficulty: Difficulty(DailyLineup.of(day).sudoku.name));
 
   @override
-  Widget buildGame(BuildContext context, PuzzleRequest request, GameHost host) =>
-      SudokuGameLoader(request: request, host: host, settings: store.load(), generationBudget: generationBudget);
+  Widget buildGame(BuildContext context, PuzzleRequest request, GameHost host) => SudokuGameLoader(
+    request: request,
+    host: host,
+    settings: store.load(),
+    loadSettings: store.load,
+    generationBudget: generationBudget,
+  );
 
   @override
   Widget buildTutorial(BuildContext context, GameHost host) =>
@@ -90,7 +95,11 @@ class SudokuGameLoader extends StatefulWidget {
     this.settings = const SudokuSettings(),
     this.generationBudget = const Duration(seconds: 2),
     this.onSolved,
+    this.loadSettings,
   });
+
+  /// Relee los ajustes al reanudar (pudieron cambiar desde la pausa).
+  final SudokuSettings Function()? loadSettings;
 
   final PuzzleRequest request;
   final GameHost host;
@@ -143,6 +152,7 @@ class _SudokuGameLoaderState extends State<SudokuGameLoader> {
           controller: controller,
           levelLabel: SudokuModule.levelLabel(l10n, controller.game.puzzle.difficulty),
           onSolved: widget.onSolved,
+          onResume: widget.loadSettings == null ? null : () => controller.applySettings(widget.loadSettings!()),
         );
       },
     );

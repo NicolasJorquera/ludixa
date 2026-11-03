@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:game_api/game_api.dart';
 
 import '../../l10n/generated/sudoku_localizations.dart';
 import '../controller.dart';
@@ -16,7 +17,14 @@ import 'hint_panel.dart';
 /// herramientas y teclado. Al resolver: ola de celebración (salvo con
 /// "Reducir animaciones"), luego informa el resultado y llama a [onSolved].
 class SudokuGamePage extends StatefulWidget {
-  const SudokuGamePage({super.key, required this.controller, required this.levelLabel, this.onSolved, this.onExit});
+  const SudokuGamePage({
+    super.key,
+    required this.controller,
+    required this.levelLabel,
+    this.onSolved,
+    this.onExit,
+    this.onResume,
+  });
 
   final SudokuController controller;
 
@@ -29,6 +37,10 @@ class SudokuGamePage extends StatefulWidget {
   /// Botón atrás. Por defecto, cierra la ruta.
   final VoidCallback? onExit;
 
+  /// Antes de reanudar tras la pausa: recarga los ajustes, que pudieron
+  /// cambiar desde la pantalla de pausa.
+  final VoidCallback? onResume;
+
   @override
   State<SudokuGamePage> createState() => _SudokuGamePageState();
 }
@@ -38,7 +50,7 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
   static const _maxCellExtent = 40.0;
 
   late final AnimationController _celebration;
-  late final AppLifecycleListener _lifecycle;
+  late final GameLifecycle _lifecycle;
   Timer? _timer;
   bool _celebrating = false;
 
@@ -51,13 +63,14 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
     _c.addListener(_onChange);
     _startTimer();
     // Al salir de la app el tiempo se detiene y la partida queda guardada.
-    _lifecycle = AppLifecycleListener(
-      onHide: () {
+    _lifecycle = GameLifecycle(
+      onLeave: () {
         _timer?.cancel();
         unawaited(_c.host.saveSnapshot(_c.snapshot()));
       },
-      onShow: _startTimer,
-    );
+      onReturn: _startTimer,
+      onAutoPause: _openPause,
+    )..attach();
   }
 
   @override
@@ -98,6 +111,26 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
     widget.onSolved?.call();
   }
 
+  /// Pausa del host: el tablero queda oculto y el tiempo detenido.
+  Future<void> _openPause() async {
+    if (_c.paused || _c.solved) return;
+    _c.pause();
+    final choice = await _c.host.showPause();
+    if (!mounted) return;
+    switch (choice) {
+      case PauseChoice.resume:
+        widget.onResume?.call();
+        _c.resume();
+      case PauseChoice.restart:
+        widget.onResume?.call();
+        _c.restart();
+        _c.resume();
+      case PauseChoice.exit:
+        // La partida quedó guardada al pausar.
+        widget.onExit != null ? widget.onExit!() : await Navigator.maybePop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = SudokuLocalizations.of(context);
@@ -131,7 +164,7 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
           IconButton(
             tooltip: _c.paused ? l10n.resume : l10n.pause,
             icon: LudixaIcon(_c.paused ? LudixaIcons.play : LudixaIcons.pause),
-            onPressed: _c.solved ? null : (_c.paused ? _c.resume : _c.pause),
+            onPressed: _c.solved ? null : _openPause,
           ),
         ],
       ),

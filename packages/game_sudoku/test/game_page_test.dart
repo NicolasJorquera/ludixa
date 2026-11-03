@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -166,20 +167,54 @@ void main() {
     expect(tester.getSemantics(find.bySemanticsLabel('Pista')).value, 'Sin más pistas en este puzzle');
   });
 
-  testWidgets('temporizador: cuenta, se detiene en pausa y oculta el tablero', (tester) async {
-    final c = await pumpGame(tester);
+  testWidgets('pausa del host: tiempo detenido y tablero oculto hasta reanudar', (tester) async {
+    final host = FakeHost()..pauseGate = Completer();
+    final c = await pumpGame(tester, host: host);
     await tester.pump(const Duration(seconds: 3));
-    expect(c.elapsed, const Duration(seconds: 3));
     expect(find.bySemanticsLabel('Tiempo 0:03'), findsOneWidget);
     await tester.tap(find.byTooltip('Pausar'));
     await tester.pump();
     await tester.pump(const Duration(seconds: 5));
-    expect(c.elapsed, const Duration(seconds: 3));
+    expect((host.pauses, c.elapsed), (1, const Duration(seconds: 3)));
     expect(find.text('Tablero oculto en pausa'), findsOneWidget);
     expect(cell(0), findsNothing);
-    await tester.tap(find.text('Reanudar'));
+    host.pauseGate!.complete(PauseChoice.resume);
+    await tester.pump();
     await tester.pump(const Duration(seconds: 1));
     expect(c.elapsed, const Duration(seconds: 4));
+  });
+
+  testWidgets('reiniciar desde la pausa empieza el mismo puzzle de cero', (tester) async {
+    final host = FakeHost()..pauseAnswer = PauseChoice.restart;
+    final c = await pumpGame(tester, host: host);
+    final target = emptyCell(c.game);
+    final givens = c.game.toJson()['givens'];
+    await tester.tap(cell(target));
+    await tester.tap(key(5));
+    await tester.pump(const Duration(seconds: 4));
+    await tester.tap(find.byTooltip('Pausar'));
+    await tester.pumpAndSettle();
+    expect(c.game.valueAt(target), 0);
+    expect(c.game.toJson()['givens'], givens);
+    expect(c.elapsed, Duration.zero);
+  });
+
+  testWidgets('volver tras más de 60 s fuera abre la pausa; menos, no', (tester) async {
+    final host = FakeHost();
+    await pumpGame(tester, host: host);
+    Future<void> away(Duration d) async {
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+      await tester.pump(d);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+    }
+
+    await away(const Duration(seconds: 30));
+    expect(host.pauses, 0);
+    await away(const Duration(seconds: 61));
+    expect(host.pauses, 1);
   });
 
   testWidgets('con la app en segundo plano el tiempo no corre', (tester) async {

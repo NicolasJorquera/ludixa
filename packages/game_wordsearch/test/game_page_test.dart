@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:design_system/design_system.dart';
@@ -104,7 +105,8 @@ void main() {
   });
 
   testWidgets('pausa: oculta la grilla y detiene el tiempo', (tester) async {
-    final c = await pumpGame(tester);
+    final host = FakeHost()..pauseGate = Completer();
+    final c = await pumpGame(tester, controller: controllerFor(host: host));
     await tester.pump(const Duration(seconds: 2));
     await tester.tap(find.byTooltip('Pausar'));
     await tester.pump();
@@ -112,6 +114,17 @@ void main() {
     expect(c.elapsed, const Duration(seconds: 2));
     expect(find.text('Tablero oculto en pausa'), findsOneWidget);
     expect(cellFinder(c, 0), findsNothing);
+  });
+
+  testWidgets('reiniciar desde la pausa: la misma sopa, sin palabras encontradas', (tester) async {
+    final host = FakeHost()..pauseAnswer = PauseChoice.restart;
+    final c = await pumpGame(tester, controller: controllerFor(host: host));
+    final p = c.puzzle.placements.first;
+    await dragWord(tester, c, p.start, p.end);
+    await tester.tap(find.byTooltip('Pausar'));
+    await tester.pumpAndSettle();
+    expect(c.game.foundOrder, isEmpty);
+    expect(c.puzzle.letters, isNotEmpty);
   });
 
   testWidgets('pantallas de menos de 700 dp de alto: la lista se pliega', (tester) async {

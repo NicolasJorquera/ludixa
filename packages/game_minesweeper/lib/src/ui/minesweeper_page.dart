@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
+import 'package:game_api/game_api.dart';
 import 'package:minesweeper_engine/minesweeper_engine.dart';
 
 import '../../l10n/generated/mines_localizations.dart';
@@ -21,6 +22,7 @@ class MinesweeperPage extends StatefulWidget {
     this.onWon,
     this.onNewBoard,
     this.onExit,
+    this.onResume,
   });
 
   final MinesweeperController controller;
@@ -29,9 +31,13 @@ class MinesweeperPage extends StatefulWidget {
   /// Al ganar, después de informar el resultado (la app abre el Resultado).
   final VoidCallback? onWon;
 
-  /// "Tablero nuevo" tras perder.
+  /// "Tablero nuevo" tras perder. Por defecto, [GameHost.playAgain].
   final VoidCallback? onNewBoard;
   final VoidCallback? onExit;
+
+  /// Antes de reanudar tras la pausa: recarga los ajustes, que pudieron
+  /// cambiar desde la pantalla de pausa.
+  final VoidCallback? onResume;
 
   @override
   State<MinesweeperPage> createState() => _MinesweeperPageState();
@@ -42,7 +48,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
   static const _comfortable = 36.0;
 
   final _zoom = GlobalKey<ZoomableBoardState>();
-  late final AppLifecycleListener _lifecycle;
+  late final GameLifecycle _lifecycle;
   Timer? _timer;
   bool _defeatCollapsed = false;
   bool _wonHandled = false;
@@ -55,13 +61,14 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
     super.initState();
     _c.addListener(_onChange);
     _startTimer();
-    _lifecycle = AppLifecycleListener(
-      onHide: () {
+    _lifecycle = GameLifecycle(
+      onLeave: () {
         _timer?.cancel();
         unawaited(_c.host.saveSnapshot(_c.snapshot()));
       },
-      onShow: _startTimer,
-    );
+      onReturn: _startTimer,
+      onAutoPause: _openPause,
+    )..attach();
   }
 
   @override
@@ -126,6 +133,26 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
     then?.call();
   }
 
+  /// Pausa del host: el tablero queda oculto y el tiempo detenido.
+  Future<void> _openPause() async {
+    if (_c.paused || _c.game.isOver) return;
+    _c.pause();
+    final choice = await _c.host.showPause();
+    if (!mounted) return;
+    switch (choice) {
+      case PauseChoice.resume:
+        widget.onResume?.call();
+        _c.resume();
+      case PauseChoice.restart:
+        widget.onResume?.call();
+        _c.restart();
+        _c.resume();
+      case PauseChoice.exit:
+        // La partida quedó guardada al pausar.
+        widget.onExit != null ? widget.onExit!() : await Navigator.maybePop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = MinesLocalizations.of(context);
@@ -176,7 +203,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
           IconButton(
             tooltip: _c.paused ? l10n.resume : l10n.pause,
             icon: LudixaIcon(_c.paused ? LudixaIcons.play : LudixaIcons.pause),
-            onPressed: _c.game.isOver ? null : (_c.paused ? _c.resume : _c.pause),
+            onPressed: _c.game.isOver ? null : _openPause,
           ),
         ],
       ),
@@ -251,7 +278,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
                   collapsed: _defeatCollapsed,
                   onToggle: () => setState(() => _defeatCollapsed = !_defeatCollapsed),
                   onRetry: () => _c.retrySameBoard(),
-                  onNewBoard: () => _leaveDefeat(widget.onNewBoard),
+                  onNewBoard: () => _leaveDefeat(widget.onNewBoard ?? _c.host.playAgain),
                 )
               else if (_c.hint != null)
                 _HintPanel(controller: _c, onApply: () => _handle(Future.value(_c.applyHint())))

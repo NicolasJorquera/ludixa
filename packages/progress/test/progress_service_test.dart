@@ -110,6 +110,20 @@ void main() {
       expect((await repo.streak()).current, 0);
     });
 
+    test('una instantánea guarda el estado y el tiempo de la partida en curso', () async {
+      final running = SessionRecord(
+        id: 'y',
+        game: GameId.sudoku,
+        difficulty: const Difficulty('easy'),
+        mode: PuzzleMode.free,
+        startedAt: at('2026-11-02'),
+      );
+      await service.saveInProgress(running.withState({'v': 1}, const Duration(seconds: 9)));
+      final saved = (await repo.session('y'))!;
+      expect(saved.state, {'v': 1});
+      expect((saved.elapsed, saved.status), (const Duration(seconds: 9), SessionStatus.inProgress));
+    });
+
     test('una partida en curso no se registra como resultado', () async {
       final running = SessionRecord(
         id: 'x',

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -23,6 +25,22 @@ class FakeHost implements GameHost {
     free--;
     return const HintGranted(HintSource.free);
   }
+
+  int pauses = 0;
+  PauseChoice pauseAnswer = PauseChoice.resume;
+  int playAgainRequests = 0;
+
+  /// Si no es null, la pausa queda abierta hasta completarla.
+  Completer<PauseChoice>? pauseGate;
+
+  @override
+  Future<PauseChoice> showPause() {
+    pauses++;
+    return pauseGate?.future ?? Future.value(pauseAnswer);
+  }
+
+  @override
+  void playAgain() => playAgainRequests++;
 
   @override
   Future<RescueOutcome> requestRescue() async => RescueOutcome.unavailable;

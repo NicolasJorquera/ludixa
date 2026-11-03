@@ -44,6 +44,17 @@ final class HintDenied extends HintGrant {
 /// Respuesta del host a un pedido de rescate (deshacer el error fatal).
 enum RescueOutcome { granted, declined, unavailable }
 
+/// Lo que eligió el jugador en la pantalla de pausa.
+enum PauseChoice {
+  resume,
+
+  /// Empezar este mismo puzzle de cero (el jugador ya lo confirmó).
+  restart,
+
+  /// "Guardar y salir": la partida queda guardada para continuarla.
+  exit,
+}
+
 /// Servicios que la app ofrece a un módulo de juego.
 ///
 /// El módulo no sabe si una pista sale de un crédito gratis, de un video o de
@@ -64,4 +75,12 @@ abstract interface class GameHost {
 
   /// Informa el resultado final. Se llama una sola vez por partida.
   Future<void> reportResult(GameResult result);
+
+  /// Muestra la pantalla de pausa (tablero oculto, reanudar, reiniciar, cómo
+  /// se juega, ajustes del juego, guardar y salir) y devuelve la elección.
+  /// El juego ya detuvo su tiempo; los ajustes pueden haber cambiado.
+  Future<PauseChoice> showPause();
+
+  /// Otra partida del mismo juego y nivel ("Tablero nuevo" del Buscaminas).
+  void playAgain();
 }

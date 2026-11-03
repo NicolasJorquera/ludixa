@@ -55,13 +55,14 @@ final class HintSession {
 /// partida se retome exactamente donde quedó.
 class SudokuController extends ChangeNotifier {
   SudokuController({
-    required this.game,
+    required SudokuGame game,
     required this.host,
     this.settings = const SudokuSettings(),
     Duration elapsed = Duration.zero,
     this.freeHints = 0,
     this.rewardedHints = 0,
-  }) : _elapsed = elapsed {
+  }) : _game = game,
+       _elapsed = elapsed {
     game.removeNotesOnPlace = settings.removeNotesOnPlace;
   }
 
@@ -82,7 +83,8 @@ class SudokuController extends ChangeNotifier {
     );
   }
 
-  final SudokuGame game;
+  SudokuGame _game;
+  SudokuGame get game => _game;
   final GameHost host;
   SudokuSettings settings;
 
@@ -249,6 +251,29 @@ class SudokuController extends ChangeNotifier {
     _selected = cell;
     if (game.valueAt(cell) != hint.digit) game.place(cell, hint.digit!);
     _moved();
+  }
+
+  /// Empieza el mismo puzzle de cero ("Reiniciar" en la pausa).
+  void restart() {
+    _game = SudokuGame(_game.puzzle, removeNotesOnPlace: settings.removeNotesOnPlace);
+    _selected = null;
+    _activeDigit = null;
+    _notesMode = false;
+    _hint = null;
+    _hintsExhausted = false;
+    _elapsed = Duration.zero;
+    freeHints = 0;
+    rewardedHints = 0;
+    _saveSnapshot();
+    notifyListeners();
+  }
+
+  /// Aplica ajustes nuevos (por ejemplo, cambiados desde la pausa).
+  void applySettings(SudokuSettings next) {
+    settings = next;
+    _game.removeNotesOnPlace = next.removeNotesOnPlace;
+    if (next.inputMode == SudokuInputMode.cellFirst) _activeDigit = null;
+    notifyListeners();
   }
 
   void pause() {

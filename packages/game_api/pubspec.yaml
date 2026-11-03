@@ -8,6 +8,7 @@ environment:
 resolution: workspace
 
 dependencies:
+  clock: ^1.1.1
   flutter:
     sdk: flutter
   puzzle_core:

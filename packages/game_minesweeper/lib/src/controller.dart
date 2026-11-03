@@ -223,6 +223,28 @@ class MinesweeperController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Empieza el mismo tablero de cero ("Reiniciar" en la pausa). Sin tablero
+  /// todavía (antes del primer toque) solo reinicia el tiempo.
+  void restart() {
+    final start = _start;
+    if (!_game.needsBoard && start != null) _game = _game.replay(start: start);
+    _elapsed = Duration.zero;
+    _hint = null;
+    _hintsExhausted = false;
+    _rescueUnavailable = false;
+    freeHints = 0;
+    rewardedHints = 0;
+    _mode = settings.tapAction;
+    _saveSnapshot();
+    notifyListeners();
+  }
+
+  /// Relee los ajustes guardados (por ejemplo, cambiados desde la pausa).
+  void reloadSettings() {
+    settings = store.load();
+    notifyListeners();
+  }
+
   void pause() {
     if (_paused || _game.isOver) return;
     _paused = true;

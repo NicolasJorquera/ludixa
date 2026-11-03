@@ -12,14 +12,15 @@ import 'settings.dart';
 /// direcciones, o toque inicial y final), el tiempo, la pista y el host.
 class WordSearchController extends ChangeNotifier {
   WordSearchController({
-    required this.game,
+    required WordSearchGame game,
     required this.host,
     required this.themeNames,
     this.settings = const WordSearchSettings(),
     Duration elapsed = Duration.zero,
     this.freeHints = 0,
     this.rewardedHints = 0,
-  }) : _elapsed = elapsed;
+  }) : _game = game,
+       _elapsed = elapsed;
 
   static const int snapshotVersion = 1;
 
@@ -41,7 +42,8 @@ class WordSearchController extends ChangeNotifier {
     );
   }
 
-  final WordSearchGame game;
+  WordSearchGame _game;
+  WordSearchGame get game => _game;
   final GameHost host;
 
   /// Nombres de los temas, en el idioma de las palabras.
@@ -190,6 +192,29 @@ class WordSearchController extends ChangeNotifier {
         _hintWord = hint.wordIndex;
         _saveSnapshot();
     }
+    notifyListeners();
+  }
+
+  /// Aplica ajustes nuevos (por ejemplo, cambiados desde la pausa).
+  void applySettings(WordSearchSettings next) {
+    settings = next;
+    _anchor = null;
+    _end = null;
+    notifyListeners();
+  }
+
+  /// Empieza la misma sopa de cero ("Reiniciar" en la pausa).
+  void restart() {
+    _game = WordSearchGame(_game.puzzle);
+    _anchor = null;
+    _end = null;
+    _hintCell = null;
+    _hintWord = null;
+    _hintsExhausted = false;
+    _elapsed = Duration.zero;
+    freeHints = 0;
+    rewardedHints = 0;
+    _saveSnapshot();
     notifyListeners();
   }
 
