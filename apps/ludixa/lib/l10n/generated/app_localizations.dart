@@ -248,6 +248,12 @@ abstract class AppLocalizations {
   /// **'Probar Buscaminas (desarrollo)'**
   String get settingsDevMinesweeper;
 
+  /// Entrada para jugar una Sopa de letras de prueba. Solo en desarrollo.
+  ///
+  /// In es, this message translates to:
+  /// **'Probar Sopa de letras (desarrollo)'**
+  String get settingsDevWordSearch;
+
   /// Entrada que abre las licencias de las dependencias.
   ///
   /// In es, this message translates to:

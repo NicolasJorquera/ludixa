@@ -52,6 +52,8 @@
   "@settingsDevSudoku": {"description": "Entrada para jugar una partida de Sudoku de prueba. Solo en desarrollo."},
   "settingsDevMinesweeper": "Probar Buscaminas (desarrollo)",
   "@settingsDevMinesweeper": {"description": "Entrada para jugar una partida de Buscaminas de prueba. Solo en desarrollo."},
+  "settingsDevWordSearch": "Probar Sopa de letras (desarrollo)",
+  "@settingsDevWordSearch": {"description": "Entrada para jugar una Sopa de letras de prueba. Solo en desarrollo."},
   "settingsLicenses": "Licencias de código abierto",
   "@settingsLicenses": {"description": "Entrada que abre las licencias de las dependencias."}
 }

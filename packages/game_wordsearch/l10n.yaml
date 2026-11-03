@@ -1,0 +1,8 @@
+arb-dir: lib/l10n
+template-arb-file: words_es.arb
+output-dir: lib/l10n/generated
+output-localization-file: words_localizations.dart
+output-class: WordsLocalizations
+nullable-getter: false
+required-resource-attributes: true
+format: true

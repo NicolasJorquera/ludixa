@@ -69,6 +69,8 @@ class SettingsPage extends ConsumerWidget {
             LudixaListRow(title: l10n.settingsDevSudoku, onTap: () => context.go(AppRoutes.devSudoku)),
           if (!environment.isProduction)
             LudixaListRow(title: l10n.settingsDevMinesweeper, onTap: () => context.go(AppRoutes.devMinesweeper)),
+          if (!environment.isProduction)
+            LudixaListRow(title: l10n.settingsDevWordSearch, onTap: () => context.go(AppRoutes.devWordSearch)),
         ],
       ),
     );

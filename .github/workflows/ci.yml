@@ -29,7 +29,7 @@ jobs:
           git diff --exit-code -- lib/l10n || (echo "::error::Regenera los idiomas: dart run tool/pseudo_l10n.dart && flutter gen-l10n" && exit 1)
       - name: Textos de los juegos al día
         run: |
-          for game in game_sudoku game_minesweeper; do
+          for game in game_sudoku game_minesweeper game_wordsearch; do
             (cd packages/$game && flutter gen-l10n)
           done
           git diff --exit-code -- 'packages/game_*/lib/l10n' || (echo "::error::Regenera los textos del juego: flutter gen-l10n en su paquete" && exit 1)

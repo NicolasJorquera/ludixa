@@ -127,7 +127,10 @@ class PuzzleGrid extends StatelessWidget {
                         top: dimensions.rowOf(i) * pitch,
                         width: extent,
                         height: extent,
+                        // Nodo propio por celda aunque no tenga acciones (selección
+                        // por arrastre): así el lector la recorre una a una.
                         child: Semantics(
+                          container: true,
                           label: semanticLabelFor(i),
                           button: onCellTap != null,
                           onTap: onCellTap == null ? null : () => onCellTap!(i),

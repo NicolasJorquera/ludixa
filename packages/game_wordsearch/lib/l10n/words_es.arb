@@ -1,0 +1,304 @@
+{
+  "@@locale": "es",
+  "gameName": "Sopa de letras",
+  "@gameName": {
+    "description": "Nombre del juego."
+  },
+  "levelEasy": "Fácil",
+  "@levelEasy": {
+    "description": "Dificultad."
+  },
+  "levelMedium": "Medio",
+  "@levelMedium": {
+    "description": "Dificultad."
+  },
+  "levelHard": "Difícil",
+  "@levelHard": {
+    "description": "Dificultad."
+  },
+  "levelExpert": "Experto",
+  "@levelExpert": {
+    "description": "Dificultad."
+  },
+  "levelEasyDescription": "8×8 · 6 palabras · derecha y abajo",
+  "@levelEasyDescription": {
+    "description": "Hoja de dificultad."
+  },
+  "levelMediumDescription": "10×10 · 9 palabras · también en diagonal",
+  "@levelMediumDescription": {
+    "description": "Hoja de dificultad."
+  },
+  "levelHardDescription": "12×12 · 12 palabras · en las 8 direcciones",
+  "@levelHardDescription": {
+    "description": "Hoja de dificultad."
+  },
+  "levelExpertDescription": "14×14 · 15 palabras · con señuelos",
+  "@levelExpertDescription": {
+    "description": "Hoja de dificultad."
+  },
+  "back": "Volver",
+  "@back": {
+    "description": "Salir de la partida."
+  },
+  "pause": "Pausar",
+  "@pause": {
+    "description": "Pausar."
+  },
+  "resume": "Reanudar",
+  "@resume": {
+    "description": "Reanudar."
+  },
+  "pausedBoard": "Tablero oculto en pausa",
+  "@pausedBoard": {
+    "description": "Tablero oculto en pausa."
+  },
+  "elapsed": "Tiempo {time}",
+  "@elapsed": {
+    "description": "Etiqueta accesible del temporizador.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "wordsCount": "{found} de {total}",
+  "@wordsCount": {
+    "description": "Contador de palabras encontradas.",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "wordsCountLabel": "{found} de {total} palabras encontradas",
+  "@wordsCountLabel": {
+    "description": "Etiqueta accesible del contador.",
+    "placeholders": {
+      "found": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "wordsShow": "Ver palabras",
+  "@wordsShow": {
+    "description": "Despliega la lista en pantallas bajas."
+  },
+  "wordsHide": "Ocultar palabras",
+  "@wordsHide": {
+    "description": "Pliega la lista."
+  },
+  "wordFound": "{word}, encontrada",
+  "@wordFound": {
+    "description": "Palabra de la lista ya encontrada.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "wordPending": "{word}, por encontrar",
+  "@wordPending": {
+    "description": "Palabra de la lista pendiente.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "announceFound": "Encontraste {word}",
+  "@announceFound": {
+    "description": "Anuncio al encontrar una palabra.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "announceAll": "¡Encontraste todas las palabras!",
+  "@announceAll": {
+    "description": "Anuncio al terminar."
+  },
+  "hint": "Pista",
+  "@hint": {
+    "description": "Herramienta pista."
+  },
+  "hintsLeft": "{count, plural, =0{sin pistas gratis} =1{queda 1 gratis} other{quedan {count} gratis}}",
+  "@hintsLeft": {
+    "description": "Pistas gratis restantes.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noMoreHints": "Sin más pistas en esta sopa",
+  "@noMoreHints": {
+    "description": "Botón pista desactivado."
+  },
+  "hintAnnounce": "Una palabra empieza en la fila {row}, columna {column}",
+  "@hintAnnounce": {
+    "description": "Anuncio de la pista.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "column": {
+        "type": "int"
+      }
+    }
+  },
+  "zoomIn": "Acercar",
+  "@zoomIn": {
+    "description": "Botón de zoom."
+  },
+  "zoomOut": "Ajustar al ancho",
+  "@zoomOut": {
+    "description": "Botón de zoom."
+  },
+  "tapModeStart": "Toca la letra inicial",
+  "@tapModeStart": {
+    "description": "Modo de toque: esperando la primera letra."
+  },
+  "tapModeEnd": "Ahora toca la letra final",
+  "@tapModeEnd": {
+    "description": "Modo de toque: esperando la última letra."
+  },
+  "boardLabel": "Sopa de letras, {size} por {size}",
+  "@boardLabel": {
+    "description": "Etiqueta accesible de la grilla.",
+    "placeholders": {
+      "size": {
+        "type": "int"
+      }
+    }
+  },
+  "cellLabel": "Fila {row}, columna {column}, {letter}{state}",
+  "@cellLabel": {
+    "description": "Etiqueta de una celda. state empieza con coma o está vacío.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "column": {
+        "type": "int"
+      },
+      "letter": {
+        "type": "String"
+      },
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "cellInWord": ", en una palabra encontrada",
+  "@cellInWord": {
+    "description": "Estado de la celda."
+  },
+  "cellSelected": ", seleccionada",
+  "@cellSelected": {
+    "description": "Estado de la celda."
+  },
+  "cellHint": ", inicio de una palabra (pista)",
+  "@cellHint": {
+    "description": "Estado de la celda."
+  },
+  "tutorialSkip": "Saltar tutorial",
+  "@tutorialSkip": {
+    "description": "Siempre visible."
+  },
+  "tutorialStep": "Paso {step} de 3",
+  "@tutorialStep": {
+    "description": "Indicador de pasos.",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialRuleDrag": "Arrastra el dedo sobre las letras de una palabra.",
+  "@tutorialRuleDrag": {
+    "description": "Regla del paso 1."
+  },
+  "tutorialTaskDrag": "Encuentra SOL, de izquierda a derecha.",
+  "@tutorialTaskDrag": {
+    "description": "Tarea del paso 1 (palabra de 3 letras)."
+  },
+  "tutorialRuleDirections": "Las palabras van en recta: también en diagonal o al revés.",
+  "@tutorialRuleDirections": {
+    "description": "Regla del paso 2."
+  },
+  "tutorialTaskDirections": "Encuentra MAR: está en diagonal.",
+  "@tutorialTaskDirections": {
+    "description": "Tarea del paso 2."
+  },
+  "tutorialRuleList": "La lista dice qué falta. Las encontradas se tachan.",
+  "@tutorialRuleList": {
+    "description": "Regla del paso 3."
+  },
+  "tutorialTaskList": "Encuentra la palabra que falta en la lista.",
+  "@tutorialTaskList": {
+    "description": "Tarea del paso 3."
+  },
+  "tutorialWrong": "Esa no es la palabra. Prueba de nuevo: no pasa nada.",
+  "@tutorialWrong": {
+    "description": "Error explicado, sin castigo."
+  },
+  "tutorialRight": "¡Bien hecho!",
+  "@tutorialRight": {
+    "description": "Respuesta correcta."
+  },
+  "tutorialNext": "Siguiente",
+  "@tutorialNext": {
+    "description": "Siguiente paso."
+  },
+  "tutorialStart": "Empezar a jugar",
+  "@tutorialStart": {
+    "description": "Termina el tutorial."
+  },
+  "tutorialBoardLabel": "Sopa de práctica de 6 por 6",
+  "@tutorialBoardLabel": {
+    "description": "Etiqueta del tablero del tutorial."
+  },
+  "settingsSelection": "Cómo se seleccionan las palabras",
+  "@settingsSelection": {
+    "description": "Ajuste de selección."
+  },
+  "settingsSelectionDrag": "Arrastrar",
+  "@settingsSelectionDrag": {
+    "description": "Opción: arrastrar."
+  },
+  "settingsSelectionTap": "Tocar inicio y final",
+  "@settingsSelectionTap": {
+    "description": "Opción: tocar primera y última letra."
+  },
+  "settingsSelectionHelp": "Con TalkBack se usa siempre tocar inicio y final.",
+  "@settingsSelectionHelp": {
+    "description": "Ayuda del ajuste."
+  },
+  "settingsLanguage": "Idioma de las palabras",
+  "@settingsLanguage": {
+    "description": "Ajuste de idioma de la sopa."
+  },
+  "settingsLanguageApp": "El de la app",
+  "@settingsLanguageApp": {
+    "description": "Opción: seguir el idioma de la app."
+  },
+  "settingsLanguageSpanish": "Español",
+  "@settingsLanguageSpanish": {
+    "description": "Opción."
+  },
+  "settingsLanguageEnglish": "Inglés",
+  "@settingsLanguageEnglish": {
+    "description": "Opción."
+  },
+  "settingsTutorial": "Cómo se juega",
+  "@settingsTutorial": {
+    "description": "Abre el tutorial."
+  }
+}
