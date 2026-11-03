@@ -13,3 +13,4 @@ workspace:
   - packages/minesweeper_engine
   - packages/design_system
   - packages/sudoku_engine
+  - packages/wordsearch_engine
