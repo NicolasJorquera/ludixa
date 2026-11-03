@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../features/daily/daily_page.dart';
 import '../features/dev/dev_minesweeper_page.dart';
 import '../features/dev/dev_sudoku_page.dart';
+import '../features/dev/dev_wordsearch_page.dart';
 import '../features/home/home_page.dart';
 import '../features/progress/progress_page.dart';
 import '../features/settings/presentation/settings_page.dart';
@@ -29,6 +30,9 @@ abstract final class AppRoutes {
 
   /// Partida de Buscaminas de prueba. Solo existe en el entorno dev.
   static const devMinesweeper = '/settings/dev-minesweeper';
+
+  /// Sopa de letras de prueba. Solo existe en el entorno dev.
+  static const devWordSearch = '/settings/dev-wordsearch';
 }
 
 /// Router de la app: 4 pestañas que conservan cada una su pila de navegación.
@@ -66,6 +70,8 @@ final routerProvider = Provider<GoRouter>((ref) {
                     GoRoute(path: 'dev-sudoku', builder: (context, state) => const DevSudokuPage()),
                   if (!environment.isProduction)
                     GoRoute(path: 'dev-minesweeper', builder: (context, state) => const DevMinesweeperPage()),
+                  if (!environment.isProduction)
+                    GoRoute(path: 'dev-wordsearch', builder: (context, state) => const DevWordSearchPage()),
                 ],
               ),
             ],

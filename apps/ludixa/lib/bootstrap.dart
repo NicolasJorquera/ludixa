@@ -18,6 +18,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
   final settingsRepository = await SharedPreferencesSettingsRepository.create();
   final sudokuSettings = await PrefsSudokuSettingsStore.create();
   final minesweeperSettings = await PrefsMinesweeperSettingsStore.create();
+  final wordSearchSettings = await PrefsWordSearchSettingsStore.create();
   runApp(
     ProviderScope(
       overrides: [
@@ -25,6 +26,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
         settingsRepositoryProvider.overrideWithValue(settingsRepository),
         sudokuSettingsStoreProvider.overrideWithValue(sudokuSettings),
         minesweeperSettingsStoreProvider.overrideWithValue(minesweeperSettings),
+        wordSearchSettingsStoreProvider.overrideWithValue(wordSearchSettings),
       ],
       child: const LudixaApp(),
     ),

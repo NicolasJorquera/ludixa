@@ -26,5 +26,6 @@
   "settingsComponentCatalog": "Component catalog (development)",
   "settingsDevSudoku": "Try Sudoku (development)",
   "settingsDevMinesweeper": "Try Minesweeper (development)",
+  "settingsDevWordSearch": "Try Word search (development)",
   "settingsLicenses": "Open source licenses"
 }

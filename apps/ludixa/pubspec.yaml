@@ -18,6 +18,7 @@ dependencies:
   game_api:
   game_minesweeper:
   game_sudoku:
+  game_wordsearch:
   go_router: ^17.5.0
   intl: any
   puzzle_core:

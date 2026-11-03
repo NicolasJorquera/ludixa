@@ -17,4 +17,5 @@ workspace:
   - packages/daily_challenge
   - packages/game_sudoku
   - packages/game_minesweeper
+  - packages/game_wordsearch
   - packages/progress

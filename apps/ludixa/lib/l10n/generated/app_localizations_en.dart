@@ -87,6 +87,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDevMinesweeper => 'Try Minesweeper (development)';
 
   @override
+  String get settingsDevWordSearch => 'Try Word search (development)';
+
+  @override
   String get settingsLicenses => 'Open source licenses';
 }
 
@@ -171,6 +174,9 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsDevMinesweeper => '[Ţŕý Ṁîñéšŵééþéŕ (ðéṽéļöþɱéñţ) ··········]';
+
+  @override
+  String get settingsDevWordSearch => '[Ţŕý Ŵöŕð šéáŕçĥ (ðéṽéļöþɱéñţ) ··········]';
 
   @override
   String get settingsLicenses => '[Öþéñ šöûŕçé ļîçéñšéš ········]';

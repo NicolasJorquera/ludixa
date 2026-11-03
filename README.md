@@ -19,6 +19,7 @@ packages/wordsearch_engine/   Dart puro: Sopa de letras (normalización es/en, b
 packages/daily_challenge/     Dart puro: reto diario (calendario de dificultad, semillas, tema del día, goldens)
 packages/game_sudoku/         Módulo de Sudoku: partida, pista, tutorial, ajustes y textos (es/en)
 packages/game_minesweeper/    Módulo de Buscaminas: partida, zoom, derrota, pista, tutorial, ajustes y textos (es/en)
+packages/game_wordsearch/     Módulo de Sopa de letras: partida, selección, lista, pista, tutorial, ajustes e idioma (es/en)
 packages/progress/            Dart puro: progreso (racha con comodines, calendario del reto, logros, maestría, estadísticas)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo

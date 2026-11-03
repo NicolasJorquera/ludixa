@@ -87,5 +87,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsDevMinesweeper => 'Probar Buscaminas (desarrollo)';
 
   @override
+  String get settingsDevWordSearch => 'Probar Sopa de letras (desarrollo)';
+
+  @override
   String get settingsLicenses => 'Licencias de código abierto';
 }
