@@ -65,6 +65,8 @@ class SettingsPage extends ConsumerWidget {
           LudixaListRow(title: l10n.settingsLicenses, onTap: () => context.go(AppRoutes.licenses)),
           if (!environment.isProduction)
             LudixaListRow(title: l10n.settingsComponentCatalog, onTap: () => context.go(AppRoutes.catalog)),
+          if (!environment.isProduction)
+            LudixaListRow(title: l10n.settingsDevSudoku, onTap: () => context.go(AppRoutes.devSudoku)),
         ],
       ),
     );

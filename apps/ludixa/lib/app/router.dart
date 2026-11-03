@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../features/daily/daily_page.dart';
+import '../features/dev/dev_sudoku_page.dart';
 import '../features/home/home_page.dart';
 import '../features/progress/progress_page.dart';
 import '../features/settings/presentation/settings_page.dart';
@@ -21,6 +22,9 @@ abstract final class AppRoutes {
 
   /// Catálogo de componentes. Solo existe en el entorno dev.
   static const catalog = '/settings/catalog';
+
+  /// Partida de Sudoku de prueba. Solo existe en el entorno dev.
+  static const devSudoku = '/settings/dev-sudoku';
 }
 
 /// Router de la app: 4 pestañas que conservan cada una su pila de navegación.
@@ -54,6 +58,8 @@ final routerProvider = Provider<GoRouter>((ref) {
                   ),
                   if (!environment.isProduction)
                     GoRoute(path: 'catalog', builder: (context, state) => const ComponentCatalog()),
+                  if (!environment.isProduction)
+                    GoRoute(path: 'dev-sudoku', builder: (context, state) => const DevSudokuPage()),
                 ],
               ),
             ],

@@ -2,6 +2,7 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:game_sudoku/game_sudoku.dart';
 
 import '../features/settings/application/settings_controller.dart';
 import '../features/settings/domain/app_settings.dart';
@@ -37,6 +38,7 @@ class LudixaApp extends ConsumerWidget {
       localeListResolutionCallback: (preferred, _) => resolveLocale(preferred, supported),
       localizationsDelegates: const [
         AppLocalizations.delegate,
+        SudokuLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

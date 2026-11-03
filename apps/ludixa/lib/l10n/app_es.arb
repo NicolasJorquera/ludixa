@@ -48,6 +48,8 @@
   "@settingsAboutSection": {"description": "Encabezado de la sección de información."},
   "settingsComponentCatalog": "Catálogo de componentes (desarrollo)",
   "@settingsComponentCatalog": {"description": "Entrada al catálogo del sistema visual. Solo en desarrollo."},
+  "settingsDevSudoku": "Probar Sudoku (desarrollo)",
+  "@settingsDevSudoku": {"description": "Entrada para jugar una partida de Sudoku de prueba. Solo en desarrollo."},
   "settingsLicenses": "Licencias de código abierto",
   "@settingsLicenses": {"description": "Entrada que abre las licencias de las dependencias."}
 }

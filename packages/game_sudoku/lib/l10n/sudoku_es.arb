@@ -1,0 +1,91 @@
+{
+  "@@locale": "es",
+  "gameName": "Sudoku",
+  "@gameName": {"description": "Nombre del juego."},
+  "levelEasy": "Fácil",
+  "@levelEasy": {"description": "Dificultad."},
+  "levelMedium": "Medio",
+  "@levelMedium": {"description": "Dificultad."},
+  "levelHard": "Difícil",
+  "@levelHard": {"description": "Dificultad."},
+  "levelExpert": "Experto",
+  "@levelExpert": {"description": "Dificultad."},
+  "levelEasyDescription": "3–6 min · el último número posible",
+  "@levelEasyDescription": {"description": "Tiempo estimado y técnica del nivel, en la hoja de dificultad."},
+  "levelMediumDescription": "6–12 min · intersecciones caja-línea",
+  "@levelMediumDescription": {"description": "Tiempo estimado y técnica del nivel."},
+  "levelHardDescription": "12–20 min · pares y tríos",
+  "@levelHardDescription": {"description": "Tiempo estimado y técnica del nivel."},
+  "levelExpertDescription": "20–40 min · X-Wing y otras cadenas",
+  "@levelExpertDescription": {"description": "Tiempo estimado y técnica del nivel."},
+  "topBarProgress": "{level} · {percent} %",
+  "@topBarProgress": {
+    "description": "Título de la partida: nivel y porcentaje de celdas llenas.",
+    "placeholders": {"level": {"type": "String"}, "percent": {"type": "int"}}
+  },
+  "back": "Volver",
+  "@back": {"description": "Botón para salir de la partida."},
+  "pause": "Pausar",
+  "@pause": {"description": "Botón para pausar."},
+  "resume": "Reanudar",
+  "@resume": {"description": "Botón para reanudar desde la pausa."},
+  "pausedBoard": "Tablero oculto en pausa",
+  "@pausedBoard": {"description": "Texto sobre el tablero oculto mientras la partida está en pausa."},
+  "elapsed": "Tiempo {time}",
+  "@elapsed": {
+    "description": "Etiqueta accesible del temporizador.",
+    "placeholders": {"time": {"type": "String"}}
+  },
+  "undo": "Deshacer",
+  "@undo": {"description": "Herramienta: deshacer el último cambio."},
+  "erase": "Borrar",
+  "@erase": {"description": "Herramienta: borrar la celda."},
+  "notes": "Notas",
+  "@notes": {"description": "Herramienta: alternar el modo de notas."},
+  "notesState": "{on, select, true{activadas} other{desactivadas}}",
+  "@notesState": {
+    "description": "Estado del modo de notas para el lector de pantalla.",
+    "placeholders": {"on": {"type": "String"}}
+  },
+  "hint": "Pista",
+  "@hint": {"description": "Herramienta: pedir una pista."},
+  "hintsLeft": "{count, plural, =0{sin pistas gratis} =1{queda 1 gratis} other{quedan {count} gratis}}",
+  "@hintsLeft": {
+    "description": "Pistas gratis que quedan, para el lector de pantalla.",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "noMoreHints": "Sin más pistas en este puzzle",
+  "@noMoreHints": {"description": "Explicación cuando el botón de pista queda desactivado."},
+  "keyRemaining": "{digit}, {remaining, plural, =0{completo} =1{queda 1} other{quedan {remaining}}}",
+  "@keyRemaining": {
+    "description": "Etiqueta accesible de una tecla del teclado numérico.",
+    "placeholders": {"digit": {"type": "int"}, "remaining": {"type": "int"}}
+  },
+  "boardLabel": "Tablero de Sudoku, 9 por 9",
+  "@boardLabel": {"description": "Etiqueta accesible de la grilla completa."},
+  "cellLabel": "Fila {row}, columna {column}, {content}",
+  "@cellLabel": {
+    "description": "Etiqueta accesible de una celda. content es el contenido ya descrito.",
+    "placeholders": {"row": {"type": "int"}, "column": {"type": "int"}, "content": {"type": "String"}}
+  },
+  "cellEmpty": "vacía",
+  "@cellEmpty": {"description": "Contenido de una celda vacía."},
+  "cellGiven": "{digit}, fijo",
+  "@cellGiven": {
+    "description": "Contenido de una celda con un número inicial.",
+    "placeholders": {"digit": {"type": "int"}}
+  },
+  "cellNotes": "notas {digits}",
+  "@cellNotes": {
+    "description": "Notas de una celda vacía, por ejemplo 'notas 1, 5, 9'.",
+    "placeholders": {"digits": {"type": "String"}}
+  },
+  "cellConflict": "en conflicto",
+  "@cellConflict": {"description": "Estado de una celda con un número repetido o incorrecto."},
+  "cellSelected": "seleccionada",
+  "@cellSelected": {"description": "Estado de la celda seleccionada."},
+  "solved": "¡Resuelto!",
+  "@solved": {"description": "Anuncio al resolver el puzzle."},
+  "preparing": "Preparando el puzzle",
+  "@preparing": {"description": "Mientras se genera el puzzle."}
+}
