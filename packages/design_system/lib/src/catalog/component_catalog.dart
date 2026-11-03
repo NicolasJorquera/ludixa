@@ -6,6 +6,7 @@ import '../components/rows.dart';
 import '../components/segmented.dart';
 import '../components/sheet.dart';
 import '../components/surfaces.dart';
+import '../icons.dart';
 import '../theme.dart';
 
 /// Catálogo de componentes. Herramienta de desarrollo: la app solo lo enlaza
@@ -61,13 +62,8 @@ class _ComponentCatalogState extends State<ComponentCatalog> {
               runSpacing: 10,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                LudixaStatChip(
-                  icon: Icons.local_fire_department_outlined,
-                  value: '12',
-                  semanticLabel: 'Racha de 12 días',
-                  onTap: () {},
-                ),
-                const LudixaBadge(label: 'Sin ayuda', icon: Icons.verified_outlined),
+                LudixaStatChip(icon: LudixaIcons.streak, value: '12', semanticLabel: 'Racha de 12 días', onTap: () {}),
+                const LudixaBadge(label: 'Sin ayuda', icon: LudixaIcons.saver),
               ],
             ),
           ),
@@ -76,8 +72,8 @@ class _ComponentCatalogState extends State<ComponentCatalog> {
             padding: const EdgeInsetsDirectional.symmetric(horizontal: 16),
             child: LudixaSegmentedControl<_Mode>(
               segments: const [
-                LudixaSegment(value: _Mode.reveal, label: 'Revelar', icon: Icons.touch_app_outlined),
-                LudixaSegment(value: _Mode.flag, label: 'Bandera', icon: Icons.flag_outlined),
+                LudixaSegment(value: _Mode.reveal, label: 'Revelar', icon: LudixaIcons.reveal),
+                LudixaSegment(value: _Mode.flag, label: 'Bandera', icon: LudixaIcons.flag),
               ],
               selected: _mode,
               accent: p.minesweeper,
@@ -112,7 +108,7 @@ class _ComponentCatalogState extends State<ComponentCatalog> {
           ),
           const LudixaSectionLabel('Estado vacío'),
           LudixaEmptyState(
-            icon: Icons.insights_outlined,
+            icon: LudixaIcons.progress,
             title: 'Aún no hay estadísticas',
             message: 'Aparecerán al completar tu primer puzzle.',
             action: LudixaButton(label: 'Ir al reto de hoy', expand: false, onPressed: () {}),

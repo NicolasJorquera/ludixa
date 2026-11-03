@@ -1,3 +1,4 @@
+import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -30,27 +31,12 @@ class AppShell extends StatelessWidget {
           child: NavigationBar(
             selectedIndex: shell.currentIndex,
             onDestinationSelected: _select,
+            // La pestaña activa se distingue por el indicador y el color, no por el icono.
             destinations: [
-              NavigationDestination(
-                icon: const Icon(Icons.home_outlined),
-                selectedIcon: const Icon(Icons.home),
-                label: l10n.navHome,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.calendar_today_outlined),
-                selectedIcon: const Icon(Icons.calendar_today),
-                label: l10n.navDaily,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.bar_chart_outlined),
-                selectedIcon: const Icon(Icons.bar_chart),
-                label: l10n.navProgress,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.tune_outlined),
-                selectedIcon: const Icon(Icons.tune),
-                label: l10n.navSettings,
-              ),
+              NavigationDestination(icon: const LudixaIcon(LudixaIcons.home), label: l10n.navHome),
+              NavigationDestination(icon: const LudixaIcon(LudixaIcons.daily), label: l10n.navDaily),
+              NavigationDestination(icon: const LudixaIcon(LudixaIcons.progress), label: l10n.navProgress),
+              NavigationDestination(icon: const LudixaIcon(LudixaIcons.settings), label: l10n.navSettings),
             ],
           ),
         ),

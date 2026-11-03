@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../icons.dart';
 import '../theme.dart';
 
 /// Opción de un [LudixaSegmentedControl].
@@ -8,7 +9,7 @@ final class LudixaSegment<T> {
 
   final T value;
   final String label;
-  final IconData? icon;
+  final LudixaIcons? icon;
 }
 
 /// Control segmentado de 2 a 4 opciones (por ejemplo, Revelar / Bandera).
@@ -81,7 +82,7 @@ class _SegmentButton extends StatelessWidget {
   });
 
   final String label;
-  final IconData? icon;
+  final LudixaIcons? icon;
   final bool selected;
   final VoidCallback onTap;
   final double height;
@@ -107,7 +108,7 @@ class _SegmentButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (icon != null) ...[Icon(icon, size: 22, color: color), const SizedBox(width: 8)],
+                if (icon != null) ...[LudixaIcon(icon!, size: 22, color: color), const SizedBox(width: 8)],
                 Flexible(
                   child: Text(
                     label,

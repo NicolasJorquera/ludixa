@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../icons.dart';
 import '../theme.dart';
 
 /// Fila de lista: título, subtítulo y valor opcionales, y chevron si navega.
@@ -38,7 +39,7 @@ class LudixaListRow extends StatelessWidget {
                       textAlign: TextAlign.end,
                     ),
                   ),
-                if (onTap != null) Icon(Icons.chevron_right, color: p.inkMuted),
+                if (onTap != null) LudixaIcon(LudixaIcons.chevronRight, color: p.inkMuted),
               ],
             ),
     );

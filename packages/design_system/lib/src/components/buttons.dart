@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../icons.dart';
+
 /// Variantes de botón del sistema visual.
 enum LudixaButtonVariant {
   /// Una sola acción principal por pantalla.
@@ -38,8 +40,8 @@ class LudixaButton extends StatelessWidget {
   /// Ocupa todo el ancho disponible.
   final bool expand;
 
-  /// Icono de video con recompensa. H2-03 lo reemplaza por el icono propio.
-  static const rewardedIcon = Icon(Icons.smart_display_outlined);
+  /// Icono de video con recompensa.
+  static const rewardedIcon = LudixaIcon(LudixaIcons.video);
 
   @override
   Widget build(BuildContext context) {

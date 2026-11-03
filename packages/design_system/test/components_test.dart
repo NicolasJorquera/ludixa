@@ -62,14 +62,14 @@ void main() {
             LudixaButton(
               label: 'Ver video',
               variant: LudixaButtonVariant.rewarded,
-              icon: const Icon(Icons.star),
+              icon: const LudixaIcon(LudixaIcons.trophy),
               onPressed: () => taps++,
             ),
           ),
         ),
       );
-      expect(find.byIcon(Icons.smart_display_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.star), findsNothing);
+      expect(find.byWidgetPredicate((w) => w is LudixaIcon && w.icon == LudixaIcons.video), findsOneWidget);
+      expect(find.byWidgetPredicate((w) => w is LudixaIcon && w.icon == LudixaIcons.trophy), findsNothing);
       await tester.tap(find.text('Ver video'));
       expect(taps, 1);
     });
@@ -195,12 +195,7 @@ void main() {
       await tester.pumpWidget(
         _host(
           _inScaffold(
-            LudixaStatChip(
-              icon: Icons.local_fire_department,
-              value: '12',
-              semanticLabel: 'Racha de 12 días',
-              onTap: () {},
-            ),
+            LudixaStatChip(icon: LudixaIcons.streak, value: '12', semanticLabel: 'Racha de 12 días', onTap: () {}),
           ),
         ),
       );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../icons.dart';
 import '../theme.dart';
 
 /// Tarjeta: superficie con borde fino. Con [onTap] es un botón accesible.
@@ -101,7 +102,7 @@ class LudixaProgressBar extends StatelessWidget {
 class LudixaEmptyState extends StatelessWidget {
   const LudixaEmptyState({super.key, required this.icon, required this.title, required this.message, this.action});
 
-  final IconData icon;
+  final LudixaIcons icon;
   final String title;
   final String message;
 
@@ -117,7 +118,7 @@ class LudixaEmptyState extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 40, color: p.inkMuted),
+          LudixaIcon(icon, size: 40, color: p.inkMuted),
           const SizedBox(height: 12),
           Text(title, style: text.titleMedium, textAlign: TextAlign.center),
           const SizedBox(height: 6),
