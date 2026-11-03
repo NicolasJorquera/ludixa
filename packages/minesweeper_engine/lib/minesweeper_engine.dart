@@ -3,6 +3,8 @@
 /// Dart puro: no depende de Flutter.
 library;
 
+export 'src/game/hint.dart';
+export 'src/game/minesweeper_game.dart';
 export 'src/generator.dart';
 export 'src/layout.dart';
 export 'src/solver/exact_solver.dart';
