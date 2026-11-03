@@ -105,8 +105,7 @@ void main() {
     testWidgets('cambiar el tema se aplica al instante y se guarda', (tester) async {
       final repository = await pumpLudixa(tester);
       await _tapTab(tester, 'Ajustes');
-      await tester.tap(find.text('Oscuro'));
-      await tester.pumpAndSettle();
+      await _tapListItem(tester, 'Oscuro');
 
       expect(tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode, ThemeMode.dark);
       expect(Theme.of(tester.element(find.byType(NavigationBar))).brightness, Brightness.dark);

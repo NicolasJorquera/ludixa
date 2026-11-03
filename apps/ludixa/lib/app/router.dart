@@ -23,6 +23,8 @@ abstract final class AppRoutes {
   static const progress = '/progress';
   static const settings = '/settings';
   static const licenses = '/settings/licenses';
+  static const adsContract = '/settings/ads';
+  static String gameSettings(GameId game) => '/settings/game/${game.value}';
 
   /// Catálogo de componentes. Solo existe en el entorno dev.
   static const catalog = '/settings/catalog';
@@ -68,6 +70,11 @@ final routerProvider = Provider<GoRouter>((ref) {
                 path: AppRoutes.settings,
                 builder: (context, state) => const SettingsPage(),
                 routes: [
+                  GoRoute(path: 'ads', builder: (context, state) => const AdsContractPage()),
+                  GoRoute(
+                    path: 'game/:id',
+                    builder: (context, state) => GameSettingsPage(game: state.pathParameters['id']!),
+                  ),
                   GoRoute(
                     path: 'licenses',
                     builder: (context, state) => LicensePage(applicationName: AppLocalizations.of(context).appName),

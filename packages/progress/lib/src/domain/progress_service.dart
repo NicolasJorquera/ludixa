@@ -114,6 +114,9 @@ final class ProgressService {
 
   /// Reinicia las estadísticas de un juego o de un nivel. No toca racha,
   /// calendario, maestría ni logros: las partidas siguen guardadas.
+  /// "Reiniciar todo el progreso" de Ajustes. No toca las preferencias.
+  Future<void> resetAll() => repository.clear();
+
   /// Con [difficulty], reinicia solo ese nivel (lo que pide la ficha de
   /// Progreso al mantener pulsada su fila).
   Future<void> resetStats(GameId game, {Difficulty? difficulty}) =>

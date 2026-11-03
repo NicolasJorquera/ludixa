@@ -760,5 +760,156 @@
   "progressNoTime": "Sin tiempo",
   "@progressNoTime": {
     "description": "Lector de pantalla: celda de tiempo vacía (—)."
+  },
+  "settingsGeneralSection": "General",
+  "@settingsGeneralSection": {
+    "description": "Sección de Ajustes."
+  },
+  "settingsTextSize": "Tamaño del texto",
+  "@settingsTextSize": {
+    "description": "Grupo de opciones de tamaño de texto."
+  },
+  "textSizeSystem": "Como el sistema",
+  "@textSizeSystem": {
+    "description": "Tamaño de texto del sistema."
+  },
+  "textSizeLarge": "Grande",
+  "@textSizeLarge": {
+    "description": "Texto un 15 % más grande que el del sistema."
+  },
+  "textSizeLarger": "Más grande",
+  "@textSizeLarger": {
+    "description": "Texto un 30 % más grande que el del sistema."
+  },
+  "settingsReduceMotion": "Reducir animaciones",
+  "@settingsReduceMotion": {
+    "description": "Interruptor."
+  },
+  "settingsReduceMotionHint": "Quita los efectos de movimiento aunque el sistema los tenga activos",
+  "@settingsReduceMotionHint": {
+    "description": "Descripción del interruptor."
+  },
+  "settingsHaptics": "Vibración",
+  "@settingsHaptics": {
+    "description": "Interruptor."
+  },
+  "settingsHapticsHint": "Al tocar, poner banderas y completar un puzzle",
+  "@settingsHapticsHint": {
+    "description": "Descripción del interruptor."
+  },
+  "settingsShowTimer": "Mostrar el temporizador",
+  "@settingsShowTimer": {
+    "description": "Interruptor."
+  },
+  "settingsShowTimerHint": "El tiempo se mide igual para tus estadísticas",
+  "@settingsShowTimerHint": {
+    "description": "Descripción del interruptor."
+  },
+  "settingsGamesSection": "Juegos",
+  "@settingsGamesSection": {
+    "description": "Sección de Ajustes: ajustes de cada juego."
+  },
+  "settingsDataSection": "Datos y privacidad",
+  "@settingsDataSection": {
+    "description": "Sección de Ajustes."
+  },
+  "settingsResetStats": "Reiniciar estadísticas",
+  "@settingsResetStats": {
+    "description": "Fila: abre la elección del juego."
+  },
+  "settingsResetStatsHint": "Tu racha, el calendario y los logros no cambian",
+  "@settingsResetStatsHint": {
+    "description": "Subtítulo de la fila."
+  },
+  "settingsResetStatsBody": "Las partidas jugadas, los mejores tiempos y las medias del juego que elijas vuelven a cero.",
+  "@settingsResetStatsBody": {
+    "description": "Cuerpo de la hoja."
+  },
+  "settingsResetStatsGame": "Reiniciar {game}",
+  "@settingsResetStatsGame": {
+    "description": "Botón por juego en la hoja.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsResetStatsDone": "Estadísticas de {game} reiniciadas",
+  "@settingsResetStatsDone": {
+    "description": "Aviso tras reiniciar.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsResetAll": "Reiniciar todo el progreso",
+  "@settingsResetAll": {
+    "description": "Fila: abre la confirmación."
+  },
+  "settingsResetAllHint": "Borra partidas, racha, calendario, logros y estadísticas",
+  "@settingsResetAllHint": {
+    "description": "Subtítulo de la fila."
+  },
+  "settingsResetAllTitle": "¿Borrar todo tu progreso?",
+  "@settingsResetAllTitle": {
+    "description": "Título de la confirmación."
+  },
+  "settingsResetAllBody": "Se borran tus partidas, la racha, el calendario, los logros y las estadísticas. Tus ajustes se conservan. No se puede deshacer.",
+  "@settingsResetAllBody": {
+    "description": "Explica qué se borra."
+  },
+  "settingsResetAllWord": "BORRAR",
+  "@settingsResetAllWord": {
+    "description": "Palabra que hay que escribir para confirmar. En mayúsculas."
+  },
+  "settingsResetAllPrompt": "Escribe {word} para confirmar",
+  "@settingsResetAllPrompt": {
+    "description": "Etiqueta del campo de confirmación.",
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsResetAllConfirm": "Borrar todo",
+  "@settingsResetAllConfirm": {
+    "description": "Botón que borra el progreso."
+  },
+  "settingsResetAllDone": "Se borró tu progreso",
+  "@settingsResetAllDone": {
+    "description": "Aviso tras borrar."
+  },
+  "settingsAdsContract": "Contrato de anuncios",
+  "@settingsAdsContract": {
+    "description": "Fila y título de la pantalla del contrato."
+  },
+  "adsContractIntro": "Ludixa es gratis gracias a los anuncios. Estas reglas no cambian:",
+  "@adsContractIntro": {
+    "description": "Introducción del contrato de anuncios."
+  },
+  "adsPromiseMidGame": "Nunca verás un anuncio en mitad de una partida.",
+  "@adsPromiseMidGame": {
+    "description": "Promesa 1."
+  },
+  "adsPromiseOnOpen": "Nunca verás un anuncio al abrir la app.",
+  "@adsPromiseOnOpen": {
+    "description": "Promesa 2."
+  },
+  "adsPromiseRewarded": "Los videos con recompensa son siempre opcionales y siempre te dan lo prometido.",
+  "@adsPromiseRewarded": {
+    "description": "Promesa 3."
+  },
+  "adsPromiseAfterVideo": "Después de un video con recompensa nunca aparece otro anuncio.",
+  "@adsPromiseAfterVideo": {
+    "description": "Promesa 4."
+  },
+  "adsPromiseOffline": "Todos los juegos funcionan sin internet.",
+  "@adsPromiseOffline": {
+    "description": "Promesa 5."
+  },
+  "settingsVersion": "Versión",
+  "@settingsVersion": {
+    "description": "Fila con la versión de la app."
   }
 }
