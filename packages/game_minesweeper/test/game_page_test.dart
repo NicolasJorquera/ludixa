@@ -163,6 +163,13 @@ void main() {
       expect(find.bySemanticsLabel(RegExp('inicio sugerido')), findsOneWidget);
     });
 
+    testWidgets('tablero nuevo sin callback: pide otra partida al host', (tester) async {
+      final (_, host) = await lose(tester);
+      await tester.tap(find.text('Tablero nuevo'));
+      await tester.pumpAndSettle();
+      expect((host.playAgainRequests, host.results.single.outcome), (1, GameOutcome.lost));
+    });
+
     testWidgets('tablero nuevo: informa la derrota y avisa a la app', (tester) async {
       var asked = 0;
       final (_, host) = await lose(tester, onNewBoard: () => asked++);
@@ -237,6 +244,22 @@ void main() {
     expect(find.byTooltip('Ajustar al ancho'), findsOneWidget);
     expect(tester.takeException(), isNull);
     expect(c.game.spec.cellCount, 480);
+  });
+
+  testWidgets('guardar y salir desde la pausa cierra la partida', (tester) async {
+    final host = FakeHost()..pauseAnswer = PauseChoice.exit;
+    var exited = 0;
+    final c = freeController(host: host);
+    tester.view.physicalSize = const Size(390, 844) * 3;
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(wrap(MinesweeperPage(controller: c, levelLabel: 'Principiante', onExit: () => exited++)));
+    await tester.pump();
+    await firstTap(tester, c);
+    await tester.tap(find.byTooltip('Pausar'));
+    await tester.pumpAndSettle();
+    expect(exited, 1);
+    expect(host.snapshots, isNotEmpty);
   });
 
   testWidgets('la instantánea retoma la partida exacta', (tester) async {

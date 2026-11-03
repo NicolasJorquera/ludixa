@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ludixa/app/app.dart';
 import 'package:ludixa/app/environment.dart';
@@ -30,6 +31,7 @@ Future<InMemorySettingsRepository> pumpLudixa(
   AppEnvironment environment = AppEnvironment.dev,
   AppSettings initial = const AppSettings(),
   List<Locale> deviceLocales = const [Locale('es', 'CL')],
+  List<Override> overrides = const [],
 }) async {
   tester.platformDispatcher.localesTestValue = deviceLocales;
   addTearDown(tester.platformDispatcher.clearLocalesTestValue);
@@ -39,6 +41,7 @@ Future<InMemorySettingsRepository> pumpLudixa(
       overrides: [
         environmentProvider.overrideWithValue(environment),
         settingsRepositoryProvider.overrideWithValue(repository),
+        ...overrides,
       ],
       child: const LudixaApp(),
     ),

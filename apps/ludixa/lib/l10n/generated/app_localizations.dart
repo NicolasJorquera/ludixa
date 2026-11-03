@@ -236,29 +236,191 @@ abstract class AppLocalizations {
   /// **'Catálogo de componentes (desarrollo)'**
   String get settingsComponentCatalog;
 
-  /// Entrada para jugar una partida de Sudoku de prueba. Solo en desarrollo.
-  ///
-  /// In es, this message translates to:
-  /// **'Probar Sudoku (desarrollo)'**
-  String get settingsDevSudoku;
-
-  /// Entrada para jugar una partida de Buscaminas de prueba. Solo en desarrollo.
-  ///
-  /// In es, this message translates to:
-  /// **'Probar Buscaminas (desarrollo)'**
-  String get settingsDevMinesweeper;
-
-  /// Entrada para jugar una Sopa de letras de prueba. Solo en desarrollo.
-  ///
-  /// In es, this message translates to:
-  /// **'Probar Sopa de letras (desarrollo)'**
-  String get settingsDevWordSearch;
-
   /// Entrada que abre las licencias de las dependencias.
   ///
   /// In es, this message translates to:
   /// **'Licencias de código abierto'**
   String get settingsLicenses;
+
+  /// Entrada a los juegos de prueba. Solo en desarrollo.
+  ///
+  /// In es, this message translates to:
+  /// **'Probar juegos (desarrollo)'**
+  String get settingsDevGames;
+
+  /// Título de la pantalla de pausa.
+  ///
+  /// In es, this message translates to:
+  /// **'Pausa'**
+  String get pauseTitle;
+
+  /// Se anuncia al abrir la pausa.
+  ///
+  /// In es, this message translates to:
+  /// **'Tablero oculto en pausa'**
+  String get pauseBoardHidden;
+
+  /// Botón principal de la pausa.
+  ///
+  /// In es, this message translates to:
+  /// **'Reanudar'**
+  String get pauseResume;
+
+  /// Empezar el puzzle de cero.
+  ///
+  /// In es, this message translates to:
+  /// **'Reiniciar'**
+  String get pauseRestart;
+
+  /// Confirmación de reiniciar, dentro de la pausa.
+  ///
+  /// In es, this message translates to:
+  /// **'Se perderá el avance de este puzzle.'**
+  String get pauseRestartConfirm;
+
+  /// Confirma reiniciar.
+  ///
+  /// In es, this message translates to:
+  /// **'Sí, reiniciar'**
+  String get pauseRestartYes;
+
+  /// Cancela reiniciar.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get pauseCancel;
+
+  /// Abre el tutorial.
+  ///
+  /// In es, this message translates to:
+  /// **'Cómo se juega'**
+  String get pauseHowToPlay;
+
+  /// Abre los ajustes del juego.
+  ///
+  /// In es, this message translates to:
+  /// **'Ajustes del juego'**
+  String get pauseGameSettings;
+
+  /// Sale de la partida; queda guardada.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar y salir'**
+  String get pauseSaveExit;
+
+  /// Nota de guardado automático.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu partida se guarda sola en cada jugada.'**
+  String get pauseAutosave;
+
+  /// Título de la hoja de dificultad.
+  ///
+  /// In es, this message translates to:
+  /// **'{game}: elige la dificultad'**
+  String difficultyTitle(String game);
+
+  /// Marca del nivel recordado.
+  ///
+  /// In es, this message translates to:
+  /// **'La última que jugaste'**
+  String get difficultyLast;
+
+  /// Título del resultado.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Resuelto!'**
+  String get resultSolved;
+
+  /// Chip: sin pistas ni rescate.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin ayuda'**
+  String get resultUnassisted;
+
+  /// Chip de récord nuevo.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo récord'**
+  String get resultNewRecord;
+
+  /// Métrica.
+  ///
+  /// In es, this message translates to:
+  /// **'Tiempo'**
+  String get resultTime;
+
+  /// Métrica: mejor tiempo del nivel.
+  ///
+  /// In es, this message translates to:
+  /// **'Récord'**
+  String get resultBest;
+
+  /// Métrica.
+  ///
+  /// In es, this message translates to:
+  /// **'Pistas'**
+  String get resultHints;
+
+  /// Encabezado del bloque de maestría.
+  ///
+  /// In es, this message translates to:
+  /// **'Maestría en {level}'**
+  String resultMastery(String level);
+
+  /// Nivel de maestría.
+  ///
+  /// In es, this message translates to:
+  /// **'{level, select, bronze{Bronce} silver{Plata} gold{Oro} other{Sin medalla}}'**
+  String masteryLevel(String level);
+
+  /// Partidas que faltan para el siguiente nivel.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{1 partida más para {next}} other{{count} partidas más para {next}}}'**
+  String masteryToNext(int count, String next);
+
+  /// Ya en Oro.
+  ///
+  /// In es, this message translates to:
+  /// **'Maestría completa'**
+  String get masteryComplete;
+
+  /// Bloque del reto diario en el resultado.
+  ///
+  /// In es, this message translates to:
+  /// **'Reto: {done} de 3 · racha {before} → {after}'**
+  String resultDaily(int done, int before, int after);
+
+  /// Tarjeta de logro en el resultado.
+  ///
+  /// In es, this message translates to:
+  /// **'Logro desbloqueado'**
+  String get resultAchievement;
+
+  /// Botón: otra partida del mismo nivel.
+  ///
+  /// In es, this message translates to:
+  /// **'Otra partida en {level}'**
+  String resultPlayAgain(String level);
+
+  /// Botón: el siguiente reto pendiente del día.
+  ///
+  /// In es, this message translates to:
+  /// **'Siguiente reto'**
+  String get resultNextDaily;
+
+  /// Botón secundario del resultado.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver al inicio'**
+  String get resultHome;
+
+  /// Nombre de un logro, por su id estable.
+  ///
+  /// In es, this message translates to:
+  /// **'{key, select, first_puzzle{Primer puzzle} all_three_games{Prueba los tres juegos} streak_3{Racha de 3 días} streak_7{Racha de 7 días} streak_30{Racha de 30 días} streak_100{Racha de 100 días} perfect_day{Día perfecto} full_month{Mes completo} ten_unassisted{10 puzzles sin ayuda} sudoku_first_hard{Primer Sudoku Difícil} sudoku_first_expert{Primer Sudoku Experto} sudoku_fast_medium{Sudoku Medio en menos de 6 minutos} mines_first_expert{Primer Buscaminas Experto} mines_five_in_a_row{5 victorias seguidas en Buscaminas} mines_no_flags{Ganar sin banderas} words_ten_themes{Explora 10 temas} words_expert_no_hints{Sopa Experta sin pistas} other{50 sopas completadas}}'**
+  String achievementTitle(String key);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

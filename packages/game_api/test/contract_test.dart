@@ -21,6 +21,19 @@ class _RecordingHost implements GameHost {
   @override
   int get freeHintsLeft => 3;
 
+  int pauses = 0;
+  PauseChoice pauseAnswer = PauseChoice.resume;
+  int playAgainRequests = 0;
+
+  @override
+  Future<PauseChoice> showPause() async {
+    pauses++;
+    return pauseAnswer;
+  }
+
+  @override
+  void playAgain() => playAgainRequests++;
+
   @override
   Future<RescueOutcome> requestRescue() async => RescueOutcome.declined;
 

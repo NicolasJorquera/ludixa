@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:game_api/game_api.dart';
 import 'package:wordsearch_engine/wordsearch_engine.dart';
 
 import '../../l10n/generated/words_localizations.dart';
@@ -12,11 +13,15 @@ import 'board.dart';
 
 /// Pantalla de partida de Sopa de letras. Sin anuncios.
 class WordSearchPage extends StatefulWidget {
-  const WordSearchPage({super.key, required this.controller, this.onWon, this.onExit});
+  const WordSearchPage({super.key, required this.controller, this.onWon, this.onExit, this.onResume});
 
   final WordSearchController controller;
   final VoidCallback? onWon;
   final VoidCallback? onExit;
+
+  /// Antes de reanudar tras la pausa: recarga los ajustes, que pudieron
+  /// cambiar desde la pantalla de pausa.
+  final VoidCallback? onResume;
 
   @override
   State<WordSearchPage> createState() => _WordSearchPageState();
@@ -29,7 +34,7 @@ class _WordSearchPageState extends State<WordSearchPage> {
   static const _minCell = 28.0;
 
   final _zoom = GlobalKey<ZoomableBoardState>();
-  late final AppLifecycleListener _lifecycle;
+  late final GameLifecycle _lifecycle;
   Timer? _timer;
   bool _zoomed = false;
   bool _wonHandled = false;
@@ -47,13 +52,14 @@ class _WordSearchPageState extends State<WordSearchPage> {
     super.initState();
     _c.addListener(_onChange);
     _startTimer();
-    _lifecycle = AppLifecycleListener(
-      onHide: () {
+    _lifecycle = GameLifecycle(
+      onLeave: () {
         _timer?.cancel();
         unawaited(_c.host.saveSnapshot(_c.snapshot()));
       },
-      onShow: _startTimer,
-    );
+      onReturn: _startTimer,
+      onAutoPause: _openPause,
+    )..attach();
   }
 
   @override
@@ -96,6 +102,26 @@ class _WordSearchPageState extends State<WordSearchPage> {
     if (_c.complete) return;
     final word = _c.puzzle.placements[result.wordIndex!].display;
     setState(() => _status = WordsLocalizations.of(context).announceFound(word));
+  }
+
+  /// Pausa del host: el tablero queda oculto y el tiempo detenido.
+  Future<void> _openPause() async {
+    if (_c.paused || _c.complete) return;
+    _c.pause();
+    final choice = await _c.host.showPause();
+    if (!mounted) return;
+    switch (choice) {
+      case PauseChoice.resume:
+        widget.onResume?.call();
+        _c.resume();
+      case PauseChoice.restart:
+        widget.onResume?.call();
+        _c.restart();
+        _c.resume();
+      case PauseChoice.exit:
+        // La partida quedó guardada al pausar.
+        widget.onExit != null ? widget.onExit!() : await Navigator.maybePop(context);
+    }
   }
 
   @override
@@ -152,7 +178,7 @@ class _WordSearchPageState extends State<WordSearchPage> {
           IconButton(
             tooltip: _c.paused ? l10n.resume : l10n.pause,
             icon: LudixaIcon(_c.paused ? LudixaIcons.play : LudixaIcons.pause),
-            onPressed: _c.complete ? null : (_c.paused ? _c.resume : _c.pause),
+            onPressed: _c.complete ? null : _openPause,
           ),
         ],
       ),

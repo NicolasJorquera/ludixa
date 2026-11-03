@@ -89,6 +89,10 @@ Sin `key.properties`, la compilación release usa la clave de depuración y Play
 
 Discovery, PRD, especificación UX, arquitectura y backlog están en las entregas del proyecto. Las decisiones técnicas que afectan al código se registran en `docs/adr/`.
 
+## Jugar en desarrollo
+
+En la versión dev, Ajustes > *Probar juegos* abre los tres juegos con el flujo real: hoja de dificultad (recuerda el último nivel), partida, pausa (`GameHost.showPause`, también automática al volver tras más de 60 s fuera) y resultado. El progreso se guarda en memoria hasta H5-02.
+
 ## Bancos de palabras
 
 Los temas de la Sopa de letras viven en `packages/wordsearch_engine/lib/src/banks/` (`es.dart`, `en.dart`), con 20 temas por idioma que comparten identificador y una lista de palabras bloqueadas. Son un **borrador**: antes de publicar necesitan revisión de una persona hablante nativa de cada idioma (P-07). Al editarlos, `dart test` en ese paquete valida normalización, largo, duplicados, palabras bloqueadas, capacidad por nivel y generación de cada tema. Una palabra bloqueada puede aparecer dentro de una palabra buscada (BASS contiene ASS), pero nunca formada por el relleno o los cruces.

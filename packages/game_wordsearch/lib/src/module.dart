@@ -76,6 +76,7 @@ class WordSearchModule implements GameModule {
     request: request,
     host: host,
     settings: store.load(),
+    loadSettings: store.load,
     language: wordsLanguageFor(context, request),
   );
 
@@ -97,7 +98,11 @@ class WordSearchGameLoader extends StatefulWidget {
     required this.language,
     this.settings = const WordSearchSettings(),
     this.onWon,
+    this.loadSettings,
   });
+
+  /// Relee los ajustes al reanudar (pudieron cambiar desde la pausa).
+  final WordSearchSettings Function()? loadSettings;
 
   final PuzzleRequest request;
   final GameHost host;
@@ -157,7 +162,11 @@ class _WordSearchGameLoaderState extends State<WordSearchGameLoader> {
         if (snapshot.hasError) Error.throwWithStackTrace(snapshot.error!, snapshot.stackTrace!);
         return const Scaffold(body: Center(child: CircularProgressIndicator()));
       }
-      return WordSearchPage(controller: controller, onWon: widget.onWon);
+      return WordSearchPage(
+        controller: controller,
+        onWon: widget.onWon,
+        onResume: widget.loadSettings == null ? null : () => controller.applySettings(widget.loadSettings!()),
+      );
     },
   );
 }

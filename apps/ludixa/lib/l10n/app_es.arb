@@ -1,59 +1,267 @@
 {
   "@@locale": "es",
   "appName": "Ludixa",
-  "@appName": {"description": "Nombre de la app."},
+  "@appName": {
+    "description": "Nombre de la app."
+  },
   "navHome": "Inicio",
-  "@navHome": {"description": "Pestaña de la portada."},
+  "@navHome": {
+    "description": "Pestaña de la portada."
+  },
   "navDaily": "Reto",
-  "@navDaily": {"description": "Pestaña del reto diario."},
+  "@navDaily": {
+    "description": "Pestaña del reto diario."
+  },
   "navProgress": "Progreso",
-  "@navProgress": {"description": "Pestaña de estadísticas y logros."},
+  "@navProgress": {
+    "description": "Pestaña de estadísticas y logros."
+  },
   "navSettings": "Ajustes",
-  "@navSettings": {"description": "Pestaña de ajustes."},
+  "@navSettings": {
+    "description": "Pestaña de ajustes."
+  },
   "navigationLabel": "Navegación principal",
-  "@navigationLabel": {"description": "Etiqueta de accesibilidad de la barra de pestañas."},
+  "@navigationLabel": {
+    "description": "Etiqueta de accesibilidad de la barra de pestañas."
+  },
   "homeTitle": "Inicio",
-  "@homeTitle": {"description": "Título de la portada."},
+  "@homeTitle": {
+    "description": "Título de la portada."
+  },
   "dailyTitle": "Reto de hoy",
-  "@dailyTitle": {"description": "Título de la pantalla del reto diario."},
+  "@dailyTitle": {
+    "description": "Título de la pantalla del reto diario."
+  },
   "progressTitle": "Progreso",
-  "@progressTitle": {"description": "Título de la pantalla de progreso."},
+  "@progressTitle": {
+    "description": "Título de la pantalla de progreso."
+  },
   "settingsTitle": "Ajustes",
-  "@settingsTitle": {"description": "Título de la pantalla de ajustes."},
+  "@settingsTitle": {
+    "description": "Título de la pantalla de ajustes."
+  },
   "comingSoon": "Esta pantalla llega en una próxima versión de desarrollo.",
-  "@comingSoon": {"description": "Aviso provisional en pantallas que aún no están construidas."},
+  "@comingSoon": {
+    "description": "Aviso provisional en pantallas que aún no están construidas."
+  },
   "settingsThemeSection": "Tema",
-  "@settingsThemeSection": {"description": "Encabezado de la sección de tema."},
+  "@settingsThemeSection": {
+    "description": "Encabezado de la sección de tema."
+  },
   "themeSystem": "Como el sistema",
-  "@themeSystem": {"description": "Opción de tema que sigue al sistema."},
+  "@themeSystem": {
+    "description": "Opción de tema que sigue al sistema."
+  },
   "themeLight": "Claro",
-  "@themeLight": {"description": "Opción de tema claro."},
+  "@themeLight": {
+    "description": "Opción de tema claro."
+  },
   "themeDark": "Oscuro",
-  "@themeDark": {"description": "Opción de tema oscuro."},
+  "@themeDark": {
+    "description": "Opción de tema oscuro."
+  },
   "colorblindPalette": "Paleta para daltonismo",
-  "@colorblindPalette": {"description": "Interruptor de la paleta que no depende de distinguir rojo y verde."},
+  "@colorblindPalette": {
+    "description": "Interruptor de la paleta que no depende de distinguir rojo y verde."
+  },
   "colorblindPaletteHint": "Cambia rojos y verdes por naranjas y azules",
-  "@colorblindPaletteHint": {"description": "Explicación breve bajo el interruptor de daltonismo."},
+  "@colorblindPaletteHint": {
+    "description": "Explicación breve bajo el interruptor de daltonismo."
+  },
   "settingsLanguageSection": "Idioma",
-  "@settingsLanguageSection": {"description": "Encabezado de la sección de idioma."},
+  "@settingsLanguageSection": {
+    "description": "Encabezado de la sección de idioma."
+  },
   "languageSystem": "Como el sistema",
-  "@languageSystem": {"description": "Opción de idioma que sigue al sistema."},
+  "@languageSystem": {
+    "description": "Opción de idioma que sigue al sistema."
+  },
   "languageSpanish": "Español",
-  "@languageSpanish": {"description": "Nombre del español, siempre en español."},
+  "@languageSpanish": {
+    "description": "Nombre del español, siempre en español."
+  },
   "languageEnglish": "English",
-  "@languageEnglish": {"description": "Nombre del inglés, siempre en inglés."},
+  "@languageEnglish": {
+    "description": "Nombre del inglés, siempre en inglés."
+  },
   "languagePseudo": "Pseudolocalización (desarrollo)",
-  "@languagePseudo": {"description": "Idioma de prueba que alarga y acentúa los textos. Solo en desarrollo."},
+  "@languagePseudo": {
+    "description": "Idioma de prueba que alarga y acentúa los textos. Solo en desarrollo."
+  },
   "settingsAboutSection": "Información",
-  "@settingsAboutSection": {"description": "Encabezado de la sección de información."},
+  "@settingsAboutSection": {
+    "description": "Encabezado de la sección de información."
+  },
   "settingsComponentCatalog": "Catálogo de componentes (desarrollo)",
-  "@settingsComponentCatalog": {"description": "Entrada al catálogo del sistema visual. Solo en desarrollo."},
-  "settingsDevSudoku": "Probar Sudoku (desarrollo)",
-  "@settingsDevSudoku": {"description": "Entrada para jugar una partida de Sudoku de prueba. Solo en desarrollo."},
-  "settingsDevMinesweeper": "Probar Buscaminas (desarrollo)",
-  "@settingsDevMinesweeper": {"description": "Entrada para jugar una partida de Buscaminas de prueba. Solo en desarrollo."},
-  "settingsDevWordSearch": "Probar Sopa de letras (desarrollo)",
-  "@settingsDevWordSearch": {"description": "Entrada para jugar una Sopa de letras de prueba. Solo en desarrollo."},
+  "@settingsComponentCatalog": {
+    "description": "Entrada al catálogo del sistema visual. Solo en desarrollo."
+  },
   "settingsLicenses": "Licencias de código abierto",
-  "@settingsLicenses": {"description": "Entrada que abre las licencias de las dependencias."}
+  "@settingsLicenses": {
+    "description": "Entrada que abre las licencias de las dependencias."
+  },
+  "settingsDevGames": "Probar juegos (desarrollo)",
+  "@settingsDevGames": {
+    "description": "Entrada a los juegos de prueba. Solo en desarrollo."
+  },
+  "pauseTitle": "Pausa",
+  "@pauseTitle": {
+    "description": "Título de la pantalla de pausa."
+  },
+  "pauseBoardHidden": "Tablero oculto en pausa",
+  "@pauseBoardHidden": {
+    "description": "Se anuncia al abrir la pausa."
+  },
+  "pauseResume": "Reanudar",
+  "@pauseResume": {
+    "description": "Botón principal de la pausa."
+  },
+  "pauseRestart": "Reiniciar",
+  "@pauseRestart": {
+    "description": "Empezar el puzzle de cero."
+  },
+  "pauseRestartConfirm": "Se perderá el avance de este puzzle.",
+  "@pauseRestartConfirm": {
+    "description": "Confirmación de reiniciar, dentro de la pausa."
+  },
+  "pauseRestartYes": "Sí, reiniciar",
+  "@pauseRestartYes": {
+    "description": "Confirma reiniciar."
+  },
+  "pauseCancel": "Cancelar",
+  "@pauseCancel": {
+    "description": "Cancela reiniciar."
+  },
+  "pauseHowToPlay": "Cómo se juega",
+  "@pauseHowToPlay": {
+    "description": "Abre el tutorial."
+  },
+  "pauseGameSettings": "Ajustes del juego",
+  "@pauseGameSettings": {
+    "description": "Abre los ajustes del juego."
+  },
+  "pauseSaveExit": "Guardar y salir",
+  "@pauseSaveExit": {
+    "description": "Sale de la partida; queda guardada."
+  },
+  "pauseAutosave": "Tu partida se guarda sola en cada jugada.",
+  "@pauseAutosave": {
+    "description": "Nota de guardado automático."
+  },
+  "difficultyTitle": "{game}: elige la dificultad",
+  "@difficultyTitle": {
+    "description": "Título de la hoja de dificultad.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
+  "difficultyLast": "La última que jugaste",
+  "@difficultyLast": {
+    "description": "Marca del nivel recordado."
+  },
+  "resultSolved": "¡Resuelto!",
+  "@resultSolved": {
+    "description": "Título del resultado."
+  },
+  "resultUnassisted": "Sin ayuda",
+  "@resultUnassisted": {
+    "description": "Chip: sin pistas ni rescate."
+  },
+  "resultNewRecord": "Nuevo récord",
+  "@resultNewRecord": {
+    "description": "Chip de récord nuevo."
+  },
+  "resultTime": "Tiempo",
+  "@resultTime": {
+    "description": "Métrica."
+  },
+  "resultBest": "Récord",
+  "@resultBest": {
+    "description": "Métrica: mejor tiempo del nivel."
+  },
+  "resultHints": "Pistas",
+  "@resultHints": {
+    "description": "Métrica."
+  },
+  "resultMastery": "Maestría en {level}",
+  "@resultMastery": {
+    "description": "Encabezado del bloque de maestría.",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "masteryLevel": "{level, select, bronze{Bronce} silver{Plata} gold{Oro} other{Sin medalla}}",
+  "@masteryLevel": {
+    "description": "Nivel de maestría.",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "masteryToNext": "{count, plural, =1{1 partida más para {next}} other{{count} partidas más para {next}}}",
+  "@masteryToNext": {
+    "description": "Partidas que faltan para el siguiente nivel.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "next": {
+        "type": "String"
+      }
+    }
+  },
+  "masteryComplete": "Maestría completa",
+  "@masteryComplete": {
+    "description": "Ya en Oro."
+  },
+  "resultDaily": "Reto: {done} de 3 · racha {before} → {after}",
+  "@resultDaily": {
+    "description": "Bloque del reto diario en el resultado.",
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "before": {
+        "type": "int"
+      },
+      "after": {
+        "type": "int"
+      }
+    }
+  },
+  "resultAchievement": "Logro desbloqueado",
+  "@resultAchievement": {
+    "description": "Tarjeta de logro en el resultado."
+  },
+  "resultPlayAgain": "Otra partida en {level}",
+  "@resultPlayAgain": {
+    "description": "Botón: otra partida del mismo nivel.",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "resultNextDaily": "Siguiente reto",
+  "@resultNextDaily": {
+    "description": "Botón: el siguiente reto pendiente del día."
+  },
+  "resultHome": "Volver al inicio",
+  "@resultHome": {
+    "description": "Botón secundario del resultado."
+  },
+  "achievementTitle": "{key, select, first_puzzle{Primer puzzle} all_three_games{Prueba los tres juegos} streak_3{Racha de 3 días} streak_7{Racha de 7 días} streak_30{Racha de 30 días} streak_100{Racha de 100 días} perfect_day{Día perfecto} full_month{Mes completo} ten_unassisted{10 puzzles sin ayuda} sudoku_first_hard{Primer Sudoku Difícil} sudoku_first_expert{Primer Sudoku Experto} sudoku_fast_medium{Sudoku Medio en menos de 6 minutos} mines_first_expert{Primer Buscaminas Experto} mines_five_in_a_row{5 victorias seguidas en Buscaminas} mines_no_flags{Ganar sin banderas} words_ten_themes{Explora 10 temas} words_expert_no_hints{Sopa Experta sin pistas} other{50 sopas completadas}}",
+  "@achievementTitle": {
+    "description": "Nombre de un logro, por su id estable.",
+    "placeholders": {
+      "key": {
+        "type": "String"
+      }
+    }
+  }
 }
