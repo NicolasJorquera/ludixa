@@ -325,6 +325,124 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeRetry => 'Try again';
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days in a row',
+      one: '1 day in a row',
+      zero: 'No streak yet',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyBest(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Your best: $count days',
+      one: 'Your best: 1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailySavers(int count) {
+    return 'Savers: $count of 2';
+  }
+
+  @override
+  String get dailySaversHelp => 'You earn 1 every 7 days in a row; it covers a missed day.';
+
+  @override
+  String dailySaversNeeded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Play today and $count savers cover the missed days.',
+      one: 'Play today and a saver covers the missed day.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyPrevious(int count) {
+    return 'Previous streak: $count days. Let’s start another!';
+  }
+
+  @override
+  String get dailyDone => 'Today: done';
+
+  @override
+  String dailyNext(String time) {
+    return 'Next challenge at $time';
+  }
+
+  @override
+  String dailyCompletedIn(String time) {
+    return 'Done in $time';
+  }
+
+  @override
+  String get dailyCompletedArchive => 'Done from the archive';
+
+  @override
+  String get dailyPlay => 'Play';
+
+  @override
+  String get dailyContinue => 'Continue';
+
+  @override
+  String dailyCalendar(String month) {
+    return '$month calendar';
+  }
+
+  @override
+  String dailyDayLabel(String date, int count, String suffix) {
+    return '$date, $count of 3 challenges$suffix';
+  }
+
+  @override
+  String get dailyDayToday => ', today';
+
+  @override
+  String get dailyDayPerfect => ', perfect day';
+
+  @override
+  String get dailyDaySaver => ', covered by a saver';
+
+  @override
+  String dailyDayArchive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: ', $count from the archive',
+      one: ', 1 from the archive',
+      zero: '',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dailyArchive => 'Previous days';
+
+  @override
+  String get archiveTitle => 'Previous days';
+
+  @override
+  String get archiveHint =>
+      'You can play the last 30 days of challenges. They don’t count for your streak, but they fill in the calendar.';
+
+  @override
+  String archiveMarks(int count) {
+    return '$count of 3';
+  }
+
+  @override
+  String get archiveOutside => 'This day is no longer in the archive.';
 }
 
 /// The translations for English (`en_XA`).
@@ -648,4 +766,122 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get homeRetry => '[Ţŕý áĝáîñ ····]';
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days in a row',
+      one: '1 day in a row',
+      zero: 'No streak yet',
+    );
+    return '[$_temp0 ]';
+  }
+
+  @override
+  String dailyBest(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Your best: $count days',
+      one: 'Your best: 1 day',
+    );
+    return '[$_temp0 ]';
+  }
+
+  @override
+  String dailySavers(int count) {
+    return '[Šáṽéŕš: $count öƒ 2 ····]';
+  }
+
+  @override
+  String get dailySaversHelp => '[Ýöû éáŕñ 1 éṽéŕý 7 ðáýš îñ á ŕöŵ; îţ çöṽéŕš á ɱîššéð ðáý. ················]';
+
+  @override
+  String dailySaversNeeded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Play today and $count savers cover the missed days.',
+      one: 'Play today and a saver covers the missed day.',
+    );
+    return '[$_temp0 ]';
+  }
+
+  @override
+  String dailyPrevious(int count) {
+    return '[Þŕéṽîöûš šţŕéáķ: $count ðáýš. Ļéţ’š šţáŕţ áñöţĥéŕ! ··············]';
+  }
+
+  @override
+  String get dailyDone => '[Ţöðáý: ðöñé ····]';
+
+  @override
+  String dailyNext(String time) {
+    return '[Ñéẋţ çĥáļļéñĝé áţ $time ······]';
+  }
+
+  @override
+  String dailyCompletedIn(String time) {
+    return '[Ðöñé îñ $time ···]';
+  }
+
+  @override
+  String get dailyCompletedArchive => '[Ðöñé ƒŕöɱ ţĥé áŕçĥîṽé ········]';
+
+  @override
+  String get dailyPlay => '[Þļáý ··]';
+
+  @override
+  String get dailyContinue => '[Çöñţîñûé ····]';
+
+  @override
+  String dailyCalendar(String month) {
+    return '[$month çáļéñðáŕ ····]';
+  }
+
+  @override
+  String dailyDayLabel(String date, int count, String suffix) {
+    return '[$date, $count öƒ 3 çĥáļļéñĝéš$suffix ·····]';
+  }
+
+  @override
+  String get dailyDayToday => '[, ţöðáý ··]';
+
+  @override
+  String get dailyDayPerfect => '[, þéŕƒéçţ ðáý ····]';
+
+  @override
+  String get dailyDaySaver => '[, çöṽéŕéð ƀý á šáṽéŕ ······]';
+
+  @override
+  String dailyDayArchive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: ', $count from the archive',
+      one: ', 1 from the archive',
+      zero: '',
+    );
+    return '[$_temp0 ]';
+  }
+
+  @override
+  String get dailyArchive => '[Þŕéṽîöûš ðáýš ·····]';
+
+  @override
+  String get archiveTitle => '[Þŕéṽîöûš ðáýš ·····]';
+
+  @override
+  String get archiveHint =>
+      '[Ýöû çáñ þļáý ţĥé ļášţ 30 ðáýš öƒ çĥáļļéñĝéš. Ţĥéý ðöñ’ţ çöûñţ ƒöŕ ýöûŕ šţŕéáķ, ƀûţ ţĥéý ƒîļļ îñ ţĥé çáļéñðáŕ. ··································]';
+
+  @override
+  String archiveMarks(int count) {
+    return '[$count öƒ 3 ·]';
+  }
+
+  @override
+  String get archiveOutside => '[Ţĥîš ðáý îš ñö ļöñĝéŕ îñ ţĥé áŕçĥîṽé. ············]';
 }

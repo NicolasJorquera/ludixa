@@ -116,10 +116,10 @@ abstract class MinesLocalizations {
   /// **'Experto'**
   String get levelExpert;
 
-  /// Nivel del tablero reducido del reto diario (12×12).
+  /// Nivel 12×12 con 22 minas del reto de mitad de semana.
   ///
   /// In es, this message translates to:
-  /// **'Reto'**
+  /// **'Intermedio reducido'**
   String get levelDaily;
 
   /// Hoja de dificultad.

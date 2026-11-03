@@ -78,6 +78,13 @@ class MinesweeperModule implements GameModule {
   }
 
   @override
+  String difficultyLabel(BuildContext context, Difficulty difficulty) =>
+      MinesweeperLevels.label(MinesLocalizations.of(context), difficulty);
+
+  @override
+  String? dailyDetail(BuildContext context, LocalDay day) => null;
+
+  @override
   DailySpec dailySpec(LocalDay day) => DailySpec(difficulty: MinesweeperLevels.of(DailyLineup.of(day).minesweeper));
 
   @override

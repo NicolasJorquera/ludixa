@@ -4,7 +4,7 @@
   "levelBeginner": "Beginner",
   "levelIntermediate": "Intermediate",
   "levelExpert": "Expert",
-  "levelDaily": "Challenge",
+  "levelDaily": "Small intermediate",
   "levelBeginnerDescription": "9×9 · 10 mines · fits without zoom",
   "levelIntermediateDescription": "16×16 · 40 mines · optional zoom",
   "levelExpertDescription": "16×30 · 99 mines · with zoom",

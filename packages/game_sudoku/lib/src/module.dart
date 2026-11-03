@@ -66,6 +66,15 @@ class SudokuModule implements GameModule {
   };
 
   @override
+  String difficultyLabel(BuildContext context, Difficulty difficulty) => levelLabel(
+    SudokuLocalizations.of(context),
+    SudokuDifficulty.values.firstWhere((l) => l.name == difficulty.value, orElse: () => SudokuDifficulty.easy),
+  );
+
+  @override
+  String? dailyDetail(BuildContext context, LocalDay day) => null;
+
+  @override
   DailySpec dailySpec(LocalDay day) => DailySpec(difficulty: Difficulty(DailyLineup.of(day).sudoku.name));
 
   @override

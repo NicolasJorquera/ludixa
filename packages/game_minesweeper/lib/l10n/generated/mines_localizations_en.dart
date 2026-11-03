@@ -21,7 +21,7 @@ class MinesLocalizationsEn extends MinesLocalizations {
   String get levelExpert => 'Expert';
 
   @override
-  String get levelDaily => 'Challenge';
+  String get levelDaily => 'Small intermediate';
 
   @override
   String get levelBeginnerDescription => '9×9 · 10 mines · fits without zoom';

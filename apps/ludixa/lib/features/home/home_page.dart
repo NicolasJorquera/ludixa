@@ -153,7 +153,7 @@ class _DailyCard extends StatelessWidget {
           else
             LudixaButton(
               label: l10n.homeDailyArchive,
-              onPressed: () => context.go(AppRoutes.daily),
+              onPressed: () => context.go(AppRoutes.archive),
               variant: LudixaButtonVariant.tertiary,
             ),
         ],

@@ -2,7 +2,9 @@ import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:puzzle_core/puzzle_core.dart';
 
+import '../features/daily/archive_page.dart';
 import '../features/daily/daily_page.dart';
 import '../features/dev/dev_games_page.dart';
 import '../features/home/home_page.dart';
@@ -16,6 +18,8 @@ import 'shell.dart';
 abstract final class AppRoutes {
   static const home = '/';
   static const daily = '/daily';
+  static const archive = '/daily/archive';
+  static String dailyDay(LocalDay day) => '/daily/day/${day.toIso8601()}';
   static const progress = '/progress';
   static const settings = '/settings';
   static const licenses = '/settings/licenses';
@@ -41,7 +45,19 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [GoRoute(path: AppRoutes.home, builder: (context, state) => const HomePage())],
           ),
           StatefulShellBranch(
-            routes: [GoRoute(path: AppRoutes.daily, builder: (context, state) => const DailyPage())],
+            routes: [
+              GoRoute(
+                path: AppRoutes.daily,
+                builder: (context, state) => const DailyPage(),
+                routes: [
+                  GoRoute(path: 'archive', builder: (context, state) => const ArchivePage()),
+                  GoRoute(
+                    path: 'day/:date',
+                    builder: (context, state) => DayPage(day: LocalDay.parse(state.pathParameters['date']!)),
+                  ),
+                ],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [GoRoute(path: AppRoutes.progress, builder: (context, state) => const ProgressPage())],
