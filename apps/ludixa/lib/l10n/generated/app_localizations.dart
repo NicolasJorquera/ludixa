@@ -320,12 +320,6 @@ abstract class AppLocalizations {
   /// **'{game}: elige la dificultad'**
   String difficultyTitle(String game);
 
-  /// Marca del nivel recordado.
-  ///
-  /// In es, this message translates to:
-  /// **'La última que jugaste'**
-  String get difficultyLast;
-
   /// Título del resultado.
   ///
   /// In es, this message translates to:
@@ -421,6 +415,162 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{key, select, first_puzzle{Primer puzzle} all_three_games{Prueba los tres juegos} streak_3{Racha de 3 días} streak_7{Racha de 7 días} streak_30{Racha de 30 días} streak_100{Racha de 100 días} perfect_day{Día perfecto} full_month{Mes completo} ten_unassisted{10 puzzles sin ayuda} sudoku_first_hard{Primer Sudoku Difícil} sudoku_first_expert{Primer Sudoku Experto} sudoku_fast_medium{Sudoku Medio en menos de 6 minutos} mines_first_expert{Primer Buscaminas Experto} mines_five_in_a_row{5 victorias seguidas en Buscaminas} mines_no_flags{Ganar sin banderas} words_ten_themes{Explora 10 temas} words_expert_no_hints{Sopa Experta sin pistas} other{50 sopas completadas}}'**
   String achievementTitle(String key);
+
+  /// Botón principal de la hoja de dificultad.
+  ///
+  /// In es, this message translates to:
+  /// **'Empezar · {level}'**
+  String difficultyStart(String level);
+
+  /// Mejor tiempo del nivel.
+  ///
+  /// In es, this message translates to:
+  /// **'Récord {time}'**
+  String difficultyBest(String time);
+
+  /// Nivel sin partidas ganadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin partidas'**
+  String get difficultyNoGames;
+
+  /// Nombre del grupo de opciones de nivel.
+  ///
+  /// In es, this message translates to:
+  /// **'Nivel'**
+  String get difficultyLevels;
+
+  /// Chip de racha en la portada.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{Racha de 1 día} other{Racha de {count} días}}'**
+  String homeStreak(int count);
+
+  /// Tarjeta del reto en la portada.
+  ///
+  /// In es, this message translates to:
+  /// **'Reto de hoy'**
+  String get homeDailyTitle;
+
+  /// Primera vez: invitación al reto.
+  ///
+  /// In es, this message translates to:
+  /// **'Empieza con el reto de hoy'**
+  String get homeDailyFirst;
+
+  /// Avance del reto del día.
+  ///
+  /// In es, this message translates to:
+  /// **'{done} de 3 hechos'**
+  String homeDailyProgress(int done);
+
+  /// Botón principal: el primer reto pendiente.
+  ///
+  /// In es, this message translates to:
+  /// **'Jugar {game}'**
+  String homeDailyPlay(String game);
+
+  /// Reto del día completo.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy: hecho'**
+  String get homeDailyDone;
+
+  /// Tiempo de los tres retos.
+  ///
+  /// In es, this message translates to:
+  /// **'Tiempo total {time}'**
+  String homeDailyDoneTime(String time);
+
+  /// Enlace al archivo (pestaña Reto).
+  ///
+  /// In es, this message translates to:
+  /// **'Días anteriores'**
+  String get homeDailyArchive;
+
+  /// Estado de un juego en el reto.
+  ///
+  /// In es, this message translates to:
+  /// **'hecho'**
+  String get homeDailyStateDone;
+
+  /// Estado de un juego en el reto.
+  ///
+  /// In es, this message translates to:
+  /// **'pendiente'**
+  String get homeDailyStatePending;
+
+  /// Tarjeta de la partida en curso.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar'**
+  String get homeContinue;
+
+  /// Detalle de la partida en curso.
+  ///
+  /// In es, this message translates to:
+  /// **'{game} · {level} · {time}'**
+  String homeContinueDetail(String game, String level, String time);
+
+  /// Título del catálogo.
+  ///
+  /// In es, this message translates to:
+  /// **'Juegos'**
+  String get homeGames;
+
+  /// Maestría del juego en la portada.
+  ///
+  /// In es, this message translates to:
+  /// **'Maestría {medal} en {level}'**
+  String homeMastery(String medal, String level);
+
+  /// Juego sin partidas ganadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin medallas todavía'**
+  String get homeNoMastery;
+
+  /// Etiqueta accesible de una tarjeta de juego.
+  ///
+  /// In es, this message translates to:
+  /// **'{game}, {mastery}'**
+  String homeGameLabel(String game, String mastery);
+
+  /// Resumen semanal.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu semana'**
+  String get homeWeek;
+
+  /// Partidas completadas de un juego en la semana.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =0{sin partidas} =1{1 partida} other{{count} partidas}}'**
+  String homeWeekGames(int count);
+
+  /// Tiempo total de la semana.
+  ///
+  /// In es, this message translates to:
+  /// **'Tiempo jugado {time}'**
+  String homeWeekTime(String time);
+
+  /// Mejor marca de la semana de un juego.
+  ///
+  /// In es, this message translates to:
+  /// **'mejor {time}'**
+  String homeWeekBest(String time);
+
+  /// Error al leer los datos.
+  ///
+  /// In es, this message translates to:
+  /// **'No pudimos cargar tu progreso'**
+  String get homeLoadError;
+
+  /// Reintentar la carga.
+  ///
+  /// In es, this message translates to:
+  /// **'Reintentar'**
+  String get homeRetry;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

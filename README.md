@@ -91,7 +91,7 @@ Discovery, PRD, especificación UX, arquitectura y backlog están en las entrega
 
 ## Jugar en desarrollo
 
-En la versión dev, Ajustes > *Probar juegos* abre los tres juegos con el flujo real: hoja de dificultad (recuerda el último nivel), partida, pausa (`GameHost.showPause`, también automática al volver tras más de 60 s fuera) y resultado. El progreso se guarda en memoria hasta H5-02.
+La portada (Inicio) abre el reto de hoy, la partida en curso ("Continuar") y cada juego. En la versión dev, además, Ajustes > *Probar juegos* abre los tres juegos con el flujo real: hoja de dificultad (recuerda el último nivel), partida, pausa (`GameHost.showPause`, también automática al volver tras más de 60 s fuera) y resultado. El progreso se guarda en memoria hasta H5-02.
 
 ## Bancos de palabras
 

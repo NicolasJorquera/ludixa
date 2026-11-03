@@ -11,17 +11,44 @@ import 'package:puzzle_core/puzzle_core.dart';
 import '../../app/router.dart';
 import 'app_game_host.dart';
 import 'difficulty_sheet.dart';
+import 'last_difficulty.dart';
 import 'pause_screen.dart';
 import 'play_providers.dart';
 import 'result_page.dart';
 
 /// Cómo se abre una partida desde cualquier pantalla.
 abstract final class GameFlow {
-  /// Hoja de dificultad (recuerda el último nivel) y, si se elige, la partida.
+  /// Hoja de dificultad (recuerda el último nivel y muestra el récord de
+  /// cada uno) y la partida. La primera vez pasa antes por el tutorial.
   static Future<void> chooseAndPlay(BuildContext context, WidgetRef ref, GameModule module) async {
-    final level = await showDifficultySheet(context, module, ref.read(lastDifficultyStoreProvider));
+    final store = ref.read(lastDifficultyStoreProvider);
+    final service = ref.read(progressServiceProvider);
+    final levels = [for (final o in module.difficulties(context)) o.id];
+    final best = <Difficulty, Duration>{
+      for (final level in levels) level: ?(await service.stats(module.id, level)).bestTime,
+    };
+    if (!context.mounted) return;
+    final level = await showDifficultySheet(
+      context,
+      module,
+      store,
+      bestTimes: best,
+      onHowToPlay: () => tutorial(context, module, store),
+    );
     if (level == null || !context.mounted) return;
+    if (!store.tutorialSeen(module.id)) await tutorial(context, module, store);
+    if (!context.mounted) return;
     await play(context, module, freeRequest(level));
+  }
+
+  /// Abre el tutorial del juego y lo marca como visto.
+  static Future<void> tutorial(BuildContext context, GameModule module, LastDifficultyStore store) async {
+    await store.markTutorialSeen(module.id);
+    if (!context.mounted) return;
+    await Navigator.of(
+      context,
+      rootNavigator: true,
+    ).push(MaterialPageRoute<void>(builder: (context) => module.buildTutorial(context, const TutorialHost())));
   }
 
   static PuzzleRequest freeRequest(Difficulty level) =>
@@ -34,10 +61,32 @@ abstract final class GameFlow {
     day: day,
   );
 
-  /// Abre la partida a pantalla completa, fuera de las pestañas.
-  static Future<void> play(BuildContext context, GameModule module, PuzzleRequest request, {bool replace = false}) {
+  /// Retoma una partida guardada en el estado exacto en que quedó.
+  static Future<void> resume(BuildContext context, GameModule module, SessionRecord session) => play(
+    context,
+    module,
+    PuzzleRequest(
+      mode: session.mode,
+      difficulty: session.difficulty,
+      seed: PuzzleSeed.fromKey(session.seedKey),
+      day: session.challengeDay,
+      wordsLanguage: session.wordsLanguage,
+      resumeFrom: SessionSnapshot(state: session.state, elapsed: session.elapsed),
+    ),
+    session: session,
+  );
+
+  /// Abre la partida a pantalla completa, fuera de las pestañas. Con
+  /// [session] continúa esa partida guardada en lugar de empezar otra.
+  static Future<void> play(
+    BuildContext context,
+    GameModule module,
+    PuzzleRequest request, {
+    bool replace = false,
+    SessionRecord? session,
+  }) {
     final route = MaterialPageRoute<void>(
-      builder: (context) => GameSessionPage(module: module, request: request),
+      builder: (context) => GameSessionPage(module: module, request: request, session: session),
     );
     final navigator = Navigator.of(context, rootNavigator: true);
     return replace ? navigator.pushReplacement(route) : navigator.push(route);
@@ -47,10 +96,14 @@ abstract final class GameFlow {
 /// Una partida en curso: crea el host de la app, muestra la pausa, guarda en
 /// el progreso y lleva al Resultado al ganar.
 class GameSessionPage extends ConsumerStatefulWidget {
-  const GameSessionPage({super.key, required this.module, required this.request});
+  const GameSessionPage({super.key, required this.module, required this.request, this.session});
 
   final GameModule module;
   final PuzzleRequest request;
+
+  /// Partida guardada que se continúa (mismo id: las instantáneas la
+  /// actualizan). Null para una partida nueva.
+  final SessionRecord? session;
 
   @override
   ConsumerState<GameSessionPage> createState() => _GameSessionPageState();
@@ -67,20 +120,24 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
     final service = ref.read(progressServiceProvider);
     final request = widget.request;
     final day = request.day;
+    final revision = ref.read(progressRevisionProvider.notifier);
     _host = AppGameHost(
       service: service,
-      session: SessionRecord(
-        id: '${_module.id.value}-${DateTime.now().microsecondsSinceEpoch}-${Random().nextInt(1 << 32)}',
-        game: _module.id,
-        difficulty: request.difficulty,
-        mode: request.mode,
-        startedAt: service.clock.now(),
-        challengeDay: day,
-        seedKey: request.seed.key,
-        generatorVersion: _module.generatorVersion,
-        wordsLanguage: request.wordsLanguage,
-        themeIds: day != null && _module.id == GameId.wordSearch ? DailyChallenge.themesFor(day) : const [],
-      ),
+      onChanged: revision.bump,
+      session:
+          widget.session ??
+          SessionRecord(
+            id: '${_module.id.value}-${DateTime.now().microsecondsSinceEpoch}-${Random().nextInt(1 << 32)}',
+            game: _module.id,
+            difficulty: request.difficulty,
+            mode: request.mode,
+            startedAt: service.clock.now(),
+            challengeDay: day,
+            seedKey: request.seed.key,
+            generatorVersion: _module.generatorVersion,
+            wordsLanguage: request.wordsLanguage,
+            themeIds: day != null && _module.id == GameId.wordSearch ? DailyChallenge.themesFor(day) : const [],
+          ),
       onShowPause: () => PauseScreen.show(context, _module, _host),
       onWon: _showResult,
       onPlayAgain: _playAgain,
@@ -134,4 +191,30 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
 
   @override
   Widget build(BuildContext context) => _module.buildGame(context, widget.request, _host);
+}
+
+/// Los tutoriales no usan el host; este solo cumple el contrato.
+class TutorialHost implements GameHost {
+  const TutorialHost();
+
+  @override
+  int get freeHintsLeft => 0;
+
+  @override
+  Future<HintGrant> requestHint() async => const HintDenied(HintDenial.unavailable);
+
+  @override
+  Future<RescueOutcome> requestRescue() async => RescueOutcome.unavailable;
+
+  @override
+  Future<void> saveSnapshot(SessionSnapshot snapshot) async {}
+
+  @override
+  Future<void> reportResult(GameResult result) async {}
+
+  @override
+  Future<PauseChoice> showPause() async => PauseChoice.resume;
+
+  @override
+  void playAgain() {}
 }

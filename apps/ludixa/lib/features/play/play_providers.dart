@@ -30,3 +30,14 @@ final gameModulesProvider = Provider<Map<GameId, GameModule>>(
     GameId.wordSearch: WordSearchModule(store: ref.watch(wordSearchSettingsStoreProvider)),
   },
 );
+
+/// Sube cada vez que el progreso cambia (partida guardada o terminada). Las
+/// pantallas que muestran progreso lo vigilan para refrescarse.
+final progressRevisionProvider = NotifierProvider<ProgressRevision, int>(ProgressRevision.new);
+
+class ProgressRevision extends Notifier<int> {
+  @override
+  int build() => 0;
+
+  void bump() => state++;
+}

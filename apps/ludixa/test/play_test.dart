@@ -124,6 +124,9 @@ void main() {
       await tester.pumpAndSettle();
       final result = future;
       await tester.tap(find.text('Medio'));
+      await tester.pump();
+      expect(find.text('Empezar · Medio'), findsOneWidget);
+      await tester.tap(find.text('Empezar · Medio'));
       await tester.pumpAndSettle();
       chosen = await result;
     }
@@ -134,8 +137,8 @@ void main() {
     unawaited(showDifficultySheet(context, module, store));
     await tester.pumpAndSettle();
     expect(find.text('Sudoku: elige la dificultad'), findsOneWidget);
-    expect(find.text('La última que jugaste'), findsOneWidget);
-    expect(tester.widget<ListTile>(find.widgetWithText(ListTile, 'Medio')).selected, isTrue);
+    expect(find.text('Empezar · Medio'), findsOneWidget);
+    expect(find.textContaining('Sin partidas'), findsNWidgets(4));
   });
 
   group('pausa', () {
