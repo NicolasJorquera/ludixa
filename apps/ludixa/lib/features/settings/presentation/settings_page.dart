@@ -36,7 +36,7 @@ class SettingsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: ListView(
-        padding: const EdgeInsets.only(bottom: 24),
+        padding: LudixaLayout.rows(context),
         children: [
           LudixaSectionLabel(l10n.settingsGeneralSection),
           _GroupLabel(l10n.settingsLanguageSection),
@@ -281,7 +281,7 @@ class GameSettingsPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(module?.displayName(context) ?? '')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 24),
+        padding: LudixaLayout.rows(context),
         child: module?.buildSettings(context) ?? const SizedBox.shrink(),
       ),
     );
@@ -307,7 +307,7 @@ class AdsContractPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settingsAdsContract)),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+        padding: LudixaLayout.page(context, top: 8),
         children: [
           Text(l10n.adsContractIntro, style: text.bodyLarge),
           const SizedBox(height: 16),

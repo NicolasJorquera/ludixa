@@ -83,68 +83,73 @@ class PuzzleGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final extent =
-            fixedCellExtent ??
-            math.min(maxCellExtent, fitCellExtent(constraints.maxWidth, dimensions, gap: gap)).floorToDouble();
-        final width = extent * dimensions.columns + gap * (dimensions.columns - 1);
-        final height = extent * dimensions.rows + gap * (dimensions.rows - 1);
-        final pitch = extent + gap;
+    // Los dígitos y letras de la grilla escalan hasta el 130 % (ficha UX):
+    // más allá no caben en su celda y se recomienda el zoom.
+    return MediaQuery.withClampedTextScaling(
+      maxScaleFactor: 1.3,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final extent =
+              fixedCellExtent ??
+              math.min(maxCellExtent, fitCellExtent(constraints.maxWidth, dimensions, gap: gap)).floorToDouble();
+          final width = extent * dimensions.columns + gap * (dimensions.columns - 1);
+          final height = extent * dimensions.rows + gap * (dimensions.rows - 1);
+          final pitch = extent + gap;
 
-        int? indexAt(Offset local) {
-          if (local.dx < 0 || local.dy < 0 || local.dx >= width || local.dy >= height) return null;
-          final column = (local.dx / pitch).floor();
-          final row = (local.dy / pitch).floor();
-          // Un toque en la separación entre celdas no cuenta.
-          if (local.dx - column * pitch > extent || local.dy - row * pitch > extent) return null;
-          return dimensions.indexOf(row, column);
-        }
+          int? indexAt(Offset local) {
+            if (local.dx < 0 || local.dy < 0 || local.dx >= width || local.dy >= height) return null;
+            final column = (local.dx / pitch).floor();
+            final row = (local.dy / pitch).floor();
+            // Un toque en la separación entre celdas no cuenta.
+            if (local.dx - column * pitch > extent || local.dy - row * pitch > extent) return null;
+            return dimensions.indexOf(row, column);
+          }
 
-        // Centrada si sobra ancho (cuando la celda llega a maxCellExtent).
-        return Center(
-          widthFactor: 1,
-          heightFactor: 1,
-          child: Semantics(
-            container: true,
-            label: semanticLabel,
-            child: _GridGestures(
-              indexAt: indexAt,
-              onTap: onCellTap,
-              onLongPress: onCellLongPress,
-              onDragStart: onDragStart,
-              onDragUpdate: onDragUpdate,
-              onDragEnd: onDragEnd,
-              longPressDuration: longPressDuration,
-              child: SizedBox(
-                width: width,
-                height: height,
-                child: Stack(
-                  children: [
-                    for (var i = 0; i < dimensions.cellCount; i++)
-                      Positioned(
-                        left: dimensions.columnOf(i) * pitch,
-                        top: dimensions.rowOf(i) * pitch,
-                        width: extent,
-                        height: extent,
-                        // Nodo propio por celda aunque no tenga acciones (selección
-                        // por arrastre): así el lector la recorre una a una.
-                        child: Semantics(
-                          container: true,
-                          label: semanticLabelFor(i),
-                          button: onCellTap != null,
-                          onTap: onCellTap == null ? null : () => onCellTap!(i),
-                          onLongPress: onCellLongPress == null ? null : () => onCellLongPress!(i),
-                          child: cellBuilder(context, i, extent),
+          // Centrada si sobra ancho (cuando la celda llega a maxCellExtent).
+          return Center(
+            widthFactor: 1,
+            heightFactor: 1,
+            child: Semantics(
+              container: true,
+              label: semanticLabel,
+              child: _GridGestures(
+                indexAt: indexAt,
+                onTap: onCellTap,
+                onLongPress: onCellLongPress,
+                onDragStart: onDragStart,
+                onDragUpdate: onDragUpdate,
+                onDragEnd: onDragEnd,
+                longPressDuration: longPressDuration,
+                child: SizedBox(
+                  width: width,
+                  height: height,
+                  child: Stack(
+                    children: [
+                      for (var i = 0; i < dimensions.cellCount; i++)
+                        Positioned(
+                          left: dimensions.columnOf(i) * pitch,
+                          top: dimensions.rowOf(i) * pitch,
+                          width: extent,
+                          height: extent,
+                          // Nodo propio por celda aunque no tenga acciones (selección
+                          // por arrastre): así el lector la recorre una a una.
+                          child: Semantics(
+                            container: true,
+                            label: semanticLabelFor(i),
+                            button: onCellTap != null,
+                            onTap: onCellTap == null ? null : () => onCellTap!(i),
+                            onLongPress: onCellLongPress == null ? null : () => onCellLongPress!(i),
+                            child: cellBuilder(context, i, extent),
+                          ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

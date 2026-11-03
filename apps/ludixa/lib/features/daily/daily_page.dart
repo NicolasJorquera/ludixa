@@ -71,7 +71,7 @@ class _DailyPageState extends ConsumerState<DailyPage> {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.dailyTitle)),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+        padding: LudixaLayout.page(context),
         children: [
           Text(_capitalize(date), style: text.titleMedium),
           const SizedBox(height: 12),

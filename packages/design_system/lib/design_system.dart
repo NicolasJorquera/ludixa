@@ -15,6 +15,7 @@ export 'src/grid/haptics.dart';
 export 'src/grid/puzzle_grid.dart';
 export 'src/grid/zoomable_board.dart';
 export 'src/icons.dart';
+export 'src/layout.dart';
 export 'src/licenses.dart';
 export 'src/palette.dart';
 export 'src/theme.dart';

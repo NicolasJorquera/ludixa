@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../icons.dart';
+import '../layout.dart';
 import '../theme.dart';
 
 /// Fila de lista: título, subtítulo y valor opcionales, y chevron si navega.
@@ -19,13 +20,28 @@ class LudixaListRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
     final textTheme = Theme.of(context).textTheme;
+    // Con texto grande, el valor baja bajo el título en vez de apretarlo.
+    final below = value != null && LudixaLayout.largeText(context);
+    final valueStyle = textTheme.bodyMedium!.copyWith(color: p.inkMuted);
     return ListTile(
       leading: leading,
       title: Text(title),
-      subtitle: subtitle == null ? null : Text(subtitle!),
+      subtitle: below
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (subtitle != null) Text(subtitle!),
+                Text(value!, style: valueStyle),
+              ],
+            )
+          : subtitle == null
+          ? null
+          : Text(subtitle!),
       minTileHeight: 56,
       onTap: onTap,
-      trailing: (value == null && onTap == null)
+      trailing: below
+          ? (onTap == null ? null : LudixaIcon(LudixaIcons.chevronRight, color: p.inkMuted))
+          : (value == null && onTap == null)
           ? null
           : Row(
               mainAxisSize: MainAxisSize.min,
@@ -33,11 +49,7 @@ class LudixaListRow extends StatelessWidget {
                 if (value != null)
                   ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 160),
-                    child: Text(
-                      value!,
-                      style: textTheme.bodyMedium!.copyWith(color: p.inkMuted),
-                      textAlign: TextAlign.end,
-                    ),
+                    child: Text(value!, style: valueStyle, textAlign: TextAlign.end),
                   ),
                 if (onTap != null) LudixaIcon(LudixaIcons.chevronRight, color: p.inkMuted),
               ],

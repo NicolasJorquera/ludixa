@@ -132,7 +132,7 @@ class _WordSearchPageState extends State<WordSearchPage> {
     final media = MediaQuery.of(context);
     // Con TalkBack el arrastre no sirve: se usa tocar inicio y final.
     final tapMode = _c.settings.selection == SelectionMode.tap || media.accessibleNavigation;
-    const gutter = 16.0;
+    final gutter = LudixaLayout.gutter(context);
     final size = _c.size;
     final cellExtent = math.min(((media.size.width - 2 * gutter) / size).floorToDouble(), 48.0);
     final zoomable = cellExtent < _minCell;
@@ -184,7 +184,7 @@ class _WordSearchPageState extends State<WordSearchPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(gutter, 4, gutter, 12),
+          padding: EdgeInsets.fromLTRB(gutter, 4, gutter, 12),
           child: Column(
             children: [
               // Burbuja con la palabra en curso (o la instrucción del modo toque).
@@ -274,17 +274,24 @@ class _WordSearchPageState extends State<WordSearchPage> {
               // Lista de palabras con su ortografía real, contador y pista.
               Row(
                 children: [
-                  Semantics(
-                    label: l10n.wordsCountLabel(found, total),
-                    excludeSemantics: true,
-                    child: Text(l10n.wordsCount(found, total), style: text.titleMedium),
-                  ),
-                  if (compact)
-                    TextButton(
-                      onPressed: () => setState(() => _listOpen = !listOpen),
-                      child: Text(listOpen ? l10n.wordsHide : l10n.wordsShow),
+                  // Con texto grande, "Mostrar lista" baja a otra línea.
+                  Expanded(
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Semantics(
+                          label: l10n.wordsCountLabel(found, total),
+                          excludeSemantics: true,
+                          child: Text(l10n.wordsCount(found, total), style: text.titleMedium),
+                        ),
+                        if (compact)
+                          TextButton(
+                            onPressed: () => setState(() => _listOpen = !listOpen),
+                            child: Text(listOpen ? l10n.wordsHide : l10n.wordsShow),
+                          ),
+                      ],
                     ),
-                  const Spacer(),
+                  ),
                   Semantics(
                     value: _c.hintsExhausted ? l10n.noMoreHints : l10n.hintsLeft(_c.host.freeHintsLeft),
                     child: IconButton(

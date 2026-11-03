@@ -80,7 +80,12 @@ class _Tool extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color)),
+        // Una sola línea: en pantallas angostas la etiqueta se achica antes
+        // que partirse ("Deshace r"). El nombre completo sigue en TalkBack.
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(label, maxLines: 1, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color)),
+        ),
       ],
     );
     if (tooltip != null) body = Tooltip(message: tooltip, child: body);
@@ -116,59 +121,65 @@ class SudokuKeypad extends StatelessWidget {
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
     final c = controller;
     final active = !c.paused && !c.solved;
-    return Row(
-      children: [
-        for (var d = 1; d <= 9; d++)
-          Expanded(
-            child: Builder(
-              builder: (context) {
-                final remaining = (9 - c.game.countOf(d)).clamp(0, 9);
-                final complete = remaining == 0;
-                final chosen = c.settings.inputMode == SudokuInputMode.numberFirst && c.activeDigit == d;
-                final ink = complete || !active ? p.inkMuted : p.sudoku;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  child: Semantics(
-                    button: true,
-                    selected: chosen,
-                    label: l10n.keyRemaining(d, remaining),
-                    excludeSemantics: true,
-                    child: Material(
-                      color: chosen ? p.sudokuSoft : p.surface,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(color: chosen ? p.sudoku : p.line),
-                      ),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(10),
-                        onTap: active ? () => c.tapDigit(d) : null,
-                        child: SizedBox(
-                          height: keyHeight,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '$d',
-                                style: LudixaTypography.gridDigit(entered: true).copyWith(fontSize: 24, color: ink),
-                              ),
-                              const SizedBox(height: 2),
-                              complete
-                                  ? LudixaIcon(LudixaIcons.check, size: 14, color: p.inkMuted)
-                                  : Text(
-                                      '$remaining',
-                                      style: Theme.of(context).textTheme.labelSmall?.copyWith(color: p.inkMuted),
-                                    ),
-                            ],
+    // Los dígitos escalan hasta el 130 %, como en la grilla; más allá, el
+    // teclado empujaría el tablero fuera de la pantalla.
+    return MediaQuery.withClampedTextScaling(
+      maxScaleFactor: 1.3,
+      child: Row(
+        children: [
+          for (var d = 1; d <= 9; d++)
+            Expanded(
+              child: Builder(
+                builder: (context) {
+                  final remaining = (9 - c.game.countOf(d)).clamp(0, 9);
+                  final complete = remaining == 0;
+                  final chosen = c.settings.inputMode == SudokuInputMode.numberFirst && c.activeDigit == d;
+                  final ink = complete || !active ? p.inkMuted : p.sudoku;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
+                    child: Semantics(
+                      button: true,
+                      selected: chosen,
+                      label: l10n.keyRemaining(d, remaining),
+                      excludeSemantics: true,
+                      child: Material(
+                        color: chosen ? p.sudokuSoft : p.surface,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: BorderSide(color: chosen ? p.sudoku : p.line),
+                        ),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(10),
+                          onTap: active ? () => c.tapDigit(d) : null,
+                          // Con texto grande, la tecla crece en alto.
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(minHeight: keyHeight),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$d',
+                                  style: LudixaTypography.gridDigit(entered: true).copyWith(fontSize: 24, color: ink),
+                                ),
+                                const SizedBox(height: 2),
+                                complete
+                                    ? LudixaIcon(LudixaIcons.check, size: 14, color: p.inkMuted)
+                                    : Text(
+                                        '$remaining',
+                                        style: Theme.of(context).textTheme.labelSmall?.copyWith(color: p.inkMuted),
+                                      ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -160,7 +160,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
     final spec = _c.game.spec;
     final width = MediaQuery.sizeOf(context).width;
-    const gutter = 16.0;
+    final gutter = LudixaLayout.gutter(context);
     final available = width - 2 * gutter;
     final fit = ((available - minesweeperGap * (spec.width - 1)) / spec.width).floorToDouble();
     final cellExtent = math.min(fit, 44.0);
@@ -209,7 +209,7 @@ class _MinesweeperPageState extends State<MinesweeperPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(gutter, 4, gutter, 12),
+          padding: EdgeInsets.fromLTRB(gutter, 4, gutter, 12),
           child: Column(
             children: [
               // Minas restantes y zoom.
@@ -325,8 +325,10 @@ class _StatusLine extends StatelessWidget {
     } else {
       message = null;
     }
-    return SizedBox(
-      height: 28,
+    // Alto mínimo fijo para que el tablero no salte; con texto grande el
+    // mensaje ocupa las líneas que necesite en vez de cortarse.
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 28),
       child: message == null
           ? null
           : Semantics(
@@ -338,9 +340,7 @@ class _StatusLine extends StatelessWidget {
                       padding: EdgeInsetsDirectional.only(end: 8),
                       child: SizedBox.square(dimension: 14, child: CircularProgressIndicator(strokeWidth: 2)),
                     ),
-                  Expanded(
-                    child: Text(message, style: style, maxLines: 1, overflow: TextOverflow.ellipsis),
-                  ),
+                  Expanded(child: Text(message, style: style)),
                 ],
               ),
             ),
@@ -361,42 +361,46 @@ class _Controls extends StatelessWidget {
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
     final active = !c.paused && !c.game.isOver && !c.generating;
     final free = c.host.freeHintsLeft;
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: LudixaSegmentedControl<TapAction>(
-            segments: [
-              LudixaSegment(value: TapAction.reveal, label: l10n.modeReveal, icon: LudixaIcons.reveal),
-              LudixaSegment(value: TapAction.flag, label: l10n.modeFlag, icon: LudixaIcons.flag),
-            ],
-            selected: c.mode,
-            onChanged: (v) {
-              if (v != c.mode) c.toggleMode();
-            },
-          ),
-        ),
-        const SizedBox(width: 8),
-        IconButton(
-          tooltip: l10n.undo,
-          onPressed: active && c.game.canUndo ? c.undo : null,
-          icon: const LudixaIcon(LudixaIcons.undo),
-        ),
-        Semantics(
-          value: c.hintsExhausted ? l10n.noMoreHints : l10n.hintsLeft(free),
-          child: IconButton(
-            tooltip: c.hintsExhausted ? l10n.noMoreHints : l10n.hint,
-            onPressed: active && !c.hintsExhausted && !c.game.needsBoard ? c.requestHint : null,
-            icon: Badge(
-              isLabelVisible: !c.hintsExhausted,
-              label: Text('$free'),
-              backgroundColor: p.minesweeper,
-              textColor: p.onPrimary,
-              child: const LudixaIcon(LudixaIcons.hint),
+    // Como la grilla, los controles escalan el texto hasta el 130 %.
+    return MediaQuery.withClampedTextScaling(
+      maxScaleFactor: 1.3,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: LudixaSegmentedControl<TapAction>(
+              segments: [
+                LudixaSegment(value: TapAction.reveal, label: l10n.modeReveal, icon: LudixaIcons.reveal),
+                LudixaSegment(value: TapAction.flag, label: l10n.modeFlag, icon: LudixaIcons.flag),
+              ],
+              selected: c.mode,
+              onChanged: (v) {
+                if (v != c.mode) c.toggleMode();
+              },
             ),
           ),
-        ),
-      ],
+          const SizedBox(width: 8),
+          IconButton(
+            tooltip: l10n.undo,
+            onPressed: active && c.game.canUndo ? c.undo : null,
+            icon: const LudixaIcon(LudixaIcons.undo),
+          ),
+          Semantics(
+            value: c.hintsExhausted ? l10n.noMoreHints : l10n.hintsLeft(free),
+            child: IconButton(
+              tooltip: c.hintsExhausted ? l10n.noMoreHints : l10n.hint,
+              onPressed: active && !c.hintsExhausted && !c.game.needsBoard ? c.requestHint : null,
+              icon: Badge(
+                isLabelVisible: !c.hintsExhausted,
+                label: Text('$free'),
+                backgroundColor: p.minesweeper,
+                textColor: p.onPrimary,
+                child: const LudixaIcon(LudixaIcons.hint),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

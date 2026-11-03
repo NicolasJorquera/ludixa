@@ -53,103 +53,116 @@ class MonthCalendar extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              for (var i = 0; i < 7; i++)
-                Expanded(
-                  child: ExcludeSemantics(
-                    child: Text(
-                      DateFormat.EEEEE(locale).format(DateTime.utc(2026, 11, 1 + (firstWeekday + i) % 7)),
-                      textAlign: TextAlign.center,
-                      style: text.labelSmall?.copyWith(color: p.inkMuted),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          for (var week = 0; week * 7 < leading + length; week++)
-            Row(
+          // Los números del calendario escalan hasta el 130 %, como los de las
+          // grillas: 7 columnas no dan para más en un teléfono. Cada día se
+          // anuncia completo a TalkBack.
+          MediaQuery.withClampedTextScaling(
+            maxScaleFactor: 1.3,
+            child: Column(
               children: [
-                for (var col = 0; col < 7; col++)
-                  Expanded(
-                    child: Builder(
-                      builder: (context) {
-                        final n = week * 7 + col - leading + 1;
-                        if (n < 1 || n > length) return const SizedBox(height: 48);
-                        final day = LocalDay(year, month, n);
-                        final record = days[day];
-                        final done = record?.completed.length ?? 0;
-                        final fromArchive = (record?.archiveCompleted.difference(record.completed) ?? const {}).length;
-                        final perfect = record?.perfect ?? false;
-                        final isToday = day == today;
-                        final tappable = onDayTap != null && DailyArchive.isAvailable(day, today);
-                        final suffix = [
-                          if (isToday) l10n.dailyDayToday,
-                          if (perfect) l10n.dailyDayPerfect,
-                          if (record?.saverUsed ?? false) l10n.dailyDaySaver,
-                          l10n.dailyDayArchive(fromArchive),
-                        ].join();
-                        return Semantics(
-                          container: true,
-                          label: l10n.dailyDayLabel(dayFormat.format(DateTime.utc(year, month, n)), done, suffix),
-                          button: tappable,
-                          excludeSemantics: true,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(12),
-                            onTap: tappable ? () => onDayTap!(day) : null,
-                            child: SizedBox(
-                              height: 48,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 30,
-                                    height: 30,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: perfect ? p.primary : null,
-                                      border: isToday ? Border.all(color: p.primary, width: 2) : null,
-                                    ),
-                                    child: record?.saverUsed ?? false
-                                        ? LudixaIcon(LudixaIcons.saver, size: 16, color: p.inkMuted)
-                                        : Text(
-                                            '$n',
-                                            style: text.bodySmall?.copyWith(
-                                              color: perfect ? p.onPrimary : (day.isAfter(today) ? p.inkMuted : p.ink),
-                                              fontWeight: isToday ? FontWeight.w700 : null,
-                                            ),
-                                          ),
-                                  ),
-                                  const SizedBox(height: 3),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      for (var k = 0; k < done + fromArchive && k < 3; k++)
+                Row(
+                  children: [
+                    for (var i = 0; i < 7; i++)
+                      Expanded(
+                        child: ExcludeSemantics(
+                          child: Text(
+                            DateFormat.EEEEE(locale).format(DateTime.utc(2026, 11, 1 + (firstWeekday + i) % 7)),
+                            textAlign: TextAlign.center,
+                            style: text.labelSmall?.copyWith(color: p.inkMuted),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                for (var week = 0; week * 7 < leading + length; week++)
+                  Row(
+                    children: [
+                      for (var col = 0; col < 7; col++)
+                        Expanded(
+                          child: Builder(
+                            builder: (context) {
+                              final n = week * 7 + col - leading + 1;
+                              if (n < 1 || n > length) return const SizedBox(height: 48);
+                              final day = LocalDay(year, month, n);
+                              final record = days[day];
+                              final done = record?.completed.length ?? 0;
+                              final fromArchive =
+                                  (record?.archiveCompleted.difference(record.completed) ?? const {}).length;
+                              final perfect = record?.perfect ?? false;
+                              final isToday = day == today;
+                              final tappable = onDayTap != null && DailyArchive.isAvailable(day, today);
+                              final suffix = [
+                                if (isToday) l10n.dailyDayToday,
+                                if (perfect) l10n.dailyDayPerfect,
+                                if (record?.saverUsed ?? false) l10n.dailyDaySaver,
+                                l10n.dailyDayArchive(fromArchive),
+                              ].join();
+                              return Semantics(
+                                container: true,
+                                label: l10n.dailyDayLabel(dayFormat.format(DateTime.utc(year, month, n)), done, suffix),
+                                button: tappable,
+                                excludeSemantics: true,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(12),
+                                  onTap: tappable ? () => onDayTap!(day) : null,
+                                  child: SizedBox(
+                                    height: 48,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
                                         Container(
-                                          width: 5,
-                                          height: 5,
-                                          margin: const EdgeInsets.symmetric(horizontal: 1),
+                                          width: 30,
+                                          height: 30,
+                                          alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                             shape: BoxShape.circle,
-                                            // Hueco: completado después, desde el archivo.
-                                            color: k < done ? p.primary : null,
-                                            border: k < done ? null : Border.all(color: p.primary),
+                                            color: perfect ? p.primary : null,
+                                            border: isToday ? Border.all(color: p.primary, width: 2) : null,
                                           ),
+                                          child: record?.saverUsed ?? false
+                                              ? LudixaIcon(LudixaIcons.saver, size: 16, color: p.inkMuted)
+                                              : Text(
+                                                  '$n',
+                                                  style: text.bodySmall?.copyWith(
+                                                    color: perfect
+                                                        ? p.onPrimary
+                                                        : (day.isAfter(today) ? p.inkMuted : p.ink),
+                                                    fontWeight: isToday ? FontWeight.w700 : null,
+                                                  ),
+                                                ),
                                         ),
-                                    ],
+                                        const SizedBox(height: 3),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            for (var k = 0; k < done + fromArchive && k < 3; k++)
+                                              Container(
+                                                width: 5,
+                                                height: 5,
+                                                margin: const EdgeInsets.symmetric(horizontal: 1),
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  // Hueco: completado después, desde el archivo.
+                                                  color: k < done ? p.primary : null,
+                                                  border: k < done ? null : Border.all(color: p.primary),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                    ],
                   ),
               ],
             ),
+          ),
         ],
       ),
     );

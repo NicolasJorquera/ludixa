@@ -39,58 +39,80 @@ class ChallengeRows extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: LudixaCard(
-                child: Row(
-                  children: [
-                    module.buildIcon(context, size: 28),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            [
-                              module.displayName(context),
-                              module.difficultyLabel(context, module.dailySpec(day).difficulty),
-                              ?module.dailyDetail(context, day),
-                            ].join(' · '),
-                            style: text.titleSmall,
-                          ),
-                          if (status.done(game))
-                            Text(
-                              status.completed.contains(game)
-                                  ? l10n.dailyCompletedIn(formatDuration(status.timeByGame[game] ?? Duration.zero))
-                                  : l10n.dailyCompletedArchive,
-                              style: text.bodySmall?.copyWith(color: p.successInk),
-                            ),
-                        ],
+                child: _Row(
+                  stacked: LudixaLayout.largeText(context),
+                  icon: module.buildIcon(context, size: 28),
+                  details: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        [
+                          module.displayName(context),
+                          module.difficultyLabel(context, module.dailySpec(day).difficulty),
+                          ?module.dailyDetail(context, day),
+                        ].join(' · '),
+                        style: text.titleSmall,
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    if (status.done(game))
-                      LudixaIcon(LudixaIcons.check, color: p.success)
-                    else
-                      LudixaButton(
-                        expand: false,
-                        label: status.running.containsKey(game) ? l10n.dailyContinue : l10n.dailyPlay,
-                        variant: game == firstPending ? LudixaButtonVariant.primary : LudixaButtonVariant.secondary,
-                        onPressed: () {
-                          final running = status.running[game];
-                          if (running != null) {
-                            GameFlow.resume(context, module, running);
-                          } else {
-                            GameFlow.play(
-                              context,
-                              module,
-                              isToday ? GameFlow.dailyRequest(module, day) : GameFlow.archiveRequest(module, day),
-                            );
-                          }
-                        },
-                      ),
-                  ],
+                      if (status.done(game))
+                        Text(
+                          status.completed.contains(game)
+                              ? l10n.dailyCompletedIn(formatDuration(status.timeByGame[game] ?? Duration.zero))
+                              : l10n.dailyCompletedArchive,
+                          style: text.bodySmall?.copyWith(color: p.successInk),
+                        ),
+                    ],
+                  ),
+                  trailing: status.done(game)
+                      ? LudixaIcon(LudixaIcons.check, color: p.success)
+                      : LudixaButton(
+                          expand: LudixaLayout.largeText(context),
+                          label: status.running.containsKey(game) ? l10n.dailyContinue : l10n.dailyPlay,
+                          variant: game == firstPending ? LudixaButtonVariant.primary : LudixaButtonVariant.secondary,
+                          onPressed: () {
+                            final running = status.running[game];
+                            if (running != null) {
+                              GameFlow.resume(context, module, running);
+                            } else {
+                              GameFlow.play(
+                                context,
+                                module,
+                                isToday ? GameFlow.dailyRequest(module, day) : GameFlow.archiveRequest(module, day),
+                              );
+                            }
+                          },
+                        ),
                 ),
               ),
             ),
       ],
+    );
+  }
+}
+
+/// Icono, texto y estado o botón. Con texto grande, el botón baja y ocupa
+/// todo el ancho (ficha UX: "los botones crecen").
+class _Row extends StatelessWidget {
+  const _Row({required this.stacked, required this.icon, required this.details, required this.trailing});
+
+  final bool stacked;
+  final Widget icon;
+  final Widget details;
+  final Widget trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    final top = Row(
+      children: [
+        icon,
+        const SizedBox(width: 12),
+        Expanded(child: details),
+        if (!stacked || trailing is LudixaIcon) ...[const SizedBox(width: 8), trailing],
+      ],
+    );
+    if (!stacked || trailing is LudixaIcon) return top;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [top, const SizedBox(height: 12), trailing],
     );
   }
 }

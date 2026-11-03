@@ -36,21 +36,30 @@ class LudixaSegmentedControl<T> extends StatelessWidget {
     final p = context.palette;
     final labelStyle = Theme.of(context).textTheme.labelLarge!;
     final light = p.brightness == Brightness.light;
+    final scaler = MediaQuery.textScalerOf(context);
     return DecoratedBox(
       decoration: BoxDecoration(color: p.surfaceMuted, borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsetsDirectional.all(4),
-        child: Row(
-          children: [
-            for (final segment in segments)
-              Expanded(
-                child: Semantics(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Tres intentos, en orden: con iconos, sin iconos y apiladas.
+            // Así nunca se parte una palabra (pantalla angosta o texto grande).
+            final perSegment = constraints.maxWidth / segments.length - 16;
+            bool fits({required bool icons}) => segments.every(
+              (s) => _longestWord(s.label, labelStyle, scaler) + (icons && s.icon != null ? 30 : 0) <= perSegment,
+            );
+            final withIcons = fits(icons: true);
+            final inRow = withIcons || fits(icons: false);
+            final buttons = [
+              for (final segment in segments)
+                Semantics(
                   inMutuallyExclusiveGroup: true,
                   checked: segment.value == selected,
                   button: true,
                   child: _SegmentButton(
                     label: segment.label,
-                    icon: segment.icon,
+                    icon: withIcons || !inRow ? segment.icon : null,
                     selected: segment.value == selected,
                     onTap: () => onChanged(segment.value),
                     height: height,
@@ -60,11 +69,28 @@ class LudixaSegmentedControl<T> extends StatelessWidget {
                     style: labelStyle,
                   ),
                 ),
-              ),
-          ],
+            ];
+            if (inRow) return Row(children: [for (final b in buttons) Expanded(child: b)]);
+            return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: buttons);
+          },
         ),
       ),
     );
+  }
+
+  static double _longestWord(String label, TextStyle style, TextScaler scaler) {
+    var widest = 0.0;
+    for (final word in label.split(' ')) {
+      final painter = TextPainter(
+        text: TextSpan(text: word, style: style),
+        textDirection: TextDirection.ltr,
+        textScaler: scaler,
+        maxLines: 1,
+      )..layout();
+      if (painter.width > widest) widest = painter.width;
+      painter.dispose();
+    }
+    return widest;
   }
 }
 

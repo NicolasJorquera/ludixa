@@ -23,20 +23,27 @@ Future<void> _drag(WidgetTester tester, int from, int to) async {
 void main() {
   group('tutorial', () {
     testWidgets('arrastrar, direcciones y lista; el error se explica sin castigo', (tester) async {
+      // Un teléfono de 390 × 844: el pie "Saltar tutorial" ocupa su lugar.
+      tester.view.physicalSize = const Size(390, 844) * 3;
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
       var done = 0;
       await tester.pumpWidget(wrap(WordSearchTutorial(language: 'es', onDone: () => done++)));
       await _drag(tester, 0, 2);
       expect(find.text('Esa no es la palabra. Prueba de nuevo: no pasa nada.'), findsOneWidget);
       await _drag(tester, 13, 15);
       expect(find.text('¡Bien hecho!'), findsOneWidget);
+      await tester.ensureVisible(find.text('Siguiente'));
       await tester.tap(find.text('Siguiente'));
       await tester.pump();
       await _drag(tester, 21, 7); // MAR al revés también vale
       expect(find.text('¡Bien hecho!'), findsOneWidget);
+      await tester.ensureVisible(find.text('Siguiente'));
       await tester.tap(find.text('Siguiente'));
       await tester.pump();
       expect(find.text('PAN'), findsOneWidget);
       await _drag(tester, 16, 28);
+      await tester.ensureVisible(find.text('Empezar a jugar'));
       await tester.tap(find.text('Empezar a jugar'));
       expect(done, 1);
     });
