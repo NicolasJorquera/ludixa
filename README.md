@@ -13,7 +13,8 @@ Colección de juegos de lógica para Android (Sudoku, Buscaminas sin adivinar y 
 apps/ludixa/                  App (raíz de composición, pantallas transversales)
 packages/puzzle_core/         Dart puro: PRNG determinista, semillas, fechas, tipos comunes
 packages/game_api/            Contratos GameModule y GameHost
-packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, benchmark)
+packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, partida, benchmark)
+packages/sudoku_engine/       Dart puro: Sudoku (generador, solver humano, calificación, pistas, benchmark)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura
