@@ -3,6 +3,7 @@
 /// Dart puro: no depende de Flutter.
 library;
 
+export 'src/banks/banks.dart';
 export 'src/game.dart';
 export 'src/generator.dart';
 export 'src/geometry.dart';
