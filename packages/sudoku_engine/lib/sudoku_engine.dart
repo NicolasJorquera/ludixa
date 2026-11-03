@@ -3,6 +3,7 @@
 /// Dart puro: no depende de Flutter.
 library;
 
+export 'src/bank/sudoku_bank.dart';
 export 'src/bit_solver.dart';
 export 'src/generator.dart';
 export 'src/grid.dart';

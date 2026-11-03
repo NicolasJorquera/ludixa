@@ -17,7 +17,8 @@ final class SudokuPuzzle {
   int get givenCount => givens.where((d) => d != 0).length;
 }
 
-/// No se logró un puzzle del nivel pedido en los intentos disponibles.
+/// No se logró un puzzle del nivel pedido en los intentos o el tiempo
+/// disponibles.
 /// Quien llama recurre al banco pregenerado (H3-07).
 final class SudokuGenerationFailed implements Exception {
   SudokuGenerationFailed(this.difficulty, this.attempts);
@@ -54,14 +55,18 @@ final class SudokuGenerator {
 
   final int maxAttempts;
 
-  SudokuPuzzle generate(SudokuDifficulty target, Pcg32 random) {
+  /// [expired] corta la búsqueda cuando se agota el presupuesto de tiempo de
+  /// quien llama: se consulta antes de cada intento y en cada remoción, así un
+  /// intento en curso no sigue llamando al solver humano.
+  SudokuPuzzle generate(SudokuDifficulty target, Pcg32 random, {bool Function()? expired}) {
     final (low, high) = givensRange[target]!;
     for (var attempt = 1; attempt <= maxAttempts; attempt++) {
+      if (expired != null && expired()) throw SudokuGenerationFailed(target, attempt - 1);
       final minGivens = random.nextIntInRange(low, high);
       final raw = RawGenerator.generate(
         random,
         minGivens: minGivens,
-        keep: (candidate) => HumanSolver.solve(candidate, limit: target).solved,
+        keep: (candidate) => !(expired != null && expired()) && HumanSolver.solve(candidate, limit: target).solved,
       );
       if (HumanSolver.grade(raw.givens) == target) {
         return SudokuPuzzle(givens: raw.givens, solution: raw.solution, difficulty: target);
