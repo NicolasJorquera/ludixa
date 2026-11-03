@@ -1,0 +1,28 @@
+name: game_sudoku
+description: Módulo de juego de Sudoku para Ludixa (partida, controles y textos).
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dependencies:
+  daily_challenge:
+  design_system:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  game_api:
+  intl: any
+  puzzle_core:
+  sudoku_engine:
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  generate: true

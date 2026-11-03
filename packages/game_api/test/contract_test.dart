@@ -19,6 +19,9 @@ class _RecordingHost implements GameHost {
   }
 
   @override
+  int get freeHintsLeft => 3;
+
+  @override
   Future<RescueOutcome> requestRescue() async => RescueOutcome.declined;
 
   @override

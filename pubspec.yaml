@@ -15,3 +15,4 @@ workspace:
   - packages/sudoku_engine
   - packages/wordsearch_engine
   - packages/daily_challenge
+  - packages/game_sudoku

@@ -53,6 +53,9 @@ abstract interface class GameHost {
   /// Pide una pista. El host decide si ofrecer un video y aplica los límites.
   Future<HintGrant> requestHint();
 
+  /// Pistas gratis que quedan en este puzzle (el contador del botón Pista).
+  int get freeHintsLeft;
+
   /// Pide deshacer el movimiento que perdió la partida.
   Future<RescueOutcome> requestRescue();
 

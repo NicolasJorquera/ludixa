@@ -81,5 +81,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsComponentCatalog => 'Catálogo de componentes (desarrollo)';
 
   @override
+  String get settingsDevSudoku => 'Probar Sudoku (desarrollo)';
+
+  @override
   String get settingsLicenses => 'Licencias de código abierto';
 }

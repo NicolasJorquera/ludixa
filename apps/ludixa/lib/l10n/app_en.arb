@@ -24,5 +24,6 @@
   "languagePseudo": "Pseudo-localization (development)",
   "settingsAboutSection": "About",
   "settingsComponentCatalog": "Component catalog (development)",
+  "settingsDevSudoku": "Try Sudoku (development)",
   "settingsLicenses": "Open source licenses"
 }

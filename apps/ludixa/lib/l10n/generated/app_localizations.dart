@@ -236,6 +236,12 @@ abstract class AppLocalizations {
   /// **'Catálogo de componentes (desarrollo)'**
   String get settingsComponentCatalog;
 
+  /// Entrada para jugar una partida de Sudoku de prueba. Solo en desarrollo.
+  ///
+  /// In es, this message translates to:
+  /// **'Probar Sudoku (desarrollo)'**
+  String get settingsDevSudoku;
+
   /// Entrada que abre las licencias de las dependencias.
   ///
   /// In es, this message translates to:

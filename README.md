@@ -17,6 +17,7 @@ packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, sol
 packages/sudoku_engine/       Dart puro: Sudoku (generador, solver humano, calificación, pistas, banco pregenerado, benchmark)
 packages/wordsearch_engine/   Dart puro: Sopa de letras (normalización es/en, bancos de palabras, generación validada, partida, benchmark)
 packages/daily_challenge/     Dart puro: reto diario (calendario de dificultad, semillas, tema del día, goldens)
+packages/game_sudoku/         Módulo de Sudoku: partida, controles y textos (es/en)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura

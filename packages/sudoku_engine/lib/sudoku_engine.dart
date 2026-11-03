@@ -5,6 +5,7 @@ library;
 
 export 'src/bank/sudoku_bank.dart';
 export 'src/bit_solver.dart';
+export 'src/game.dart';
 export 'src/generator.dart';
 export 'src/grid.dart';
 export 'src/hint.dart';

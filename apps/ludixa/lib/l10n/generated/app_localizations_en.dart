@@ -81,6 +81,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsComponentCatalog => 'Component catalog (development)';
 
   @override
+  String get settingsDevSudoku => 'Try Sudoku (development)';
+
+  @override
   String get settingsLicenses => 'Open source licenses';
 }
 
@@ -159,6 +162,9 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsComponentCatalog => '[Çöɱþöñéñţ çáţáļöĝ (ðéṽéļöþɱéñţ) ···········]';
+
+  @override
+  String get settingsDevSudoku => '[Ţŕý Šûðöķû (ðéṽéļöþɱéñţ) ········]';
 
   @override
   String get settingsLicenses => '[Öþéñ šöûŕçé ļîçéñšéš ········]';
