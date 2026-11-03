@@ -15,7 +15,7 @@ packages/puzzle_core/         Dart puro: PRNG determinista, semillas, fechas, ti
 packages/game_api/            Contratos GameModule y GameHost
 packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, partida, benchmark)
 packages/sudoku_engine/       Dart puro: Sudoku (generador, solver humano, calificación, pistas, benchmark)
-packages/wordsearch_engine/   Dart puro: Sopa de letras (normalización es/en, generación validada, partida, benchmark)
+packages/wordsearch_engine/   Dart puro: Sopa de letras (normalización es/en, bancos de palabras, generación validada, partida, benchmark)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura
@@ -70,3 +70,7 @@ Sin `key.properties`, la compilación release usa la clave de depuración y Play
 ## Documentación de producto
 
 Discovery, PRD, especificación UX, arquitectura y backlog están en las entregas del proyecto. Las decisiones técnicas que afectan al código se registran en `docs/adr/`.
+
+## Bancos de palabras
+
+Los temas de la Sopa de letras viven en `packages/wordsearch_engine/lib/src/banks/` (`es.dart`, `en.dart`), con 20 temas por idioma que comparten identificador y una lista de palabras bloqueadas. Son un **borrador**: antes de publicar necesitan revisión de una persona hablante nativa de cada idioma (P-07). Al editarlos, `dart test` en ese paquete valida normalización, largo, duplicados, palabras bloqueadas, capacidad por nivel y generación de cada tema. Una palabra bloqueada puede aparecer dentro de una palabra buscada (BASS contiene ASS), pero nunca formada por el relleno o los cruces.

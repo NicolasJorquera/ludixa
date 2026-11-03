@@ -19,9 +19,12 @@ final class WordSearchGenerationFailed implements Exception {
 abstract final class WordScanner {
   /// Apariciones distintas de [word]. Una palabra capicúa leída en ambos
   /// sentidos sobre las mismas celdas cuenta una sola vez.
-  static int count(List<String> letters, int size, String word) {
+  static int count(List<String> letters, int size, String word) => occurrences(letters, size, word).length;
+
+  /// Celdas (ordenadas) de cada aparición distinta de [word].
+  static List<List<int>> occurrences(List<String> letters, int size, String word) {
     final target = WordLanguage.lettersOf(word);
-    final seen = <String>{};
+    final seen = <String, List<int>>{};
     for (var start = 0; start < letters.length; start++) {
       if (letters[start] != target.first) continue;
       final row = start ~/ size;
@@ -37,10 +40,26 @@ abstract final class WordScanner {
         if (!match) continue;
         final cells = [for (var k = 0; k < target.length; k++) (row + d.dRow * k) * size + column + d.dColumn * k]
           ..sort();
-        seen.add(cells.join(','));
+        seen[cells.join(',')] = cells;
       }
     }
-    return seen.length;
+    return seen.values.toList();
+  }
+
+  /// Apariciones de una palabra bloqueada que no están contenidas dentro de
+  /// una palabra colocada. Una palabra inocente puede contener una secuencia
+  /// bloqueada (BASS contiene ASS): eso se permite; lo que se evita es que el
+  /// relleno o los cruces la formen por su cuenta.
+  static int strayCount(List<String> letters, int size, String blocked, List<WordPlacement> placements) {
+    var stray = 0;
+    for (final cells in occurrences(letters, size, blocked)) {
+      final insideWord = placements.any((p) {
+        final wordCells = p.cells.toSet();
+        return cells.every(wordCells.contains);
+      });
+      if (!insideWord) stray++;
+    }
+    return stray;
   }
 }
 
@@ -100,7 +119,7 @@ final class WordSearchGenerator {
         final letters = [for (final cell in grid) cell ?? _randomLetter(language, random)];
         final valid =
             placements.every((p) => WordScanner.count(letters, size, p.word) == 1) &&
-            blocked.every((b) => WordScanner.count(letters, size, b) == 0);
+            blocked.every((b) => WordScanner.strayCount(letters, size, b, placements) == 0);
         if (valid) {
           return WordSearchPuzzle(
             size: size,
