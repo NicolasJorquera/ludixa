@@ -14,7 +14,7 @@ apps/ludixa/                  App (raíz de composición, pantallas transversale
 packages/puzzle_core/         Dart puro: PRNG determinista, semillas, fechas, tipos comunes
 packages/game_api/            Contratos GameModule y GameHost
 packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, partida, benchmark)
-packages/sudoku_engine/       Dart puro: Sudoku (generador, solver humano, calificación, pistas, benchmark)
+packages/sudoku_engine/       Dart puro: Sudoku (generador, solver humano, calificación, pistas, banco pregenerado, benchmark)
 packages/wordsearch_engine/   Dart puro: Sopa de letras (normalización es/en, bancos de palabras, generación validada, partida, benchmark)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
@@ -74,3 +74,14 @@ Discovery, PRD, especificación UX, arquitectura y backlog están en las entrega
 ## Bancos de palabras
 
 Los temas de la Sopa de letras viven en `packages/wordsearch_engine/lib/src/banks/` (`es.dart`, `en.dart`), con 20 temas por idioma que comparten identificador y una lista de palabras bloqueadas. Son un **borrador**: antes de publicar necesitan revisión de una persona hablante nativa de cada idioma (P-07). Al editarlos, `dart test` en ese paquete valida normalización, largo, duplicados, palabras bloqueadas, capacidad por nivel y generación de cada tema. Una palabra bloqueada puede aparecer dentro de una palabra buscada (BASS contiene ASS), pero nunca formada por el relleno o los cruces.
+
+## Banco de Sudokus
+
+El reto diario y el respaldo de la partida libre salen de `packages/sudoku_engine/lib/src/bank/bank_data.dart`, generado (no se edita a mano). Para regenerarlo, desde `packages/sudoku_engine`:
+
+```bash
+dart compile exe tool/generate_bank.dart -o build/generate_bank && build/generate_bank --count 300
+dart format lib/src/bank/bank_data.dart
+```
+
+Cambiar el generador de Sudoku o `SudokuBank.version` cambia el banco y los retos diarios (ver ADR 0004).

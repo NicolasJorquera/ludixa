@@ -49,6 +49,14 @@ Un fallo cuesta unos 30 ms en el M4. En un teléfono de gama baja, que estimo en
 3. **Pistas:** `SudokuHinter` señala primero un número equivocado. Si no hay, razona desde lo colocado hasta la primera celda que se puede llenar e informa la técnica decisiva (la más difícil de ese tramo), su patrón y sus unidades.
 4. **Versión del generador:** `SudokuGenerator.version = 1`.
 
+## Banco pregenerado (H3-07)
+
+- `tool/generate_bank.dart` escribe `lib/src/bank/bank_data.dart`: 300 puzzles por nivel, 107 KB, en unos 20 s (AOT, M4). La entrada `i` sale de la semilla `sudoku-bank|v1|g1|<nivel>|<índice>`, saltando índices que fallan o repiten. Volver a correr el comando da el mismo archivo, byte a byte.
+- Se guardan solo las pistas. La solución se calcula al leer el puzzle con `BitSolver` (menos de 1 ms).
+- `SudokuBank.pick(nivel, random)` elige por semilla: el reto diario la usará en H3-08.
+- `freePlaySudoku(nivel, random, budget: …)` genera en el momento y, si se agota el presupuesto o no hay puzzle, toma uno del banco. El presupuesto se revisa antes de cada intento y en cada remoción, así no se excede en más de una llamada al solver humano.
+- Cambiar `SudokuBank.version` o `SudokuGenerator.version` cambia el banco y, con él, los retos diarios. Después del lanzamiento, un banco nuevo debe convivir con el anterior para no alterar retos ya jugados.
+
 ## Pendiente
 
 - La distinción "Medio alto" del reto de viernes y sábado (mitad superior del rango de Medio) necesita un puntaje dentro del nivel. Se define en H3-08.
