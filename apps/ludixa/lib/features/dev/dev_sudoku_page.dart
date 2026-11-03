@@ -1,70 +1,72 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:game_api/game_api.dart';
 import 'package:game_sudoku/game_sudoku.dart';
 import 'package:puzzle_core/puzzle_core.dart';
 
-/// Partida de Sudoku de prueba, solo en el entorno dev. Usa un host en
-/// memoria: 3 pistas gratis, sin videos y sin guardar entre sesiones. La
-/// integración real (resultado, guardado, anuncios) llega en H4-05 y H5.
-class DevSudokuPage extends StatefulWidget {
+import '../games/game_settings.dart';
+
+/// Partida de Sudoku de prueba, solo en el entorno dev. Usa los ajustes
+/// guardados del juego y un host en memoria: 3 pistas gratis, sin videos y
+/// sin guardar la partida. La integración real llega en H4-05 y H5.
+class DevSudokuPage extends ConsumerStatefulWidget {
   const DevSudokuPage({super.key});
 
   @override
-  State<DevSudokuPage> createState() => _DevSudokuPageState();
+  ConsumerState<DevSudokuPage> createState() => _DevSudokuPageState();
 }
 
-class _DevSudokuPageState extends State<DevSudokuPage> {
+class _DevSudokuPageState extends ConsumerState<DevSudokuPage> {
   String _level = 'easy';
-  bool _numberFirst = false;
-  bool _solutionErrors = false;
 
   @override
   Widget build(BuildContext context) {
-    const module = SudokuModule();
+    final module = SudokuModule(store: ref.watch(sudokuSettingsStoreProvider));
     final options = module.difficulties(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Sudoku (dev)')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
         children: [
-          LudixaSegmentedControl<String>(
-            segments: [for (final o in options) LudixaSegment(value: o.id.value, label: o.label)],
-            selected: _level,
-            onChanged: (v) => setState(() => _level = v),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: LudixaSegmentedControl<String>(
+              segments: [for (final o in options) LudixaSegment(value: o.id.value, label: o.label)],
+              selected: _level,
+              onChanged: (v) => setState(() => _level = v),
+            ),
           ),
-          LudixaSwitchRow(
-            title: 'Número primero',
-            value: _numberFirst,
-            onChanged: (v) => setState(() => _numberFirst = v),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: LudixaButton(label: 'Jugar', onPressed: () => _play(module)),
           ),
-          LudixaSwitchRow(
-            title: 'Errores contra la solución',
-            value: _solutionErrors,
-            onChanged: (v) => setState(() => _solutionErrors = v),
-          ),
-          const SizedBox(height: 16),
-          LudixaButton(label: 'Jugar', onPressed: _play),
+          ?module.buildSettings(context),
+          LudixaListRow(title: SudokuLocalizations.of(context).settingsTutorial, onTap: () => _tutorial(module)),
         ],
       ),
     );
   }
 
-  void _play() {
+  void _play(SudokuModule module) {
     final host = DevGameHost();
-    final settings = SudokuSettings(
-      inputMode: _numberFirst ? SudokuInputMode.numberFirst : SudokuInputMode.cellFirst,
-      errorMode: _solutionErrors ? SudokuErrorMode.solution : SudokuErrorMode.conflicts,
-    );
     Navigator.of(context, rootNavigator: true).push(
       MaterialPageRoute<void>(
         fullscreenDialog: true,
         builder: (context) => SudokuGameLoader(
           request: PuzzleRequest(mode: PuzzleMode.free, difficulty: Difficulty(_level), seed: PuzzleSeed.random()),
           host: host,
-          settings: settings,
+          settings: module.store.load(),
           onSolved: () => Navigator.of(context).maybePop(),
         ),
+      ),
+    );
+  }
+
+  void _tutorial(SudokuModule module) {
+    Navigator.of(context, rootNavigator: true).push(
+      MaterialPageRoute<void>(
+        fullscreenDialog: true,
+        builder: (context) => module.buildTutorial(context, DevGameHost()),
       ),
     );
   }

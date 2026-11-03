@@ -6,6 +6,48 @@ import 'package:sudoku_engine/sudoku_engine.dart';
 
 import 'settings.dart';
 
+/// Paso de la hoja de pista.
+enum HintStep {
+  /// Señala un número equivocado del jugador (antes que cualquier deducción).
+  error,
+
+  /// 1 de 3: resalta la zona.
+  zone,
+
+  /// 2 de 3: nombra la técnica y resalta las celdas implicadas.
+  technique,
+
+  /// 3 de 3: coloca el número.
+  number,
+}
+
+/// Pista abierta: la deducción y el paso en que va.
+final class HintSession {
+  const HintSession(this.hint, this.step);
+
+  final SudokuHint hint;
+  final HintStep step;
+
+  /// Celda que se marca con borde (desde el paso 2, o el error).
+  int? get target => switch (step) {
+    HintStep.error => hint.errorCell,
+    HintStep.zone => null,
+    _ => hint.cell,
+  };
+
+  /// Celdas de la zona que se resaltan (filas, columnas y cajas).
+  Set<int> get zoneCells {
+    final cell = hint.cell;
+    if (step == HintStep.error || cell == null) return const {};
+    // Sin zonas propias (único candidato): su fila, columna y caja.
+    final units = hint.units.isEmpty ? SudokuGrid.unitsOfCell[cell] : hint.units;
+    return {for (final u in units) ...SudokuGrid.units[u]};
+  }
+
+  /// Celdas del patrón de la técnica (paso 2).
+  Set<int> get patternCells => step == HintStep.technique ? hint.pattern.toSet() : const {};
+}
+
 /// Estado de una partida de Sudoku en la interfaz: envuelve [SudokuGame] y
 /// agrega selección, modo de notas, tiempo y la comunicación con el host.
 ///
@@ -127,10 +169,18 @@ class SudokuController extends ChangeNotifier {
     if (game.undo()) _moved();
   }
 
-  /// Pide una pista al host. La hoja de 3 pasos llega en H4-02: por ahora, si
-  /// hay un número equivocado se selecciona; si no, se coloca el siguiente.
+  HintSession? _hint;
+
+  /// Pista abierta, o null. Mientras está abierta el tiempo no corre.
+  HintSession? get hintSession => _hint;
+
+  /// Pide una pista al host. Una pista es una cadena de hasta 3 pasos y
+  /// consume un solo crédito (PRD). Si hay un número equivocado, lo señala
+  /// primero; si la técnica no está implementada, revela la celda.
   Future<void> hint() async {
-    if (_blocked || _hintsExhausted) return;
+    if (_blocked || _hintsExhausted || _hint != null) return;
+    final hint = SudokuHinter.hint(game.values, game.puzzle.solution);
+    if (hint == null) return;
     final grant = await host.requestHint();
     switch (grant) {
       case HintDenied(reason: HintDenial.limitReached):
@@ -144,18 +194,61 @@ class SudokuController extends ChangeNotifier {
         } else {
           rewardedHints++;
         }
-        final hint = SudokuHinter.hint(game.values, game.puzzle.solution);
-        if (hint == null) return;
         if (hint.isError) {
+          _hint = HintSession(hint, HintStep.error);
           _selected = hint.errorCell;
           _saveSnapshot();
           notifyListeners();
+        } else if (hint.technique == null) {
+          _hint = HintSession(hint, HintStep.number);
+          _placeHint(hint);
         } else {
-          _selected = hint.cell;
-          game.place(hint.cell!, hint.digit!);
-          _moved();
+          _hint = HintSession(hint, HintStep.zone);
+          _saveSnapshot();
+          notifyListeners();
         }
     }
+  }
+
+  /// Avanza la pista: zona → técnica → número.
+  void hintNext() {
+    final session = _hint;
+    if (session == null) return;
+    switch (session.step) {
+      case HintStep.zone:
+        _hint = HintSession(session.hint, HintStep.technique);
+        notifyListeners();
+      case HintStep.technique:
+        _hint = HintSession(session.hint, HintStep.number);
+        _placeHint(session.hint);
+      case HintStep.error || HintStep.number:
+        hintClose();
+    }
+  }
+
+  /// Borra el número equivocado que señaló la pista y la cierra.
+  void hintEraseError() {
+    final cell = _hint?.hint.errorCell;
+    _hint = null;
+    if (cell != null && game.erase(cell)) {
+      _moved();
+    } else {
+      notifyListeners();
+    }
+  }
+
+  /// Cierra la pista ("Lo intento yo"). El crédito ya se consumió.
+  void hintClose() {
+    if (_hint == null) return;
+    _hint = null;
+    notifyListeners();
+  }
+
+  void _placeHint(SudokuHint hint) {
+    final cell = hint.cell!;
+    _selected = cell;
+    if (game.valueAt(cell) != hint.digit) game.place(cell, hint.digit!);
+    _moved();
   }
 
   void pause() {
@@ -173,7 +266,7 @@ class SudokuController extends ChangeNotifier {
 
   /// Suma tiempo de juego. Lo llama el temporizador de la pantalla.
   void tick(Duration delta) {
-    if (_paused || solved) return;
+    if (_paused || solved || _hint != null) return;
     _elapsed += delta;
     notifyListeners();
   }
@@ -197,7 +290,7 @@ class SudokuController extends ChangeNotifier {
     elapsed: _elapsed,
   );
 
-  bool get _blocked => _paused || solved;
+  bool get _blocked => _paused || solved || _hint != null;
 
   void _apply(int cell, int digit) {
     final changed = _notesMode ? game.toggleNote(cell, digit) : game.place(cell, digit);

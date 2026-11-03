@@ -1,91 +1,453 @@
 {
   "@@locale": "es",
   "gameName": "Sudoku",
-  "@gameName": {"description": "Nombre del juego."},
+  "@gameName": {
+    "description": "Nombre del juego."
+  },
   "levelEasy": "Fácil",
-  "@levelEasy": {"description": "Dificultad."},
+  "@levelEasy": {
+    "description": "Dificultad."
+  },
   "levelMedium": "Medio",
-  "@levelMedium": {"description": "Dificultad."},
+  "@levelMedium": {
+    "description": "Dificultad."
+  },
   "levelHard": "Difícil",
-  "@levelHard": {"description": "Dificultad."},
+  "@levelHard": {
+    "description": "Dificultad."
+  },
   "levelExpert": "Experto",
-  "@levelExpert": {"description": "Dificultad."},
+  "@levelExpert": {
+    "description": "Dificultad."
+  },
   "levelEasyDescription": "3–6 min · el último número posible",
-  "@levelEasyDescription": {"description": "Tiempo estimado y técnica del nivel, en la hoja de dificultad."},
+  "@levelEasyDescription": {
+    "description": "Tiempo estimado y técnica del nivel, en la hoja de dificultad."
+  },
   "levelMediumDescription": "6–12 min · intersecciones caja-línea",
-  "@levelMediumDescription": {"description": "Tiempo estimado y técnica del nivel."},
+  "@levelMediumDescription": {
+    "description": "Tiempo estimado y técnica del nivel."
+  },
   "levelHardDescription": "12–20 min · pares y tríos",
-  "@levelHardDescription": {"description": "Tiempo estimado y técnica del nivel."},
+  "@levelHardDescription": {
+    "description": "Tiempo estimado y técnica del nivel."
+  },
   "levelExpertDescription": "20–40 min · X-Wing y otras cadenas",
-  "@levelExpertDescription": {"description": "Tiempo estimado y técnica del nivel."},
+  "@levelExpertDescription": {
+    "description": "Tiempo estimado y técnica del nivel."
+  },
   "topBarProgress": "{level} · {percent} %",
   "@topBarProgress": {
     "description": "Título de la partida: nivel y porcentaje de celdas llenas.",
-    "placeholders": {"level": {"type": "String"}, "percent": {"type": "int"}}
+    "placeholders": {
+      "level": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
   },
   "back": "Volver",
-  "@back": {"description": "Botón para salir de la partida."},
+  "@back": {
+    "description": "Botón para salir de la partida."
+  },
   "pause": "Pausar",
-  "@pause": {"description": "Botón para pausar."},
+  "@pause": {
+    "description": "Botón para pausar."
+  },
   "resume": "Reanudar",
-  "@resume": {"description": "Botón para reanudar desde la pausa."},
+  "@resume": {
+    "description": "Botón para reanudar desde la pausa."
+  },
   "pausedBoard": "Tablero oculto en pausa",
-  "@pausedBoard": {"description": "Texto sobre el tablero oculto mientras la partida está en pausa."},
+  "@pausedBoard": {
+    "description": "Texto sobre el tablero oculto mientras la partida está en pausa."
+  },
   "elapsed": "Tiempo {time}",
   "@elapsed": {
     "description": "Etiqueta accesible del temporizador.",
-    "placeholders": {"time": {"type": "String"}}
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
   },
   "undo": "Deshacer",
-  "@undo": {"description": "Herramienta: deshacer el último cambio."},
+  "@undo": {
+    "description": "Herramienta: deshacer el último cambio."
+  },
   "erase": "Borrar",
-  "@erase": {"description": "Herramienta: borrar la celda."},
+  "@erase": {
+    "description": "Herramienta: borrar la celda."
+  },
   "notes": "Notas",
-  "@notes": {"description": "Herramienta: alternar el modo de notas."},
+  "@notes": {
+    "description": "Herramienta: alternar el modo de notas."
+  },
   "notesState": "{on, select, true{activadas} other{desactivadas}}",
   "@notesState": {
     "description": "Estado del modo de notas para el lector de pantalla.",
-    "placeholders": {"on": {"type": "String"}}
+    "placeholders": {
+      "on": {
+        "type": "String"
+      }
+    }
   },
   "hint": "Pista",
-  "@hint": {"description": "Herramienta: pedir una pista."},
+  "@hint": {
+    "description": "Herramienta: pedir una pista."
+  },
   "hintsLeft": "{count, plural, =0{sin pistas gratis} =1{queda 1 gratis} other{quedan {count} gratis}}",
   "@hintsLeft": {
     "description": "Pistas gratis que quedan, para el lector de pantalla.",
-    "placeholders": {"count": {"type": "int"}}
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "noMoreHints": "Sin más pistas en este puzzle",
-  "@noMoreHints": {"description": "Explicación cuando el botón de pista queda desactivado."},
+  "@noMoreHints": {
+    "description": "Explicación cuando el botón de pista queda desactivado."
+  },
   "keyRemaining": "{digit}, {remaining, plural, =0{completo} =1{queda 1} other{quedan {remaining}}}",
   "@keyRemaining": {
     "description": "Etiqueta accesible de una tecla del teclado numérico.",
-    "placeholders": {"digit": {"type": "int"}, "remaining": {"type": "int"}}
+    "placeholders": {
+      "digit": {
+        "type": "int"
+      },
+      "remaining": {
+        "type": "int"
+      }
+    }
   },
   "boardLabel": "Tablero de Sudoku, 9 por 9",
-  "@boardLabel": {"description": "Etiqueta accesible de la grilla completa."},
+  "@boardLabel": {
+    "description": "Etiqueta accesible de la grilla completa."
+  },
   "cellLabel": "Fila {row}, columna {column}, {content}",
   "@cellLabel": {
     "description": "Etiqueta accesible de una celda. content es el contenido ya descrito.",
-    "placeholders": {"row": {"type": "int"}, "column": {"type": "int"}, "content": {"type": "String"}}
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "column": {
+        "type": "int"
+      },
+      "content": {
+        "type": "String"
+      }
+    }
   },
   "cellEmpty": "vacía",
-  "@cellEmpty": {"description": "Contenido de una celda vacía."},
+  "@cellEmpty": {
+    "description": "Contenido de una celda vacía."
+  },
   "cellGiven": "{digit}, fijo",
   "@cellGiven": {
     "description": "Contenido de una celda con un número inicial.",
-    "placeholders": {"digit": {"type": "int"}}
+    "placeholders": {
+      "digit": {
+        "type": "int"
+      }
+    }
   },
   "cellNotes": "notas {digits}",
   "@cellNotes": {
     "description": "Notas de una celda vacía, por ejemplo 'notas 1, 5, 9'.",
-    "placeholders": {"digits": {"type": "String"}}
+    "placeholders": {
+      "digits": {
+        "type": "String"
+      }
+    }
   },
   "cellConflict": "en conflicto",
-  "@cellConflict": {"description": "Estado de una celda con un número repetido o incorrecto."},
+  "@cellConflict": {
+    "description": "Estado de una celda con un número repetido o incorrecto."
+  },
   "cellSelected": "seleccionada",
-  "@cellSelected": {"description": "Estado de la celda seleccionada."},
+  "@cellSelected": {
+    "description": "Estado de la celda seleccionada."
+  },
   "solved": "¡Resuelto!",
-  "@solved": {"description": "Anuncio al resolver el puzzle."},
+  "@solved": {
+    "description": "Anuncio al resolver el puzzle."
+  },
   "preparing": "Preparando el puzzle",
-  "@preparing": {"description": "Mientras se genera el puzzle."}
+  "@preparing": {
+    "description": "Mientras se genera el puzzle."
+  },
+  "hintStep": "Pista · paso {step} de 3",
+  "@hintStep": {
+    "description": "Encabezado de la hoja de pista.",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "hintZone": "Hay una deducción en {zone}.",
+  "@hintZone": {
+    "description": "Paso 1: señala la zona.",
+    "placeholders": {
+      "zone": {
+        "type": "String"
+      }
+    }
+  },
+  "hintZoneDetail": "Mira dónde puede ir cada número en esa zona.",
+  "@hintZoneDetail": {
+    "description": "Paso 1: ayuda breve."
+  },
+  "hintNumber": "Va un {digit} en la fila {row}, columna {column}.",
+  "@hintNumber": {
+    "description": "Paso 3: coloca el número.",
+    "placeholders": {
+      "digit": {
+        "type": "int"
+      },
+      "row": {
+        "type": "int"
+      },
+      "column": {
+        "type": "int"
+      }
+    }
+  },
+  "hintNumberRevealed": "Esta celda se resuelve con una técnica que aún no explicamos.",
+  "@hintNumberRevealed": {
+    "description": "Cuando la técnica no está implementada y se revela la celda."
+  },
+  "hintErrorTitle": "Hay un número que no corresponde",
+  "@hintErrorTitle": {
+    "description": "Pista que señala un error del jugador."
+  },
+  "hintErrorDetail": "Revisa la fila {row}, columna {column}. Puedes corregirlo tú o borrarlo.",
+  "@hintErrorDetail": {
+    "description": "Detalle de la pista de error.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "column": {
+        "type": "int"
+      }
+    }
+  },
+  "hintTryMyself": "Lo intento yo",
+  "@hintTryMyself": {
+    "description": "Cierra la pista sin avanzar."
+  },
+  "hintNextStep": "Ver la técnica",
+  "@hintNextStep": {
+    "description": "Avanza del paso 1 al 2."
+  },
+  "hintShowNumber": "Mostrar el número",
+  "@hintShowNumber": {
+    "description": "Avanza del paso 2 al 3."
+  },
+  "hintEraseError": "Borrar el número",
+  "@hintEraseError": {
+    "description": "Borra el número equivocado."
+  },
+  "hintDone": "Entendido",
+  "@hintDone": {
+    "description": "Cierra la pista al terminar."
+  },
+  "zoneRow": "la fila {n}",
+  "@zoneRow": {
+    "description": "Zona: una fila.",
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "zoneColumn": "la columna {n}",
+  "@zoneColumn": {
+    "description": "Zona: una columna.",
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "zoneBox": "{index, select, 0{la caja superior izquierda} 1{la caja superior central} 2{la caja superior derecha} 3{la caja central izquierda} 4{la caja central} 5{la caja central derecha} 6{la caja inferior izquierda} 7{la caja inferior central} other{la caja inferior derecha}}",
+  "@zoneBox": {
+    "description": "Zona: una caja, por posición (0 arriba a la izquierda, 8 abajo a la derecha).",
+    "placeholders": {
+      "index": {
+        "type": "String"
+      }
+    }
+  },
+  "zoneTwo": "{a} y {b}",
+  "@zoneTwo": {
+    "description": "Dos zonas.",
+    "placeholders": {
+      "a": {
+        "type": "String"
+      },
+      "b": {
+        "type": "String"
+      }
+    }
+  },
+  "zoneThree": "{a}, {b} y {c}",
+  "@zoneThree": {
+    "description": "Tres zonas.",
+    "placeholders": {
+      "a": {
+        "type": "String"
+      },
+      "b": {
+        "type": "String"
+      },
+      "c": {
+        "type": "String"
+      }
+    }
+  },
+  "techniqueName": "{technique, select, nakedSingle{Único candidato} hiddenSingle{Único lugar} pointing{Intersección en la caja} claiming{Intersección en la línea} nakedPair{Par desnudo} hiddenPair{Par oculto} nakedTriple{Trío desnudo} hiddenTriple{Trío oculto} xWing{X-Wing} xyWing{XY-Wing} other{Swordfish}}",
+  "@techniqueName": {
+    "description": "Nombre de la técnica, por id interno.",
+    "placeholders": {
+      "technique": {
+        "type": "String"
+      }
+    }
+  },
+  "techniqueExplanation": "{technique, select, nakedSingle{A esta celda solo le queda un número posible: los demás ya están en su fila, columna o caja.} hiddenSingle{En esta zona, ese número solo cabe en una celda.} pointing{Dentro de la caja, el número solo puede ir en una línea; se descarta del resto de esa fila o columna.} claiming{En la fila o columna, el número solo cabe dentro de una caja; se descarta del resto de la caja.} nakedPair{Dos celdas comparten los mismos dos candidatos; esos números se descartan del resto de la zona.} hiddenPair{Dos números solo caben en las mismas dos celdas; ahí se descartan los demás candidatos.} nakedTriple{Tres celdas reparten entre sí los mismos tres candidatos; se descartan del resto de la zona.} hiddenTriple{Tres números solo caben en las mismas tres celdas; ahí se descartan los demás candidatos.} xWing{Un número forma un rectángulo en dos filas y dos columnas; se descarta del resto de esas columnas.} xyWing{Tres celdas de dos candidatos forman una pinza: el número que comparten las puntas se descarta donde ambas lo ven.} other{Como el X-Wing, pero con tres filas y tres columnas.}}",
+  "@techniqueExplanation": {
+    "description": "Explicación de 1 o 2 líneas de la técnica.",
+    "placeholders": {
+      "technique": {
+        "type": "String"
+      }
+    }
+  },
+  "tutorialSkip": "Saltar tutorial",
+  "@tutorialSkip": {
+    "description": "Botón siempre visible para salir del tutorial."
+  },
+  "tutorialStep": "Paso {step} de 3",
+  "@tutorialStep": {
+    "description": "Indicador de pasos del tutorial.",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialRuleRow": "Cada fila tiene todos los números, sin repetir.",
+  "@tutorialRuleRow": {
+    "description": "Regla del paso 1 (tablero de 4×4: números del 1 al 4)."
+  },
+  "tutorialRuleColumn": "Cada columna también.",
+  "@tutorialRuleColumn": {
+    "description": "Regla del paso 2."
+  },
+  "tutorialRuleBox": "Y cada caja.",
+  "@tutorialRuleBox": {
+    "description": "Regla del paso 3."
+  },
+  "tutorialAsk": "¿Qué número va en la celda marcada?",
+  "@tutorialAsk": {
+    "description": "Pregunta del tutorial."
+  },
+  "tutorialWrongRow": "El {digit} ya está en esta fila. Prueba con otro.",
+  "@tutorialWrongRow": {
+    "description": "Error explicado, sin castigo.",
+    "placeholders": {
+      "digit": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialWrongColumn": "El {digit} ya está en esta columna. Prueba con otro.",
+  "@tutorialWrongColumn": {
+    "description": "Error explicado, sin castigo.",
+    "placeholders": {
+      "digit": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialWrongBox": "El {digit} ya está en esta caja. Prueba con otro.",
+  "@tutorialWrongBox": {
+    "description": "Error explicado, sin castigo.",
+    "placeholders": {
+      "digit": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialRight": "¡Bien! El {digit} es el único que falta.",
+  "@tutorialRight": {
+    "description": "Respuesta correcta.",
+    "placeholders": {
+      "digit": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialNext": "Siguiente",
+  "@tutorialNext": {
+    "description": "Avanza al siguiente paso."
+  },
+  "tutorialStart": "Empezar a jugar",
+  "@tutorialStart": {
+    "description": "Cierra el tutorial al final."
+  },
+  "tutorialBoardLabel": "Tablero de práctica de 4 por 4",
+  "@tutorialBoardLabel": {
+    "description": "Etiqueta accesible del tablero del tutorial."
+  },
+  "settingsInput": "Forma de ingresar números",
+  "@settingsInput": {
+    "description": "Título del ajuste de entrada."
+  },
+  "settingsInputCellFirst": "Celda primero",
+  "@settingsInputCellFirst": {
+    "description": "Opción: tocar celda y luego número."
+  },
+  "settingsInputNumberFirst": "Número primero",
+  "@settingsInputNumberFirst": {
+    "description": "Opción: elegir número y luego celdas."
+  },
+  "settingsErrors": "Errores",
+  "@settingsErrors": {
+    "description": "Título del ajuste de errores."
+  },
+  "settingsErrorsConflicts": "Números repetidos",
+  "@settingsErrorsConflicts": {
+    "description": "Opción: marcar solo conflictos de regla."
+  },
+  "settingsErrorsSolution": "Contra la solución",
+  "@settingsErrorsSolution": {
+    "description": "Opción: marcar números que no coinciden con la solución."
+  },
+  "settingsErrorsNone": "Sin indicación",
+  "@settingsErrorsNone": {
+    "description": "Opción: no marcar errores."
+  },
+  "settingsErrorsHelp": "No hay límite de errores: solo cambia cómo se señalan.",
+  "@settingsErrorsHelp": {
+    "description": "Ayuda bajo el ajuste de errores."
+  },
+  "settingsRemoveNotes": "Borrar notas al colocar un número",
+  "@settingsRemoveNotes": {
+    "description": "Ajuste: borra el candidato en la fila, columna y caja."
+  },
+  "settingsHighlightSame": "Resaltar el mismo número",
+  "@settingsHighlightSame": {
+    "description": "Ajuste: resaltar todas las apariciones."
+  },
+  "settingsTutorial": "Cómo se juega",
+  "@settingsTutorial": {
+    "description": "Abre el tutorial."
+  }
 }

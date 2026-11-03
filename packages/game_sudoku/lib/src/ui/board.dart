@@ -19,6 +19,11 @@ class SudokuBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = SudokuLocalizations.of(context);
     final colors = Theme.of(context).extension<SudokuColors>()!;
+    final palette = Theme.of(context).extension<LudixaColors>()!.palette;
+    final hint = controller.hintSession;
+    final hintZone = hint?.zoneCells ?? const <int>{};
+    final hintPattern = hint?.patternCells ?? const <int>{};
+    final hintTarget = hint?.target;
     final game = controller.game;
     final errors = controller.errorCells;
     final digit = controller.highlightedDigit;
@@ -46,7 +51,11 @@ class SudokuBoard extends StatelessWidget {
           cellBuilder: (context, i, extent) {
             final value = game.valueAt(i);
             final error = errors.contains(i);
-            final background = controller.selected == i
+            final background = hintPattern.contains(i)
+                ? Color.lerp(palette.hintSoft, palette.ink, 0.14)!
+                : hintZone.contains(i)
+                ? palette.hintSoft
+                : controller.selected == i
                 ? colors.selected
                 : error
                 ? colors.conflict
@@ -55,7 +64,7 @@ class SudokuBoard extends StatelessWidget {
                 : controller.inSelectedZone(i)
                 ? colors.zone
                 : colors.cell;
-            final cell = _Cell(
+            final Widget cell = _Cell(
               value: value,
               given: game.isGiven(i),
               notes: game.notesAt(i),
@@ -63,6 +72,7 @@ class SudokuBoard extends StatelessWidget {
               background: background,
               colors: colors,
               highlightedNote: digit,
+              outline: hintTarget == i ? palette.sudoku : null,
             );
             final wave = celebration;
             if (wave == null) return cell;
@@ -99,7 +109,11 @@ class _Cell extends StatelessWidget {
     required this.background,
     required this.colors,
     required this.highlightedNote,
+    this.outline,
   });
+
+  /// Borde de la celda objetivo de una pista.
+  final Color? outline;
 
   final int value;
   final bool given;
@@ -148,8 +162,11 @@ class _Cell extends StatelessWidget {
       content = const SizedBox.shrink();
     }
     return ExcludeSemantics(
-      child: ColoredBox(
-        color: background,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: outline == null ? null : Border.all(color: outline!, width: 3),
+        ),
         child: Center(child: content),
       ),
     );
