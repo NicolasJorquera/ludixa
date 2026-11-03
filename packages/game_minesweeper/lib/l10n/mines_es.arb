@@ -1,0 +1,401 @@
+{
+  "@@locale": "es",
+  "gameName": "Buscaminas",
+  "@gameName": {
+    "description": "Nombre del juego."
+  },
+  "levelBeginner": "Principiante",
+  "@levelBeginner": {
+    "description": "Dificultad."
+  },
+  "levelIntermediate": "Intermedio",
+  "@levelIntermediate": {
+    "description": "Dificultad."
+  },
+  "levelExpert": "Experto",
+  "@levelExpert": {
+    "description": "Dificultad."
+  },
+  "levelDaily": "Reto",
+  "@levelDaily": {
+    "description": "Nivel del tablero reducido del reto diario (12×12)."
+  },
+  "levelBeginnerDescription": "9×9 · 10 minas · cabe sin zoom",
+  "@levelBeginnerDescription": {
+    "description": "Hoja de dificultad."
+  },
+  "levelIntermediateDescription": "16×16 · 40 minas · zoom opcional",
+  "@levelIntermediateDescription": {
+    "description": "Hoja de dificultad."
+  },
+  "levelExpertDescription": "16×30 · 99 minas · con zoom",
+  "@levelExpertDescription": {
+    "description": "Hoja de dificultad."
+  },
+  "back": "Volver",
+  "@back": {
+    "description": "Salir de la partida."
+  },
+  "pause": "Pausar",
+  "@pause": {
+    "description": "Pausar."
+  },
+  "resume": "Reanudar",
+  "@resume": {
+    "description": "Reanudar."
+  },
+  "pausedBoard": "Tablero oculto en pausa",
+  "@pausedBoard": {
+    "description": "Tablero oculto en pausa."
+  },
+  "elapsed": "Tiempo {time}",
+  "@elapsed": {
+    "description": "Etiqueta accesible del temporizador.",
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "minesLeft": "{count, plural, =1{Queda 1 mina} other{Quedan {count} minas}}",
+  "@minesLeft": {
+    "description": "Contador de minas restantes (minas menos banderas).",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "modeReveal": "Revelar",
+  "@modeReveal": {
+    "description": "Modo de toque: revelar."
+  },
+  "modeFlag": "Bandera",
+  "@modeFlag": {
+    "description": "Modo de toque: poner bandera."
+  },
+  "undo": "Deshacer",
+  "@undo": {
+    "description": "Herramienta deshacer."
+  },
+  "hint": "Pista",
+  "@hint": {
+    "description": "Herramienta pista."
+  },
+  "hintsLeft": "{count, plural, =0{sin pistas gratis} =1{queda 1 gratis} other{quedan {count} gratis}}",
+  "@hintsLeft": {
+    "description": "Pistas gratis restantes.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noMoreHints": "Sin más pistas en este tablero",
+  "@noMoreHints": {
+    "description": "Botón pista desactivado."
+  },
+  "zoomIn": "Acercar",
+  "@zoomIn": {
+    "description": "Botón de zoom (acercar)."
+  },
+  "zoomOut": "Ajustar al ancho",
+  "@zoomOut": {
+    "description": "Botón de zoom (alejar)."
+  },
+  "tapToStart": "Toca cualquier celda para empezar",
+  "@tapToStart": {
+    "description": "Antes del primer toque."
+  },
+  "startHere": "Empieza aquí: la celda marcada abre una zona",
+  "@startHere": {
+    "description": "Reto diario: celda de inicio señalada."
+  },
+  "generating": "Preparando el tablero",
+  "@generating": {
+    "description": "Mientras se genera el tablero tras el primer toque."
+  },
+  "longPressTip": "Mantén pulsada una celda para {action}",
+  "@longPressTip": {
+    "description": "Ayuda de las primeras partidas.",
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "longPressTipFlag": "poner bandera",
+  "@longPressTipFlag": {
+    "description": "Acción de la pulsación larga."
+  },
+  "longPressTipReveal": "revelarla",
+  "@longPressTipReveal": {
+    "description": "Acción de la pulsación larga."
+  },
+  "boardLabel": "Tablero de Buscaminas, {columns} por {rows}",
+  "@boardLabel": {
+    "description": "Etiqueta accesible del tablero.",
+    "placeholders": {
+      "columns": {
+        "type": "int"
+      },
+      "rows": {
+        "type": "int"
+      }
+    }
+  },
+  "cellLabel": "Fila {row}, columna {column}, {content}",
+  "@cellLabel": {
+    "description": "Etiqueta de una celda.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "column": {
+        "type": "int"
+      },
+      "content": {
+        "type": "String"
+      }
+    }
+  },
+  "cellHidden": "cerrada",
+  "@cellHidden": {
+    "description": "Celda sin revelar."
+  },
+  "cellFlagged": "con bandera",
+  "@cellFlagged": {
+    "description": "Celda con bandera."
+  },
+  "cellEmpty": "vacía",
+  "@cellEmpty": {
+    "description": "Celda revelada sin minas vecinas."
+  },
+  "cellNumber": "{count, plural, =1{1 mina vecina} other{{count} minas vecinas}}",
+  "@cellNumber": {
+    "description": "Celda revelada con número.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cellMine": "mina",
+  "@cellMine": {
+    "description": "Tras perder: mina."
+  },
+  "cellFatal": "mina que terminó la partida",
+  "@cellFatal": {
+    "description": "Tras perder: mina fatal."
+  },
+  "cellWrongFlag": "bandera equivocada",
+  "@cellWrongFlag": {
+    "description": "Tras perder: bandera sin mina."
+  },
+  "cellStart": "inicio sugerido",
+  "@cellStart": {
+    "description": "Celda de inicio del reto diario."
+  },
+  "cellHint": "señalada por la pista",
+  "@cellHint": {
+    "description": "Celda de la pista."
+  },
+  "altActionFlag": "Poner o quitar bandera",
+  "@altActionFlag": {
+    "description": "Acción alternativa en TalkBack."
+  },
+  "altActionReveal": "Revelar",
+  "@altActionReveal": {
+    "description": "Acción alternativa en TalkBack."
+  },
+  "won": "¡Despejado!",
+  "@won": {
+    "description": "Anuncio al ganar."
+  },
+  "lostTitle": "Esta vez explotó una mina",
+  "@lostTitle": {
+    "description": "Título neutro de la derrota."
+  },
+  "lostWhere": "La mina estaba en la fila {row}, columna {column}.",
+  "@lostWhere": {
+    "description": "Se anuncia la mina fatal.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "column": {
+        "type": "int"
+      }
+    }
+  },
+  "retryBoard": "Reintentar este tablero",
+  "@retryBoard": {
+    "description": "Derrota: mismas minas desde cero."
+  },
+  "newBoard": "Tablero nuevo",
+  "@newBoard": {
+    "description": "Derrota: otro tablero."
+  },
+  "rescue": "Deshacer el último toque con un video",
+  "@rescue": {
+    "description": "Derrota: rescate opcional."
+  },
+  "rescueRule": "Una vez por partida. El video es opcional.",
+  "@rescueRule": {
+    "description": "Regla del rescate."
+  },
+  "rescueUnavailable": "Ahora no hay videos disponibles.",
+  "@rescueUnavailable": {
+    "description": "Rescate sin inventario o sin conexión."
+  },
+  "showBoard": "Ver el tablero",
+  "@showBoard": {
+    "description": "Baja la hoja de derrota para revisar el tablero."
+  },
+  "showOptions": "Ver opciones",
+  "@showOptions": {
+    "description": "Vuelve a subir la hoja de derrota."
+  },
+  "hintTitle": "Pista",
+  "@hintTitle": {
+    "description": "Encabezado del panel de pista."
+  },
+  "hintSafe": "La celda marcada es segura.",
+  "@hintSafe": {
+    "description": "Pista: celda segura."
+  },
+  "hintMine": "La celda marcada es una mina.",
+  "@hintMine": {
+    "description": "Pista: mina."
+  },
+  "hintWrongFlag": "Esta bandera no tiene mina debajo.",
+  "@hintWrongFlag": {
+    "description": "Pista: bandera equivocada."
+  },
+  "hintReason": "{reason, select, numberSatisfied{Este número ya tiene todas sus minas marcadas: el resto de sus vecinas son seguras.} numberNeedsAll{A este número le faltan tantas minas como vecinas cerradas tiene: todas son minas.} twoNumbers{Comparando estos dos números vecinos se deduce la celda.} mineCount{Por el conteo de minas que quedan.} wrongFlag{Quítala: la celda es segura.} other{No hay una deducción simple desde aquí: te mostramos una celda segura.}}",
+  "@hintReason": {
+    "description": "Explicación de la pista según el motivo.",
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "hintTryMyself": "Lo intento yo",
+  "@hintTryMyself": {
+    "description": "Cierra la pista."
+  },
+  "hintApplyReveal": "Revelarla",
+  "@hintApplyReveal": {
+    "description": "Aplica la pista: revelar."
+  },
+  "hintApplyFlag": "Ponerle bandera",
+  "@hintApplyFlag": {
+    "description": "Aplica la pista: bandera."
+  },
+  "hintApplyUnflag": "Quitar la bandera",
+  "@hintApplyUnflag": {
+    "description": "Aplica la pista: quitar bandera."
+  },
+  "tutorialSkip": "Saltar tutorial",
+  "@tutorialSkip": {
+    "description": "Siempre visible."
+  },
+  "tutorialStep": "Paso {step} de 3",
+  "@tutorialStep": {
+    "description": "Indicador de pasos.",
+    "placeholders": {
+      "step": {
+        "type": "int"
+      }
+    }
+  },
+  "tutorialRuleNumber": "Un número dice cuántas minas tiene entre sus 8 vecinas.",
+  "@tutorialRuleNumber": {
+    "description": "Regla del paso 1."
+  },
+  "tutorialTaskNumber": "Este 1 ya tiene su mina marcada. Toca otra vecina: es segura.",
+  "@tutorialTaskNumber": {
+    "description": "Tarea del paso 1."
+  },
+  "tutorialRuleFlag": "Si un número tiene tantas vecinas cerradas como minas, todas son minas.",
+  "@tutorialRuleFlag": {
+    "description": "Regla del paso 2."
+  },
+  "tutorialTaskFlag": "Ponle bandera a la mina: mantén pulsada la celda o usa el modo Bandera.",
+  "@tutorialTaskFlag": {
+    "description": "Tarea del paso 2."
+  },
+  "tutorialRuleChord": "Si un número ya tiene todas sus banderas, tocarlo abre sus otras vecinas.",
+  "@tutorialRuleChord": {
+    "description": "Regla del paso 3."
+  },
+  "tutorialTaskChord": "Toca el 1 para abrir de una vez todas sus vecinas.",
+  "@tutorialTaskChord": {
+    "description": "Tarea del paso 3."
+  },
+  "tutorialWrongFlagged": "Esa celda tiene la bandera del 1: ahí está su mina.",
+  "@tutorialWrongFlagged": {
+    "description": "Error explicado, sin castigo."
+  },
+  "tutorialWrongMine": "Cuidado: ahí está la mina. Márcala con bandera.",
+  "@tutorialWrongMine": {
+    "description": "Error explicado, sin castigo."
+  },
+  "tutorialWrongChord": "También vale, pero tocar el 1 las abre todas de una vez.",
+  "@tutorialWrongChord": {
+    "description": "Pista amable en el paso 3."
+  },
+  "tutorialRight": "¡Bien hecho!",
+  "@tutorialRight": {
+    "description": "Respuesta correcta."
+  },
+  "tutorialNext": "Siguiente",
+  "@tutorialNext": {
+    "description": "Siguiente paso."
+  },
+  "tutorialStart": "Empezar a jugar",
+  "@tutorialStart": {
+    "description": "Termina el tutorial."
+  },
+  "tutorialBoardLabel": "Tablero de práctica de 5 por 5",
+  "@tutorialBoardLabel": {
+    "description": "Etiqueta del tablero del tutorial."
+  },
+  "settingsTapMode": "Al tocar una celda",
+  "@settingsTapMode": {
+    "description": "Ajuste: acción del toque."
+  },
+  "settingsTapModeHelp": "La pulsación larga hace lo contrario.",
+  "@settingsTapModeHelp": {
+    "description": "Ayuda del ajuste del toque."
+  },
+  "settingsLongPress": "Duración de la pulsación larga",
+  "@settingsLongPress": {
+    "description": "Ajuste de duración."
+  },
+  "settingsLongPressShort": "Corta",
+  "@settingsLongPressShort": {
+    "description": "Duración corta."
+  },
+  "settingsLongPressNormal": "Normal",
+  "@settingsLongPressNormal": {
+    "description": "Duración normal."
+  },
+  "settingsLongPressLong": "Larga",
+  "@settingsLongPressLong": {
+    "description": "Duración larga."
+  },
+  "settingsChord": "Abrir vecinas tocando un número",
+  "@settingsChord": {
+    "description": "Ajuste chord."
+  },
+  "settingsChordHelp": "Solo si el número ya tiene todas sus banderas.",
+  "@settingsChordHelp": {
+    "description": "Ayuda del ajuste chord."
+  },
+  "settingsTutorial": "Cómo se juega",
+  "@settingsTutorial": {
+    "description": "Abre el tutorial."
+  }
+}

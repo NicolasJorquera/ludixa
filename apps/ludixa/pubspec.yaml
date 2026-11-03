@@ -16,6 +16,7 @@ dependencies:
   flutter_riverpod: ^3.3.2
   design_system:
   game_api:
+  game_minesweeper:
   game_sudoku:
   go_router: ^17.5.0
   intl: any

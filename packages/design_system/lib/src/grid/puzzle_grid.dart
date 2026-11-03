@@ -44,6 +44,7 @@ class PuzzleGrid extends StatelessWidget {
     this.maxCellExtent = 64,
     this.fixedCellExtent,
     this.semanticLabel,
+    this.longPressDuration = kLongPressTimeout,
   });
 
   final GridDimensions dimensions;
@@ -72,6 +73,9 @@ class PuzzleGrid extends StatelessWidget {
 
   /// Descripción de la grilla completa ("Tablero de Sudoku").
   final String? semanticLabel;
+
+  /// Cuánto hay que mantener pulsado (el Buscaminas la deja ajustar).
+  final Duration longPressDuration;
 
   /// Tamaño de celda que ocupa todo [width].
   static double fitCellExtent(double width, GridDimensions dimensions, {double gap = 0}) =>
@@ -111,6 +115,7 @@ class PuzzleGrid extends StatelessWidget {
               onDragStart: onDragStart,
               onDragUpdate: onDragUpdate,
               onDragEnd: onDragEnd,
+              longPressDuration: longPressDuration,
               child: SizedBox(
                 width: width,
                 height: height,
@@ -150,9 +155,11 @@ class _GridGestures extends StatefulWidget {
     this.onDragStart,
     this.onDragUpdate,
     this.onDragEnd,
+    this.longPressDuration = kLongPressTimeout,
   });
 
   final int? Function(Offset local) indexAt;
+  final Duration longPressDuration;
   final Widget child;
   final ValueChanged<int>? onTap;
   final ValueChanged<int>? onLongPress;
@@ -170,27 +177,38 @@ class _GridGesturesState extends State<_GridGestures> {
   @override
   Widget build(BuildContext context) {
     final dragging = widget.onDragStart != null || widget.onDragUpdate != null;
-    return GestureDetector(
+    // RawGestureDetector para poder fijar la duración de la pulsación larga.
+    return RawGestureDetector(
       behavior: HitTestBehavior.opaque,
       excludeFromSemantics: true,
-      onTapUp: widget.onTap == null
-          ? null
-          : (details) {
+      gestures: {
+        if (widget.onTap != null)
+          TapGestureRecognizer: GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
+            TapGestureRecognizer.new,
+            (r) => r.onTapUp = (details) {
               final index = widget.indexAt(details.localPosition);
               if (index != null) widget.onTap!(index);
             },
-      onLongPressStart: widget.onLongPress == null
-          ? null
-          : (details) {
+          ),
+        if (widget.onLongPress != null)
+          LongPressGestureRecognizer: GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
+            () => LongPressGestureRecognizer(duration: widget.longPressDuration),
+            (r) => r.onLongPressStart = (details) {
               final index = widget.indexAt(details.localPosition);
               if (index != null) widget.onLongPress!(index);
             },
-      // Pan en lugar de drag vertical/horizontal: la selección de la Sopa va en 8 direcciones.
-      onPanStart: !dragging ? null : _panStart,
-      onPanUpdate: !dragging ? null : _panUpdate,
-      onPanEnd: !dragging ? null : (_) => _panEnd(),
-      onPanCancel: !dragging ? null : _panEnd,
-      dragStartBehavior: DragStartBehavior.down,
+          ),
+        // Pan en lugar de drag vertical/horizontal: la selección de la Sopa va en 8 direcciones.
+        if (dragging)
+          PanGestureRecognizer: GestureRecognizerFactoryWithHandlers<PanGestureRecognizer>(
+            () => PanGestureRecognizer()..dragStartBehavior = DragStartBehavior.down,
+            (r) => r
+              ..onStart = _panStart
+              ..onUpdate = _panUpdate
+              ..onEnd = ((_) => _panEnd())
+              ..onCancel = _panEnd,
+          ),
+      },
       child: widget.child,
     );
   }

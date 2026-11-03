@@ -38,7 +38,7 @@ class _DevSudokuPageState extends ConsumerState<DevSudokuPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: LudixaButton(label: 'Jugar', onPressed: () => _play(module)),
+            child: LudixaButton(label: 'Play', onPressed: () => _play(module)),
           ),
           ?module.buildSettings(context),
           LudixaListRow(title: SudokuLocalizations.of(context).settingsTutorial, onTap: () => _tutorial(module)),

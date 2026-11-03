@@ -84,6 +84,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDevSudoku => 'Try Sudoku (development)';
 
   @override
+  String get settingsDevMinesweeper => 'Try Minesweeper (development)';
+
+  @override
   String get settingsLicenses => 'Open source licenses';
 }
 
@@ -165,6 +168,9 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsDevSudoku => '[Ţŕý Šûðöķû (ðéṽéļöþɱéñţ) ········]';
+
+  @override
+  String get settingsDevMinesweeper => '[Ţŕý Ṁîñéšŵééþéŕ (ðéṽéļöþɱéñţ) ··········]';
 
   @override
   String get settingsLicenses => '[Öþéñ šöûŕçé ļîçéñšéš ········]';

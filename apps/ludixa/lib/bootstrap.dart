@@ -17,12 +17,14 @@ Future<void> bootstrap(AppEnvironment environment) async {
   registerDesignSystemLicenses();
   final settingsRepository = await SharedPreferencesSettingsRepository.create();
   final sudokuSettings = await PrefsSudokuSettingsStore.create();
+  final minesweeperSettings = await PrefsMinesweeperSettingsStore.create();
   runApp(
     ProviderScope(
       overrides: [
         environmentProvider.overrideWithValue(environment),
         settingsRepositoryProvider.overrideWithValue(settingsRepository),
         sudokuSettingsStoreProvider.overrideWithValue(sudokuSettings),
+        minesweeperSettingsStoreProvider.overrideWithValue(minesweeperSettings),
       ],
       child: const LudixaApp(),
     ),

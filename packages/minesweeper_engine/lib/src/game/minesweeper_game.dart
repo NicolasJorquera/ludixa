@@ -78,6 +78,15 @@ final class MinesweeperGame {
     return MinesweeperGame._(spec: spec, seed: seed, suggestedStart: board.start, layout: board.layout);
   }
 
+  /// "Reintentar este tablero": las mismas minas desde cero, con [start] (la
+  /// celda del primer toque) como inicio recomendado, para que siga siendo
+  /// resoluble sin adivinar.
+  MinesweeperGame replay({required int start}) {
+    final layout = _layout;
+    if (layout == null) throw StateError('Todavía no hay tablero');
+    return MinesweeperGame._(spec: spec, seed: seed, suggestedStart: start, layout: layout);
+  }
+
   /// Genera el tablero de una partida libre para el primer toque [start].
   /// Es determinista y pesado: llamarlo dentro de `Isolate.run`.
   static MineLayout generateBoard(BoardSpec spec, String seedKey, int start) =>
