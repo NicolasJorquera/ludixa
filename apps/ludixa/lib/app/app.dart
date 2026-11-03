@@ -13,7 +13,8 @@ import 'environment.dart';
 import 'locales.dart';
 import 'router.dart';
 
-/// Raíz de la app: tema, paleta e idioma salen de los ajustes y cambian en caliente.
+/// Raíz de la app: tema, paleta, idioma, tamaño de texto y animaciones salen
+/// de los ajustes y cambian en caliente.
 class LudixaApp extends ConsumerWidget {
   const LudixaApp({super.key});
 
@@ -47,8 +48,26 @@ class LudixaApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      builder: (context, child) =>
-          environment.isProduction ? child! : Banner(message: 'DEV', location: BannerLocation.topEnd, child: child),
+      builder: (context, child) {
+        final app = _applyAccessibility(context, settings, child!);
+        return environment.isProduction ? app : Banner(message: 'DEV', location: BannerLocation.topEnd, child: app);
+      },
     );
   }
+}
+
+/// Tamaño de texto y animaciones de Ajustes, encima de lo que pide el
+/// sistema: nunca achican el texto ni devuelven animaciones que el sistema
+/// quitó.
+Widget _applyAccessibility(BuildContext context, AppSettings settings, Widget child) {
+  final media = MediaQuery.of(context);
+  final factor = settings.textSize.factor;
+  if (factor == 1 && !settings.reduceMotion) return child;
+  return MediaQuery(
+    data: media.copyWith(
+      textScaler: factor == 1 ? media.textScaler : TextScaler.linear(media.textScaler.scale(1) * factor),
+      disableAnimations: media.disableAnimations || settings.reduceMotion,
+    ),
+    child: child,
+  );
 }

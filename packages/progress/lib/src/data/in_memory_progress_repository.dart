@@ -22,6 +22,9 @@ final class InMemoryProgressRepository implements ProgressRepository {
   _Store get _store => _Store(_state);
 
   @override
+  Future<void> clear() async => _state = _State();
+
+  @override
   Future<List<SessionRecord>> sessions() => _store.sessions();
   @override
   Future<SessionRecord?> session(String id) => _store.session(id);

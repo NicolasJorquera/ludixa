@@ -575,4 +575,114 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get progressNoTime => 'Sin tiempo';
+
+  @override
+  String get settingsGeneralSection => 'General';
+
+  @override
+  String get settingsTextSize => 'Tamaño del texto';
+
+  @override
+  String get textSizeSystem => 'Como el sistema';
+
+  @override
+  String get textSizeLarge => 'Grande';
+
+  @override
+  String get textSizeLarger => 'Más grande';
+
+  @override
+  String get settingsReduceMotion => 'Reducir animaciones';
+
+  @override
+  String get settingsReduceMotionHint => 'Quita los efectos de movimiento aunque el sistema los tenga activos';
+
+  @override
+  String get settingsHaptics => 'Vibración';
+
+  @override
+  String get settingsHapticsHint => 'Al tocar, poner banderas y completar un puzzle';
+
+  @override
+  String get settingsShowTimer => 'Mostrar el temporizador';
+
+  @override
+  String get settingsShowTimerHint => 'El tiempo se mide igual para tus estadísticas';
+
+  @override
+  String get settingsGamesSection => 'Juegos';
+
+  @override
+  String get settingsDataSection => 'Datos y privacidad';
+
+  @override
+  String get settingsResetStats => 'Reiniciar estadísticas';
+
+  @override
+  String get settingsResetStatsHint => 'Tu racha, el calendario y los logros no cambian';
+
+  @override
+  String get settingsResetStatsBody =>
+      'Las partidas jugadas, los mejores tiempos y las medias del juego que elijas vuelven a cero.';
+
+  @override
+  String settingsResetStatsGame(String game) {
+    return 'Reiniciar $game';
+  }
+
+  @override
+  String settingsResetStatsDone(String game) {
+    return 'Estadísticas de $game reiniciadas';
+  }
+
+  @override
+  String get settingsResetAll => 'Reiniciar todo el progreso';
+
+  @override
+  String get settingsResetAllHint => 'Borra partidas, racha, calendario, logros y estadísticas';
+
+  @override
+  String get settingsResetAllTitle => '¿Borrar todo tu progreso?';
+
+  @override
+  String get settingsResetAllBody =>
+      'Se borran tus partidas, la racha, el calendario, los logros y las estadísticas. Tus ajustes se conservan. No se puede deshacer.';
+
+  @override
+  String get settingsResetAllWord => 'BORRAR';
+
+  @override
+  String settingsResetAllPrompt(String word) {
+    return 'Escribe $word para confirmar';
+  }
+
+  @override
+  String get settingsResetAllConfirm => 'Borrar todo';
+
+  @override
+  String get settingsResetAllDone => 'Se borró tu progreso';
+
+  @override
+  String get settingsAdsContract => 'Contrato de anuncios';
+
+  @override
+  String get adsContractIntro => 'Ludixa es gratis gracias a los anuncios. Estas reglas no cambian:';
+
+  @override
+  String get adsPromiseMidGame => 'Nunca verás un anuncio en mitad de una partida.';
+
+  @override
+  String get adsPromiseOnOpen => 'Nunca verás un anuncio al abrir la app.';
+
+  @override
+  String get adsPromiseRewarded => 'Los videos con recompensa son siempre opcionales y siempre te dan lo prometido.';
+
+  @override
+  String get adsPromiseAfterVideo => 'Después de un video con recompensa nunca aparece otro anuncio.';
+
+  @override
+  String get adsPromiseOffline => 'Todos los juegos funcionan sin internet.';
+
+  @override
+  String get settingsVersion => 'Versión';
 }

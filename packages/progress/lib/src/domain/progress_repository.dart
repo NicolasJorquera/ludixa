@@ -32,4 +32,8 @@ abstract interface class ProgressStore {
 abstract interface class ProgressRepository implements ProgressStore {
   /// Ejecuta [action] de forma atómica: si lanza, no queda nada escrito.
   Future<T> transaction<T>(Future<T> Function(ProgressStore store) action);
+
+  /// Borra todo el progreso: partidas, días del reto, racha, logros y
+  /// reinicios de estadísticas.
+  Future<void> clear();
 }

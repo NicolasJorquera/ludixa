@@ -24,6 +24,14 @@ class SettingsController extends Notifier<AppSettings> {
 
   Future<void> setColorblindPalette(bool enabled) => _update(state.copyWith(colorblindPalette: enabled));
 
+  Future<void> setTextSize(TextSizePreference size) => _update(state.copyWith(textSize: size));
+
+  Future<void> setReduceMotion(bool enabled) => _update(state.copyWith(reduceMotion: enabled));
+
+  Future<void> setHaptics(bool enabled) => _update(state.copyWith(haptics: enabled));
+
+  Future<void> setShowTimer(bool enabled) => _update(state.copyWith(showTimer: enabled));
+
   Future<void> _update(AppSettings next) async {
     state = next;
     await ref.read(settingsRepositoryProvider).save(next);

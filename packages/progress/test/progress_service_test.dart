@@ -326,6 +326,17 @@ void main() {
       expect((await repo.unlocked()).containsKey(AchievementId.firstPuzzle), isTrue);
     });
 
+    test('reiniciar todo borra partidas, racha, días y logros', () async {
+      await service.recordResult(session(startedAt: at('2026-11-02', hour: 8)));
+      expect(await repo.days(), isNotEmpty);
+      expect((await service.achievements()).where((a) => a.unlockedAt != null), isNotEmpty);
+      await service.resetAll();
+      expect(await repo.sessions(), isEmpty);
+      expect(await repo.days(), isEmpty);
+      expect((await repo.streak()).best, 0);
+      expect((await service.achievements()).where((a) => a.unlockedAt != null), isEmpty);
+    });
+
     test('reiniciar un nivel no toca los otros niveles del juego', () async {
       for (final level in ['easy', 'medium']) {
         await service.recordResult(

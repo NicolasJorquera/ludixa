@@ -7,6 +7,7 @@ import 'package:progress/progress.dart';
 import 'package:puzzle_core/puzzle_core.dart';
 
 import '../games/game_settings.dart';
+import '../settings/application/settings_controller.dart';
 import 'last_difficulty.dart';
 
 /// Reloj de la app. Las pruebas lo reemplazan por uno falso.
@@ -22,14 +23,24 @@ final progressServiceProvider = Provider<ProgressService>(
 
 final lastDifficultyStoreProvider = Provider<LastDifficultyStore>((ref) => InMemoryLastDifficultyStore());
 
-/// Los juegos de la colección, en el orden de la portada.
-final gameModulesProvider = Provider<Map<GameId, GameModule>>(
-  (ref) => {
-    GameId.sudoku: SudokuModule(store: ref.watch(sudokuSettingsStoreProvider)),
-    GameId.minesweeper: MinesweeperModule(store: ref.watch(minesweeperSettingsStoreProvider)),
-    GameId.wordSearch: WordSearchModule(store: ref.watch(wordSearchSettingsStoreProvider)),
-  },
-);
+/// Los juegos de la colección, en el orden de la portada. Cada uno lee el
+/// temporizador y la vibración de los ajustes generales al cargar.
+final gameModulesProvider = Provider<Map<GameId, GameModule>>((ref) {
+  GeneralGameSettings general() {
+    final s = ref.read(settingsProvider);
+    return (showTimer: s.showTimer, haptics: s.haptics);
+  }
+
+  return {
+    GameId.sudoku: SudokuModule(store: GeneralSudokuSettingsStore(ref.watch(sudokuSettingsStoreProvider), general)),
+    GameId.minesweeper: MinesweeperModule(
+      store: GeneralMinesweeperSettingsStore(ref.watch(minesweeperSettingsStoreProvider), general),
+    ),
+    GameId.wordSearch: WordSearchModule(
+      store: GeneralWordSearchSettingsStore(ref.watch(wordSearchSettingsStoreProvider), general),
+    ),
+  };
+});
 
 /// Sube cada vez que el progreso cambia (partida guardada o terminada). Las
 /// pantallas que muestran progreso lo vigilan para refrescarse.

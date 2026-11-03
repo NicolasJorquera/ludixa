@@ -889,6 +889,210 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Sin tiempo'**
   String get progressNoTime;
+
+  /// Sección de Ajustes.
+  ///
+  /// In es, this message translates to:
+  /// **'General'**
+  String get settingsGeneralSection;
+
+  /// Grupo de opciones de tamaño de texto.
+  ///
+  /// In es, this message translates to:
+  /// **'Tamaño del texto'**
+  String get settingsTextSize;
+
+  /// Tamaño de texto del sistema.
+  ///
+  /// In es, this message translates to:
+  /// **'Como el sistema'**
+  String get textSizeSystem;
+
+  /// Texto un 15 % más grande que el del sistema.
+  ///
+  /// In es, this message translates to:
+  /// **'Grande'**
+  String get textSizeLarge;
+
+  /// Texto un 30 % más grande que el del sistema.
+  ///
+  /// In es, this message translates to:
+  /// **'Más grande'**
+  String get textSizeLarger;
+
+  /// Interruptor.
+  ///
+  /// In es, this message translates to:
+  /// **'Reducir animaciones'**
+  String get settingsReduceMotion;
+
+  /// Descripción del interruptor.
+  ///
+  /// In es, this message translates to:
+  /// **'Quita los efectos de movimiento aunque el sistema los tenga activos'**
+  String get settingsReduceMotionHint;
+
+  /// Interruptor.
+  ///
+  /// In es, this message translates to:
+  /// **'Vibración'**
+  String get settingsHaptics;
+
+  /// Descripción del interruptor.
+  ///
+  /// In es, this message translates to:
+  /// **'Al tocar, poner banderas y completar un puzzle'**
+  String get settingsHapticsHint;
+
+  /// Interruptor.
+  ///
+  /// In es, this message translates to:
+  /// **'Mostrar el temporizador'**
+  String get settingsShowTimer;
+
+  /// Descripción del interruptor.
+  ///
+  /// In es, this message translates to:
+  /// **'El tiempo se mide igual para tus estadísticas'**
+  String get settingsShowTimerHint;
+
+  /// Sección de Ajustes: ajustes de cada juego.
+  ///
+  /// In es, this message translates to:
+  /// **'Juegos'**
+  String get settingsGamesSection;
+
+  /// Sección de Ajustes.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos y privacidad'**
+  String get settingsDataSection;
+
+  /// Fila: abre la elección del juego.
+  ///
+  /// In es, this message translates to:
+  /// **'Reiniciar estadísticas'**
+  String get settingsResetStats;
+
+  /// Subtítulo de la fila.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu racha, el calendario y los logros no cambian'**
+  String get settingsResetStatsHint;
+
+  /// Cuerpo de la hoja.
+  ///
+  /// In es, this message translates to:
+  /// **'Las partidas jugadas, los mejores tiempos y las medias del juego que elijas vuelven a cero.'**
+  String get settingsResetStatsBody;
+
+  /// Botón por juego en la hoja.
+  ///
+  /// In es, this message translates to:
+  /// **'Reiniciar {game}'**
+  String settingsResetStatsGame(String game);
+
+  /// Aviso tras reiniciar.
+  ///
+  /// In es, this message translates to:
+  /// **'Estadísticas de {game} reiniciadas'**
+  String settingsResetStatsDone(String game);
+
+  /// Fila: abre la confirmación.
+  ///
+  /// In es, this message translates to:
+  /// **'Reiniciar todo el progreso'**
+  String get settingsResetAll;
+
+  /// Subtítulo de la fila.
+  ///
+  /// In es, this message translates to:
+  /// **'Borra partidas, racha, calendario, logros y estadísticas'**
+  String get settingsResetAllHint;
+
+  /// Título de la confirmación.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar todo tu progreso?'**
+  String get settingsResetAllTitle;
+
+  /// Explica qué se borra.
+  ///
+  /// In es, this message translates to:
+  /// **'Se borran tus partidas, la racha, el calendario, los logros y las estadísticas. Tus ajustes se conservan. No se puede deshacer.'**
+  String get settingsResetAllBody;
+
+  /// Palabra que hay que escribir para confirmar. En mayúsculas.
+  ///
+  /// In es, this message translates to:
+  /// **'BORRAR'**
+  String get settingsResetAllWord;
+
+  /// Etiqueta del campo de confirmación.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe {word} para confirmar'**
+  String settingsResetAllPrompt(String word);
+
+  /// Botón que borra el progreso.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar todo'**
+  String get settingsResetAllConfirm;
+
+  /// Aviso tras borrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Se borró tu progreso'**
+  String get settingsResetAllDone;
+
+  /// Fila y título de la pantalla del contrato.
+  ///
+  /// In es, this message translates to:
+  /// **'Contrato de anuncios'**
+  String get settingsAdsContract;
+
+  /// Introducción del contrato de anuncios.
+  ///
+  /// In es, this message translates to:
+  /// **'Ludixa es gratis gracias a los anuncios. Estas reglas no cambian:'**
+  String get adsContractIntro;
+
+  /// Promesa 1.
+  ///
+  /// In es, this message translates to:
+  /// **'Nunca verás un anuncio en mitad de una partida.'**
+  String get adsPromiseMidGame;
+
+  /// Promesa 2.
+  ///
+  /// In es, this message translates to:
+  /// **'Nunca verás un anuncio al abrir la app.'**
+  String get adsPromiseOnOpen;
+
+  /// Promesa 3.
+  ///
+  /// In es, this message translates to:
+  /// **'Los videos con recompensa son siempre opcionales y siempre te dan lo prometido.'**
+  String get adsPromiseRewarded;
+
+  /// Promesa 4.
+  ///
+  /// In es, this message translates to:
+  /// **'Después de un video con recompensa nunca aparece otro anuncio.'**
+  String get adsPromiseAfterVideo;
+
+  /// Promesa 5.
+  ///
+  /// In es, this message translates to:
+  /// **'Todos los juegos funcionan sin internet.'**
+  String get adsPromiseOffline;
+
+  /// Fila con la versión de la app.
+  ///
+  /// In es, this message translates to:
+  /// **'Versión'**
+  String get settingsVersion;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

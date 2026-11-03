@@ -570,6 +570,115 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressNoTime => 'No time';
+
+  @override
+  String get settingsGeneralSection => 'General';
+
+  @override
+  String get settingsTextSize => 'Text size';
+
+  @override
+  String get textSizeSystem => 'Same as system';
+
+  @override
+  String get textSizeLarge => 'Large';
+
+  @override
+  String get textSizeLarger => 'Larger';
+
+  @override
+  String get settingsReduceMotion => 'Reduce motion';
+
+  @override
+  String get settingsReduceMotionHint => 'Removes motion effects even if your system allows them';
+
+  @override
+  String get settingsHaptics => 'Vibration';
+
+  @override
+  String get settingsHapticsHint => 'When tapping, flagging and finishing a puzzle';
+
+  @override
+  String get settingsShowTimer => 'Show the timer';
+
+  @override
+  String get settingsShowTimerHint => 'Time is still measured for your statistics';
+
+  @override
+  String get settingsGamesSection => 'Games';
+
+  @override
+  String get settingsDataSection => 'Data and privacy';
+
+  @override
+  String get settingsResetStats => 'Reset statistics';
+
+  @override
+  String get settingsResetStatsHint => 'Your streak, calendar and achievements stay the same';
+
+  @override
+  String get settingsResetStatsBody => 'Games played, best times and averages for the game you choose go back to zero.';
+
+  @override
+  String settingsResetStatsGame(String game) {
+    return 'Reset $game';
+  }
+
+  @override
+  String settingsResetStatsDone(String game) {
+    return '$game statistics reset';
+  }
+
+  @override
+  String get settingsResetAll => 'Reset all progress';
+
+  @override
+  String get settingsResetAllHint => 'Deletes games, streak, calendar, achievements and statistics';
+
+  @override
+  String get settingsResetAllTitle => 'Delete all your progress?';
+
+  @override
+  String get settingsResetAllBody =>
+      'Your games, streak, calendar, achievements and statistics will be deleted. Your settings are kept. This can\'t be undone.';
+
+  @override
+  String get settingsResetAllWord => 'DELETE';
+
+  @override
+  String settingsResetAllPrompt(String word) {
+    return 'Type $word to confirm';
+  }
+
+  @override
+  String get settingsResetAllConfirm => 'Delete everything';
+
+  @override
+  String get settingsResetAllDone => 'Your progress was deleted';
+
+  @override
+  String get settingsAdsContract => 'Our ad promise';
+
+  @override
+  String get adsContractIntro => 'Ludixa is free thanks to ads. These rules don\'t change:';
+
+  @override
+  String get adsPromiseMidGame => 'You\'ll never see an ad in the middle of a game.';
+
+  @override
+  String get adsPromiseOnOpen => 'You\'ll never see an ad when you open the app.';
+
+  @override
+  String get adsPromiseRewarded => 'Rewarded videos are always optional and always give you what they promise.';
+
+  @override
+  String get adsPromiseAfterVideo => 'No other ad ever shows right after a rewarded video.';
+
+  @override
+  String get adsPromiseOffline => 'Every game works without internet.';
+
+  @override
+  String get settingsVersion => 'Version';
 }
 
 /// The translations for English (`en_XA`).
@@ -1138,4 +1247,116 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get progressNoTime => '[Ñö ţîɱé ···]';
+
+  @override
+  String get settingsGeneralSection => '[Ĝéñéŕáļ ···]';
+
+  @override
+  String get settingsTextSize => '[Ţéẋţ šîžé ····]';
+
+  @override
+  String get textSizeSystem => '[Šáɱé áš šýšţéɱ ·····]';
+
+  @override
+  String get textSizeLarge => '[Ļáŕĝé ··]';
+
+  @override
+  String get textSizeLarger => '[Ļáŕĝéŕ ···]';
+
+  @override
+  String get settingsReduceMotion => '[Ŕéðûçé ɱöţîöñ ·····]';
+
+  @override
+  String get settingsReduceMotionHint => '[Ŕéɱöṽéš ɱöţîöñ éƒƒéçţš éṽéñ îƒ ýöûŕ šýšţéɱ áļļöŵš ţĥéɱ ···················]';
+
+  @override
+  String get settingsHaptics => '[Ṽîƀŕáţîöñ ····]';
+
+  @override
+  String get settingsHapticsHint => '[Ŵĥéñ ţáþþîñĝ, ƒļáĝĝîñĝ áñð ƒîñîšĥîñĝ á þûžžļé ················]';
+
+  @override
+  String get settingsShowTimer => '[Šĥöŵ ţĥé ţîɱéŕ ·····]';
+
+  @override
+  String get settingsShowTimerHint => '[Ţîɱé îš šţîļļ ɱéášûŕéð ƒöŕ ýöûŕ šţáţîšţîçš ···············]';
+
+  @override
+  String get settingsGamesSection => '[Ĝáɱéš ··]';
+
+  @override
+  String get settingsDataSection => '[Ðáţá áñð þŕîṽáçý ······]';
+
+  @override
+  String get settingsResetStats => '[Ŕéšéţ šţáţîšţîçš ······]';
+
+  @override
+  String get settingsResetStatsHint => '[Ýöûŕ šţŕéáķ, çáļéñðáŕ áñð áçĥîéṽéɱéñţš šţáý ţĥé šáɱé ··················]';
+
+  @override
+  String get settingsResetStatsBody =>
+      '[Ĝáɱéš þļáýéð, ƀéšţ ţîɱéš áñð áṽéŕáĝéš ƒöŕ ţĥé ĝáɱé ýöû çĥööšé ĝö ƀáçķ ţö žéŕö. ·························]';
+
+  @override
+  String settingsResetStatsGame(String game) {
+    return '[Ŕéšéţ $game ··]';
+  }
+
+  @override
+  String settingsResetStatsDone(String game) {
+    return '[$game šţáţîšţîçš ŕéšéţ ······]';
+  }
+
+  @override
+  String get settingsResetAll => '[Ŕéšéţ áļļ þŕöĝŕéšš ·······]';
+
+  @override
+  String get settingsResetAllHint =>
+      '[Ðéļéţéš ĝáɱéš, šţŕéáķ, çáļéñðáŕ, áçĥîéṽéɱéñţš áñð šţáţîšţîçš ·····················]';
+
+  @override
+  String get settingsResetAllTitle => '[Ðéļéţé áļļ ýöûŕ þŕöĝŕéšš? ·········]';
+
+  @override
+  String get settingsResetAllBody =>
+      '[Ýöûŕ ĝáɱéš, šţŕéáķ, çáļéñðáŕ, áçĥîéṽéɱéñţš áñð šţáţîšţîçš ŵîļļ ƀé ðéļéţéð. Ýöûŕ šéţţîñĝš áŕé ķéþţ. Ţĥîš çáñ\'ţ ƀé ûñðöñé. ·······································]';
+
+  @override
+  String get settingsResetAllWord => '[ÐÉĻÉŢÉ ···]';
+
+  @override
+  String settingsResetAllPrompt(String word) {
+    return '[Ţýþé $word ţö çöñƒîŕɱ ······]';
+  }
+
+  @override
+  String get settingsResetAllConfirm => '[Ðéļéţé éṽéŕýţĥîñĝ ·······]';
+
+  @override
+  String get settingsResetAllDone => '[Ýöûŕ þŕöĝŕéšš ŵáš ðéļéţéð ·········]';
+
+  @override
+  String get settingsAdsContract => '[Öûŕ áð þŕöɱîšé ·····]';
+
+  @override
+  String get adsContractIntro => '[Ļûðîẋá îš ƒŕéé ţĥáñķš ţö áðš. Ţĥéšé ŕûļéš ðöñ\'ţ çĥáñĝé: ··················]';
+
+  @override
+  String get adsPromiseMidGame => '[Ýöû\'ļļ ñéṽéŕ šéé áñ áð îñ ţĥé ɱîððļé öƒ á ĝáɱé. ··············]';
+
+  @override
+  String get adsPromiseOnOpen => '[Ýöû\'ļļ ñéṽéŕ šéé áñ áð ŵĥéñ ýöû öþéñ ţĥé áþþ. ··············]';
+
+  @override
+  String get adsPromiseRewarded =>
+      '[Ŕéŵáŕðéð ṽîðéöš áŕé áļŵáýš öþţîöñáļ áñð áļŵáýš ĝîṽé ýöû ŵĥáţ ţĥéý þŕöɱîšé. ·························]';
+
+  @override
+  String get adsPromiseAfterVideo => '[Ñö öţĥéŕ áð éṽéŕ šĥöŵš ŕîĝĥţ áƒţéŕ á ŕéŵáŕðéð ṽîðéö. ·················]';
+
+  @override
+  String get adsPromiseOffline => '[Éṽéŕý ĝáɱé ŵöŕķš ŵîţĥöûţ îñţéŕñéţ. ············]';
+
+  @override
+  String get settingsVersion => '[Ṽéŕšîöñ ···]';
 }
