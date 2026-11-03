@@ -47,6 +47,14 @@ abstract interface class GameModule {
 
   DailySpec dailySpec(LocalDay day);
 
+  /// Nombre traducido de cualquier nivel, también los propios del reto
+  /// (por ejemplo el 12×12 del Buscaminas).
+  String difficultyLabel(BuildContext context, Difficulty difficulty);
+
+  /// Detalle del reto de [day] para mostrar junto al nivel (el tema de la
+  /// Sopa), o null si no hay.
+  String? dailyDetail(BuildContext context, LocalDay day);
+
   /// Pantalla de partida.
   Widget buildGame(BuildContext context, PuzzleRequest request, GameHost host);
 

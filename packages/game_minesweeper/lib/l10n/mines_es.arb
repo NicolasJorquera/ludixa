@@ -16,9 +16,9 @@
   "@levelExpert": {
     "description": "Dificultad."
   },
-  "levelDaily": "Reto",
+  "levelDaily": "Intermedio reducido",
   "@levelDaily": {
-    "description": "Nivel del tablero reducido del reto diario (12×12)."
+    "description": "Nivel 12×12 con 22 minas del reto de mitad de semana."
   },
   "levelBeginnerDescription": "9×9 · 10 minas · cabe sin zoom",
   "@levelBeginnerDescription": {

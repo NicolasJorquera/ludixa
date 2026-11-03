@@ -571,6 +571,144 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Reintentar'**
   String get homeRetry;
+
+  /// Racha actual en la pestaña Reto.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =0{Sin racha todavía} =1{1 día seguido} other{{count} días seguidos}}'**
+  String dailyStreakDays(int count);
+
+  /// Racha máxima.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{Tu máximo: 1 día} other{Tu máximo: {count} días}}'**
+  String dailyBest(int count);
+
+  /// Comodines disponibles.
+  ///
+  /// In es, this message translates to:
+  /// **'Comodines: {count} de 2'**
+  String dailySavers(int count);
+
+  /// Ayuda de los comodines.
+  ///
+  /// In es, this message translates to:
+  /// **'Se gana 1 cada 7 días seguidos y cubre un día sin jugar.'**
+  String get dailySaversHelp;
+
+  /// Racha en riesgo sostenida por comodines.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =1{Si juegas hoy, un comodín cubre el día que faltó.} other{Si juegas hoy, {count} comodines cubren los días que faltaron.}}'**
+  String dailySaversNeeded(int count);
+
+  /// Texto neutro cuando se rompe la racha.
+  ///
+  /// In es, this message translates to:
+  /// **'Racha anterior: {count} días. ¡A por otra!'**
+  String dailyPrevious(int count);
+
+  /// Día completo.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy: hecho'**
+  String get dailyDone;
+
+  /// Hora del próximo reto.
+  ///
+  /// In es, this message translates to:
+  /// **'Próximo reto a las {time}'**
+  String dailyNext(String time);
+
+  /// Reto completado ese día.
+  ///
+  /// In es, this message translates to:
+  /// **'Completado en {time}'**
+  String dailyCompletedIn(String time);
+
+  /// Reto completado después, desde el archivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Completado desde el archivo'**
+  String get dailyCompletedArchive;
+
+  /// Botón para jugar un reto.
+  ///
+  /// In es, this message translates to:
+  /// **'Jugar'**
+  String get dailyPlay;
+
+  /// Botón para continuar un reto empezado.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar'**
+  String get dailyContinue;
+
+  /// Etiqueta accesible del calendario.
+  ///
+  /// In es, this message translates to:
+  /// **'Calendario de {month}'**
+  String dailyCalendar(String month);
+
+  /// Etiqueta accesible de un día del calendario.
+  ///
+  /// In es, this message translates to:
+  /// **'{date}, {count} de 3 retos{suffix}'**
+  String dailyDayLabel(String date, int count, String suffix);
+
+  /// Sufijo: el día es hoy.
+  ///
+  /// In es, this message translates to:
+  /// **', hoy'**
+  String get dailyDayToday;
+
+  /// Sufijo: día perfecto.
+  ///
+  /// In es, this message translates to:
+  /// **', día perfecto'**
+  String get dailyDayPerfect;
+
+  /// Sufijo: día cubierto por un comodín.
+  ///
+  /// In es, this message translates to:
+  /// **', cubierto por un comodín'**
+  String get dailyDaySaver;
+
+  /// Sufijo: retos hechos desde el archivo.
+  ///
+  /// In es, this message translates to:
+  /// **'{count, plural, =0{} =1{, 1 desde el archivo} other{, {count} desde el archivo}}'**
+  String dailyDayArchive(int count);
+
+  /// Botón al archivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Días anteriores'**
+  String get dailyArchive;
+
+  /// Título del archivo de 30 días.
+  ///
+  /// In es, this message translates to:
+  /// **'Días anteriores'**
+  String get archiveTitle;
+
+  /// Explicación del archivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Puedes jugar los retos de los últimos 30 días. No suman a la racha, pero completan el calendario.'**
+  String get archiveHint;
+
+  /// Retos completados de un día del archivo.
+  ///
+  /// In es, this message translates to:
+  /// **'{count} de 3'**
+  String archiveMarks(int count);
+
+  /// Día fuera de la ventana de 30 días.
+  ///
+  /// In es, this message translates to:
+  /// **'Este día ya no está en el archivo.'**
+  String get archiveOutside;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

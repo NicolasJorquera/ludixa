@@ -61,6 +61,19 @@ class WordSearchModule implements GameModule {
   };
 
   @override
+  String difficultyLabel(BuildContext context, Difficulty difficulty) => levelLabel(
+    WordsLocalizations.of(context),
+    WordSearchDifficulty.values.firstWhere((l) => l.name == difficulty.value, orElse: () => WordSearchDifficulty.easy),
+  );
+
+  /// El tema del día (o los tres del domingo) en el idioma de las palabras.
+  @override
+  String? dailyDetail(BuildContext context, LocalDay day) {
+    final language = wordsLanguageFor(context, null);
+    return [for (final id in DailyChallenge.themesFor(day)) WordBanks.theme(language, id).name].join(' · ');
+  }
+
+  @override
   DailySpec dailySpec(LocalDay day) =>
       DailySpec(difficulty: Difficulty(DailyLineup.of(day).wordSearch.name), usesWordsLanguage: true);
 

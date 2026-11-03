@@ -330,4 +330,122 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get homeRetry => 'Reintentar';
+
+  @override
+  String dailyStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count días seguidos',
+      one: '1 día seguido',
+      zero: 'Sin racha todavía',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyBest(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Tu máximo: $count días',
+      one: 'Tu máximo: 1 día',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailySavers(int count) {
+    return 'Comodines: $count de 2';
+  }
+
+  @override
+  String get dailySaversHelp => 'Se gana 1 cada 7 días seguidos y cubre un día sin jugar.';
+
+  @override
+  String dailySaversNeeded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Si juegas hoy, $count comodines cubren los días que faltaron.',
+      one: 'Si juegas hoy, un comodín cubre el día que faltó.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String dailyPrevious(int count) {
+    return 'Racha anterior: $count días. ¡A por otra!';
+  }
+
+  @override
+  String get dailyDone => 'Hoy: hecho';
+
+  @override
+  String dailyNext(String time) {
+    return 'Próximo reto a las $time';
+  }
+
+  @override
+  String dailyCompletedIn(String time) {
+    return 'Completado en $time';
+  }
+
+  @override
+  String get dailyCompletedArchive => 'Completado desde el archivo';
+
+  @override
+  String get dailyPlay => 'Jugar';
+
+  @override
+  String get dailyContinue => 'Continuar';
+
+  @override
+  String dailyCalendar(String month) {
+    return 'Calendario de $month';
+  }
+
+  @override
+  String dailyDayLabel(String date, int count, String suffix) {
+    return '$date, $count de 3 retos$suffix';
+  }
+
+  @override
+  String get dailyDayToday => ', hoy';
+
+  @override
+  String get dailyDayPerfect => ', día perfecto';
+
+  @override
+  String get dailyDaySaver => ', cubierto por un comodín';
+
+  @override
+  String dailyDayArchive(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: ', $count desde el archivo',
+      one: ', 1 desde el archivo',
+      zero: '',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dailyArchive => 'Días anteriores';
+
+  @override
+  String get archiveTitle => 'Días anteriores';
+
+  @override
+  String get archiveHint =>
+      'Puedes jugar los retos de los últimos 30 días. No suman a la racha, pero completan el calendario.';
+
+  @override
+  String archiveMarks(int count) {
+    return '$count de 3';
+  }
+
+  @override
+  String get archiveOutside => 'Este día ya no está en el archivo.';
 }

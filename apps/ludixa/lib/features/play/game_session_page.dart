@@ -61,6 +61,15 @@ abstract final class GameFlow {
     day: day,
   );
 
+  /// Reto de un día pasado, desde el archivo: el mismo puzzle de ese día,
+  /// sin sumar a la racha.
+  static PuzzleRequest archiveRequest(GameModule module, LocalDay day) => PuzzleRequest(
+    mode: PuzzleMode.archive,
+    difficulty: module.dailySpec(day).difficulty,
+    seed: PuzzleSeed.daily(day: day, game: module.id, generatorVersion: module.generatorVersion),
+    day: day,
+  );
+
   /// Retoma una partida guardada en el estado exacto en que quedó.
   static Future<void> resume(BuildContext context, GameModule module, SessionRecord session) => play(
     context,

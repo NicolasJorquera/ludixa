@@ -70,6 +70,12 @@ class _ProbeModule implements GameModule {
   DailySpec dailySpec(LocalDay day) => const DailySpec(difficulty: Difficulty('easy'));
 
   @override
+  String difficultyLabel(BuildContext context, Difficulty difficulty) => difficulty.value;
+
+  @override
+  String? dailyDetail(BuildContext context, LocalDay day) => null;
+
+  @override
   Widget buildGame(BuildContext context, PuzzleRequest request, GameHost host) => _ProbeGame(request, host);
 
   @override
