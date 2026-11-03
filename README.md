@@ -16,6 +16,7 @@ packages/game_api/            Contratos GameModule y GameHost
 packages/minesweeper_engine/  Dart puro: Buscaminas sin adivinar (generador, solvers, partida, benchmark)
 packages/sudoku_engine/       Dart puro: Sudoku (generador, solver humano, calificación, pistas, banco pregenerado, benchmark)
 packages/wordsearch_engine/   Dart puro: Sopa de letras (normalización es/en, bancos de palabras, generación validada, partida, benchmark)
+packages/daily_challenge/     Dart puro: reto diario (calendario de dificultad, semillas, tema del día, goldens)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura

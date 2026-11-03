@@ -59,5 +59,5 @@ Un fallo cuesta unos 30 ms en el M4. En un teléfono de gama baja, que estimo en
 
 ## Pendiente
 
-- La distinción "Medio alto" del reto de viernes y sábado (mitad superior del rango de Medio) necesita un puntaje dentro del nivel. Se define en H3-08.
+- ~~La distinción "Medio alto" del reto de viernes y sábado~~: resuelta en el ADR 0005.
 - Medir en un teléfono real (H7-03).

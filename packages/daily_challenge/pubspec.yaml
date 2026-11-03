@@ -1,0 +1,18 @@
+name: daily_challenge
+description: Reto diario de Ludixa en Dart puro (calendario de dificultad, semillas y puzzles de los tres juegos).
+publish_to: none
+
+environment:
+  sdk: ^3.11.0
+
+resolution: workspace
+
+dependencies:
+  minesweeper_engine:
+  puzzle_core:
+  sudoku_engine:
+  wordsearch_engine:
+
+dev_dependencies:
+  lints: ^6.0.0
+  test: ^1.25.0
