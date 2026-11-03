@@ -60,7 +60,7 @@ class _HomeContent extends ConsumerWidget {
     final running = data.inProgress;
     final runningModule = running == null ? null : modules[running.game];
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+      padding: LudixaLayout.page(context, top: 8),
       children: [
         _DailyCard(data: data, modules: modules),
         if (running != null && runningModule != null) ...[
@@ -136,11 +136,14 @@ class _DailyCard extends StatelessWidget {
                   children: [
                     module.buildIcon(context, size: 20),
                     const SizedBox(width: 10),
-                    Expanded(child: Text(module.displayName(context), style: text.bodyLarge)),
-                    if (data.dailyDone.contains(game))
-                      LudixaIcon(LudixaIcons.check, color: p.success, semanticLabel: l10n.homeDailyStateDone)
-                    else
-                      Text(l10n.homeDailyStatePending, style: text.bodySmall),
+                    Expanded(
+                      child: LudixaSplitLine(
+                        start: Text(module.displayName(context), style: text.bodyLarge),
+                        end: data.dailyDone.contains(game)
+                            ? LudixaIcon(LudixaIcons.check, color: p.success, semanticLabel: l10n.homeDailyStateDone)
+                            : Text(l10n.homeDailyStatePending, style: text.bodySmall),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -267,8 +270,9 @@ class _Catalog extends ConsumerWidget {
     }
 
     final games = [for (final g in dailyGames) modules[g]].nonNulls.toList();
-    // La ficha habla del ancho de la pantalla, no del contenido.
-    return MediaQuery.sizeOf(context).width < 360
+    // La ficha habla del ancho de la pantalla, no del contenido. Con texto
+    // grande, los juegos también van en lista.
+    return LudixaLayout.compact(context) || LudixaLayout.largeText(context)
         ? Column(
             children: [
               for (final m in games) Padding(padding: const EdgeInsets.only(bottom: 8), child: card(m, row: true)),
@@ -307,17 +311,15 @@ class _WeekCard extends StatelessWidget {
             if (modules[game] case final module?)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Row(
-                  children: [
-                    Expanded(child: Text(module.displayName(context), style: text.bodyLarge)),
-                    Text(
-                      [
-                        l10n.homeWeekGames(week.completedByGame[game] ?? 0),
-                        if (week.bestTimeByGame[game] case final best?) l10n.homeWeekBest(_format(best)),
-                      ].join(' · '),
-                      style: text.bodyMedium,
-                    ),
-                  ],
+                child: LudixaSplitLine(
+                  start: Text(module.displayName(context), style: text.bodyLarge),
+                  end: Text(
+                    [
+                      l10n.homeWeekGames(week.completedByGame[game] ?? 0),
+                      if (week.bestTimeByGame[game] case final best?) l10n.homeWeekBest(_format(best)),
+                    ].join(' · '),
+                    style: text.bodyMedium,
+                  ),
                 ),
               ),
           const Divider(height: 20),
@@ -340,7 +342,10 @@ class _HomeSkeleton extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(color: p.surfaceMuted, borderRadius: BorderRadius.circular(16)),
     );
-    return ListView(padding: const EdgeInsets.all(16), children: [block(220), block(80), block(120), block(140)]);
+    return ListView(
+      padding: LudixaLayout.page(context, top: 16, bottom: 16),
+      children: [block(220), block(80), block(120), block(140)],
+    );
   }
 }
 

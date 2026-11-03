@@ -31,7 +31,7 @@ class ArchivePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.archiveTitle)),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+        padding: LudixaLayout.page(context),
         children: [
           Text(l10n.archiveHint, style: text.bodyMedium),
           const SizedBox(height: 12),
@@ -62,7 +62,7 @@ class DayPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(_dayTitle(context, day))),
       body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+        padding: LudixaLayout.page(context),
         children: [
           if (!available)
             Text(l10n.archiveOutside)

@@ -29,6 +29,9 @@ class ProgressPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(l10n.progressTitle),
           bottom: TabBar(
+            // Con texto grande, las pestañas se desplazan en vez de cortarse.
+            isScrollable: LudixaLayout.largeText(context),
+            tabAlignment: LudixaLayout.largeText(context) ? TabAlignment.start : null,
             tabs: [
               Tab(text: l10n.progressTabStats),
               Tab(text: l10n.progressTabAchievements),
@@ -72,7 +75,7 @@ class _StatsTabState extends ConsumerState<_StatsTab> {
     final module = modules[_game]!;
     final levels = ref.watch(levelStatsProvider(_game)).value;
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+      padding: LudixaLayout.page(context, top: 16),
       children: [
         _Totals(totals: totals),
         const SizedBox(height: 24),
@@ -107,7 +110,27 @@ Color _accent(BuildContext context, GameId game) {
   };
 }
 
-/// Los 4 totales en una grilla de 2 × 2.
+/// Tarjetas en filas de [columns], todas del alto de la más alta de su fila.
+Widget _grid(List<Widget> tiles, int columns, {double gap = 12}) => Column(
+  children: [
+    for (var i = 0; i < tiles.length; i += columns) ...[
+      if (i > 0) SizedBox(height: gap),
+      IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (var c = 0; c < columns; c++) ...[
+              if (c > 0) SizedBox(width: gap),
+              Expanded(child: i + c < tiles.length ? tiles[i + c] : const SizedBox.shrink()),
+            ],
+          ],
+        ),
+      ),
+    ],
+  ],
+);
+
+/// Los 4 totales en una grilla de 2 × 2; en una columna si no caben.
 class _Totals extends StatelessWidget {
   const _Totals({required this.totals});
 
@@ -126,22 +149,9 @@ class _Totals extends StatelessWidget {
       ),
       _Total(label: l10n.progressPerfectDays, value: '${totals.perfectDays}'),
     ];
-    return Column(
-      children: [
-        for (var row = 0; row < 2; row++) ...[
-          if (row > 0) const SizedBox(height: 12),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(child: tiles[row * 2]),
-                const SizedBox(width: 12),
-                Expanded(child: tiles[row * 2 + 1]),
-              ],
-            ),
-          ),
-        ],
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) =>
+          _grid(tiles, LudixaLayout.columns(context, constraints.maxWidth, minWidth: 130, max: 2)),
     );
   }
 }
@@ -275,7 +285,7 @@ class _LevelTable extends ConsumerWidget {
       );
     }
 
-    return LudixaCard(
+    final table = LudixaCard(
       padding: EdgeInsets.zero,
       child: Table(
         // El nivel toma el espacio que sobra, sin partir palabras.
@@ -296,6 +306,71 @@ class _LevelTable extends ConsumerWidget {
           for (final level in order) row(level),
         ],
       ),
+    );
+
+    // Lista por nivel: cuando la tabla no cabe (pantalla angosta o texto
+    // grande). Cada dato en su línea, con su nombre.
+    Widget listEntry(Difficulty level) {
+      final stats = levels[level];
+      final played = stats != null && stats.started > 0;
+      final name = module.difficultyLabel(context, level);
+      final best = stats?.bestTime, mean = stats?.meanTime;
+      final lines = [
+        (l10n.progressColPlayed, '${stats?.started ?? 0}', null),
+        (
+          l10n.progressColWon,
+          showRate && stats?.winRate != null
+              ? l10n.progressWonRate(stats!.won, percent.format(stats.winRate))
+              : '${stats?.won ?? 0}',
+          null,
+        ),
+        (l10n.progressColBest, best == null ? '—' : formatDuration(best), best == null ? l10n.progressNoTime : null),
+        (l10n.progressColMean, mean == null ? '—' : formatDuration(mean), mean == null ? l10n.progressNoTime : null),
+      ];
+      final content = Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(name, style: text.titleMedium),
+            if (!played) Text(l10n.progressNotPlayed, style: text.bodySmall?.copyWith(color: p.inkMuted)),
+            for (final (label, shown, spoken) in lines)
+              Semantics(
+                label: '$label: ${spoken ?? shown}',
+                excludeSemantics: true,
+                child: LudixaSplitLine(
+                  start: Text(label, style: text.bodyMedium?.copyWith(color: p.inkMuted)),
+                  end: Text(shown, style: text.bodyMedium),
+                ),
+              ),
+          ],
+        ),
+      );
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: p.line)),
+        ),
+        child: !played
+            ? content
+            : Semantics(
+                onLongPressHint: l10n.progressResetLevel,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onLongPress: () => _confirmReset(context, ref, level, name),
+                  child: content,
+                ),
+              ),
+      );
+    }
+
+    final scale = MediaQuery.textScalerOf(context).scale(10) / 10;
+    return LayoutBuilder(
+      builder: (context, constraints) => constraints.maxWidth >= 340 * scale
+          ? table
+          : LudixaCard(
+              padding: EdgeInsets.zero,
+              child: Column(children: [for (final level in order) listEntry(level)]),
+            ),
     );
   }
 
@@ -340,29 +415,16 @@ class _AchievementsTab extends ConsumerWidget {
     final achievements = ref.watch(achievementsProvider).value;
     if (achievements == null) return const SizedBox.shrink();
     final unlocked = achievements.where((a) => a.unlockedAt != null).length;
-    final columns = MediaQuery.sizeOf(context).width >= 600 ? 3 : 2;
-    final rows = <List<AchievementState>>[
-      for (var i = 0; i < achievements.length; i += columns)
-        achievements.sublist(i, (i + columns).clamp(0, achievements.length)),
-    ];
     return ListView(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+      padding: LudixaLayout.page(context, top: 16),
       children: [
         Text(l10n.achievementsCount(unlocked, achievements.length), style: Theme.of(context).textTheme.titleMedium),
-        for (final row in rows) ...[
-          const SizedBox(height: 12),
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                for (var i = 0; i < columns; i++) ...[
-                  if (i > 0) const SizedBox(width: 12),
-                  Expanded(child: i < row.length ? _AchievementTile(state: row[i]) : const SizedBox.shrink()),
-                ],
-              ],
-            ),
-          ),
-        ],
+        const SizedBox(height: 12),
+        LayoutBuilder(
+          builder: (context, constraints) => _grid([
+            for (final a in achievements) _AchievementTile(state: a),
+          ], LudixaLayout.columns(context, constraints.maxWidth, minWidth: 140)),
+        ),
       ],
     );
   }

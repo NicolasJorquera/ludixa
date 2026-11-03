@@ -43,7 +43,7 @@ class _PauseScreenState extends State<PauseScreen> {
       appBar: AppBar(automaticallyImplyLeading: false, title: Text(l10n.pauseTitle), centerTitle: true),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: LudixaLayout.page(context, top: 16, bottom: 16),
           children: [
             Semantics(
               liveRegion: true,

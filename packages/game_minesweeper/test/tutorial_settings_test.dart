@@ -18,6 +18,7 @@ void main() {
       await tester.tap(_cell(18));
       await tester.pump();
       expect(find.text('¡Bien hecho!'), findsOneWidget);
+      await tester.ensureVisible(find.text('Siguiente'));
       await tester.tap(find.text('Siguiente'));
       await tester.pump();
       // Paso 2: revelar la mina se explica; la pulsación larga la marca.
@@ -27,12 +28,14 @@ void main() {
       await tester.longPress(_cell(8));
       await tester.pump();
       expect(find.text('¡Bien hecho!'), findsOneWidget);
+      await tester.ensureVisible(find.text('Siguiente'));
       await tester.tap(find.text('Siguiente'));
       await tester.pump();
       // Paso 3: tocar el 1 abre sus vecinas.
       await tester.tap(_cell(12));
       await tester.pump();
       expect(find.text('¡Bien hecho!'), findsOneWidget);
+      await tester.ensureVisible(find.text('Empezar a jugar'));
       await tester.tap(find.text('Empezar a jugar'));
       expect(done, 1);
     });
@@ -42,6 +45,7 @@ void main() {
       await tester.pumpWidget(wrap(MinesweeperTutorial(onDone: () => done++)));
       await tester.tap(_cell(7));
       await tester.pump();
+      await tester.ensureVisible(find.text('Siguiente'));
       await tester.tap(find.text('Siguiente'));
       await tester.pump();
       await tester.tap(find.text('Bandera'));

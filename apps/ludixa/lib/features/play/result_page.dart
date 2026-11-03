@@ -57,7 +57,7 @@ class _ResultPageState extends State<ResultPage> {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: LudixaLayout.page(context, top: 16, bottom: 16),
           children: [
             const SizedBox(height: 16),
             Center(
@@ -95,16 +95,23 @@ class _ResultPageState extends State<ResultPage> {
               ],
             ),
             const SizedBox(height: 16),
-            Row(
-              children: [
-                _Metric(label: l10n.resultTime, value: _format(s.elapsed)),
-                _Metric(
-                  label: l10n.resultBest,
-                  value: f.bestAfter == null ? '—' : _format(f.bestAfter!),
-                  highlight: f.isNewRecord,
-                ),
-                _Metric(label: l10n.resultHints, value: '${s.hintsUsed}'),
-              ],
+            Builder(
+              builder: (context) {
+                final metrics = [
+                  _Metric(label: l10n.resultTime, value: _format(s.elapsed), row: LudixaLayout.largeText(context)),
+                  _Metric(
+                    label: l10n.resultBest,
+                    value: f.bestAfter == null ? '—' : _format(f.bestAfter!),
+                    highlight: f.isNewRecord,
+                    row: LudixaLayout.largeText(context),
+                  ),
+                  _Metric(label: l10n.resultHints, value: '${s.hintsUsed}', row: LudixaLayout.largeText(context)),
+                ];
+                // Con texto grande, una cifra por línea.
+                return LudixaLayout.largeText(context)
+                    ? Column(children: metrics)
+                    : Row(children: [for (final m in metrics) Expanded(child: m)]);
+              },
             ),
             const SizedBox(height: 16),
             LudixaCard(
@@ -176,28 +183,38 @@ class _ResultPageState extends State<ResultPage> {
 }
 
 class _Metric extends StatelessWidget {
-  const _Metric({required this.label, required this.value, this.highlight = false});
+  const _Metric({required this.label, required this.value, this.highlight = false, this.row = false});
 
   final String label;
   final String value;
   final bool highlight;
 
+  /// Etiqueta y cifra en una línea (texto grande) en vez de apiladas.
+  final bool row;
+
   @override
   Widget build(BuildContext context) {
     final text = Theme.of(context).textTheme;
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
-    return Expanded(
-      child: Semantics(
-        container: true,
-        label: '$label $value',
-        excludeSemantics: true,
-        child: Column(
-          children: [
-            Text(value, style: text.titleLarge?.copyWith(color: highlight ? p.success : null)),
-            Text(label, style: text.bodySmall),
-          ],
-        ),
-      ),
+    final number = Text(value, style: text.titleLarge?.copyWith(color: highlight ? p.success : null));
+    return Semantics(
+      container: true,
+      label: '$label $value',
+      excludeSemantics: true,
+      child: row
+          ? Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: LudixaSplitLine(
+                start: Text(label, style: text.bodyLarge),
+                end: number,
+              ),
+            )
+          : Column(
+              children: [
+                number,
+                Text(label, style: text.bodySmall),
+              ],
+            ),
     );
   }
 }

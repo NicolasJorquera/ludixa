@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../layout.dart';
+
 /// Contenido estándar de una hoja inferior: título, cuerpo y acciones apiladas.
 class LudixaSheet extends StatelessWidget {
   const LudixaSheet({super.key, required this.title, this.body, this.leading, this.actions = const []});
@@ -28,7 +30,11 @@ class LudixaSheet extends StatelessWidget {
               Align(alignment: AlignmentDirectional.centerStart, child: leading),
               const SizedBox(height: 12),
             ],
-            Semantics(header: true, child: Text(title, style: text.headlineSmall)),
+            // Con texto grande, un título más chico para no partir palabras.
+            Semantics(
+              header: true,
+              child: Text(title, style: LudixaLayout.largeText(context) ? text.titleLarge : text.headlineSmall),
+            ),
             if (body != null) ...[const SizedBox(height: 10), body!],
             if (actions.isNotEmpty) const SizedBox(height: 20),
             for (var i = 0; i < actions.length; i++) ...[if (i > 0) const SizedBox(height: 10), actions[i]],

@@ -47,7 +47,8 @@ class SudokuGamePage extends StatefulWidget {
 
 class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProviderStateMixin {
   static const _tick = Duration(seconds: 1);
-  static const _maxCellExtent = 40.0;
+  // 44 × 9 ≈ 400 dp: hasta ahí crece la grilla en pantallas grandes (ficha UX).
+  static const _maxCellExtent = 44.0;
 
   late final AnimationController _celebration;
   late final GameLifecycle _lifecycle;
@@ -137,7 +138,8 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
     final width = MediaQuery.sizeOf(context).width;
     final compact = width < 360;
-    final gutter = compact ? 8.0 : 16.0;
+    // En tablets el tablero y los controles se centran (ficha UX).
+    final gutter = LudixaLayout.gutter(context, base: compact ? 8.0 : 16.0);
     final boardSide = (((width - 2 * gutter) / 9).clamp(0.0, _maxCellExtent)).floorToDouble() * 9;
 
     return Scaffold(
@@ -190,13 +192,19 @@ class _SudokuGamePageState extends State<SudokuGamePage> with SingleTickerProvid
                     padding: const EdgeInsets.only(top: 16),
                     child: _c.hintSession != null
                         ? SudokuHintPanel(controller: _c)
-                        : Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SudokuTools(controller: _c, freeHintsLeft: _c.host.freeHintsLeft),
-                              const SizedBox(height: 12),
-                              SudokuKeypad(controller: _c, keyHeight: compact ? 56 : 68),
-                            ],
+                        // Los controles escalan el texto hasta el 130 %, como la
+                        // grilla: más allá empujarían el tablero fuera de la
+                        // pantalla. Cada uno conserva su nombre para TalkBack.
+                        : MediaQuery.withClampedTextScaling(
+                            maxScaleFactor: 1.3,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SudokuTools(controller: _c, freeHintsLeft: _c.host.freeHintsLeft),
+                                const SizedBox(height: 12),
+                                SudokuKeypad(controller: _c, keyHeight: compact ? 56 : 68),
+                              ],
+                            ),
                           ),
                   ),
                 ],

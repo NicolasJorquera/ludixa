@@ -57,6 +57,7 @@ void main() {
       var done = 0;
       await _pump(tester, SudokuTutorial(onDone: () => done++));
       await _press(tester, 3);
+      await tester.ensureVisible(find.text('Siguiente'));
       await tester.tap(find.text('Siguiente'));
       await tester.pump();
       await tester.tap(find.text('Saltar tutorial'));

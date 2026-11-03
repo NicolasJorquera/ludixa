@@ -167,14 +167,12 @@ class _MinesweeperTutorialState extends State<MinesweeperTutorial> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(l10n.tutorialStep(_step + 1)),
-        actions: [TextButton(onPressed: widget.onDone, child: Text(l10n.tutorialSkip))],
-      ),
+      appBar: AppBar(automaticallyImplyLeading: false, title: Text(l10n.tutorialStep(_step + 1))),
+      // Al pie y no en la barra: siempre visible, también con texto grande.
+      persistentFooterButtons: [TextButton(onPressed: widget.onDone, child: Text(l10n.tutorialSkip))],
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: LudixaLayout.page(context, top: 16, bottom: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
