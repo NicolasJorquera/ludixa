@@ -40,6 +40,14 @@ void main() {
       expect(find.byType(Banner), findsNothing);
       await _tapTab(tester, 'Ajustes');
       expect(find.textContaining('Pseudolocalización'), findsNothing);
+      expect(find.textContaining('Catálogo de componentes'), findsNothing);
+    });
+
+    testWidgets('en desarrollo Ajustes abre el catálogo de componentes', (tester) async {
+      await pumpLudixa(tester);
+      await _tapTab(tester, 'Ajustes');
+      await _tapListItem(tester, 'Catálogo de componentes (desarrollo)');
+      expect(find.byType(ComponentCatalog), findsOneWidget);
     });
   });
 

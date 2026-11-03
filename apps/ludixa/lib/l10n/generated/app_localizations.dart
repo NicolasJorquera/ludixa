@@ -230,6 +230,12 @@ abstract class AppLocalizations {
   /// **'Información'**
   String get settingsAboutSection;
 
+  /// Entrada al catálogo del sistema visual. Solo en desarrollo.
+  ///
+  /// In es, this message translates to:
+  /// **'Catálogo de componentes (desarrollo)'**
+  String get settingsComponentCatalog;
+
   /// Entrada que abre las licencias de las dependencias.
   ///
   /// In es, this message translates to:
