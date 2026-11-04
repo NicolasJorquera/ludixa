@@ -20,10 +20,12 @@ packages/daily_challenge/     Dart puro: reto diario (calendario de dificultad, 
 packages/game_sudoku/         Módulo de Sudoku: partida, pista, tutorial, ajustes y textos (es/en)
 packages/game_minesweeper/    Módulo de Buscaminas: partida, zoom, derrota, pista, tutorial, ajustes y textos (es/en)
 packages/game_wordsearch/     Módulo de Sopa de letras: partida, selección, lista, pista, tutorial, ajustes e idioma (es/en)
-packages/progress/            Dart puro: progreso (racha con comodines, calendario del reto, logros, maestría, estadísticas)
+packages/progress/            Progreso (racha con comodines, calendario del reto, logros, maestría, estadísticas) y su base Drift
+packages/monetization/        Dart puro por ahora: AdPolicy (límites de anuncios del PRD); AdMob y UMP llegan en H6
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura
+docs/qa/                      Listas de verificación manual
 ```
 
 Es un monorepo con [pub workspaces](https://dart.dev/tools/pub/workspaces). Cada paquete se agrega a `pubspec.yaml` (raíz) cuando la tarea que lo implementa lo crea. Los motores de juego nunca dependen de Flutter.

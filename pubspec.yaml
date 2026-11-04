@@ -19,3 +19,4 @@ workspace:
   - packages/game_minesweeper
   - packages/game_wordsearch
   - packages/progress
+  - packages/monetization
