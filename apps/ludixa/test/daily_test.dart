@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:design_system/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_sudoku/game_sudoku.dart';
@@ -152,7 +151,7 @@ void main() {
     expect(find.text('Miércoles, 4 de noviembre'), findsOneWidget);
   });
 
-  group('goldens', skip: Platform.isMacOS ? null : 'goldens solo en macOS', () {
+  group('goldens', skip: goldensSkip, () {
     testWidgets('reto con progreso', (tester) async {
       await _pumpDaily(
         tester,

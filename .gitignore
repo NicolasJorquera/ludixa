@@ -4,6 +4,8 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 coverage/
+# Diferencias que deja un golden que falla
+**/test/failures/
 *.iml
 .idea/
 .vscode/

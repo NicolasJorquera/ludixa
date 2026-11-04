@@ -1,6 +1,7 @@
-import 'dart:io';
 import 'dart:math';
 
+import 'package:design_system/design_system.dart';
+import 'package:design_system/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -71,14 +72,21 @@ Future<void> _seed(ProgressService service) async {
 Future<InMemoryProgressRepository> _pumpProgress(
   WidgetTester tester, {
   Future<void> Function(ProgressService service)? seed,
+  Locale locale = const Locale('es', 'CL'),
+  double height = 1100,
 }) async {
-  tester.view.physicalSize = const Size(390, 1100) * 3;
+  tester.view.physicalSize = Size(390, height) * 3;
   tester.view.devicePixelRatio = 3;
   addTearDown(tester.view.reset);
   final clock = _FakeClock(_at(3, hour: 20));
   final repository = InMemoryProgressRepository();
   await seed?.call(ProgressService(repository, clock: clock));
-  await pumpLudixa(tester, progress: repository, overrides: [clockProvider.overrideWithValue(clock)]);
+  await pumpLudixa(
+    tester,
+    progress: repository,
+    deviceLocales: [locale],
+    overrides: [clockProvider.overrideWithValue(clock)],
+  );
   GoRouter.of(tester.element(find.byType(Scaffold).first)).go('/progress');
   await tester.pumpAndSettle();
   return repository;
@@ -140,7 +148,8 @@ void main() {
 
   testWidgets('con 150 partidas sembradas, Progreso muestra las cifras que dan las partidas', (tester) async {
     late List<SessionRecord> all;
-    await _pumpProgress(tester, seed: (service) async => all = await _seedRandom(service));
+    // Alto de sobra: el Buscaminas no cabe en tabla y se muestra como lista.
+    await _pumpProgress(tester, seed: (service) async => all = await _seedRandom(service), height: 2400);
     final won = all.where((s) => s.won);
     expect(find.bySemanticsLabel('Puzzles completados. ${won.length}'), findsOneWidget);
     final time = all.fold(Duration.zero, (sum, s) => sum + s.elapsed);
@@ -159,8 +168,10 @@ void main() {
             if (s.won) s.elapsed,
         ];
         final best = wins.reduce((a, b) => a < b ? a : b);
-        expect(find.bySemanticsLabel('Partidas: ${mine.length}'), findsWidgets, reason: '$game $level');
-        expect(find.bySemanticsLabel('Mejor: ${formatDuration(best)}'), findsWidgets, reason: '$game $level');
+        // En la tabla cada dato es un nodo; en la lista, una línea del nodo del nivel.
+        Finder line(String label) => find.bySemanticsLabel(RegExp('(^|\n)${RegExp.escape(label)}(\$|\n)'));
+        expect(line('Partidas: ${mine.length}'), findsWidgets, reason: '$game $level');
+        expect(line('Mejor: ${formatDuration(best)}'), findsWidgets, reason: '$game $level');
       }
     }
   });
@@ -185,6 +196,32 @@ void main() {
     await tester.pumpAndSettle();
     // intl separa el signo con un espacio duro.
     expect(find.text('3 (60\u00A0%)'), findsOneWidget);
+  });
+
+  testWidgets('la tabla nunca se corta: si no cabe con el idioma, se muestra la lista', (tester) async {
+    var tables = 0;
+    for (final locale in const [Locale('es', 'CL'), Locale('en', 'US')]) {
+      await _pumpProgress(tester, seed: _seed, locale: locale);
+      final segments = find.descendant(of: find.byType(LudixaSegmentedControl<GameId>), matching: find.byType(Text));
+      for (var i = 0; i < 3; i++) {
+        await tester.tap(segments.at(i));
+        await tester.pumpAndSettle();
+        final table = find.byType(Table);
+        if (table.evaluate().isEmpty) continue;
+        tables++;
+        final right = tester.getRect(table).right;
+        for (final cell in find.descendant(of: table, matching: find.byType(Text)).evaluate()) {
+          final rect = tester.getRect(find.byWidget(cell.widget));
+          expect(
+            rect.right,
+            lessThanOrEqualTo(right + 0.5),
+            reason: '${locale.languageCode} ${(cell.widget as Text).data}',
+          );
+        }
+      }
+      await tester.pumpWidget(const SizedBox.shrink());
+    }
+    expect(tables, greaterThan(0), reason: 'en español, a 390 dp, la tabla cabe');
   });
 
   testWidgets('la tabla se expone como tabla con encabezados de columna', (tester) async {
@@ -258,7 +295,7 @@ void main() {
     expect(find.text('Your statistics will show up once you finish your first puzzle.'), findsOneWidget);
   });
 
-  group('goldens', skip: Platform.isMacOS ? null : 'goldens solo en macOS', () {
+  group('goldens', skip: goldensSkip, () {
     testWidgets('estadísticas', (tester) async {
       await _pumpProgress(tester, seed: _seed);
       await expectLater(find.byType(ProgressPage), matchesGoldenFile('goldens/progress_stats.png'));

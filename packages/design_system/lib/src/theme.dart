@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'game_colors.dart';
+import 'icons.dart';
 import 'palette.dart';
 import 'typography.dart';
 
@@ -97,6 +98,8 @@ ThemeData buildLudixaTheme({required Brightness brightness, PaletteVariant varia
       MinesweeperColors.from(p, variant),
       WordSearchColors.from(p),
     ],
+    // El botón de volver automático usa el icono del sistema visual, como los juegos.
+    actionIconTheme: ActionIconThemeData(backButtonIconBuilder: (_) => const LudixaIcon(LudixaIcons.back)),
     appBarTheme: AppBarTheme(
       backgroundColor: p.background,
       foregroundColor: p.ink,

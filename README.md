@@ -39,6 +39,15 @@ flutter analyze --fatal-infos                      # análisis estático
 dart format .                                      # formato (ancho 120, en analysis_options.yaml)
 ```
 
+Goldens (capturas de referencia). Se generan y comparan solo en Linux, como en la CI; en macOS se saltan. Con Docker:
+
+```bash
+bash tool/goldens.sh            # compara; las diferencias quedan en <paquete>/test/failures
+bash tool/goldens.sh --update   # regenera tras un cambio visual buscado (revisar las imágenes antes de subirlas)
+```
+
+La matriz de `apps/ludixa/test/golden_matrix_test.dart` cubre cada pantalla en claro/oscuro y es/en/pseudo. Ver ADR 0009.
+
 Idiomas (desde `apps/ludixa`). Los textos viven en `lib/l10n/app_es.arb` (plantilla, con descripciones) y `app_en.arb`. Tras editarlos:
 
 ```bash

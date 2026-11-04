@@ -35,7 +35,6 @@ class LudixaSegmentedControl<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = context.palette;
     final labelStyle = Theme.of(context).textTheme.labelLarge!;
-    final light = p.brightness == Brightness.light;
     final scaler = MediaQuery.textScalerOf(context);
     return DecoratedBox(
       decoration: BoxDecoration(color: p.surfaceMuted, borderRadius: BorderRadius.circular(16)),
@@ -63,7 +62,7 @@ class LudixaSegmentedControl<T> extends StatelessWidget {
                     selected: segment.value == selected,
                     onTap: () => onChanged(segment.value),
                     height: height,
-                    selectedBackground: light ? p.surface : p.outline.withValues(alpha: 0.35),
+                    selectedBackground: p.segmentSelected,
                     selectedForeground: accent ?? p.primary,
                     foreground: p.inkMuted,
                     style: labelStyle,

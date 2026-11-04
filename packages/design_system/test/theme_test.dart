@@ -20,6 +20,16 @@ void main() {
     }
   });
 
+  testWidgets('el botón de volver automático usa el icono del sistema visual', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: buildLudixaTheme(brightness: Brightness.light, variant: PaletteVariant.standard),
+        home: Scaffold(appBar: AppBar(leading: const BackButton())),
+      ),
+    );
+    expect(find.byWidgetPredicate((w) => w is LudixaIcon && w.icon == LudixaIcons.back), findsOneWidget);
+  });
+
   test('las fuentes salen del paquete y aplican el eje de peso', () {
     final text = buildLudixaTheme(brightness: Brightness.light).textTheme;
     expect(text.bodyMedium!.fontFamily, 'packages/design_system/Lexend');

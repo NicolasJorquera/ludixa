@@ -64,7 +64,7 @@ class _Tool extends StatelessWidget {
   Widget build(BuildContext context) {
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
     final enabled = onTap != null;
-    final color = !enabled ? p.inkMuted.withValues(alpha: 0.5) : (toggled ? p.sudoku : p.ink);
+    final color = !enabled ? p.inkDisabled : (toggled ? p.sudoku : p.ink);
     Widget body = Column(
       mainAxisSize: MainAxisSize.min,
       children: [

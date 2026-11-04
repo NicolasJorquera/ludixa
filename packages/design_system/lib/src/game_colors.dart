@@ -17,6 +17,7 @@ final class SudokuColors extends ThemeExtension<SudokuColors> {
     required this.note,
     required this.thickLine,
     required this.thinLine,
+    required this.hintTarget,
   });
 
   factory SudokuColors.from(LudixaPalette p) {
@@ -33,6 +34,7 @@ final class SudokuColors extends ThemeExtension<SudokuColors> {
       note: p.inkMuted,
       thickLine: light ? p.ink : const Color(0xFF8D97A6),
       thinLine: p.line,
+      hintTarget: Color.lerp(p.hintSoft, p.ink, 0.14)!,
     );
   }
 
@@ -55,6 +57,9 @@ final class SudokuColors extends ThemeExtension<SudokuColors> {
   final Color note;
   final Color thickLine;
   final Color thinLine;
+
+  /// Celdas que una pista señala dentro de su zona ([LudixaPalette.hintSoft]).
+  final Color hintTarget;
 
   @override
   SudokuColors copyWith() => this;
@@ -139,6 +144,9 @@ final class MinesweeperColors extends ThemeExtension<MinesweeperColors> {
   /// Celda sin revelar (más clara que la abierta en oscuro: se ve "en relieve").
   final Color closed;
   final Color closedEdge;
+
+  /// Celda cerrada que el tutorial deja en segundo plano.
+  Color get closedFaded => closed.withValues(alpha: 0.35);
   final Color open;
   final Color flag;
 

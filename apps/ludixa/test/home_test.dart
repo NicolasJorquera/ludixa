@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:design_system/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_api/game_api.dart';
@@ -149,7 +148,7 @@ void main() {
     expect(mines.top, greaterThan(sudoku.bottom - 1));
   });
 
-  group('goldens', skip: Platform.isMacOS ? null : 'goldens solo en macOS', () {
+  group('goldens', skip: goldensSkip, () {
     testWidgets('primera vez', (tester) async {
       await _pumpHome(tester);
       await expectLater(find.byType(HomePage), matchesGoldenFile('goldens/home_first_time.png'));

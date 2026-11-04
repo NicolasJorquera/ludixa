@@ -142,7 +142,7 @@ class _MinesweeperTutorialState extends State<MinesweeperTutorial> {
       final n = i == _center ? 1 : _numberAt(i);
       return DecoratedBox(
         decoration: BoxDecoration(
-          color: open ? colors.open : (active ? colors.closed : colors.closed.withValues(alpha: 0.35)),
+          color: open ? colors.open : (active ? colors.closed : colors.closedFaded),
           borderRadius: BorderRadius.circular(6),
           border: open ? null : Border(bottom: BorderSide(color: colors.closedEdge, width: 2)),
         ),

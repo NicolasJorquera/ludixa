@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:design_system/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_api/game_api.dart';
@@ -293,7 +293,7 @@ void main() {
 
   // El dibujo del texto cambia entre sistemas: los goldens se generan y se
   // comparan en macOS. En Linux (CI) los cubren las pruebas de comportamiento.
-  group('goldens', skip: Platform.isMacOS ? null : 'goldens solo en macOS', () {
+  group('goldens', skip: goldensSkip, () {
     for (final brightness in Brightness.values) {
       testWidgets(brightness.name, (tester) async {
         final c = await pumpGame(tester, brightness: brightness);

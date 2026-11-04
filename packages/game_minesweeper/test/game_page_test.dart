@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:design_system/design_system.dart';
+import 'package:design_system/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_api/game_api.dart';
@@ -322,7 +321,7 @@ void main() {
     expect(resumed.game.toJson(), c.game.toJson());
   });
 
-  group('goldens', skip: Platform.isMacOS ? null : 'goldens solo en macOS', () {
+  group('goldens', skip: goldensSkip, () {
     for (final brightness in Brightness.values) {
       testWidgets('en juego ${brightness.name}', (tester) async {
         final c = await pumpGame(tester, brightness: brightness);

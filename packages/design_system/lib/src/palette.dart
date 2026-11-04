@@ -94,6 +94,12 @@ final class LudixaPalette {
   /// Contorno punteado del espacio publicitario.
   final Color adOutline;
 
+  /// Texto e iconos de un control deshabilitado (WCAG no exige contraste).
+  Color get inkDisabled => inkMuted.withValues(alpha: 0.5);
+
+  /// Fondo del segmento elegido: en oscuro, el contorno translúcido.
+  Color get segmentSelected => brightness == Brightness.light ? surface : outline.withValues(alpha: 0.35);
+
   static const light = LudixaPalette(
     brightness: Brightness.light,
     background: Color(0xFFF2F4F7),
