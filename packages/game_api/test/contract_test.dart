@@ -5,6 +5,9 @@ import 'package:puzzle_core/puzzle_core.dart';
 
 /// Host de prueba que registra lo que le pide el módulo.
 class _RecordingHost implements GameHost {
+  @override
+  bool get rewardedAvailable => false;
+
   _RecordingHost(this.hintAnswer);
 
   final HintGrant hintAnswer;

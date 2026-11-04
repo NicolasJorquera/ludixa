@@ -748,6 +748,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String devRewardedResult(String outcome) {
     return 'Video: $outcome';
   }
+
+  @override
+  String get hintOfferTitle => 'Extra hint';
+
+  @override
+  String hintOfferVideoBody(int free, int left) {
+    String _temp0 = intl.Intl.pluralLogic(
+      left,
+      locale: localeName,
+      other: '$left video hints left',
+      one: '1 video hint left',
+    );
+    return 'You used your $free free hints for this puzzle. Watch a video to get one more: $_temp0.';
+  }
+
+  @override
+  String get hintOfferVideo => 'Watch video · 1 hint';
+
+  @override
+  String get hintOfferVideoRule => 'You get the hint only if you watch the whole video.';
+
+  @override
+  String get hintOfferCourtesyBody =>
+      'There are no videos right now (offline or no ads available). Here\'s a courtesy hint: 1 per day.';
+
+  @override
+  String get hintOfferCourtesy => 'Use courtesy hint';
+
+  @override
+  String get hintOfferNoneBody =>
+      'There are no videos right now and you already used today\'s courtesy hint. Try again later, online.';
+
+  @override
+  String get hintOfferLater => 'Not now';
 }
 
 /// The translations for English (`en_XA`).
@@ -1499,4 +1533,38 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   String devRewardedResult(String outcome) {
     return '[Ṽîðéö: $outcome ··]';
   }
+
+  @override
+  String get hintOfferTitle => '[Éẋţŕá ĥîñţ ····]';
+
+  @override
+  String hintOfferVideoBody(int free, int left) {
+    String _temp0 = intl.Intl.pluralLogic(
+      left,
+      locale: localeName,
+      other: '$left video hints left',
+      one: '1 video hint left',
+    );
+    return '[Ýöû ûšéð ýöûŕ $free ƒŕéé ĥîñţš ƒöŕ ţĥîš þûžžļé. Ŵáţçĥ á ṽîðéö ţö ĝéţ öñé ɱöŕé: $_temp0. ·······················]';
+  }
+
+  @override
+  String get hintOfferVideo => '[Ŵáţçĥ ṽîðéö · 1 ĥîñţ ······]';
+
+  @override
+  String get hintOfferVideoRule => '[Ýöû ĝéţ ţĥé ĥîñţ öñļý îƒ ýöû ŵáţçĥ ţĥé ŵĥöļé ṽîðéö. ················]';
+
+  @override
+  String get hintOfferCourtesyBody =>
+      '[Ţĥéŕé áŕé ñö ṽîðéöš ŕîĝĥţ ñöŵ (öƒƒļîñé öŕ ñö áðš áṽáîļáƀļé). Ĥéŕé\'š á çöûŕţéšý ĥîñţ: 1 þéŕ ðáý. ·····························]';
+
+  @override
+  String get hintOfferCourtesy => '[Ûšé çöûŕţéšý ĥîñţ ······]';
+
+  @override
+  String get hintOfferNoneBody =>
+      '[Ţĥéŕé áŕé ñö ṽîðéöš ŕîĝĥţ ñöŵ áñð ýöû áļŕéáðý ûšéð ţöðáý\'š çöûŕţéšý ĥîñţ. Ţŕý áĝáîñ ļáţéŕ, öñļîñé. ································]';
+
+  @override
+  String get hintOfferLater => '[Ñöţ ñöŵ ···]';
 }

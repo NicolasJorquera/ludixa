@@ -762,4 +762,33 @@ class AppLocalizationsEs extends AppLocalizations {
   String devRewardedResult(String outcome) {
     return 'Video: $outcome';
   }
+
+  @override
+  String get hintOfferTitle => 'Pista extra';
+
+  @override
+  String hintOfferVideoBody(int free, int left) {
+    String _temp0 = intl.Intl.pluralLogic(left, locale: localeName, other: 'te quedan $left', one: 'te queda 1');
+    return 'Usaste tus $free pistas gratis de este puzzle. Con un video consigues una más: $_temp0 con video.';
+  }
+
+  @override
+  String get hintOfferVideo => 'Ver video · 1 pista';
+
+  @override
+  String get hintOfferVideoRule => 'La pista se entrega solo si ves el video completo.';
+
+  @override
+  String get hintOfferCourtesyBody =>
+      'Ahora no hay videos (sin conexión o sin anuncios disponibles). Te damos una pista de cortesía: 1 al día.';
+
+  @override
+  String get hintOfferCourtesy => 'Usar pista de cortesía';
+
+  @override
+  String get hintOfferNoneBody =>
+      'Ahora no hay videos y ya usaste la pista de cortesía de hoy. Vuelve a intentarlo más tarde, con conexión.';
+
+  @override
+  String get hintOfferLater => 'Ahora no';
 }

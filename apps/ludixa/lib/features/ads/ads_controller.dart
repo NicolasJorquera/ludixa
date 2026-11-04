@@ -140,6 +140,14 @@ final class AdsController {
     return true;
   }
 
+  /// Hay un video cargado para ofrecer.
+  bool get rewardedReady => service.rewardedReady;
+
+  /// Pista de cortesía del día (sin videos disponibles).
+  bool get courtesyAvailable => policy.courtesyAvailable;
+
+  void courtesyUsed() => _update(policy.courtesyUsed);
+
   /// Video con recompensa a pedido. Si se llegó a mostrar (completo o no),
   /// al salir de este puzzle no habrá intersticial.
   Future<RewardedOutcome> showRewarded() async {

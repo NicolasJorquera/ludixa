@@ -10,6 +10,9 @@ import 'package:puzzle_core/puzzle_core.dart';
 import 'package:wordsearch_engine/wordsearch_engine.dart';
 
 class FakeHost implements GameHost {
+  @override
+  bool get rewardedAvailable => false;
+
   FakeHost({this.free = 3});
 
   int free;

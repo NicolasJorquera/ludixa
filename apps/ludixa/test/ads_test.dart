@@ -26,6 +26,9 @@ final class _FakeAds implements AdService {
   void preload() => preloads++;
 
   @override
+  bool get rewardedReady => rewarded != RewardedOutcome.unavailable;
+
+  @override
   Future<bool> showInterstitial() async {
     if (!interstitialReady) return false;
     interstitials++;
@@ -191,6 +194,61 @@ void main() {
     await tester.pumpAndSettle();
     expect(ads.interstitials, 0);
     expect(store.load().activePlaySinceLast, greaterThan(before));
+  });
+
+  group('pista extra en una partida', () {
+    Future<SudokuController> openSudoku(WidgetTester tester, ProviderContainer container) async {
+      final context = tester.element(find.byType(Scaffold).first);
+      final module = container.read(gameModulesProvider)[GameId.sudoku]!;
+      unawaited(GameFlow.play(context, module, GameFlow.dailyRequest(module, LocalDay(2026, 11, 3))));
+      await tester.pumpAndSettle();
+      return tester.widget<SudokuGamePage>(find.byType(SudokuGamePage)).controller;
+    }
+
+    Future<void> useHint(WidgetTester tester, SudokuController c) async {
+      unawaited(c.hint());
+      await tester.pumpAndSettle();
+      c.hintClose();
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('después de las 2 gratis se ofrece un video, con cuántos quedan', (tester) async {
+      final (ads, container) = await _pump(tester);
+      final c = await openSudoku(tester, container);
+      await useHint(tester, c);
+      await useHint(tester, c);
+      expect(c.freeHints, 2);
+      unawaited(c.hint());
+      await tester.pumpAndSettle();
+      expect(find.text('Pista extra'), findsOneWidget);
+      expect(find.textContaining('te quedan 3 con video'), findsOneWidget);
+      expect(find.text('La pista se entrega solo si ves el video completo.'), findsOneWidget);
+      await tester.tap(find.text('Ver video · 1 pista'));
+      await tester.pumpAndSettle();
+      expect((ads.rewardedShown, c.rewardedHints), (1, 1));
+    });
+
+    testWidgets('sin videos aparece la pista de cortesía, una vez al día', (tester) async {
+      final (ads, container) = await _pump(tester);
+      ads.rewarded = RewardedOutcome.unavailable;
+      final c = await openSudoku(tester, container);
+      await useHint(tester, c);
+      await useHint(tester, c);
+      unawaited(c.hint());
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Te damos una pista de cortesía'), findsOneWidget);
+      await tester.tap(find.text('Usar pista de cortesía'));
+      await tester.pumpAndSettle();
+      expect(c.rewardedHints, 1);
+      c.hintClose();
+      await tester.pumpAndSettle();
+      unawaited(c.hint());
+      await tester.pumpAndSettle();
+      expect(find.textContaining('ya usaste la pista de cortesía de hoy'), findsOneWidget);
+      await tester.tap(find.text('Entendido'));
+      await tester.pumpAndSettle();
+      expect((c.rewardedHints, ads.rewardedShown), (1, 0));
+    });
   });
 
   group('identificadores', () {

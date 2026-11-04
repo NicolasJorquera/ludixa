@@ -13,6 +13,7 @@ import '../../app/router.dart';
 import '../ads/ads_controller.dart';
 import 'app_game_host.dart';
 import 'difficulty_sheet.dart';
+import 'hint_offer_sheet.dart';
 import 'last_difficulty.dart';
 import 'pause_screen.dart';
 import 'play_providers.dart';
@@ -139,6 +140,7 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
       onChanged: revision.bump,
       onPlayed: ads.played,
       onCompleted: ads.puzzleCompleted,
+      rewards: AppRewardedHints(context: context, ads: ads, freeHintsPerPuzzle: AppGameHost.freeHints),
       session:
           widget.session ??
           SessionRecord(
@@ -235,6 +237,9 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
 
 /// Los tutoriales no usan el host; este solo cumple el contrato.
 class TutorialHost implements GameHost {
+  @override
+  bool get rewardedAvailable => false;
+
   const TutorialHost();
 
   @override

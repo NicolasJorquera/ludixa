@@ -56,3 +56,17 @@ El PRD fija cuándo puede aparecer un intersticial, y la arquitectura pide aplic
 - **Sesión**: la política se crea al abrir la app, aunque no se juegue (cuenta para "nunca en la primera sesión").
 - **Tiempo de juego**: el host avisa el tiempo jugado al terminar y al salir de una partida, hasta la última jugada guardada.
 - **QA a mano**: `--dart-define=ADS_QA=true`, solo en dev, relaja los umbrales de puzzles y de tiempo para ver el intersticial. La regla de la primera sesión se mantiene.
+
+## H6-04: economía de pistas
+
+- **`AppGameHost`**, con los límites del PRD como constantes:
+  - **2 pistas gratis** por puzzle (antes eran 3);
+  - después, **hasta 3 más con video**, solo si se ve completo;
+  - con eso se llega al límite del puzzle (`HintDenial.limitReached`).
+- **Hoja "Pista extra"** (la abre el host al pedir una pista sin gratis):
+  - **Con video cargado**: cuántas quedan con video y la regla ("solo si ves el video completo"), con "Ver video · 1 pista" o "Ahora no".
+  - **Sin video** (sin conexión, sin inventario o sin anuncios): ofrece la **pista de cortesía, 1 al día**. Su día queda en `AdPolicyState.courtesyDay`. La cortesía cuenta dentro de las 3 del puzzle.
+  - **Sin video ni cortesía**: lo explica y no hay pista.
+- **Rescate del Buscaminas**: el botón "Deshacer el último toque con un video" ya dice qué pasa, así que el host va directo al video. Si no hay video para ofrecer, el botón **no aparece** (`GameHost.rewardedAvailable`, nuevo en el contrato) y quedan las dos opciones gratuitas, como pide la ficha de la derrota. Una vez por partida, como ya hacía el motor.
+- Al retomar una partida, las pistas gratis y de video ya usadas no vuelven: se guardan en la partida en curso.
+- Todo video que se llega a mostrar marca el puzzle: al salir de su Resultado no hay intersticial (H6-03).

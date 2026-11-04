@@ -54,6 +54,9 @@ abstract interface class AdService {
   /// Muestra un video con recompensa y espera a que se cierre.
   Future<RewardedOutcome> showRewarded();
 
+  /// Hay un video cargado: se puede ofrecer.
+  bool get rewardedReady;
+
   /// Banner adaptable en línea de [width] dp, o null si no hay.
   Future<LoadedBanner?> loadBanner(double width);
 }
@@ -71,6 +74,9 @@ final class NoAdsService implements AdService {
 
   @override
   Future<RewardedOutcome> showRewarded() async => RewardedOutcome.unavailable;
+
+  @override
+  bool get rewardedReady => false;
 
   @override
   Future<LoadedBanner?> loadBanner(double width) async => null;
@@ -142,6 +148,9 @@ final class AdMobAdService implements AdService {
     unawaited(ad.show());
     return closed.future;
   }
+
+  @override
+  bool get rewardedReady => _rewarded != null;
 
   @override
   Future<RewardedOutcome> showRewarded() {

@@ -10,6 +10,12 @@ import 'package:minesweeper_engine/minesweeper_engine.dart';
 import 'package:puzzle_core/puzzle_core.dart';
 
 class FakeHost implements GameHost {
+  /// Hay un video para ofrecer (sin conexión, false).
+  bool videoReady = true;
+
+  @override
+  bool get rewardedAvailable => videoReady;
+
   FakeHost({this.free = 3, this.rescueAnswer = RescueOutcome.granted});
 
   int free;

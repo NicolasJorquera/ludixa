@@ -187,5 +187,13 @@
   "settingsPrivacyOptionsHint": "Change your ad choices",
   "adLabel": "Ad",
   "devRewardedTest": "Test rewarded video (development)",
-  "devRewardedResult": "Video: {outcome}"
+  "devRewardedResult": "Video: {outcome}",
+  "hintOfferTitle": "Extra hint",
+  "hintOfferVideoBody": "You used your {free} free hints for this puzzle. Watch a video to get one more: {left, plural, =1{1 video hint left} other{{left} video hints left}}.",
+  "hintOfferVideo": "Watch video · 1 hint",
+  "hintOfferVideoRule": "You get the hint only if you watch the whole video.",
+  "hintOfferCourtesyBody": "There are no videos right now (offline or no ads available). Here's a courtesy hint: 1 per day.",
+  "hintOfferCourtesy": "Use courtesy hint",
+  "hintOfferNoneBody": "There are no videos right now and you already used today's courtesy hint. Try again later, online.",
+  "hintOfferLater": "Not now"
 }
