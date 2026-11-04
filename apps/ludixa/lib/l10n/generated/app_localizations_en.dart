@@ -737,6 +737,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsPrivacyOptionsHint => 'Change your ad choices';
+
+  @override
+  String get adLabel => 'Ad';
+
+  @override
+  String get devRewardedTest => 'Test rewarded video (development)';
+
+  @override
+  String devRewardedResult(String outcome) {
+    return 'Video: $outcome';
+  }
 }
 
 /// The translations for English (`en_XA`).
@@ -1477,4 +1488,15 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsPrivacyOptionsHint => '[Çĥáñĝé ýöûŕ áð çĥöîçéš ········]';
+
+  @override
+  String get adLabel => '[Åð ·]';
+
+  @override
+  String get devRewardedTest => '[Ţéšţ ŕéŵáŕðéð ṽîðéö (ðéṽéļöþɱéñţ) ············]';
+
+  @override
+  String devRewardedResult(String outcome) {
+    return '[Ṽîðéö: $outcome ··]';
+  }
 }

@@ -4,4 +4,5 @@
 library;
 
 export 'src/ad_policy.dart';
+export 'src/ad_service.dart';
 export 'src/consent.dart';

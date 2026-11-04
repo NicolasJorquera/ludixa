@@ -74,10 +74,20 @@ abstract interface class AdsSdk {
 }
 
 final class MobileAdsSdk implements AdsSdk {
-  const MobileAdsSdk();
+  const MobileAdsSdk({this.testDeviceIds = const []});
 
+  /// Teléfonos de desarrollo que reciben anuncios de prueba.
+  final List<String> testDeviceIds;
+
+  /// Clasificación máxima del contenido publicitario: adolescentes (T), sin
+  /// marca de público infantil, coherente con un público declarado de 18+.
   @override
-  Future<void> initialize() => MobileAds.instance.initialize();
+  Future<void> initialize() async {
+    await MobileAds.instance.initialize();
+    await MobileAds.instance.updateRequestConfiguration(
+      RequestConfiguration(maxAdContentRating: MaxAdContentRating.t, testDeviceIds: testDeviceIds),
+    );
+  }
 }
 
 /// Arranque de los anuncios: primero el consentimiento y, solo si se pueden

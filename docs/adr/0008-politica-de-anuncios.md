@@ -41,3 +41,18 @@ El PRD fija cuándo puede aparecer un intersticial, y la arquitectura pide aplic
 - **ID de aplicación de AdMob por entorno**: dev usa el de prueba público de Google. Prod lo lee de `android/admob.properties` (`appId=...`), que no se sube al repositorio. Sin ese archivo, prod usa el de prueba con un aviso de compilación, como la firma.
 - **Probar el formulario del EEE en desarrollo**: `--dart-define=UMP_DEBUG_EEA=true`. El emulador entra como dispositivo de prueba. En un teléfono hace falta además `--dart-define=UMP_TEST_DEVICE=<hash>`, que UMP escribe en logcat. En producción estas opciones se ignoran.
 - **Tamaño**: el APK release de arm64 pasa de 22,9 MB a 25,5 MB con el SDK de anuncios (+2,6 MB). El PRD pide una descarga de menos de 25 MB. Play calcula la descarga desde el App Bundle con su propia compresión, así que la cifra que cuenta es la de la consola de Play. Hay que revisarla antes del lanzamiento.
+
+## H6-03: anuncios con AdMob
+
+- **`AdService`** (`monetization`) solo carga y muestra; cuándo lo decide la app con `AdPolicy`. Tiene tres implementaciones:
+  - `AdMobAdService`: precarga un intersticial y un video, y vuelve a precargar después de mostrar cada uno.
+  - `NoAdsService`: sin consentimiento, sin identificadores de producción o para la futura compra que quita los anuncios.
+  - una falsa, en las pruebas de la app.
+- **Intersticial**: solo al salir del Resultado (Volver al inicio, Otra partida, Siguiente reto) y solo si `AdPolicy` lo permite. Si no está cargado, no se espera ni se reintenta. Nunca durante una partida, en el tutorial, en la pausa, en Ajustes ni al abrir la app.
+- **Video con recompensa** (`showRewarded`): `earned` solo si el SDK confirma que se vio completo; `dismissed` si se cerró antes; `unavailable` si no había video. Si se llegó a mostrar, ese puzzle ya no deja salir con intersticial. Lo ofrece la economía de pistas (H6-04); en dev hay una fila de prueba en Ajustes.
+- **Banner** adaptable en línea al final de Inicio, Reto, Progreso (las dos pestañas) y Resultado. Lleva el rótulo "Anuncio" y queda a 24 dp de los controles (`LudixaAdSlot`). Tiene un **alto máximo de 100 dp**: sin ese tope, AdMob entrega banners de unos 300 dp. Sin anuncio no ocupa espacio.
+- **`RequestConfiguration`**: clasificación máxima T, sin marca de público infantil.
+- **Identificadores**: dev usa siempre los de prueba de Google. Prod los recibe con `--dart-define-from-file` (`ADMOB_BANNER`, `ADMOB_INTERSTITIAL`, `ADMOB_REWARDED`), desde un archivo que no se sube. Sin ellos, prod queda **sin anuncios**, nunca con los de prueba.
+- **Sesión**: la política se crea al abrir la app, aunque no se juegue (cuenta para "nunca en la primera sesión").
+- **Tiempo de juego**: el host avisa el tiempo jugado al terminar y al salir de una partida, hasta la última jugada guardada.
+- **QA a mano**: `--dart-define=ADS_QA=true`, solo en dev, relaja los umbrales de puzzles y de tiempo para ver el intersticial. La regla de la primera sesión se mantiene.

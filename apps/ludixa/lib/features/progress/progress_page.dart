@@ -10,6 +10,7 @@ import 'package:puzzle_core/puzzle_core.dart';
 
 import '../../app/router.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../ads/ad_banner.dart';
 import '../daily/challenge_rows.dart';
 import '../play/play_providers.dart';
 import 'progress_data.dart';
@@ -96,6 +97,7 @@ class _StatsTabState extends ConsumerState<_StatsTab> {
           l10n.progressTableHint,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.palette.inkMuted),
         ),
+        const AdBanner(),
       ],
     );
   }
@@ -425,6 +427,7 @@ class _AchievementsTab extends ConsumerWidget {
             for (final a in achievements) _AchievementTile(state: a),
           ], LudixaLayout.columns(context, constraints.maxWidth, minWidth: 140)),
         ),
+        const AdBanner(),
       ],
     );
   }

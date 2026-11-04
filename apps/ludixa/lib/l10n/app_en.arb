@@ -184,5 +184,8 @@
   "backupCorrupt": "The backup is damaged or incomplete. Nothing was changed.",
   "backupProblemOk": "Got it",
   "settingsPrivacyOptions": "Privacy options",
-  "settingsPrivacyOptionsHint": "Change your ad choices"
+  "settingsPrivacyOptionsHint": "Change your ad choices",
+  "adLabel": "Ad",
+  "devRewardedTest": "Test rewarded video (development)",
+  "devRewardedResult": "Video: {outcome}"
 }
