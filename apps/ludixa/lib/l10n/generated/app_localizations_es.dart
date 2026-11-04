@@ -745,4 +745,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get backupProblemOk => 'Entendido';
+
+  @override
+  String get settingsPrivacyOptions => 'Opciones de privacidad';
+
+  @override
+  String get settingsPrivacyOptionsHint => 'Cambia tu elección sobre los anuncios';
 }

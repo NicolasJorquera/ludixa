@@ -9,6 +9,7 @@ import '../../../app/environment.dart';
 import '../../../app/locales.dart';
 import '../../../app/router.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../ads/ads_providers.dart';
 import '../../play/play_providers.dart';
 import '../application/settings_controller.dart';
 import '../domain/app_settings.dart';
@@ -116,6 +117,13 @@ class SettingsPage extends ConsumerWidget {
               onTap: () => context.go(AppRoutes.gameSettings(module.id)),
             ),
           LudixaSectionLabel(l10n.settingsDataSection),
+          // Solo donde la ley lo pide (UMP lo indica después del consentimiento).
+          if (ref.watch(privacyOptionsRequiredProvider).value ?? false)
+            LudixaListRow(
+              title: l10n.settingsPrivacyOptions,
+              subtitle: l10n.settingsPrivacyOptionsHint,
+              onTap: () => _privacyOptions(ref),
+            ),
           LudixaListRow(
             title: l10n.backupExport,
             subtitle: l10n.backupExportHint,
@@ -147,6 +155,11 @@ class SettingsPage extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _privacyOptions(WidgetRef ref) async {
+    await ref.read(consentServiceProvider).showPrivacyOptions();
+    ref.invalidate(privacyOptionsRequiredProvider);
   }
 
   /// Elegir un juego en la hoja es la confirmación: cada botón dice qué reinicia.
@@ -299,12 +312,13 @@ class GameSettingsPage extends ConsumerWidget {
   }
 }
 
-/// Las 5 promesas del PRD sobre los anuncios, en lenguaje llano.
-class AdsContractPage extends StatelessWidget {
+/// Las 5 promesas del PRD sobre los anuncios, en lenguaje llano, y el enlace
+/// a las opciones de privacidad donde corresponde.
+class AdsContractPage extends ConsumerWidget {
   const AdsContractPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final text = Theme.of(context).textTheme;
     final p = context.palette;
@@ -334,6 +348,14 @@ class AdsContractPage extends StatelessWidget {
                 ],
               ),
             ),
+          if (ref.watch(privacyOptionsRequiredProvider).value ?? false) ...[
+            const SizedBox(height: 8),
+            LudixaButton(
+              label: l10n.settingsPrivacyOptions,
+              onPressed: () => ref.read(consentServiceProvider).showPrivacyOptions(),
+              variant: LudixaButtonVariant.secondary,
+            ),
+          ],
         ],
       ),
     );

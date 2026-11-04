@@ -95,6 +95,16 @@ Discovery, PRD, especificación UX, arquitectura y backlog están en las entrega
 
 La portada (Inicio) abre el reto de hoy, la partida en curso ("Continuar") y cada juego. En la versión dev, además, Ajustes > *Probar juegos* abre los tres juegos con el flujo real: hoja de dificultad (recuerda el último nivel), partida, pausa (`GameHost.showPause`, también automática al volver tras más de 60 s fuera) y resultado. El progreso se guarda en SQLite (Drift, ADR 0007) y se puede exportar e importar desde Ajustes.
 
+## Anuncios y consentimiento
+
+En desarrollo, AdMob usa los identificadores de prueba de Google. Para ver el formulario de consentimiento del EEE:
+
+```bash
+flutter run --flavor dev -t lib/main_dev.dart --dart-define=UMP_DEBUG_EEA=true
+```
+
+En un teléfono físico se suma `--dart-define=UMP_TEST_DEVICE=<hash>`, con el hash que UMP escribe en logcat. El ID de AdMob de producción va en `apps/ludixa/android/admob.properties` (`appId=ca-app-pub-...~...`), que no se sube al repositorio. Ver ADR 0008.
+
 ## Bancos de palabras
 
 Los temas de la Sopa de letras viven en `packages/wordsearch_engine/lib/src/banks/` (`es.dart`, `en.dart`), con 20 temas por idioma que comparten identificador y una lista de palabras bloqueadas. Son un **borrador**: antes de publicar necesitan revisión de una persona hablante nativa de cada idioma (P-07). Al editarlos, `dart test` en ese paquete valida normalización, largo, duplicados, palabras bloqueadas, capacidad por nivel y generación de cada tema. Una palabra bloqueada puede aparecer dentro de una palabra buscada (BASS contiene ASS), pero nunca formada por el relleno o los cruces.

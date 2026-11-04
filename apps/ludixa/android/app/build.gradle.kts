@@ -16,6 +16,15 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+// ID de aplicación de AdMob. Dev usa el de prueba público de Google; prod lo
+// lee de admob.properties (appId=ca-app-pub-...~...), que nunca se sube.
+val admobTestAppId = "ca-app-pub-3940256099942544~3347511713"
+val admobPropertiesFile = rootProject.file("admob.properties")
+val admobProperties = Properties()
+if (admobPropertiesFile.exists()) {
+    admobProperties.load(FileInputStream(admobPropertiesFile))
+}
+
 android {
     namespace = "io.github.nicolasjorquera.ludixa"
     compileSdk = 36
@@ -58,10 +67,15 @@ android {
             applicationIdSuffix = ".dev"
             versionNameSuffix = "-dev"
             resValue("string", "app_name", "Ludixa Dev")
+            manifestPlaceholders["admobAppId"] = admobTestAppId
         }
         create("prod") {
             dimension = "env"
             resValue("string", "app_name", "Ludixa")
+            manifestPlaceholders["admobAppId"] = admobProperties.getProperty("appId") ?: run {
+                logger.warn("admob.properties no encontrado: prod usa el ID de prueba de AdMob y no genera ingresos.")
+                admobTestAppId
+            }
         }
     }
 
