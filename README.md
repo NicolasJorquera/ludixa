@@ -87,11 +87,11 @@ Sin `key.properties`, la compilación release usa la clave de depuración y Play
 
 ## Documentación de producto
 
-Discovery, PRD, especificación UX, arquitectura y backlog están en las entregas del proyecto. Las decisiones técnicas que afectan al código se registran en `docs/adr/`.
+Discovery, PRD, especificación UX, arquitectura y backlog están en las entregas del proyecto. Las decisiones técnicas que afectan al código se registran en `docs/adr/`. Las listas de verificación manual para el teléfono de referencia están en `docs/qa/`.
 
 ## Jugar en desarrollo
 
-La portada (Inicio) abre el reto de hoy, la partida en curso ("Continuar") y cada juego. En la versión dev, además, Ajustes > *Probar juegos* abre los tres juegos con el flujo real: hoja de dificultad (recuerda el último nivel), partida, pausa (`GameHost.showPause`, también automática al volver tras más de 60 s fuera) y resultado. El progreso se guarda en memoria hasta H5-02.
+La portada (Inicio) abre el reto de hoy, la partida en curso ("Continuar") y cada juego. En la versión dev, además, Ajustes > *Probar juegos* abre los tres juegos con el flujo real: hoja de dificultad (recuerda el último nivel), partida, pausa (`GameHost.showPause`, también automática al volver tras más de 60 s fuera) y resultado. El progreso se guarda en SQLite (Drift, ADR 0007) y se puede exportar e importar desde Ajustes.
 
 ## Bancos de palabras
 
