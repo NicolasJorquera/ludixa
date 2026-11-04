@@ -76,10 +76,7 @@ Future<InMemoryProgressRepository> _pumpProgress(
   final clock = _FakeClock(_at(3, hour: 20));
   final repository = InMemoryProgressRepository();
   await seed?.call(ProgressService(repository, clock: clock));
-  await pumpLudixa(
-    tester,
-    overrides: [clockProvider.overrideWithValue(clock), progressRepositoryProvider.overrideWithValue(repository)],
-  );
+  await pumpLudixa(tester, progress: repository, overrides: [clockProvider.overrideWithValue(clock)]);
   GoRouter.of(tester.element(find.byType(Scaffold).first)).go('/progress');
   await tester.pumpAndSettle();
   return repository;

@@ -185,10 +185,8 @@ void main() {
           try {
             await pumpLudixa(
               tester,
-              overrides: [
-                clockProvider.overrideWithValue(_FakeClock(_now)),
-                progressRepositoryProvider.overrideWithValue(repository),
-              ],
+              progress: repository,
+              overrides: [clockProvider.overrideWithValue(_FakeClock(_now))],
             );
             await open(tester, tester.element(find.byType(Scaffold).first));
             await _shot(tester, size, scale, name, 'a');
@@ -218,13 +216,7 @@ void main() {
       addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
       final repository = InMemoryProgressRepository();
       await _seed(ProgressService(repository, clock: _FakeClock(_now)));
-      await pumpLudixa(
-        tester,
-        overrides: [
-          clockProvider.overrideWithValue(_FakeClock(_now)),
-          progressRepositoryProvider.overrideWithValue(repository),
-        ],
-      );
+      await pumpLudixa(tester, progress: repository, overrides: [clockProvider.overrideWithValue(_FakeClock(_now))]);
       await _screens[screen]!(tester, tester.element(find.byType(Scaffold).first));
       await expectLater(find.byType(MaterialApp), matchesGoldenFile('goldens/layout/$file.png'));
     }

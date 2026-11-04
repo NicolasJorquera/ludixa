@@ -13,9 +13,11 @@ import 'last_difficulty.dart';
 /// Reloj de la app. Las pruebas lo reemplazan por uno falso.
 final clockProvider = Provider<Clock>((ref) => const SystemClock());
 
-/// Progreso en memoria: así lo usan las pantallas de H4. H5-02 lo cambia por
-/// Drift sin tocar el dominio.
-final progressRepositoryProvider = Provider<ProgressRepository>((ref) => InMemoryProgressRepository());
+/// Progreso en SQLite (Drift). Se reemplaza en el arranque con la base
+/// abierta (ver bootstrap); las pruebas ponen uno en memoria.
+final progressRepositoryProvider = Provider<ProgressRepository>(
+  (ref) => throw UnimplementedError('progressRepositoryProvider se configura en bootstrap'),
+);
 
 final progressServiceProvider = Provider<ProgressService>(
   (ref) => ProgressService(ref.watch(progressRepositoryProvider), clock: ref.watch(clockProvider)),

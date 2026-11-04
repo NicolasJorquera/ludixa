@@ -50,7 +50,8 @@ Future<(_FakeClock, InMemoryProgressRepository)> _pumpDaily(
   await pumpLudixa(
     tester,
     deviceLocales: locales,
-    overrides: [clockProvider.overrideWithValue(clock), progressRepositoryProvider.overrideWithValue(repository)],
+    progress: repository,
+    overrides: [clockProvider.overrideWithValue(clock)],
   );
   GoRouter.of(tester.element(find.byType(Scaffold).first)).go('/daily');
   await tester.pumpAndSettle();

@@ -26,6 +26,7 @@ dependencies:
   puzzle_core:
   shared_preferences: ^2.5.6
   package_info_plus: ^10.2.2
+  drift_flutter: ^0.3.1
 
 dev_dependencies:
   sudoku_engine:

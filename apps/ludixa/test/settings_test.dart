@@ -31,11 +31,7 @@ Future<(InMemorySettingsRepository, InMemoryProgressRepository)> _pumpSettings(
   );
   final progress = InMemoryProgressRepository();
   await seed?.call(ProgressService(progress));
-  final settings = await pumpLudixa(
-    tester,
-    initial: initial,
-    overrides: [progressRepositoryProvider.overrideWithValue(progress)],
-  );
+  final settings = await pumpLudixa(tester, initial: initial, progress: progress);
   GoRouter.of(tester.element(find.byType(Scaffold).first)).go('/settings');
   await tester.pumpAndSettle();
   return (settings, progress);

@@ -39,3 +39,8 @@ H5 cambia el progreso en memoria por SQLite con Drift (ADR 0006). H5-01 fija el 
 - Cambiar una tabla exige subir `ProgressDatabase.currentSchemaVersion`, escribir la migración y correr `make-migrations`, que genera el volcado nuevo y las pruebas de paso entre versiones.
 - `drift` queda fijo en 2.34.0, la misma versión que `drift_dev`: con 2.34.4, `make-migrations` no compila.
 - `sqlite3` 3.x incluye SQLite en la app mediante un *build hook*: descarga los binarios oficiales durante la compilación y verifica cada uno con un hash fijado en el paquete. El APK suma unos 1,7 MB por arquitectura. Compilar sin red necesita la caché del hook.
+
+## H5-02: la base en la app
+
+- `DriftProgressRepository` implementa `ProgressRepository` sobre los DAOs. `transaction` es una transacción real de SQLite: si la acción lanza, no queda nada escrito. Las 29 reglas del servicio se prueban contra los dos repositorios, el de memoria y el de Drift.
+- La app abre `progress.sqlite` con `drift_flutter` en el arranque, en otro isolate. Sin esa base, `progressRepositoryProvider` falla: no hay progreso en memoria de reserva. Las pruebas de la app ponen uno en memoria a propósito.

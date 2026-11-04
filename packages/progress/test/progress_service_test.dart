@@ -1,18 +1,28 @@
+import 'package:drift/native.dart';
 import 'package:progress/progress.dart';
 import 'package:puzzle_core/puzzle_core.dart';
 import 'package:test/test.dart';
 
 import 'support.dart';
 
+/// Las mismas reglas contra los dos almacenamientos: en memoria y SQLite.
 void main() {
-  late InMemoryProgressRepository repo;
+  _suite('en memoria', InMemoryProgressRepository.new);
+  _suite('Drift', () => DriftProgressRepository(ProgressDatabase(NativeDatabase.memory())));
+}
+
+void _suite(String name, ProgressRepository Function() create) => group(name, () {
+  late ProgressRepository repo;
   late FakeClock clock;
   late ProgressService service;
 
   setUp(() {
-    repo = InMemoryProgressRepository();
+    repo = create();
     clock = FakeClock(at('2026-11-02'));
     service = ProgressService(repo, clock: clock);
+  });
+  tearDown(() async {
+    if (repo case DriftProgressRepository(:final db)) await db.close();
   });
 
   group('reto diario', () {
@@ -374,6 +384,6 @@ void main() {
       expect((status.current, status.previous), (0, 1));
     });
   });
-}
+});
 
 String _iso(int y, int m, int d) => DateTime.utc(y, m, d).toIso8601String().substring(0, 10);

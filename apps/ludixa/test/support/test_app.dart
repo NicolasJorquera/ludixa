@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ludixa/app/app.dart';
 import 'package:ludixa/app/environment.dart';
+import 'package:ludixa/features/play/play_providers.dart';
 import 'package:ludixa/features/settings/application/settings_controller.dart';
 import 'package:ludixa/features/settings/data/settings_repository.dart';
 import 'package:ludixa/features/settings/domain/app_settings.dart';
+import 'package:progress/progress.dart';
 
 /// Repositorio en memoria. Solo para pruebas.
 class InMemorySettingsRepository implements SettingsRepository {
@@ -32,6 +34,9 @@ Future<InMemorySettingsRepository> pumpLudixa(
   AppSettings initial = const AppSettings(),
   List<Locale> deviceLocales = const [Locale('es', 'CL')],
   List<Override> overrides = const [],
+
+  /// Progreso en memoria: la app real abre la base Drift en bootstrap.
+  ProgressRepository? progress,
 }) async {
   tester.platformDispatcher.localesTestValue = deviceLocales;
   addTearDown(tester.platformDispatcher.clearLocalesTestValue);
@@ -41,6 +46,7 @@ Future<InMemorySettingsRepository> pumpLudixa(
       overrides: [
         environmentProvider.overrideWithValue(environment),
         settingsRepositoryProvider.overrideWithValue(repository),
+        progressRepositoryProvider.overrideWithValue(progress ?? InMemoryProgressRepository()),
         ...overrides,
       ],
       child: const LudixaApp(),
