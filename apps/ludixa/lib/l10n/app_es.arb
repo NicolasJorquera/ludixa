@@ -1014,5 +1014,45 @@
         "type": "String"
       }
     }
+  },
+  "hintOfferTitle": "Pista extra",
+  "@hintOfferTitle": {
+    "description": "Hoja que aparece al pedir una pista sin gratis."
+  },
+  "hintOfferVideoBody": "Usaste tus {free} pistas gratis de este puzzle. Con un video consigues una más: {left, plural, =1{te queda 1} other{te quedan {left}}} con video.",
+  "@hintOfferVideoBody": {
+    "description": "Ofrece una pista con video.",
+    "placeholders": {
+      "free": {
+        "type": "int"
+      },
+      "left": {
+        "type": "int"
+      }
+    }
+  },
+  "hintOfferVideo": "Ver video · 1 pista",
+  "@hintOfferVideo": {
+    "description": "Botón que reproduce el video con recompensa."
+  },
+  "hintOfferVideoRule": "La pista se entrega solo si ves el video completo.",
+  "@hintOfferVideoRule": {
+    "description": "Regla del video con recompensa."
+  },
+  "hintOfferCourtesyBody": "Ahora no hay videos (sin conexión o sin anuncios disponibles). Te damos una pista de cortesía: 1 al día.",
+  "@hintOfferCourtesyBody": {
+    "description": "Estado de cortesía sin videos."
+  },
+  "hintOfferCourtesy": "Usar pista de cortesía",
+  "@hintOfferCourtesy": {
+    "description": "Botón de la pista de cortesía."
+  },
+  "hintOfferNoneBody": "Ahora no hay videos y ya usaste la pista de cortesía de hoy. Vuelve a intentarlo más tarde, con conexión.",
+  "@hintOfferNoneBody": {
+    "description": "Sin videos ni cortesía."
+  },
+  "hintOfferLater": "Ahora no",
+  "@hintOfferLater": {
+    "description": "Cierra la hoja sin pista."
   }
 }

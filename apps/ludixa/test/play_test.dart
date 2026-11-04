@@ -12,6 +12,7 @@ import 'package:ludixa/features/play/last_difficulty.dart';
 import 'package:ludixa/features/play/pause_screen.dart';
 import 'package:ludixa/features/play/play_providers.dart';
 import 'package:ludixa/features/play/result_page.dart';
+import 'package:monetization/monetization.dart';
 import 'package:progress/progress.dart';
 import 'package:puzzle_core/puzzle_core.dart';
 
@@ -49,19 +50,108 @@ void main() {
     late ProgressService service;
     setUp(() => service = ProgressService(InMemoryProgressRepository(), clock: _FakeClock(_tuesday())));
 
-    test('3 pistas gratis por puzzle; luego no hay (los videos llegan en H5)', () async {
-      final host = AppGameHost(
-        service: service,
-        session: _session(),
-        onShowPause: () async => PauseChoice.resume,
-        onWon: (_) {},
-        onPlayAgain: () {},
-      );
-      final grants = [for (var i = 0; i < 4; i++) await host.requestHint()];
-      expect(grants.take(3).every((g) => g is HintGranted), isTrue);
-      expect(grants.last, isA<HintDenied>());
+    AppGameHost hostWith(RewardedHints? rewards, {SessionRecord? session}) => AppGameHost(
+      service: service,
+      session: session ?? _session(),
+      onShowPause: () async => PauseChoice.resume,
+      onWon: (_) {},
+      onPlayAgain: () {},
+      rewards: rewards,
+    );
+
+    test('2 pistas gratis, después hasta 3 con video y luego ninguna (PRD)', () async {
+      final rewards = _FakeRewards();
+      final host = hostWith(rewards);
+      final sources = <Object>[];
+      for (var i = 0; i < 6; i++) {
+        sources.add(switch (await host.requestHint()) {
+          HintGranted(:final source) => source,
+          HintDenied(:final reason) => reason,
+        });
+      }
+      expect(sources, [
+        HintSource.free,
+        HintSource.free,
+        HintSource.rewarded,
+        HintSource.rewarded,
+        HintSource.rewarded,
+        HintDenial.limitReached,
+      ]);
+      expect(rewards.offers.map((o) => o.videosLeft), [3, 2, 1]);
       expect(host.freeHintsLeft, 0);
+    });
+
+    test('un video cerrado antes no da pista ni gasta una de video', () async {
+      final rewards = _FakeRewards(outcome: RewardedOutcome.dismissed);
+      final host = hostWith(rewards);
+      await host.requestHint();
+      await host.requestHint();
+      expect(await host.requestHint(), isA<HintDenied>().having((d) => d.reason, 'motivo', HintDenial.declined));
+      rewards.outcome = RewardedOutcome.earned;
+      await host.requestHint();
+      expect(rewards.offers.last.videosLeft, 3);
+    });
+
+    test('elegir "Ahora no" no gasta nada', () async {
+      final rewards = _FakeRewards(choice: HintOfferChoice.cancel);
+      final host = hostWith(rewards);
+      await host.requestHint();
+      await host.requestHint();
+      expect(await host.requestHint(), isA<HintDenied>());
+      expect(rewards.videosShown, 0);
+    });
+
+    test('sin videos se ofrece la cortesía, 1 al día', () async {
+      final rewards = _FakeRewards(videoReady: false, choice: HintOfferChoice.courtesy);
+      final host = hostWith(rewards);
+      await host.requestHint();
+      await host.requestHint();
+      expect(await host.requestHint(), isA<HintGranted>().having((g) => g.source, 'origen', HintSource.courtesy));
+      expect(rewards.offers.single.courtesyAvailable, isTrue);
+      final second = await host.requestHint();
+      expect(rewards.offers.last.courtesyAvailable, isFalse);
+      expect(second, isA<HintDenied>().having((d) => d.reason, 'motivo', HintDenial.unavailable));
+      expect(rewards.videosShown, 0);
+    });
+
+    test('con video disponible no se ofrece la cortesía', () async {
+      final rewards = _FakeRewards(choice: HintOfferChoice.courtesy);
+      final host = hostWith(rewards);
+      await host.requestHint();
+      await host.requestHint();
+      expect(rewards.offers, isEmpty);
+      expect(await host.requestHint(), isA<HintDenied>());
+      expect(rewards.offers.single.courtesyAvailable, isFalse);
+      expect(rewards.courtesyLeft, isTrue);
+    });
+
+    test('al retomar, las pistas gratis y de video ya usadas no vuelven', () async {
+      final saved = _session().withState(const {'v': 1}, Duration.zero, freeHints: 2, rewardedHints: 3);
+      final host = hostWith(_FakeRewards(), session: saved);
+      expect(host.freeHintsLeft, 0);
+      expect(await host.requestHint(), isA<HintDenied>().having((d) => d.reason, 'motivo', HintDenial.limitReached));
+    });
+
+    test('sin videos de la app (tutorial, pruebas): después de las gratis no hay más', () async {
+      final host = hostWith(null);
+      await host.requestHint();
+      await host.requestHint();
+      expect(await host.requestHint(), isA<HintDenied>().having((d) => d.reason, 'motivo', HintDenial.unavailable));
+      expect(host.rewardedAvailable, isFalse);
       expect(await host.requestRescue(), RescueOutcome.unavailable);
+    });
+
+    test('rescate del Buscaminas: va directo al video y solo si hay uno', () async {
+      final rewards = _FakeRewards();
+      final host = hostWith(rewards);
+      expect(host.rewardedAvailable, isTrue);
+      expect(await host.requestRescue(), RescueOutcome.granted);
+      rewards.outcome = RewardedOutcome.dismissed;
+      expect(await host.requestRescue(), RescueOutcome.declined);
+      rewards.videoReady = false;
+      expect(await host.requestRescue(), RescueOutcome.unavailable);
+      expect(rewards.offers, isEmpty);
+      expect(rewards.videosShown, 2);
     });
 
     SessionSnapshot snap(int v) => SessionSnapshot(
@@ -132,11 +222,10 @@ void main() {
         onPlayAgain: () {},
       );
       await first.requestHint();
-      await first.requestHint();
-      await first.saveSnapshot(const SessionSnapshot(state: {'v': 1}, elapsed: Duration(seconds: 5), freeHintsUsed: 2));
+      await first.saveSnapshot(const SessionSnapshot(state: {'v': 1}, elapsed: Duration(seconds: 5), freeHintsUsed: 1));
       await first.flush();
       final saved = (await service.repository.session('x'))!;
-      expect(saved.freeHints, 2);
+      expect(saved.freeHints, 1);
       final resumed = AppGameHost(
         service: service,
         session: saved,
@@ -420,6 +509,9 @@ void main() {
 }
 
 class _Host implements GameHost {
+  @override
+  bool get rewardedAvailable => false;
+
   const _Host();
 
   @override
@@ -442,4 +534,34 @@ class _Host implements GameHost {
 
   @override
   void playAgain() {}
+}
+
+final class _FakeRewards implements RewardedHints {
+  _FakeRewards({this.videoReady = true, this.outcome = RewardedOutcome.earned, this.choice = HintOfferChoice.video});
+
+  @override
+  bool videoReady;
+  RewardedOutcome outcome;
+  HintOfferChoice choice;
+  bool courtesyLeft = true;
+  int videosShown = 0;
+  final offers = <HintOffer>[];
+
+  @override
+  Future<RewardedOutcome> showVideo() async {
+    videosShown++;
+    return outcome;
+  }
+
+  @override
+  bool get courtesyAvailable => courtesyLeft;
+
+  @override
+  void useCourtesy() => courtesyLeft = false;
+
+  @override
+  Future<HintOfferChoice> offerHint(HintOffer offer) async {
+    offers.add(offer);
+    return choice;
+  }
 }

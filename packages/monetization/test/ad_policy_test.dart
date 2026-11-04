@@ -158,6 +158,15 @@ void main() {
     });
   });
 
+  test('pista de cortesía: 1 al día', () {
+    final policy = AdPolicy(now: () => clock.now);
+    expect(policy.courtesyAvailable, isTrue);
+    policy.courtesyUsed();
+    expect(policy.courtesyAvailable, isFalse);
+    clock.now = DateTime(2026, 11, 4, 0, 1);
+    expect(policy.courtesyAvailable, isTrue);
+  });
+
   group('contadores guardados', () {
     test('ida y vuelta en JSON', () {
       final policy = _veteran(clock);
@@ -168,7 +177,12 @@ void main() {
     });
 
     test('un archivo dañado solo puede retrasar un anuncio, nunca adelantarlo', () {
-      final state = AdPolicyState.fromJson({'sessions': 'muchas', 'puzzlesTotal': null, 'day': 3});
+      final state = AdPolicyState.fromJson({
+        'sessions': 'muchas',
+        'puzzlesTotal': null,
+        'day': '3/11',
+        'courtesyDay': 7,
+      });
       expect(AdPolicy(now: () => clock.now, state: state).decide(AdExit.result), AdDecision.firstSession);
     });
   });

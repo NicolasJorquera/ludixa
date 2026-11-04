@@ -181,6 +181,9 @@ void main() {
 }
 
 class _NoHost implements GameHost {
+  @override
+  bool get rewardedAvailable => false;
+
   const _NoHost();
 
   @override

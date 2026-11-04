@@ -70,6 +70,10 @@ abstract interface class GameHost {
   /// Pide deshacer el movimiento que perdió la partida.
   Future<RescueOutcome> requestRescue();
 
+  /// Hay un video para ofrecer ahora. Sin él (sin conexión, sin inventario o
+  /// sin anuncios) el Buscaminas no muestra "Deshacer con video".
+  bool get rewardedAvailable;
+
   /// Guarda el estado de la partida en curso.
   Future<void> saveSnapshot(SessionSnapshot snapshot);
 

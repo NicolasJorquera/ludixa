@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:game_api/game_api.dart';
+import 'package:monetization/monetization.dart';
 import 'package:progress/progress.dart';
 
 /// Lo que la pantalla de Resultado necesita saber de la partida recién ganada.
@@ -35,9 +36,37 @@ final class FinishedGame {
   bool get isNewRecord => bestBefore != null && session.elapsed < bestBefore!;
 }
 
+/// Lo que se le ofrece al jugador cuando se acabaron las pistas gratis.
+final class HintOffer {
+  const HintOffer({required this.videoReady, required this.videosLeft, required this.courtesyAvailable});
+
+  final bool videoReady;
+
+  /// Pistas con video que quedan en este puzzle.
+  final int videosLeft;
+
+  /// Sin video, queda la pista de cortesía del día.
+  final bool courtesyAvailable;
+}
+
+enum HintOfferChoice { video, courtesy, cancel }
+
+/// Videos y cortesía para el host: los da la app (anuncios y la hoja que
+/// pregunta al jugador). Las pruebas usan uno falso.
+abstract interface class RewardedHints {
+  bool get videoReady;
+  Future<RewardedOutcome> showVideo();
+  bool get courtesyAvailable;
+  void useCourtesy();
+  Future<HintOfferChoice> offerHint(HintOffer offer);
+}
+
 /// Servicios de la app para una partida: pistas, guardado en el progreso,
-/// pausa y otra partida. Los videos con recompensa llegan en H5: por ahora
-/// solo hay pistas gratis y el rescate responde "no disponible".
+/// pausa y otra partida.
+///
+/// Economía de pistas (PRD, H6-04): 2 gratis por puzzle; después, hasta 3
+/// más viendo un video completo. Sin video disponible, 1 pista de cortesía
+/// al día. El rescate del Buscaminas es siempre con video (el botón lo dice).
 ///
 /// Guardado (H5-03): los juegos mandan una instantánea en cada jugada. El
 /// host escribe la última cada [saveDelay] y de inmediato en segundo plano,
@@ -54,13 +83,16 @@ class AppGameHost implements GameHost {
     this.onChanged,
     this.onPlayed,
     this.onCompleted,
-    this.freeHintsPerPuzzle = 3,
+    this.rewards,
+    this.freeHintsPerPuzzle = freeHints,
+    this.rewardedHintsPerPuzzle = videoHints,
     this.saveDelay = const Duration(milliseconds: 300),
   }) : _session = session,
        _lastElapsed = session.elapsed,
        _countedPlay = session.elapsed,
-       // Al retomar, las pistas gratis ya usadas no vuelven.
-       _free = math.max(0, freeHintsPerPuzzle - session.freeHints);
+       // Al retomar, las pistas ya usadas no vuelven.
+       _free = math.max(0, freeHintsPerPuzzle - session.freeHints),
+       _rewardedUsed = session.rewardedHints;
 
   final ProgressService service;
   final Future<PauseChoice> Function() onShowPause;
@@ -77,13 +109,24 @@ class AppGameHost implements GameHost {
   /// Puzzle ganado, con su tiempo.
   final void Function(Duration elapsed)? onCompleted;
 
+  /// Límites del PRD por puzzle.
+  static const freeHints = 2;
+  static const videoHints = 3;
+
+  /// Sin [rewards] (tutorial, pruebas) no hay videos ni cortesía.
+  final RewardedHints? rewards;
+
   Duration _lastElapsed;
   Duration _countedPlay;
   final int freeHintsPerPuzzle;
+  final int rewardedHintsPerPuzzle;
   final Duration saveDelay;
 
   SessionRecord _session;
   int _free;
+
+  /// Pistas con video o de cortesía usadas en este puzzle.
+  int _rewardedUsed;
 
   SessionSnapshot? _pending;
   Timer? _saveTimer;
@@ -97,14 +140,55 @@ class AppGameHost implements GameHost {
   int get freeHintsLeft => _free;
 
   @override
-  Future<HintGrant> requestHint() async {
-    if (_free == 0) return const HintDenied(HintDenial.unavailable);
-    _free--;
-    return const HintGranted(HintSource.free);
-  }
+  bool get rewardedAvailable => rewards?.videoReady ?? false;
 
   @override
-  Future<RescueOutcome> requestRescue() async => RescueOutcome.unavailable;
+  Future<HintGrant> requestHint() async {
+    if (_free > 0) {
+      _free--;
+      return const HintGranted(HintSource.free);
+    }
+    if (_rewardedUsed >= rewardedHintsPerPuzzle) return const HintDenied(HintDenial.limitReached);
+    final rewards = this.rewards;
+    if (rewards == null) return const HintDenied(HintDenial.unavailable);
+    final videoReady = rewards.videoReady;
+    final choice = await rewards.offerHint(
+      HintOffer(
+        videoReady: videoReady,
+        videosLeft: rewardedHintsPerPuzzle - _rewardedUsed,
+        courtesyAvailable: !videoReady && rewards.courtesyAvailable,
+      ),
+    );
+    switch (choice) {
+      case HintOfferChoice.cancel:
+        return const HintDenied(HintDenial.declined);
+      case HintOfferChoice.courtesy:
+        if (videoReady || !rewards.courtesyAvailable) return const HintDenied(HintDenial.unavailable);
+        rewards.useCourtesy();
+        _rewardedUsed++;
+        return const HintGranted(HintSource.courtesy);
+      case HintOfferChoice.video:
+        // La pista solo se entrega si el video se vio completo.
+        final outcome = await rewards.showVideo();
+        if (outcome != RewardedOutcome.earned) {
+          return HintDenied(outcome == RewardedOutcome.dismissed ? HintDenial.declined : HintDenial.unavailable);
+        }
+        _rewardedUsed++;
+        return const HintGranted(HintSource.rewarded);
+    }
+  }
+
+  /// El botón "Deshacer con video" ya dice qué pasa: no se pregunta otra vez.
+  @override
+  Future<RescueOutcome> requestRescue() async {
+    final rewards = this.rewards;
+    if (rewards == null || !rewards.videoReady) return RescueOutcome.unavailable;
+    return switch (await rewards.showVideo()) {
+      RewardedOutcome.earned => RescueOutcome.granted,
+      RewardedOutcome.dismissed => RescueOutcome.declined,
+      RewardedOutcome.unavailable => RescueOutcome.unavailable,
+    };
+  }
 
   @override
   Future<void> saveSnapshot(SessionSnapshot snapshot) {

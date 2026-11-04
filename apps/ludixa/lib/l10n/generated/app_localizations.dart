@@ -1219,6 +1219,54 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Video: {outcome}'**
   String devRewardedResult(String outcome);
+
+  /// Hoja que aparece al pedir una pista sin gratis.
+  ///
+  /// In es, this message translates to:
+  /// **'Pista extra'**
+  String get hintOfferTitle;
+
+  /// Ofrece una pista con video.
+  ///
+  /// In es, this message translates to:
+  /// **'Usaste tus {free} pistas gratis de este puzzle. Con un video consigues una más: {left, plural, =1{te queda 1} other{te quedan {left}}} con video.'**
+  String hintOfferVideoBody(int free, int left);
+
+  /// Botón que reproduce el video con recompensa.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver video · 1 pista'**
+  String get hintOfferVideo;
+
+  /// Regla del video con recompensa.
+  ///
+  /// In es, this message translates to:
+  /// **'La pista se entrega solo si ves el video completo.'**
+  String get hintOfferVideoRule;
+
+  /// Estado de cortesía sin videos.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora no hay videos (sin conexión o sin anuncios disponibles). Te damos una pista de cortesía: 1 al día.'**
+  String get hintOfferCourtesyBody;
+
+  /// Botón de la pista de cortesía.
+  ///
+  /// In es, this message translates to:
+  /// **'Usar pista de cortesía'**
+  String get hintOfferCourtesy;
+
+  /// Sin videos ni cortesía.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora no hay videos y ya usaste la pista de cortesía de hoy. Vuelve a intentarlo más tarde, con conexión.'**
+  String get hintOfferNoneBody;
+
+  /// Cierra la hoja sin pista.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora no'**
+  String get hintOfferLater;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

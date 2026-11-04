@@ -181,7 +181,17 @@ void main() {
       expect(find.text('Deshacer el último toque con un video'), findsNothing);
     });
 
-    testWidgets('sin videos disponibles quedan solo las opciones gratuitas', (tester) async {
+    testWidgets('sin conexión la opción de video ni aparece: quedan las dos gratuitas', (tester) async {
+      final host = FakeHost()..videoReady = false;
+      final c = await pumpGame(tester, controller: freeController(host: host));
+      await firstTap(tester, c);
+      await tester.tap(cellAt(c, minesOf(c).first));
+      await tester.pump();
+      expect(find.text('Reintentar este tablero'), findsOneWidget);
+      expect(find.text('Deshacer el último toque con un video'), findsNothing);
+    });
+
+    testWidgets('si el video falla al pedirlo, se avisa y quedan las opciones gratuitas', (tester) async {
       final (c, _) = await lose(tester, rescue: RescueOutcome.unavailable);
       await tester.tap(find.text('Deshacer el último toque con un video'));
       await tester.pumpAndSettle();

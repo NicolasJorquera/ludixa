@@ -9,6 +9,9 @@ import 'package:game_sudoku/game_sudoku.dart';
 import 'package:sudoku_engine/sudoku_engine.dart';
 
 class FakeHost implements GameHost {
+  @override
+  bool get rewardedAvailable => false;
+
   FakeHost({this.free = 3, this.deny});
 
   int free;

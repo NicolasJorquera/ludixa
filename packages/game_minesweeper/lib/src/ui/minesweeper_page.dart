@@ -518,7 +518,9 @@ class _DefeatPanel extends StatelessWidget {
         LudixaButton(label: l10n.retryBoard, onPressed: onRetry),
         const SizedBox(height: 8),
         LudixaButton(label: l10n.newBoard, onPressed: onNewBoard, variant: LudixaButtonVariant.secondary),
-        if (c.game.canRescue) ...[
+        // Sin video para ofrecer (sin conexión o sin anuncios), la opción no
+        // aparece y quedan las dos gratuitas (ficha UX de la derrota).
+        if (c.game.canRescue && c.host.rewardedAvailable) ...[
           const SizedBox(height: 8),
           if (c.rescueUnavailable)
             Text(l10n.rescueUnavailable, style: text.bodySmall)

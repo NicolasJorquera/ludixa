@@ -57,6 +57,7 @@ final class AdPolicyState {
     this.shownToday = 0,
     this.day,
     this.rewardedThisPuzzle = false,
+    this.courtesyDay,
   });
 
   /// Veces que se abrió la app (la primera sesión es la 1).
@@ -74,6 +75,9 @@ final class AdPolicyState {
   /// Hubo un video con recompensa en el puzzle en curso.
   final bool rewardedThisPuzzle;
 
+  /// Día local en que se usó la pista de cortesía (1 al día).
+  final LocalDay? courtesyDay;
+
   AdPolicyState copyWith({
     int? sessions,
     int? puzzlesTotal,
@@ -82,6 +86,7 @@ final class AdPolicyState {
     int? shownToday,
     LocalDay? day,
     bool? rewardedThisPuzzle,
+    LocalDay? courtesyDay,
   }) => AdPolicyState(
     sessions: sessions ?? this.sessions,
     puzzlesTotal: puzzlesTotal ?? this.puzzlesTotal,
@@ -90,6 +95,7 @@ final class AdPolicyState {
     shownToday: shownToday ?? this.shownToday,
     day: day ?? this.day,
     rewardedThisPuzzle: rewardedThisPuzzle ?? this.rewardedThisPuzzle,
+    courtesyDay: courtesyDay ?? this.courtesyDay,
   );
 
   Map<String, Object?> toJson() => {
@@ -100,6 +106,7 @@ final class AdPolicyState {
     'shownToday': shownToday,
     'day': day?.toIso8601(),
     'rewardedThisPuzzle': rewardedThisPuzzle,
+    'courtesyDay': courtesyDay?.toIso8601(),
   };
 
   /// Valores que falten o tengan otro tipo vuelven a cero: perder un contador
@@ -107,14 +114,16 @@ final class AdPolicyState {
   factory AdPolicyState.fromJson(Map<String, Object?> json) {
     int count(String key) => json[key] is int ? json[key]! as int : 0;
     final day = json['day'];
+    final courtesyDay = json['courtesyDay'];
     return AdPolicyState(
       sessions: count('sessions'),
       puzzlesTotal: count('puzzlesTotal'),
       puzzlesSinceLast: count('puzzlesSinceLast'),
       activePlaySinceLast: Duration(milliseconds: count('activePlayMs')),
       shownToday: count('shownToday'),
-      day: day is String ? LocalDay.parse(day) : null,
+      day: _dayOf(day),
       rewardedThisPuzzle: json['rewardedThisPuzzle'] == true,
+      courtesyDay: _dayOf(courtesyDay),
     );
   }
 }
@@ -181,6 +190,11 @@ final class AdPolicy {
 
   int get _shownToday => _state.day == _today ? _state.shownToday : 0;
 
+  /// Pista de cortesía: 1 al día cuando no hay videos (PRD).
+  bool get courtesyAvailable => _state.courtesyDay != _today;
+
+  void courtesyUsed() => _state = _state.copyWith(courtesyDay: _today);
+
   /// Se mostró un intersticial: los contadores vuelven a empezar.
   void interstitialShown() => _state = _state.copyWith(
     puzzlesSinceLast: 0,
@@ -188,4 +202,13 @@ final class AdPolicy {
     shownToday: _shownToday + 1,
     day: _today,
   );
+}
+
+LocalDay? _dayOf(Object? value) {
+  if (value is! String) return null;
+  try {
+    return LocalDay.parse(value);
+  } on FormatException {
+    return null;
+  }
 }
