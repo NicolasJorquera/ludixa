@@ -1,6 +1,6 @@
 # Ficha de Google Play (H8-02)
 
-Borrador para revisar. Cada afirmación está comprobada contra la app (niveles, temas, reglas de anuncios). El nombre "Ludixa" sigue pendiente de la validación de marca (P-03, con Legal).
+Textos, icono y capturas aprobados el 4 de noviembre de 2026. Cada afirmación está comprobada contra la app (niveles, temas, reglas de anuncios).
 
 ## Recursos gráficos
 
@@ -22,10 +22,12 @@ Borrador para revisar. Cada afirmación está comprobada contra la app (niveles,
 |---|---|
 | Categoría | Juegos › Puzles |
 | Etiquetas sugeridas | Sudoku, Buscaminas, Sopa de letras, Lógica, Puzles, Sin conexión |
-| Correo de contacto | [[CORREO DE CONTACTO]] (el mismo de la política) |
-| Sitio web | `https://<proyecto>.web.app` (P-04; ahí AdMob busca `app-ads.txt`) |
-| Política de privacidad | `https://<proyecto>.web.app/privacidad` |
+| Desarrollador | Gonisoma |
+| Correo de contacto | nicolas.jorqueramartinez@gmail.com (el mismo de la política) |
+| Sitio web | `https://ludixa.web.app` (ahí AdMob busca `app-ads.txt`) |
+| Política de privacidad | `https://ludixa.web.app/privacidad` |
 | Contiene anuncios | Sí |
+| Público objetivo | 13 años o más (declararlo igual en Play, H8-03) |
 
 ## Español (es-419 y es-ES)
 
@@ -121,7 +123,6 @@ Play no tiene un campo de palabras clave: las toma del título y de las descripc
 
 ## Pendiente
 
-- Validar el nombre y el título con Legal (P-03).
-- Completar el correo de contacto y las URL cuando se publique el sitio (P-04).
-- Revisar las capturas y el gráfico destacado, y elegir el orden final.
+- Nombre (P-03): antes de crear la ficha, buscar "Ludixa" en Google Play y en los registros de marcas (INAPI en Chile, EUIPO, USPTO) para descartar conflictos evidentes.
+- Si el proyecto de Firebase no puede llamarse `ludixa` (los ID son únicos), cambiar las URL de esta tabla.
 - Si se agrega analítica (H6-05) o cambia la política de anuncios, actualizar la descripción.
