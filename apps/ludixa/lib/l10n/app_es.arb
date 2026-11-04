@@ -515,6 +515,24 @@
   "@dailyContinue": {
     "description": "Botón para continuar un reto empezado."
   },
+  "dailyPlayGame": "Jugar {game}",
+  "@dailyPlayGame": {
+    "description": "Lo que anuncia TalkBack en el botón Jugar de un reto: el texto visible solo dice \"Jugar\".",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyContinueGame": "Continuar {game}",
+  "@dailyContinueGame": {
+    "description": "Lo que anuncia TalkBack en el botón Continuar de un reto.",
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
   "dailyCalendar": "Calendario de {month}",
   "@dailyCalendar": {
     "description": "Etiqueta accesible del calendario.",

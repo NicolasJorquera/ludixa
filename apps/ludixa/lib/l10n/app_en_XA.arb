@@ -91,6 +91,8 @@
   "dailyCompletedArchive": "[Ðöñé ƒŕöɱ ţĥé áŕçĥîṽé ········]",
   "dailyPlay": "[Þļáý ··]",
   "dailyContinue": "[Çöñţîñûé ····]",
+  "dailyPlayGame": "[Þļáý {game} ··]",
+  "dailyContinueGame": "[Çöñţîñûé {game} ····]",
   "dailyCalendar": "[{month} çáļéñðáŕ ····]",
   "dailyDayLabel": "[{date}, {count} öƒ 3 çĥáļļéñĝéš{suffix} ·····]",
   "dailyDayToday": "[, ţöðáý ··]",

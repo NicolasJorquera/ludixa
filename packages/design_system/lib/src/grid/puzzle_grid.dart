@@ -74,6 +74,10 @@ class PuzzleGrid extends StatelessWidget {
   /// Descripción de la grilla completa ("Tablero de Sudoku").
   final String? semanticLabel;
 
+  /// Identificador del nodo del tablero (en Android, su resource-id). Lo usan
+  /// las pruebas de accesibilidad para medir sus celdas aparte.
+  static const semanticsIdentifier = 'puzzle-grid';
+
   /// Cuánto hay que mantener pulsado (el Buscaminas la deja ajustar).
   final Duration longPressDuration;
 
@@ -112,6 +116,7 @@ class PuzzleGrid extends StatelessWidget {
             child: Semantics(
               container: true,
               label: semanticLabel,
+              identifier: PuzzleGrid.semanticsIdentifier,
               child: _GridGestures(
                 indexAt: indexAt,
                 onTap: onCellTap,
@@ -132,9 +137,12 @@ class PuzzleGrid extends StatelessWidget {
                           width: extent,
                           height: extent,
                           // Nodo propio por celda aunque no tenga acciones (selección
-                          // por arrastre): así el lector la recorre una a una.
+                          // por arrastre): así el lector la recorre una a una. La
+                          // etiqueta describe la celda entera: el contenido no se
+                          // anuncia aparte (si no, "L" se leería dos veces).
                           child: Semantics(
                             container: true,
+                            excludeSemantics: true,
                             label: semanticLabelFor(i),
                             button: onCellTap != null,
                             onTap: onCellTap == null ? null : () => onCellTap!(i),

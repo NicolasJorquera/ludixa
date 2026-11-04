@@ -203,5 +203,31 @@ void main() {
       expect(tester.getSize(find.byType(LudixaStatChip)).height, greaterThanOrEqualTo(48));
       handle.dispose();
     });
+
+    testWidgets('con etiqueta propia, la tarjeta y el chip se activan desde el lector de pantalla', (tester) async {
+      final handle = tester.ensureSemantics();
+      final taps = <String>[];
+      await tester.pumpWidget(
+        _host(
+          _inScaffold(
+            Column(
+              children: [
+                LudixaCard(semanticLabel: 'Tarjeta', onTap: () => taps.add('tarjeta'), child: const Text('x')),
+                LudixaStatChip(
+                  icon: LudixaIcons.streak,
+                  value: '12',
+                  semanticLabel: 'Chip',
+                  onTap: () => taps.add('chip'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+      tester.semantics.tap(find.semantics.byLabel('Tarjeta'));
+      tester.semantics.tap(find.semantics.byLabel('Chip'));
+      expect(taps, ['tarjeta', 'chip']);
+      handle.dispose();
+    });
   });
 }

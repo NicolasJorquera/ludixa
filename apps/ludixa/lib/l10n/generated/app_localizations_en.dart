@@ -393,6 +393,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyContinue => 'Continue';
 
   @override
+  String dailyPlayGame(String game) {
+    return 'Play $game';
+  }
+
+  @override
+  String dailyContinueGame(String game) {
+    return 'Continue $game';
+  }
+
+  @override
   String dailyCalendar(String month) {
     return '$month calendar';
   }
@@ -1171,6 +1181,16 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get dailyContinue => '[Çöñţîñûé ····]';
+
+  @override
+  String dailyPlayGame(String game) {
+    return '[Þļáý $game ··]';
+  }
+
+  @override
+  String dailyContinueGame(String game) {
+    return '[Çöñţîñûé $game ····]';
+  }
 
   @override
   String dailyCalendar(String month) {

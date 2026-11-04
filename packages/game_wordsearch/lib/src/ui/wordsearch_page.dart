@@ -129,6 +129,9 @@ class _WordSearchPageState extends State<WordSearchPage> {
     final l10n = WordsLocalizations.of(context);
     final text = Theme.of(context).textTheme;
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
+    final VoidCallback? onHint = _c.paused || _c.complete || _c.hintsExhausted || _c.hintCell != null
+        ? null
+        : _requestHint;
     final media = MediaQuery.of(context);
     // Con TalkBack el arrastre no sirve: se usa tocar inicio y final.
     final tapMode = _c.settings.selection == SelectionMode.tap || media.accessibleNavigation;
@@ -292,13 +295,18 @@ class _WordSearchPageState extends State<WordSearchPage> {
                       ],
                     ),
                   ),
+                  // Nombre y valor en un solo nodo ("Pista, quedan 2 gratis"), como en el
+                  // Sudoku: con el nombre solo como tooltip, Android anuncia nada más el valor.
                   Semantics(
+                    button: true,
+                    enabled: onHint != null,
+                    label: l10n.hint,
                     value: _c.hintsExhausted ? l10n.noMoreHints : l10n.hintsLeft(_c.host.freeHintsLeft),
+                    onTap: onHint,
+                    excludeSemantics: true,
                     child: IconButton(
                       tooltip: _c.hintsExhausted ? l10n.noMoreHints : l10n.hint,
-                      onPressed: _c.paused || _c.complete || _c.hintsExhausted || _c.hintCell != null
-                          ? null
-                          : _requestHint,
+                      onPressed: onHint,
                       icon: Badge(
                         isLabelVisible: !_c.hintsExhausted,
                         label: Text('${_c.host.freeHintsLeft}'),

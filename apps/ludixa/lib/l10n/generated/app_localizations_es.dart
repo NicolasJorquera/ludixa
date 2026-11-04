@@ -398,6 +398,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dailyContinue => 'Continuar';
 
   @override
+  String dailyPlayGame(String game) {
+    return 'Jugar $game';
+  }
+
+  @override
+  String dailyContinueGame(String game) {
+    return 'Continuar $game';
+  }
+
+  @override
   String dailyCalendar(String month) {
     return 'Calendario de $month';
   }

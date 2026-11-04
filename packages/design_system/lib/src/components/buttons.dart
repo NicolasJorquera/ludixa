@@ -27,6 +27,7 @@ class LudixaButton extends StatelessWidget {
     this.variant = LudixaButtonVariant.primary,
     this.icon,
     this.expand = true,
+    this.semanticLabel,
   });
 
   final String label;
@@ -40,12 +41,16 @@ class LudixaButton extends StatelessWidget {
   /// Ocupa todo el ancho disponible.
   final bool expand;
 
+  /// Lo que anuncia el lector de pantalla en lugar de [label], cuando el
+  /// texto visible no alcanza fuera de contexto (tres botones "Jugar").
+  final String? semanticLabel;
+
   /// Icono de video con recompensa.
   static const rewardedIcon = LudixaIcon(LudixaIcons.video);
 
   @override
   Widget build(BuildContext context) {
-    final text = Text(label, textAlign: TextAlign.center);
+    final text = Text(label, textAlign: TextAlign.center, semanticsLabel: semanticLabel);
     final leading = variant == LudixaButtonVariant.rewarded ? rewardedIcon : icon;
     final Widget button = switch (variant) {
       LudixaButtonVariant.primary =>

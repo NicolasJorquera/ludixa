@@ -24,4 +24,4 @@ Hasta H6 los goldens se generaban en macOS y la CI (Ubuntu) se los saltaba: el r
 
 - Un cambio visual buscado se acompaña de `bash tool/goldens.sh --update` y de una revisión de las imágenes en el PR.
 - En macOS `tool/test_all.sh` no compara goldens; para hacerlo, `bash tool/goldens.sh`.
-- Docker emula x86_64 en un Mac con Apple Silicon: es lento (unos 8 minutos todo), pero usa el mismo sistema, arquitectura y versión de Flutter que la CI.
+- Docker emula x86_64 en un Mac con Apple Silicon: es lento (unos 8 minutos todo), pero usa el mismo sistema, arquitectura y versión de Flutter que la CI. La CI del PR #38 confirmó que las imágenes coinciden.

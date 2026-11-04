@@ -39,6 +39,16 @@ void main() {
         pair('texto de éxito sobre su tinte', p.successInk, p.successSoft, ContrastLevel.text);
         pair('texto de error sobre su tinte', p.dangerInk, p.dangerSoft, ContrastLevel.text);
 
+        for (final (name, accent) in [
+          ('primario', p.primary),
+          ('Sudoku', p.sudoku),
+          ('Buscaminas', p.minesweeper),
+          ('Sopa', p.wordSearch),
+        ]) {
+          pair('segmento elegido: texto $name', accent, p.segmentSelected, ContrastLevel.text);
+        }
+        pair('segmento sin elegir', p.inkMuted, p.surfaceMuted, ContrastLevel.text);
+
         // Bordes de controles e iconos de juego.
         pair('borde de control sobre superficie', p.outline, p.surface, ContrastLevel.large);
         for (final (name, accent, soft) in [

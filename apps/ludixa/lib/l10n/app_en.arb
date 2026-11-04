@@ -91,6 +91,8 @@
   "dailyCompletedArchive": "Done from the archive",
   "dailyPlay": "Play",
   "dailyContinue": "Continue",
+  "dailyPlayGame": "Play {game}",
+  "dailyContinueGame": "Continue {game}",
   "dailyCalendar": "{month} calendar",
   "dailyDayLabel": "{date}, {count} of 3 challenges{suffix}",
   "dailyDayToday": ", today",
