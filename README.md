@@ -133,6 +133,10 @@ bash tool/release.sh --local  # sin esos archivos: solo para revisar el paquete
 
 `docs/ficha/` tiene los textos de la ficha en español e inglés (`ficha.md`), el icono de 512 px, el gráfico destacado y las capturas. `bash tool/ficha_imagenes.sh` regenera las imágenes y el icono de Android 7 desde `docs/ficha/fuente/` (necesita Google Chrome). El icono adaptable de Android 8+ está en `android/app/src/main/res/drawable/ic_launcher_foreground.xml`.
 
+## Sitio: política de privacidad y app-ads.txt
+
+`site/` tiene la política de privacidad (es/en) y `app-ads.txt` para Firebase Hosting. Antes de publicar, completar las marcas `[[...]]` (algunas las define Legal/Administración) y seguir `site/README.md`.
+
 ## Documentación de producto
 
 Discovery, PRD, especificación UX, arquitectura y backlog están en las entregas del proyecto. Las decisiones técnicas que afectan al código se registran en `docs/adr/`. Las listas de verificación manual para el teléfono de referencia están en `docs/qa/`.

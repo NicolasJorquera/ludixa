@@ -1,0 +1,30 @@
+/* Colores del sistema visual de Ludixa (packages/design_system, palette.dart). */
+:root {
+  --fondo: #f2f4f7;
+  --tinta: #141b26;
+  --tinta-suave: #4d5868;
+  --primario: #2b4fd8;
+  --linea: #dce1e8;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #0f1318;
+    --tinta: #e8ecf2;
+    --tinta-suave: #a3adbb;
+    --primario: #7d97ff;
+    --linea: #2c3440;
+  }
+}
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 42rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.9rem; line-height: 1.25; margin: 0.5rem 0; }
+h2 { font-size: 1.25rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--linea); }
+a { color: var(--primario); }
+.fecha, .idioma { color: var(--tinta-suave); font-size: 0.95rem; }
+.idioma { text-align: right; margin: 0; }
+li { margin: 0.35rem 0; }
