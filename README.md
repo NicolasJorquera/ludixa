@@ -104,9 +104,30 @@ Las versiones release se firman con la clave de carga de Google Play. Ni la clav
    keyAlias=upload
    storeFile=/Users/<usuario>/keys/ludixa-upload.jks
    ```
-3. `flutter build appbundle --flavor prod -t lib/main_prod.dart`
+3. Compilar con `bash tool/release.sh` (ver abajo).
 
 Sin `key.properties`, la compilación release usa la clave de depuración y Play la rechaza. Sirve solo para pruebas locales.
+
+En Play Console se usa **Firma de apps de Google Play**: Google guarda la clave con la que se firma la app publicada, y esta es solo la clave de carga. Si se pierde, se pide un reemplazo desde la consola.
+
+### Compilar una versión para Play
+
+```bash
+bash tool/release.sh          # exige key.properties, admob.properties y admob_prod.json
+bash tool/release.sh --local  # sin esos archivos: solo para revisar el paquete
+```
+
+- **Versión:** sale de `version:` en `apps/ludixa/pubspec.yaml` (`<nombre>+<versionCode>`). Play rechaza un versionCode repetido: subir el número después del `+` antes de cada subida. El script se niega a compilar dos veces la misma versión.
+- **Resultado en `build/release/<versión>/`:**
+  - `ludixa-<versión>.aab`, para subir a Play.
+  - `mapping.txt`, el mapa de R8. También va dentro del `.aab` y Play lo usa solo.
+  - `simbolos-dart/`: el código Dart va ofuscado (`--obfuscate`), y sin estos símbolos no se pueden leer sus errores. Hay que guardar la carpeta fuera del repositorio, una por versión.
+- **Símbolos nativos:** el `.aab` incluye la tabla de símbolos de las librerías nativas (`debugSymbolLevel`), así Android vitals muestra los fallos nativos con nombres de función.
+- **Leer un error de Dart de una versión publicada:**
+
+  ```bash
+  flutter symbolize -i <traza.txt> -d build/release/<versión>/simbolos-dart/app.android-arm64.symbols
+  ```
 
 ## Documentación de producto
 
