@@ -17,6 +17,7 @@ App Android de juegos de lógica, offline, sin backend, monetizada con AdMob, de
 6. **Firebase Analytics mínima**, con interruptor para desactivarla. Fallos con Android vitals; Crashlytics solo si hace falta.
 7. **Fuentes incluidas en la app.** No se usa `google_fonts` en tiempo de ejecución.
 8. **Identificador de la app:** `io.github.nicolasjorquera.ludixa`. Se puede cambiar hasta la primera subida a Play; después es permanente.
+   - **Actualización (4 de noviembre de 2026):** Play Console fijó `com.gonisoma.ludixa` al crear la app, así que el `applicationId` pasó a ese nombre antes de la primera subida. El `namespace` y el paquete del código Kotlin siguen siendo `io.github.nicolasjorquera.ludixa`.
 9. **Paquetes bajo demanda:** cada paquete se crea en la tarea que lo implementa, para no dejar carpetas vacías.
 
 ## Consecuencias

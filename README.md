@@ -74,7 +74,7 @@ flutter run --flavor dev -t lib/main_dev.dart
 flutter run --flavor prod -t lib/main_prod.dart
 ```
 
-`dev` instala `io.github.nicolasjorquera.ludixa.dev` ("Ludixa Dev"), que convive con la de producción.
+`dev` instala `com.gonisoma.ludixa.dev` ("Ludixa Dev"), que convive con la de producción.
 
 ## Propiedades y benchmarks
 
