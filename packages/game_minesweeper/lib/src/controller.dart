@@ -21,6 +21,7 @@ class MinesweeperController extends ChangeNotifier {
     Duration elapsed = Duration.zero,
     this.freeHints = 0,
     this.rewardedHints = 0,
+    this.flagsPlaced = 0,
     int? start,
     this.generate = _generateInIsolate,
   }) : _game = game,
@@ -46,6 +47,7 @@ class MinesweeperController extends ChangeNotifier {
       elapsed: snapshot.elapsed,
       freeHints: state['freeHints'] as int? ?? 0,
       rewardedHints: state['rewardedHints'] as int? ?? 0,
+      flagsPlaced: state['flagsPlaced'] as int? ?? 0,
       start: state['start'] as int?,
     );
   }
@@ -75,6 +77,10 @@ class MinesweeperController extends ChangeNotifier {
   Duration _elapsed;
   int freeHints;
   int rewardedHints;
+
+  /// Banderas que puso el jugador en esta partida, aunque después las quite
+  /// (logro "Ganar sin banderas").
+  int flagsPlaced;
 
   /// Lo que hace un toque ahora (la pulsación larga hace lo contrario).
   TapAction get mode => _mode;
@@ -118,7 +124,9 @@ class MinesweeperController extends ChangeNotifier {
       return _after(_game.reveal(cell), revealed: true);
     }
     if (action == TapAction.flag) {
-      return _after(_game.toggleFlag(cell), revealed: false);
+      final outcome = _game.toggleFlag(cell);
+      if (outcome != MoveOutcome.ignored && _game.viewAt(cell) == CellView.flagged) flagsPlaced++;
+      return _after(outcome, revealed: false);
     }
     if (_game.viewAt(cell) == CellView.revealed) {
       if (!settings.chord) return MinesweeperEvent.none;
@@ -216,6 +224,7 @@ class MinesweeperController extends ChangeNotifier {
     _reported = false;
     freeHints = 0;
     rewardedHints = 0;
+    flagsPlaced = 0;
     _hintsExhausted = false;
     _rescueUnavailable = false;
     _mode = settings.tapAction;
@@ -234,6 +243,7 @@ class MinesweeperController extends ChangeNotifier {
     _rescueUnavailable = false;
     freeHints = 0;
     rewardedHints = 0;
+    flagsPlaced = 0;
     _mode = settings.tapAction;
     _saveSnapshot();
     notifyListeners();
@@ -277,6 +287,7 @@ class MinesweeperController extends ChangeNotifier {
         freeHintsUsed: freeHints,
         rewardedHintsUsed: rewardedHints,
         rescued: _game.rescueUsed,
+        flagsPlaced: flagsPlaced,
       ),
     );
   }
@@ -288,6 +299,7 @@ class MinesweeperController extends ChangeNotifier {
       'start': _start,
       'freeHints': freeHints,
       'rewardedHints': rewardedHints,
+      'flagsPlaced': flagsPlaced,
     },
     elapsed: _elapsed,
     freeHintsUsed: freeHints,

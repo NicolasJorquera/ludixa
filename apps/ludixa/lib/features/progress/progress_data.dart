@@ -47,14 +47,9 @@ final progressTotalsProvider = FutureProvider<ProgressTotals>((ref) async {
 /// Estadísticas de cada nivel jugado de un juego, desde su último reinicio.
 /// Incluye niveles que no están en el selector (el Buscaminas reducido del
 /// reto); la pantalla agrega los que faltan como "Aún sin jugar".
-final levelStatsProvider = FutureProvider.family<Map<Difficulty, DifficultyStats>, GameId>((ref, game) async {
+final levelStatsProvider = FutureProvider.family<Map<Difficulty, DifficultyStats>, GameId>((ref, game) {
   ref.watch(progressRevisionProvider);
-  final service = ref.watch(progressServiceProvider);
-  final levels = {
-    for (final s in await service.repository.sessions())
-      if (s.game == game) s.difficulty,
-  };
-  return {for (final level in levels) level: await service.stats(game, level)};
+  return ref.watch(progressServiceProvider).statsByLevel(game);
 });
 
 typedef AchievementState = ({AchievementId id, int progress, DateTime? unlockedAt});

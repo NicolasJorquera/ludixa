@@ -93,6 +93,42 @@ void main() {
       expect(all.single.status, SessionStatus.inProgress);
     });
 
+    test('los resúmenes traen todo menos el puzzle y el estado; en curso trae las completas', () async {
+      final finished = _session();
+      final running = _session(id: 's2', status: SessionStatus.inProgress);
+      await db.sessionsDao.put(finished);
+      await db.sessionsDao.put(running);
+      final summaries = {for (final s in await db.sessionsDao.summaries()) s.id: s};
+      final summary = summaries['s1']!;
+      expect(summary.puzzle, isEmpty);
+      expect(summary.state, isEmpty);
+      _expectSame(
+        summary,
+        SessionRecord(
+          id: finished.id,
+          game: finished.game,
+          difficulty: finished.difficulty,
+          mode: finished.mode,
+          startedAt: finished.startedAt,
+          challengeDay: finished.challengeDay,
+          seedKey: finished.seedKey,
+          generatorVersion: finished.generatorVersion,
+          wordsLanguage: finished.wordsLanguage,
+          status: finished.status,
+          elapsed: finished.elapsed,
+          freeHints: finished.freeHints,
+          rewardedHints: finished.rewardedHints,
+          rescued: finished.rescued,
+          completedAt: finished.completedAt,
+          themeIds: finished.themeIds,
+          flagsPlaced: finished.flagsPlaced,
+        ),
+      );
+      final inProgress = await db.sessionsDao.inProgress();
+      expect(inProgress.single.id, 's2');
+      expect(inProgress.single.state, running.state);
+    });
+
     test('modo y estado se guardan como texto estable', () async {
       await db.sessionsDao.put(_session(status: SessionStatus.inProgress));
       final row = await db.customSelect('SELECT mode, status FROM sessions').getSingle();

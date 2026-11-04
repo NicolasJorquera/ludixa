@@ -163,6 +163,7 @@ class _WordSearchGameLoaderState extends State<WordSearchGameLoader> {
       host: widget.host,
       settings: widget.settings,
       themeNames: [for (final id in themeIds) WordBanks.theme(language, id).name],
+      themeIds: themeIds,
     );
   }
 

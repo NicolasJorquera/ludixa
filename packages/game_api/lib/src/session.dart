@@ -55,6 +55,8 @@ final class GameResult {
     this.freeHintsUsed = 0,
     this.rewardedHintsUsed = 0,
     this.rescued = false,
+    this.flagsPlaced,
+    this.themeIds = const [],
   });
 
   final GameOutcome outcome;
@@ -64,6 +66,11 @@ final class GameResult {
 
   /// La partida se salvó con un deshacer por video (Buscaminas).
   final bool rescued;
+
+  /// Datos para los logros. Banderas que puso el jugador (Buscaminas; las que
+  /// el motor marca solo al ganar no cuentan) y temas de la sopa.
+  final int? flagsPlaced;
+  final List<String> themeIds;
 
   /// Usó alguna ayuda: no cuenta como "sin ayuda".
   bool get assisted => freeHintsUsed > 0 || rewardedHintsUsed > 0 || rescued;

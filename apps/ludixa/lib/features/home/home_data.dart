@@ -50,11 +50,11 @@ final homeDataProvider = FutureProvider<HomeData>((ref) async {
   final service = ref.watch(progressServiceProvider);
   final repository = service.repository;
   final today = service.clock.now().day;
-  final sessions = await repository.sessions();
+  final sessions = await repository.sessionSummaries();
   final day = await repository.day(today);
   final running = [
-    for (final s in sessions)
-      if (s.status == SessionStatus.inProgress && s.state.isNotEmpty) s,
+    for (final s in await repository.inProgressSessions())
+      if (s.state.isNotEmpty) s,
   ]..sort((a, b) => b.startedAt.utc.compareTo(a.startedAt.utc));
   final won = sessions.where((s) => s.won);
   return HomeData(

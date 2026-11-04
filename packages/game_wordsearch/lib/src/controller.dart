@@ -15,6 +15,7 @@ class WordSearchController extends ChangeNotifier {
     required WordSearchGame game,
     required this.host,
     required this.themeNames,
+    this.themeIds = const [],
     this.settings = const WordSearchSettings(),
     Duration elapsed = Duration.zero,
     this.freeHints = 0,
@@ -35,6 +36,7 @@ class WordSearchController extends ChangeNotifier {
       game: WordSearchGame.fromJson((state['game']! as Map).cast<String, Object?>()),
       host: host,
       themeNames: (state['themes'] as List? ?? const []).cast<String>(),
+      themeIds: (state['themeIds'] as List? ?? const []).cast<String>(),
       settings: settings,
       elapsed: snapshot.elapsed,
       freeHints: state['freeHints'] as int? ?? 0,
@@ -48,6 +50,9 @@ class WordSearchController extends ChangeNotifier {
 
   /// Nombres de los temas, en el idioma de las palabras.
   final List<String> themeNames;
+
+  /// Ids estables de los temas (logro "Explora 10 temas").
+  final List<String> themeIds;
   WordSearchSettings settings;
 
   int? _anchor;
@@ -248,6 +253,7 @@ class WordSearchController extends ChangeNotifier {
         elapsed: _elapsed,
         freeHintsUsed: freeHints,
         rewardedHintsUsed: rewardedHints,
+        themeIds: themeIds,
       ),
     );
   }
@@ -257,6 +263,7 @@ class WordSearchController extends ChangeNotifier {
       'v': snapshotVersion,
       'game': game.toJson(),
       'themes': themeNames,
+      'themeIds': themeIds,
       'freeHints': freeHints,
       'rewardedHints': rewardedHints,
     },

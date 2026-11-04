@@ -17,6 +17,44 @@ Future<void> firstTap(WidgetTester tester, MinesweeperController c, [int cell = 
 }
 
 void main() {
+  group('banderas para el logro "Ganar sin banderas"', () {
+    test('cuenta las que pone el jugador, aunque las quite; se guarda y se retoma; reiniciar la pone en 0', () async {
+      final c = freeController();
+      await c.tapCell(40);
+      final hidden = [
+        for (var i = 0; i < 81; i++)
+          if (c.game.viewAt(i) == CellView.hidden) i,
+      ];
+      await c.longPressCell(hidden.first);
+      await c.longPressCell(hidden.first); // la quita
+      expect(c.flagsPlaced, 1);
+      final snapshot = c.snapshot();
+      expect(snapshot.state['flagsPlaced'], 1);
+      final resumed = MinesweeperController.resume(
+        snapshot,
+        host: FakeHost(),
+        store: InMemoryMinesweeperSettingsStore(),
+      );
+      expect(resumed.flagsPlaced, 1);
+      c.restart();
+      expect(c.flagsPlaced, 0);
+    });
+
+    test('ganar sin poner banderas informa 0, aunque el motor marque las minas al final', () async {
+      final host = FakeHost();
+      final c = freeController(host: host);
+      await c.tapCell(40);
+      final layout = MinesweeperGame.generateBoard(BoardSpec.beginner, c.game.seed.key, 40);
+      for (var i = 0; i < 81; i++) {
+        if (!layout.isMine(i) && c.game.viewAt(i) == CellView.hidden) await c.tapCell(i);
+      }
+      expect(c.won, isTrue);
+      expect(c.game.flagCount, greaterThan(0)); // las marcó el motor
+      await c.reportFinished(); // la pantalla lo llama al ganar
+      expect(host.results.single.flagsPlaced, 0);
+    });
+  });
+
   testWidgets('antes del primer toque: tablero cerrado y mensaje; el toque genera y abre una zona', (tester) async {
     final c = await pumpGame(tester);
     expect(find.text('Toca cualquier celda para empezar'), findsOneWidget);

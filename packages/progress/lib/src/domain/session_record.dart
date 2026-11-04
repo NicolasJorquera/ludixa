@@ -99,6 +99,7 @@ final class SessionRecord {
     int rewardedHints = 0,
     bool rescued = false,
     int? flagsPlaced,
+    List<String>? themeIds,
   }) {
     assert(status != SessionStatus.inProgress, 'Una partida terminada no está en curso');
     return SessionRecord(
@@ -119,7 +120,7 @@ final class SessionRecord {
       rewardedHints: rewardedHints,
       rescued: rescued,
       completedAt: completedAt,
-      themeIds: themeIds,
+      themeIds: themeIds ?? this.themeIds,
       flagsPlaced: flagsPlaced ?? this.flagsPlaced,
     );
   }

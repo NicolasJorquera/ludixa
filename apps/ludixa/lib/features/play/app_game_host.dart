@@ -151,6 +151,8 @@ class AppGameHost implements GameHost {
       freeHints: result.freeHintsUsed,
       rewardedHints: result.rewardedHintsUsed,
       rescued: result.rescued,
+      flagsPlaced: result.flagsPlaced,
+      themeIds: result.themeIds.isEmpty ? null : result.themeIds,
     );
     final outcome = await service.recordResult(finished);
     _session = finished;
@@ -165,7 +167,7 @@ class AppGameHost implements GameHost {
         bestBefore: before.bestTime,
         bestAfter: after.bestTime,
         winsAtLevel: ProgressStats.wins(
-          await service.repository.sessions(),
+          await service.repository.sessionSummaries(),
           game: finished.game,
           difficulty: finished.difficulty,
         ),
