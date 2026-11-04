@@ -1,10 +1,12 @@
 /// Progreso del jugador: racha, calendario del reto, logros, maestría y
-/// estadísticas. El almacenamiento es una interfaz: aquí hay una versión en
-/// memoria (pruebas y H4); la de Drift llega en H5-02.
+/// estadísticas. El almacenamiento es una interfaz: hay una versión en
+/// memoria (pruebas y H4) y la base Drift de H5 (esquema en H5-01, el
+/// repositorio que la usa en H5-02).
 ///
 /// Dart puro: no depende de Flutter.
 library;
 
+export 'src/data/drift/database.dart' show ProgressDatabase;
 export 'src/data/in_memory_progress_repository.dart';
 export 'src/domain/achievements.dart';
 export 'src/domain/clock.dart';

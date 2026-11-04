@@ -33,6 +33,14 @@ jobs:
             (cd packages/$game && flutter gen-l10n)
           done
           git diff --exit-code -- 'packages/game_*/lib/l10n' || (echo "::error::Regenera los textos del juego: flutter gen-l10n en su paquete" && exit 1)
+      - name: Base de datos generada al día
+        working-directory: packages/progress
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          dart run drift_dev make-migrations
+          dart format .
+          git diff --exit-code -- . || (echo "::error::Regenera Drift: build_runner build y drift_dev make-migrations en packages/progress (y sube schemaVersion si cambió el esquema)" && exit 1)
+          test -z "$(git status --porcelain -- .)" || (git status --short -- . && echo "::error::Hay archivos generados nuevos sin guardar (¿un volcado del esquema?)" && exit 1)
       - name: Formato
         run: dart format --output=none --set-exit-if-changed .
       - name: Análisis

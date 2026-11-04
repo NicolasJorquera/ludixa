@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # Volcados del esquema y pruebas de migración (make-migrations).
+          databases:
+            progress: lib/src/data/drift/database.dart
+          schema_dir: drift_schemas/
+          test_dir: test/drift/

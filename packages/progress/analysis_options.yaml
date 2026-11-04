@@ -1,3 +1,9 @@
 include:
   - package:lints/recommended.yaml
   - ../../analysis_options.yaml
+
+analyzer:
+  # Código generado por drift_dev (build_runner y make-migrations).
+  exclude:
+    - lib/**/*.g.dart
+    - test/drift/**/generated/**
