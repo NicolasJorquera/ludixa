@@ -26,7 +26,7 @@ Textos, icono y capturas aprobados el 4 de noviembre de 2026. Cada afirmación e
 | Correo de contacto | nicolas.jorqueramartinez@gmail.com (el mismo de la política) |
 | Sitio web | `https://ludixa.web.app` (ahí AdMob busca `app-ads.txt`) |
 | Política de privacidad | `https://ludixa.web.app/privacidad` |
-| Contiene anuncios | Sí |
+| Contiene anuncios | Sí (respuestas de todas las declaraciones en `declaraciones.md`) |
 | Público objetivo | 13 años o más (declararlo igual en Play, H8-03) |
 
 ## Español (es-419 y es-ES)
