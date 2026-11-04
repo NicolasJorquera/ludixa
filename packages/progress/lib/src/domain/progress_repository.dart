@@ -5,6 +5,10 @@ import 'daily_day.dart';
 import 'session_record.dart';
 import 'streak.dart';
 
+/// Un reinicio de estadísticas: de un juego entero ([difficulty] null) o de
+/// uno de sus niveles.
+typedef StatsReset = ({GameId game, Difficulty? difficulty, DateTime at});
+
 /// Lecturas y escrituras dentro de una transacción.
 abstract interface class ProgressStore {
   Future<List<SessionRecord>> sessions();
@@ -33,6 +37,11 @@ abstract interface class ProgressStore {
   /// niveles si se da [difficulty] (null: desde siempre).
   Future<DateTime?> statsResetAt(GameId game, [Difficulty? difficulty]);
   Future<void> putStatsResetAt(GameId game, DateTime at, [Difficulty? difficulty]);
+  Future<List<StatsReset>> statsResets();
+
+  /// Borra todo el progreso: partidas, días del reto, racha, logros y
+  /// reinicios de estadísticas.
+  Future<void> clear();
 }
 
 /// Almacenamiento del progreso. Registrar un resultado es una sola
@@ -40,8 +49,4 @@ abstract interface class ProgressStore {
 abstract interface class ProgressRepository implements ProgressStore {
   /// Ejecuta [action] de forma atómica: si lanza, no queda nada escrito.
   Future<T> transaction<T>(Future<T> Function(ProgressStore store) action);
-
-  /// Borra todo el progreso: partidas, días del reto, racha, logros y
-  /// reinicios de estadísticas.
-  Future<void> clear();
 }

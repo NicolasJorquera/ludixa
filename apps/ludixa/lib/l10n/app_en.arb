@@ -166,5 +166,21 @@
   "adsPromiseRewarded": "Rewarded videos are always optional and always give you what they promise.",
   "adsPromiseAfterVideo": "No other ad ever shows right after a rewarded video.",
   "adsPromiseOffline": "Every game works without internet.",
-  "settingsVersion": "Version"
+  "settingsVersion": "Version",
+  "backupExport": "Export progress",
+  "backupExportHint": "Saves a file with your games, streak and achievements",
+  "backupImport": "Import progress",
+  "backupImportHint": "Replaces your progress with an exported file",
+  "backupExported": "Progress exported",
+  "backupSaveFailed": "The file couldn't be saved. Try another folder.",
+  "backupOpenFailed": "The file couldn't be opened.",
+  "backupImportTitle": "Replace your progress?",
+  "backupImportBody": "The backup from {date} has {sessions, plural, =1{1 game} other{{sessions} games}} ({completed} completed) and a best streak of {best, plural, =1{1 day} other{{best} days}}. It replaces all your current progress; your settings don't change.",
+  "backupImportConfirm": "Replace",
+  "backupImported": "Progress imported",
+  "backupProblemTitle": "Can't import",
+  "backupNotLudixa": "That file isn't a Ludixa backup. Choose the .json file you exported from Settings.",
+  "backupNewerVersion": "That backup is from a newer version of Ludixa. Update the app to import it.",
+  "backupCorrupt": "The backup is damaged or incomplete. Nothing was changed.",
+  "backupProblemOk": "Got it"
 }

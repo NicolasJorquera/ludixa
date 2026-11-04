@@ -685,4 +685,64 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsVersion => 'Versión';
+
+  @override
+  String get backupExport => 'Exportar progreso';
+
+  @override
+  String get backupExportHint => 'Guarda un archivo con tus partidas, racha y logros';
+
+  @override
+  String get backupImport => 'Importar progreso';
+
+  @override
+  String get backupImportHint => 'Reemplaza tu progreso por el de un archivo exportado';
+
+  @override
+  String get backupExported => 'Progreso exportado';
+
+  @override
+  String get backupSaveFailed => 'No se pudo guardar el archivo. Prueba en otra carpeta.';
+
+  @override
+  String get backupOpenFailed => 'No se pudo abrir el archivo.';
+
+  @override
+  String get backupImportTitle => '¿Reemplazar tu progreso?';
+
+  @override
+  String backupImportBody(String date, int sessions, int completed, int best) {
+    String _temp0 = intl.Intl.pluralLogic(sessions, locale: localeName, other: '$sessions partidas', one: '1 partida');
+    String _temp1 = intl.Intl.pluralLogic(
+      completed,
+      locale: localeName,
+      other: '$completed completadas',
+      one: '1 completada',
+    );
+    String _temp2 = intl.Intl.pluralLogic(best, locale: localeName, other: '$best días', one: '1 día');
+    return 'El respaldo del $date tiene $_temp0 ($_temp1) y una racha máxima de $_temp2. Reemplaza todo tu progreso actual; tus ajustes no cambian.';
+  }
+
+  @override
+  String get backupImportConfirm => 'Reemplazar';
+
+  @override
+  String get backupImported => 'Progreso importado';
+
+  @override
+  String get backupProblemTitle => 'No se puede importar';
+
+  @override
+  String get backupNotLudixa =>
+      'Ese archivo no es un respaldo de Ludixa. Elige el archivo .json que exportaste desde Ajustes.';
+
+  @override
+  String get backupNewerVersion =>
+      'Ese respaldo es de una versión más nueva de Ludixa. Actualiza la app para importarlo.';
+
+  @override
+  String get backupCorrupt => 'El respaldo está dañado o incompleto. No se cambió nada.';
+
+  @override
+  String get backupProblemOk => 'Entendido';
 }

@@ -60,3 +60,10 @@ H5 cambia el progreso en memoria por SQLite con Drift (ADR 0006). H5-01 fija el 
   - Las banderas que puso el jugador, aunque después las quite. Las que el motor marca solo al ganar no cuentan.
   - Los ids de los temas de la sopa, también en las partidas libres: antes solo contaban los del reto diario.
 - Un historial sembrado de 100 días comprueba en los dos repositorios que cifras y logros coinciden con un cálculo independiente, y que ningún logro se anuncia dos veces.
+
+## H5-05: exportar, importar y copia automática
+
+- **Formato**: JSON con `format: "ludixa-progress"` y `version: 1`. Incluye las partidas completas (con puzzle y estado, para retomar las que estaban en curso), el calendario, la racha, los logros y los reinicios de estadísticas. No incluye los ajustes ni los contadores de anuncios.
+- **Importar** valida todo el archivo antes de escribir nada y muestra qué trae. Después reemplaza el progreso en una sola transacción: si algo falla, queda el de antes. Un archivo se rechaza con su motivo si no es JSON, si no es de Ludixa, si viene de una versión más nueva o si está dañado.
+- El archivo se guarda y se abre con el selector de archivos del sistema (`file_picker`, MIT).
+- **Copia automática de Android**: no hace falta configuración. `allowBackup` queda activo por defecto e incluye `progress.sqlite` y las preferencias. En las compilaciones de depuración no entra en la cuota de 25 MB, porque Flutter copia ahí sus recursos (unos 97 MB). En release esa carpeta no existe.

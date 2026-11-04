@@ -22,7 +22,9 @@ final class InMemoryProgressRepository implements ProgressRepository {
   _Store get _store => _Store(_state);
 
   @override
-  Future<void> clear() async => _state = _State();
+  Future<void> clear() => _store.clear();
+  @override
+  Future<List<StatsReset>> statsResets() => _store.statsResets();
 
   @override
   Future<List<SessionRecord>> sessions() => _store.sessions();
@@ -118,6 +120,25 @@ final class _Store implements ProgressStore {
   @override
   Future<void> putStatsResetAt(GameId game, DateTime at, [Difficulty? difficulty]) async =>
       _s.statsResetAt[_key(game, difficulty)] = at;
+
+  @override
+  Future<List<StatsReset>> statsResets() async => [
+    for (final MapEntry(:key, :value) in _s.statsResetAt.entries)
+      switch (key.split('/')) {
+        [final game] => (game: GameId(game), difficulty: null, at: value),
+        [final game, final level, ...] => (game: GameId(game), difficulty: Difficulty(level), at: value),
+        _ => throw StateError('Clave de reinicio inválida: $key'),
+      },
+  ];
+
+  @override
+  Future<void> clear() async {
+    _s.sessions.clear();
+    _s.days.clear();
+    _s.streak = StreakState.empty;
+    _s.unlocked.clear();
+    _s.statsResetAt.clear();
+  }
 
   static String _key(GameId game, Difficulty? difficulty) =>
       difficulty == null ? game.value : '${game.value}/${difficulty.value}';

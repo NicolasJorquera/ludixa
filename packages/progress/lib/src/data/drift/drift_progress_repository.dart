@@ -19,8 +19,11 @@ final class DriftProgressRepository implements ProgressRepository {
   @override
   Future<T> transaction<T>(Future<T> Function(ProgressStore store) action) => db.transaction(() => action(this));
 
+  // Dentro de una transacción, Drift la anida (savepoint).
   @override
   Future<void> clear() => db.clearAll();
+  @override
+  Future<List<StatsReset>> statsResets() => db.statsResetsDao.all();
 
   @override
   Future<List<SessionRecord>> sessions() => db.sessionsDao.all();
