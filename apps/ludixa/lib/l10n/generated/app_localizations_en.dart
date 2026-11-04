@@ -670,6 +670,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsAdsContract => 'Our ad promise';
 
   @override
+  String get settingsPrivacyPolicy => 'Privacy policy';
+
+  @override
+  String get linkOpenFailed => 'Couldn\'t open the link';
+
+  @override
   String get adsContractIntro => 'Ludixa is free thanks to ads. These rules don\'t change:';
 
   @override
@@ -1460,6 +1466,12 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsAdsContract => '[Öûŕ áð þŕöɱîšé ·····]';
+
+  @override
+  String get settingsPrivacyPolicy => '[Þŕîṽáçý þöļîçý ······]';
+
+  @override
+  String get linkOpenFailed => '[Çöûļðñ\'ţ öþéñ ţĥé ļîñķ ········]';
 
   @override
   String get adsContractIntro => '[Ļûðîẋá îš ƒŕéé ţĥáñķš ţö áðš. Ţĥéšé ŕûļéš ðöñ\'ţ çĥáñĝé: ··················]';

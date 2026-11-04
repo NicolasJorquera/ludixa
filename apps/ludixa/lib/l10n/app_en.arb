@@ -162,6 +162,8 @@
   "settingsResetAllConfirm": "Delete everything",
   "settingsResetAllDone": "Your progress was deleted",
   "settingsAdsContract": "Our ad promise",
+  "settingsPrivacyPolicy": "Privacy policy",
+  "linkOpenFailed": "Couldn't open the link",
   "adsContractIntro": "Ludixa is free thanks to ads. These rules don't change:",
   "adsPromiseMidGame": "You'll never see an ad in the middle of a game.",
   "adsPromiseOnOpen": "You'll never see an ad when you open the app.",

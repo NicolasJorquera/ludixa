@@ -36,4 +36,4 @@ firebase deploy --only hosting
    - poner la URL de `/privacidad` como política de privacidad de la app;
    - en la ficha, poner `https://ludixa.web.app` como sitio web del desarrollador. AdMob busca `app-ads.txt` en ese dominio.
 2. **AdMob:** en Apps › Configuración de app-ads.txt, verificar el archivo. Puede tardar hasta 24 horas.
-3. **App:** agregar el enlace a la política en Ajustes › Información, con la URL definitiva.
+3. **App:** Ajustes › Información › Política de privacidad abre `https://ludixa.web.app/privacidad` (o `/privacy`). Si el ID del proyecto cambia, actualizar `apps/ludixa/lib/app/links.dart`.
