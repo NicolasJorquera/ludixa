@@ -94,7 +94,7 @@ Medidos con `watchPerformance` mientras la prueba juega:
    El resultado queda en `build/perf.json`. Meta: más del 99 % de frames a tiempo después del primer uso.
 
    La prueba deja partidas libres a medio jugar en la versión dev.
-2. **Arranque en frío:** abrir y cerrar la app 10 veces con `adb shell am start -S -W -n io.github.nicolasjorquera.ludixa.dev/io.github.nicolasjorquera.ludixa.MainActivity` (release) y anotar `TotalTime`. Además, `flutter run --profile --trace-startup` y `timeToFirstFrameRasterizedMicros` en `build/start_up_info.json`.
+2. **Arranque en frío:** abrir y cerrar la app 10 veces con `adb shell am start -S -W -n com.gonisoma.ludixa.dev/io.github.nicolasjorquera.ludixa.MainActivity` (release) y anotar `TotalTime`. Además, `flutter run --profile --trace-startup` y `timeToFirstFrameRasterizedMicros` en `build/start_up_info.json`.
 3. **Descarga:** la cifra de la consola de Play al subir el App Bundle (H8-01). En la prueba interna, el informe previo al lanzamiento (H7-05) y Android vitals agregan arranque y fotogramas de teléfonos reales.
 
 | Fecha | Teléfono | Arranque (mediana) | Frames a tiempo (Buscaminas / Sudoku / Sopa) | Buscaminas Experto p95 | Descarga en Play |

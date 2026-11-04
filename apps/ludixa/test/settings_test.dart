@@ -30,7 +30,7 @@ Future<(InMemorySettingsRepository, InMemoryProgressRepository)> _pumpSettings(
   addTearDown(tester.view.reset);
   PackageInfo.setMockInitialValues(
     appName: 'Ludixa',
-    packageName: 'io.github.nicolasjorquera.ludixa',
+    packageName: 'com.gonisoma.ludixa',
     version: '1.0.0',
     buildNumber: '7',
     buildSignature: '',
