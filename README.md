@@ -129,6 +129,10 @@ bash tool/release.sh --local  # sin esos archivos: solo para revisar el paquete
   flutter symbolize -i <traza.txt> -d build/release/<versión>/simbolos-dart/app.android-arm64.symbols
   ```
 
+## Sitio: política de privacidad y app-ads.txt
+
+`site/` tiene la política de privacidad (es/en) y `app-ads.txt` para Firebase Hosting. Antes de publicar, completar las marcas `[[...]]` (algunas las define Legal/Administración) y seguir `site/README.md`.
+
 ## Documentación de producto
 
 Discovery, PRD, especificación UX, arquitectura y backlog están en las entregas del proyecto. Las decisiones técnicas que afectan al código se registran en `docs/adr/`. Las listas de verificación manual para el teléfono de referencia están en `docs/qa/`.
