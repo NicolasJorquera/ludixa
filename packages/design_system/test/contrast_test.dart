@@ -65,6 +65,13 @@ void main() {
         for (final (name, bg) in [('celda', sudoku.cell), ('zona', sudoku.zone), ('mismo número', sudoku.sameNumber)]) {
           pair('Sudoku: nota sobre $name', sudoku.note, bg, ContrastLevel.text);
         }
+        pair('Sudoku: fijo sobre celda señalada por una pista', sudoku.given, sudoku.hintTarget, ContrastLevel.text);
+        pair(
+          'Sudoku: del jugador sobre celda señalada por una pista',
+          sudoku.entered,
+          sudoku.hintTarget,
+          ContrastLevel.large,
+        );
         pair('Sudoku: conflicto', sudoku.conflictInk, sudoku.conflict, ContrastLevel.large);
         pair('Sudoku: línea gruesa sobre celda', sudoku.thickLine, sudoku.cell, ContrastLevel.large);
 

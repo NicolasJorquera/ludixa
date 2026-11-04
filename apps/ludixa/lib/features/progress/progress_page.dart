@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
@@ -210,6 +212,10 @@ class _LevelTable extends ConsumerWidget {
         if (!selectable.contains(level)) level,
     ];
     final showRate = module.id == GameId.minesweeper;
+    String wonText(DifficultyStats? stats) => showRate && stats?.winRate != null
+        ? l10n.progressWonRate(stats!.won, percent.format(stats.winRate))
+        : '${stats?.won ?? 0}';
+    String timeText(Duration? d) => d == null ? '—' : formatDuration(d);
 
     Widget header(String label, {bool start = false}) => Semantics(
       role: SemanticsRole.columnHeader,
@@ -273,14 +279,7 @@ class _LevelTable extends ConsumerWidget {
             start: true,
           ),
           cell(value(l10n.progressColPlayed, '${stats?.started ?? 0}')),
-          cell(
-            value(
-              l10n.progressColWon,
-              showRate && stats?.winRate != null
-                  ? l10n.progressWonRate(stats!.won, percent.format(stats.winRate))
-                  : '${stats?.won ?? 0}',
-            ),
-          ),
+          cell(value(l10n.progressColWon, wonText(stats))),
           cell(time(l10n.progressColBest, stats?.bestTime)),
           cell(time(l10n.progressColMean, stats?.meanTime)),
         ],
@@ -319,15 +318,9 @@ class _LevelTable extends ConsumerWidget {
       final best = stats?.bestTime, mean = stats?.meanTime;
       final lines = [
         (l10n.progressColPlayed, '${stats?.started ?? 0}', null),
-        (
-          l10n.progressColWon,
-          showRate && stats?.winRate != null
-              ? l10n.progressWonRate(stats!.won, percent.format(stats.winRate))
-              : '${stats?.won ?? 0}',
-          null,
-        ),
-        (l10n.progressColBest, best == null ? '—' : formatDuration(best), best == null ? l10n.progressNoTime : null),
-        (l10n.progressColMean, mean == null ? '—' : formatDuration(mean), mean == null ? l10n.progressNoTime : null),
+        (l10n.progressColWon, wonText(stats), null),
+        (l10n.progressColBest, timeText(best), best == null ? l10n.progressNoTime : null),
+        (l10n.progressColMean, timeText(mean), mean == null ? l10n.progressNoTime : null),
       ];
       final content = Padding(
         padding: const EdgeInsets.all(12),
@@ -365,9 +358,45 @@ class _LevelTable extends ConsumerWidget {
       );
     }
 
-    final scale = MediaQuery.textScalerOf(context).scale(10) / 10;
+    // La tabla solo se muestra si cabe con el idioma y el tamaño de texto
+    // actuales: el nivel y las ganadas ("3 (60 %)") pueden partirse entre
+    // palabras; las otras cifras y los encabezados, no. Si no cabe, se
+    // cortaría por la derecha.
+    final direction = Directionality.of(context);
+    final scaler = MediaQuery.textScalerOf(context);
+    double width(String s, TextStyle? style) {
+      final painter = TextPainter(
+        text: TextSpan(text: s, style: style),
+        textDirection: direction,
+        textScaler: scaler,
+        maxLines: 1,
+      )..layout();
+      final w = painter.width;
+      painter.dispose();
+      return w;
+    }
+
+    double column(String header, Iterable<(String, TextStyle?)> cells) =>
+        [width(header, text.labelLarge), for (final (s, style) in cells) width(s, style)].reduce(math.max) + 12;
+    final tableWidth = [
+      column(l10n.progressColLevel, [
+        for (final level in order) ...[
+          for (final word in module.difficultyLabel(context, level).split(' ')) (word, text.bodyLarge),
+          if ((levels[level]?.started ?? 0) == 0)
+            for (final word in l10n.progressNotPlayed.split(' ')) (word, text.bodySmall),
+        ],
+      ]),
+      column(l10n.progressColPlayed, [for (final level in order) ('${levels[level]?.started ?? 0}', text.bodyMedium)]),
+      column(l10n.progressColWon, [
+        for (final level in order)
+          for (final word in wonText(levels[level]).split(' ')) (word, text.bodyMedium),
+      ]),
+      column(l10n.progressColBest, [for (final level in order) (timeText(levels[level]?.bestTime), text.bodyMedium)]),
+      column(l10n.progressColMean, [for (final level in order) (timeText(levels[level]?.meanTime), text.bodyMedium)]),
+    ].fold(0.0, (a, b) => a + b);
+
     return LayoutBuilder(
-      builder: (context, constraints) => constraints.maxWidth >= 340 * scale
+      builder: (context, constraints) => tableWidth <= constraints.maxWidth
           ? table
           : LudixaCard(
               padding: EdgeInsets.zero,

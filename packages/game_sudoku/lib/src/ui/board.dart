@@ -52,7 +52,7 @@ class SudokuBoard extends StatelessWidget {
             final value = game.valueAt(i);
             final error = errors.contains(i);
             final background = hintPattern.contains(i)
-                ? Color.lerp(palette.hintSoft, palette.ink, 0.14)!
+                ? colors.hintTarget
                 : hintZone.contains(i)
                 ? palette.hintSoft
                 : controller.selected == i

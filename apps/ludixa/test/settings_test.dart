@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:design_system/testing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -237,7 +237,7 @@ void main() {
     expect(find.text('Type DELETE to confirm'), findsOneWidget);
   });
 
-  group('goldens', skip: Platform.isMacOS ? null : 'goldens solo en macOS', () {
+  group('goldens', skip: goldensSkip, () {
     testWidgets('ajustes', (tester) async {
       await _pumpSettings(tester);
       await expectLater(find.byType(SettingsPage), matchesGoldenFile('goldens/settings.png'));
