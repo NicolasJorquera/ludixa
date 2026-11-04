@@ -70,3 +70,12 @@ El PRD fija cuándo puede aparecer un intersticial, y la arquitectura pide aplic
 - **Rescate del Buscaminas**: el botón "Deshacer el último toque con un video" ya dice qué pasa, así que el host va directo al video. Si no hay video para ofrecer, el botón **no aparece** (`GameHost.rewardedAvailable`, nuevo en el contrato) y quedan las dos opciones gratuitas, como pide la ficha de la derrota. Una vez por partida, como ya hacía el motor.
 - Al retomar una partida, las pistas gratis y de video ya usadas no vuelven: se guardan en la partida en curso.
 - Todo video que se llega a mostrar marca el puzzle: al salir de su Resultado no hay intersticial (H6-03).
+
+## H6-07: QA de anuncios
+
+Matriz con evidencia en `docs/qa/anuncios.md`. Dejó dos correcciones y una opción de QA:
+
+- **Reintento de carga**: si un intersticial o un video no carga (sin red o sin inventario), `AdMobAdService` lo reintenta a los 30 s y duplica la espera hasta 5 min; una carga correcta la reinicia. Preguntar si hay video (`rewardedReady`) también empieza a cargar uno. Antes, abrir la app sin red dejaba la sesión entera sin videos ni intersticiales.
+- **Vertical en teléfonos**: `bootstrap` fija la orientación vertical si el lado corto de la pantalla mide menos de 600 dp, como pide la ficha UX; en tablets queda libre.
+- **Sin inventario**: `--dart-define=ADS_NO_FILL=true`, solo en dev, usa bloques inexistentes para que cada carga falle.
+- **Pendiente**: con anuncios de prueba, Google confirma la recompensa apenas empieza el video, así que "cerrar antes de terminar" se repite con anuncios reales en la prueba cerrada.

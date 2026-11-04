@@ -258,6 +258,11 @@ void main() {
       expect(adUnitsFor(AppEnvironment.dev, production: real), AdUnits.test);
     });
 
+    test('la QA de "sin inventario" solo existe en dev', () {
+      expect(adUnitsFor(AppEnvironment.dev, noFill: true), isNot(AdUnits.test));
+      expect(adUnitsFor(AppEnvironment.prod, production: real, noFill: true), real);
+    });
+
     test('prod usa los suyos; sin ellos queda sin anuncios, nunca con los de prueba', () {
       expect(adUnitsFor(AppEnvironment.prod, production: real), real);
       expect(
