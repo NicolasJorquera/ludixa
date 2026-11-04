@@ -20,14 +20,26 @@ import 'features/settings/data/settings_repository.dart';
 /// correctos se vean desde el inicio.
 Future<void> bootstrap(AppEnvironment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await lockPhonesToPortrait();
   registerDesignSystemLicenses();
-  final settingsRepository = await SharedPreferencesSettingsRepository.create();
-  final sudokuSettings = await PrefsSudokuSettingsStore.create();
-  final minesweeperSettings = await PrefsMinesweeperSettingsStore.create();
-  final wordSearchSettings = await PrefsWordSearchSettingsStore.create();
-  final lastDifficulty = await PrefsLastDifficultyStore.create();
-  final adPolicyStore = await PrefsAdPolicyStore.create();
+  // En paralelo: cada lectura de preferencias va y vuelve del lado nativo, y
+  // en serie sumaban tiempo al arranque en frío (H7-03).
+  final (
+    _,
+    settingsRepository,
+    sudokuSettings,
+    minesweeperSettings,
+    wordSearchSettings,
+    lastDifficulty,
+    adPolicyStore,
+  ) = await (
+    lockPhonesToPortrait(),
+    SharedPreferencesSettingsRepository.create(),
+    PrefsSudokuSettingsStore.create(),
+    PrefsMinesweeperSettingsStore.create(),
+    PrefsWordSearchSettingsStore.create(),
+    PrefsLastDifficultyStore.create(),
+    PrefsAdPolicyStore.create(),
+  ).wait;
   // Archivo SQLite en el almacenamiento de la app; drift_flutter lo abre en
   // otro isolate para no frenar la interfaz.
   final progress = DriftProgressRepository(ProgressDatabase(driftDatabase(name: 'progress')));
