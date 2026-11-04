@@ -180,8 +180,10 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
     final modules = ref.read(gameModulesProvider);
     final service = ref.read(progressServiceProvider);
     GameModule? nextDaily;
-    final day = widget.request.day;
-    if (widget.request.mode == PuzzleMode.daily && day != null) {
+    // El siguiente reto es siempre el de hoy: si la partida cruzó la
+    // medianoche, el de ayer ya solo se juega desde el archivo.
+    final day = service.clock.now().day;
+    if (widget.request.mode == PuzzleMode.daily) {
       final done = (await service.repository.day(day))?.completed ?? const <GameId>{};
       nextDaily = [
         for (final g in dailyGames)
@@ -202,7 +204,7 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
           },
           onPlayAgain: () =>
               GameFlow.play(context, _module, GameFlow.freeRequest(widget.request.difficulty), replace: true),
-          onNextDaily: nextDaily == null || day == null
+          onNextDaily: nextDaily == null
               ? null
               : () => GameFlow.play(context, nextDaily!, GameFlow.dailyRequest(nextDaily, day), replace: true),
         ),

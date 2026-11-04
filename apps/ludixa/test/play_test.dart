@@ -390,6 +390,33 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.textContaining('Empieza aquí'), findsOneWidget);
   });
+
+  testWidgets('medianoche: el reto empezado ayer cuenta para ayer y "Siguiente reto" abre el de hoy', (tester) async {
+    final clock = _FakeClock(LocalNow(utc: DateTime.utc(2026, 11, 4, 2, 59), offsetMinutes: -180)); // 3/11 23:59
+    await pumpLudixa(tester, overrides: [clockProvider.overrideWithValue(clock)]);
+    final context = tester.element(find.byType(Scaffold).first);
+    final container = ProviderScope.containerOf(context);
+    final module = container.read(gameModulesProvider)[GameId.sudoku]!;
+    unawaited(GameFlow.play(context, module, GameFlow.dailyRequest(module, LocalDay(2026, 11, 3))));
+    await tester.pumpAndSettle();
+    clock.current = LocalNow(utc: DateTime.utc(2026, 11, 4, 3, 1), offsetMinutes: -180); // 4/11 00:01
+    final c = tester.widget<SudokuGamePage>(find.byType(SudokuGamePage)).controller;
+    for (var i = 0; i < 81; i++) {
+      if (!c.game.isGiven(i) && c.game.valueAt(i) == 0) {
+        c.tapCell(i);
+        c.tapDigit(c.game.puzzle.solution[i]);
+      }
+    }
+    await tester.pumpAndSettle();
+    expect(find.text('Reto: 1 de 3 · racha 0 → 1'), findsOneWidget);
+    final day = await container.read(progressServiceProvider).repository.day(LocalDay(2026, 11, 3));
+    expect(day!.completed, {GameId.sudoku});
+    await tester.tap(find.text('Siguiente reto'));
+    await tester.pumpAndSettle();
+    final next = tester.widget<GameSessionPage>(find.byType(GameSessionPage));
+    expect(next.request.day, LocalDay(2026, 11, 4));
+    expect(next.module.id, GameId.sudoku); // hoy no se jugó ninguno: empieza por el Sudoku
+  });
 }
 
 class _Host implements GameHost {
