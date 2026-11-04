@@ -23,6 +23,7 @@ dependencies:
   go_router: ^17.5.0
   intl: any
   daily_challenge:
+  monetization:
   puzzle_core:
   shared_preferences: ^2.5.6
   package_info_plus: ^10.2.2

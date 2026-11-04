@@ -1189,6 +1189,18 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Entendido'**
   String get backupProblemOk;
+
+  /// Fila de Ajustes y botón del contrato: abre el formulario de consentimiento de anuncios (UMP).
+  ///
+  /// In es, this message translates to:
+  /// **'Opciones de privacidad'**
+  String get settingsPrivacyOptions;
+
+  /// Subtítulo de la fila.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambia tu elección sobre los anuncios'**
+  String get settingsPrivacyOptionsHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

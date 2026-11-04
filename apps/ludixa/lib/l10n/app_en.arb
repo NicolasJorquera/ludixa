@@ -182,5 +182,7 @@
   "backupNotLudixa": "That file isn't a Ludixa backup. Choose the .json file you exported from Settings.",
   "backupNewerVersion": "That backup is from a newer version of Ludixa. Update the app to import it.",
   "backupCorrupt": "The backup is damaged or incomplete. Nothing was changed.",
-  "backupProblemOk": "Got it"
+  "backupProblemOk": "Got it",
+  "settingsPrivacyOptions": "Privacy options",
+  "settingsPrivacyOptionsHint": "Change your ad choices"
 }

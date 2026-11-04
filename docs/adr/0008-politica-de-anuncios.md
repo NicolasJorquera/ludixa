@@ -31,3 +31,13 @@ El PRD fija cuándo puede aparecer un intersticial, y la arquitectura pide aplic
 
 - Con 3 a 5 puzzles de varios minutos al día, salen de 1 a 2 intersticiales, dentro del rango del escenario base del PRD. Una prueba lo comprueba con un día típico.
 - La app llamará a `appOpened`, `puzzleStarted`, `addActivePlay`, `puzzleCompleted` y `rewardedShown` desde el host de la partida, y a `decide` e `interstitialShown` al salir del Resultado (H6-03). Guardará el estado en las preferencias después de cada cambio.
+
+## H6-02: consentimiento con UMP
+
+- `monetization` pasa a ser un paquete Flutter con `google_mobile_ads` (Apache 2.0; UMP 4.0 incluido). `AdPolicy` sigue sin importar Flutter.
+- **`ConsentService`** (implementación `UmpConsentService`): en cada arranque se pide la información de consentimiento y, si corresponde, el formulario se muestra **encima de la app ya visible**: la app no espera a UMP.
+- **`AdsStartup`**: inicia el SDK de anuncios **solo si `canRequestAds()`**. Sin consentimiento resuelto no se inicializa ni se pide nada. Si UMP falla (sin red), la app sigue sin anuncios.
+- **Opciones de privacidad** en Ajustes › Datos y privacidad y en el contrato de anuncios, solo cuando UMP dice que hacen falta (`PrivacyOptionsRequirementStatus.required`).
+- **ID de aplicación de AdMob por entorno**: dev usa el de prueba público de Google. Prod lo lee de `android/admob.properties` (`appId=...`), que no se sube al repositorio. Sin ese archivo, prod usa el de prueba con un aviso de compilación, como la firma.
+- **Probar el formulario del EEE en desarrollo**: `--dart-define=UMP_DEBUG_EEA=true`. El emulador entra como dispositivo de prueba. En un teléfono hace falta además `--dart-define=UMP_TEST_DEVICE=<hash>`, que UMP escribe en logcat. En producción estas opciones se ignoran.
+- **Tamaño**: el APK release de arm64 pasa de 22,9 MB a 25,5 MB con el SDK de anuncios (+2,6 MB). El PRD pide una descarga de menos de 25 MB. Play calcula la descarga desde el App Bundle con su propia compresión, así que la cifra que cuenta es la de la consola de Play. Hay que revisarla antes del lanzamiento.

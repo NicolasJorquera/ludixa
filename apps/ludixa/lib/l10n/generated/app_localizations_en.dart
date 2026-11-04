@@ -731,6 +731,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backupProblemOk => 'Got it';
+
+  @override
+  String get settingsPrivacyOptions => 'Privacy options';
+
+  @override
+  String get settingsPrivacyOptionsHint => 'Change your ad choices';
 }
 
 /// The translations for English (`en_XA`).
@@ -1465,4 +1471,10 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get backupProblemOk => '[Ĝöţ îţ ··]';
+
+  @override
+  String get settingsPrivacyOptions => '[Þŕîṽáçý öþţîöñš ······]';
+
+  @override
+  String get settingsPrivacyOptionsHint => '[Çĥáñĝé ýöûŕ áð çĥöîçéš ········]';
 }

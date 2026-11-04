@@ -989,5 +989,13 @@
   "backupProblemOk": "Entendido",
   "@backupProblemOk": {
     "description": "Cierra el aviso de error."
+  },
+  "settingsPrivacyOptions": "Opciones de privacidad",
+  "@settingsPrivacyOptions": {
+    "description": "Fila de Ajustes y botón del contrato: abre el formulario de consentimiento de anuncios (UMP)."
+  },
+  "settingsPrivacyOptionsHint": "Cambia tu elección sobre los anuncios",
+  "@settingsPrivacyOptionsHint": {
+    "description": "Subtítulo de la fila."
   }
 }

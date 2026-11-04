@@ -6,6 +6,7 @@ import 'package:game_minesweeper/game_minesweeper.dart';
 import 'package:game_sudoku/game_sudoku.dart';
 import 'package:game_wordsearch/game_wordsearch.dart';
 
+import '../features/ads/ads_providers.dart';
 import '../features/settings/application/settings_controller.dart';
 import '../features/settings/domain/app_settings.dart';
 import '../l10n/generated/app_localizations.dart';
@@ -22,6 +23,8 @@ class LudixaApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final environment = ref.watch(environmentProvider);
     final settings = ref.watch(settingsProvider);
+    // Consentimiento y anuncios en segundo plano, en cada arranque.
+    ref.listen(adsReadyProvider, (_, _) {});
     final supported = supportedLocalesFor(environment);
     final variant = settings.colorblindPalette ? PaletteVariant.colorblind : PaletteVariant.standard;
 
