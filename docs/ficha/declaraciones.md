@@ -103,7 +103,7 @@ Deben coincidir con los propósitos de "Dispositivo u otros ID" en la sección d
 | Formulario | Respuesta |
 |---|---|
 | Acceso a la app | Toda la funcionalidad está disponible sin acceso especial: no hay inicio de sesión |
-| Política de privacidad | `https://ludixa.web.app/privacidad` (publicar antes, ver `site/README.md`) |
+| Política de privacidad | `https://ludixa-app.web.app/privacidad` (publicar antes, ver `site/README.md`) |
 | Eliminación de cuentas | No aplica: la app no permite crear cuentas |
 | App de noticias | No |
 | App gubernamental | No |

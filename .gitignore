@@ -22,3 +22,4 @@ admob_prod.json
 
 # Firebase Hosting: caché local del despliegue
 site/.firebase/
+**/firebase-debug.log

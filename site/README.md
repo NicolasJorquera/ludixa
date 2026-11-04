@@ -1,13 +1,13 @@
 # Sitio de Ludixa (P-04)
 
-Política de privacidad en español e inglés y `app-ads.txt`, para Firebase Hosting (plan gratuito Spark). Si el proyecto de Firebase no puede llamarse `ludixa` (los ID son únicos), cambiar las URL de este archivo y de `docs/ficha/ficha.md`.
+Política de privacidad en español e inglés y `app-ads.txt`, para Firebase Hosting (plan gratuito Spark). Proyecto de Firebase: `ludixa-app` (`ludixa` ya estaba tomado), configurado en `.firebaserc`.
 
 | Página | URL publicada |
 |---|---|
-| `public/index.html` | `https://ludixa.web.app/` |
-| `public/privacidad.html` | `https://ludixa.web.app/privacidad` |
-| `public/privacy.html` | `https://ludixa.web.app/privacy` |
-| `public/app-ads.txt` | `https://ludixa.web.app/app-ads.txt` |
+| `public/index.html` | `https://ludixa-app.web.app/` |
+| `public/privacidad.html` | `https://ludixa-app.web.app/privacidad` |
+| `public/privacy.html` | `https://ludixa-app.web.app/privacy` |
+| `public/app-ads.txt` | `https://ludixa-app.web.app/app-ads.txt` |
 
 ## Contenido
 
@@ -26,7 +26,6 @@ Si la app cambia lo que hace con los datos, hay que actualizar la política **an
 npm install -g firebase-tools
 firebase login
 cd site
-firebase use --add                  # elegir el proyecto de Firebase (ID previsto: ludixa)
 firebase deploy --only hosting
 ```
 
@@ -34,6 +33,6 @@ firebase deploy --only hosting
 
 1. **Play Console:**
    - poner la URL de `/privacidad` como política de privacidad de la app;
-   - en la ficha, poner `https://ludixa.web.app` como sitio web del desarrollador. AdMob busca `app-ads.txt` en ese dominio.
+   - en la ficha, poner `https://ludixa-app.web.app` como sitio web del desarrollador. AdMob busca `app-ads.txt` en ese dominio.
 2. **AdMob:** en Apps › Configuración de app-ads.txt, verificar el archivo. Puede tardar hasta 24 horas.
-3. **App:** Ajustes › Información › Política de privacidad abre `https://ludixa.web.app/privacidad` (o `/privacy`). Si el ID del proyecto cambia, actualizar `apps/ludixa/lib/app/links.dart`.
+3. **App:** Ajustes › Información › Política de privacidad abre `https://ludixa-app.web.app/privacidad` (o `/privacy`). Si el ID del proyecto cambia, actualizar `apps/ludixa/lib/app/links.dart`.

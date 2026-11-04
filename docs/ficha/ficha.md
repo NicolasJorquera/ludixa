@@ -24,8 +24,8 @@ Textos, icono y capturas aprobados el 4 de noviembre de 2026. Cada afirmación e
 | Etiquetas sugeridas | Sudoku, Buscaminas, Sopa de letras, Lógica, Puzles, Sin conexión |
 | Desarrollador | Gonisoma |
 | Correo de contacto | nicolas.jorqueramartinez@gmail.com (el mismo de la política) |
-| Sitio web | `https://ludixa.web.app` (ahí AdMob busca `app-ads.txt`) |
-| Política de privacidad | `https://ludixa.web.app/privacidad` |
+| Sitio web | `https://ludixa-app.web.app` (ahí AdMob busca `app-ads.txt`) |
+| Política de privacidad | `https://ludixa-app.web.app/privacidad` |
 | Contiene anuncios | Sí (respuestas de todas las declaraciones en `declaraciones.md`) |
 | Público objetivo | 13 años o más (declararlo igual en Play, H8-03) |
 
@@ -124,5 +124,4 @@ Play no tiene un campo de palabras clave: las toma del título y de las descripc
 ## Pendiente
 
 - Nombre (P-03): antes de crear la ficha, buscar "Ludixa" en Google Play y en los registros de marcas (INAPI en Chile, EUIPO, USPTO) para descartar conflictos evidentes.
-- Si el proyecto de Firebase no puede llamarse `ludixa` (los ID son únicos), cambiar las URL de esta tabla.
 - Si se agrega analítica (H6-05) o cambia la política de anuncios, actualizar la descripción.

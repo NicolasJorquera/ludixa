@@ -237,8 +237,8 @@ void main() {
   });
 
   for (final (locale, row, url) in [
-    (const Locale('es'), 'Política de privacidad', 'https://ludixa.web.app/privacidad'),
-    (const Locale('en'), 'Privacy policy', 'https://ludixa.web.app/privacy'),
+    (const Locale('es'), 'Política de privacidad', 'https://ludixa-app.web.app/privacidad'),
+    (const Locale('en'), 'Privacy policy', 'https://ludixa-app.web.app/privacy'),
   ]) {
     testWidgets('la política de privacidad se abre en el navegador · ${locale.languageCode}', (tester) async {
       final opened = <Uri>[];
