@@ -135,7 +135,7 @@ bash tool/release.sh --local  # sin esos archivos: solo para revisar el paquete
 
 ## Sitio: política de privacidad y app-ads.txt
 
-`site/` tiene la política de privacidad (es/en) y `app-ads.txt` para Firebase Hosting, en `https://ludixa.web.app`. Para publicarlo, seguir `site/README.md`.
+`site/` tiene la política de privacidad (es/en) y `app-ads.txt` para Firebase Hosting, en `https://ludixa-app.web.app`. Para publicarlo, seguir `site/README.md`.
 
 ## Documentación de producto
 
