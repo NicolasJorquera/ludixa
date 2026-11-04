@@ -5,6 +5,7 @@ import 'package:progress/progress.dart';
 import 'package:puzzle_core/puzzle_core.dart';
 
 import '../../l10n/generated/app_localizations.dart';
+import '../ads/ad_banner.dart';
 import 'app_game_host.dart';
 
 /// Resultado de una partida ganada: sello, métricas, maestría (o el bloque
@@ -168,6 +169,7 @@ class _ResultPageState extends State<ResultPage> {
               LudixaButton(label: l10n.resultPlayAgain(widget.levelLabel), onPressed: widget.onPlayAgain),
             const SizedBox(height: 8),
             LudixaButton(label: l10n.resultHome, onPressed: widget.onHome, variant: LudixaButtonVariant.secondary),
+            const AdBanner(),
           ],
         ),
       ),

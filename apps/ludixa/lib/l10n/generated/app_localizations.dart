@@ -1201,6 +1201,24 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Cambia tu elección sobre los anuncios'**
   String get settingsPrivacyOptionsHint;
+
+  /// Rótulo sobre el banner.
+  ///
+  /// In es, this message translates to:
+  /// **'Anuncio'**
+  String get adLabel;
+
+  /// Fila de desarrollo en Ajustes.
+  ///
+  /// In es, this message translates to:
+  /// **'Probar video con recompensa (desarrollo)'**
+  String get devRewardedTest;
+
+  /// Resultado del video de prueba.
+  ///
+  /// In es, this message translates to:
+  /// **'Video: {outcome}'**
+  String devRewardedResult(String outcome);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

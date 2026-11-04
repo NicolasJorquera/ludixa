@@ -8,6 +8,7 @@ import 'package:puzzle_core/puzzle_core.dart';
 
 import '../../app/router.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../ads/ad_banner.dart';
 import '../play/game_session_page.dart';
 import '../play/play_providers.dart';
 import 'home_data.dart';
@@ -71,6 +72,7 @@ class _HomeContent extends ConsumerWidget {
         _Catalog(data: data, modules: modules),
         LudixaSectionLabel(l10n.homeWeek, padding: const EdgeInsetsDirectional.fromSTEB(4, 24, 4, 8)),
         _WeekCard(week: data.week, modules: modules),
+        const AdBanner(),
       ],
     );
   }

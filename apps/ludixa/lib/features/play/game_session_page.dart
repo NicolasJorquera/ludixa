@@ -10,6 +10,7 @@ import 'package:progress/progress.dart';
 import 'package:puzzle_core/puzzle_core.dart';
 
 import '../../app/router.dart';
+import '../ads/ads_controller.dart';
 import 'app_game_host.dart';
 import 'difficulty_sheet.dart';
 import 'last_difficulty.dart';
@@ -132,9 +133,12 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
     final request = widget.request;
     final day = request.day;
     final revision = ref.read(progressRevisionProvider.notifier);
+    final ads = ref.read(adsControllerProvider)..puzzleStarted();
     _host = AppGameHost(
       service: service,
       onChanged: revision.bump,
+      onPlayed: ads.played,
+      onCompleted: ads.puzzleCompleted,
       session:
           widget.session ??
           SessionRecord(
@@ -161,6 +165,7 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
   void dispose() {
     // Al salir de la partida (Guardar y salir, atrás) se escribe lo pendiente.
     unawaited(_host.flush());
+    _host.close();
     _lifecycle.dispose();
     super.dispose();
   }
@@ -198,18 +203,30 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
           module: _module,
           finished: finished,
           levelLabel: level,
-          onHome: () {
+          // El intersticial solo puede aparecer aquí: al salir del Resultado
+          // (ficha UX), si la política lo permite y ya está cargado.
+          onHome: () => _leaveResult(context, () {
             Navigator.of(context).popUntil((r) => r.isFirst);
             GoRouter.of(context).go(AppRoutes.home);
-          },
-          onPlayAgain: () =>
-              GameFlow.play(context, _module, GameFlow.freeRequest(widget.request.difficulty), replace: true),
+          }),
+          onPlayAgain: () => _leaveResult(
+            context,
+            () => GameFlow.play(context, _module, GameFlow.freeRequest(widget.request.difficulty), replace: true),
+          ),
           onNextDaily: nextDaily == null
               ? null
-              : () => GameFlow.play(context, nextDaily!, GameFlow.dailyRequest(nextDaily, day), replace: true),
+              : () => _leaveResult(
+                  context,
+                  () => GameFlow.play(context, nextDaily!, GameFlow.dailyRequest(nextDaily, day), replace: true),
+                ),
         ),
       ),
     );
+  }
+
+  Future<void> _leaveResult(BuildContext context, VoidCallback go) async {
+    await ProviderScope.containerOf(context, listen: false).read(adsControllerProvider).atResultExit();
+    if (context.mounted) go();
   }
 
   @override

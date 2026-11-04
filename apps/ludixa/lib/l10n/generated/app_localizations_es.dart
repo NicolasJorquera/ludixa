@@ -751,4 +751,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get settingsPrivacyOptionsHint => 'Cambia tu elección sobre los anuncios';
+
+  @override
+  String get adLabel => 'Anuncio';
+
+  @override
+  String get devRewardedTest => 'Probar video con recompensa (desarrollo)';
+
+  @override
+  String devRewardedResult(String outcome) {
+    return 'Video: $outcome';
+  }
 }

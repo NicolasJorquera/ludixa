@@ -997,5 +997,22 @@
   "settingsPrivacyOptionsHint": "Cambia tu elección sobre los anuncios",
   "@settingsPrivacyOptionsHint": {
     "description": "Subtítulo de la fila."
+  },
+  "adLabel": "Anuncio",
+  "@adLabel": {
+    "description": "Rótulo sobre el banner."
+  },
+  "devRewardedTest": "Probar video con recompensa (desarrollo)",
+  "@devRewardedTest": {
+    "description": "Fila de desarrollo en Ajustes."
+  },
+  "devRewardedResult": "Video: {outcome}",
+  "@devRewardedResult": {
+    "description": "Resultado del video de prueba.",
+    "placeholders": {
+      "outcome": {
+        "type": "String"
+      }
+    }
   }
 }

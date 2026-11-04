@@ -52,9 +52,13 @@ class AppGameHost implements GameHost {
     required this.onWon,
     required this.onPlayAgain,
     this.onChanged,
+    this.onPlayed,
+    this.onCompleted,
     this.freeHintsPerPuzzle = 3,
     this.saveDelay = const Duration(milliseconds: 300),
   }) : _session = session,
+       _lastElapsed = session.elapsed,
+       _countedPlay = session.elapsed,
        // Al retomar, las pistas gratis ya usadas no vuelven.
        _free = math.max(0, freeHintsPerPuzzle - session.freeHints);
 
@@ -65,6 +69,16 @@ class AppGameHost implements GameHost {
 
   /// Después de guardar o registrar algo en el progreso.
   final void Function()? onChanged;
+
+  /// Tiempo jugado desde el último aviso (para la política de anuncios):
+  /// al terminar y al cerrar la partida, también si se abandona.
+  final void Function(Duration played)? onPlayed;
+
+  /// Puzzle ganado, con su tiempo.
+  final void Function(Duration elapsed)? onCompleted;
+
+  Duration _lastElapsed;
+  Duration _countedPlay;
   final int freeHintsPerPuzzle;
   final Duration saveDelay;
 
@@ -95,6 +109,7 @@ class AppGameHost implements GameHost {
   @override
   Future<void> saveSnapshot(SessionSnapshot snapshot) {
     if (_reported) return _writes;
+    _lastElapsed = snapshot.elapsed;
     _pending = snapshot;
     if (_background) return flush();
     _saveTimer ??= Timer(saveDelay, () => unawaited(flush()));
@@ -109,6 +124,17 @@ class AppGameHost implements GameHost {
   }
 
   void enterForeground() => _background = false;
+
+  /// Al cerrar la partida sin terminarla: avisa el tiempo jugado.
+  void close() {
+    if (!_reported) _settlePlay(_lastElapsed);
+  }
+
+  void _settlePlay(Duration elapsed) {
+    final played = elapsed - _countedPlay;
+    _countedPlay = elapsed;
+    if (played > Duration.zero) onPlayed?.call(played);
+  }
 
   /// Escribe la última instantánea pendiente, si hay. Se espera junto con
   /// las anteriores, en orden.
@@ -137,6 +163,8 @@ class AppGameHost implements GameHost {
     _reported = true;
     _saveTimer?.cancel();
     _pending = null;
+    _settlePlay(result.elapsed);
+    if (result.outcome == GameOutcome.won) onCompleted?.call(result.elapsed);
     await _writes;
     final before = await service.stats(_session.game, _session.difficulty);
     final streakBefore = (await service.streakStatus()).current;

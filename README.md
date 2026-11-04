@@ -103,7 +103,7 @@ En desarrollo, AdMob usa los identificadores de prueba de Google. Para ver el fo
 flutter run --flavor dev -t lib/main_dev.dart --dart-define=UMP_DEBUG_EEA=true
 ```
 
-En un teléfono físico se suma `--dart-define=UMP_TEST_DEVICE=<hash>`, con el hash que UMP escribe en logcat. El ID de AdMob de producción va en `apps/ludixa/android/admob.properties` (`appId=ca-app-pub-...~...`), que no se sube al repositorio. Ver ADR 0008.
+Para ver el intersticial sin jugar varios puzzles largos, en dev se suma `--dart-define=ADS_QA=true` (sigue sin haber anuncios en la primera sesión). En un teléfono físico se suma `--dart-define=UMP_TEST_DEVICE=<hash>`, con el hash que UMP escribe en logcat. El ID de AdMob de producción va en `apps/ludixa/android/admob.properties` (`appId=ca-app-pub-...~...`), que no se sube al repositorio. Los bloques de producción se pasan con `--dart-define-from-file=admob_prod.json` (`ADMOB_BANNER`, `ADMOB_INTERSTITIAL`, `ADMOB_REWARDED`); sin ellos, prod no muestra anuncios. Ver ADR 0008.
 
 ## Bancos de palabras
 

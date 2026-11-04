@@ -9,6 +9,7 @@ import 'package:progress/progress.dart';
 
 import '../../app/router.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../ads/ad_banner.dart';
 import '../play/play_providers.dart';
 import 'challenge_rows.dart';
 import 'daily_data.dart';
@@ -108,6 +109,7 @@ class _DailyPageState extends ConsumerState<DailyPage> {
             onPressed: () => context.go(AppRoutes.archive),
             variant: LudixaButtonVariant.secondary,
           ),
+          const AdBanner(),
         ],
       ),
     );

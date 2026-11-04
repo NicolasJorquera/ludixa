@@ -184,5 +184,8 @@
   "backupCorrupt": "[Ţĥé ƀáçķûþ îš ðáɱáĝéð öŕ îñçöɱþļéţé. Ñöţĥîñĝ ŵáš çĥáñĝéð. ···················]",
   "backupProblemOk": "[Ĝöţ îţ ··]",
   "settingsPrivacyOptions": "[Þŕîṽáçý öþţîöñš ······]",
-  "settingsPrivacyOptionsHint": "[Çĥáñĝé ýöûŕ áð çĥöîçéš ········]"
+  "settingsPrivacyOptionsHint": "[Çĥáñĝé ýöûŕ áð çĥöîçéš ········]",
+  "adLabel": "[Åð ·]",
+  "devRewardedTest": "[Ţéšţ ŕéŵáŕðéð ṽîðéö (ðéṽéļöþɱéñţ) ············]",
+  "devRewardedResult": "[Ṽîðéö: {outcome} ··]"
 }

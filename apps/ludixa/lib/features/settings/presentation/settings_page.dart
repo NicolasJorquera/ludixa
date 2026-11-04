@@ -9,6 +9,7 @@ import '../../../app/environment.dart';
 import '../../../app/locales.dart';
 import '../../../app/router.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../ads/ads_controller.dart';
 import '../../ads/ads_providers.dart';
 import '../../play/play_providers.dart';
 import '../application/settings_controller.dart';
@@ -152,6 +153,15 @@ class SettingsPage extends ConsumerWidget {
             LudixaListRow(title: l10n.settingsComponentCatalog, onTap: () => context.go(AppRoutes.catalog)),
           if (!environment.isProduction)
             LudixaListRow(title: l10n.settingsDevGames, onTap: () => context.go(AppRoutes.devGames)),
+          if (!environment.isProduction)
+            LudixaListRow(
+              title: l10n.devRewardedTest,
+              onTap: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                final outcome = await ref.read(adsControllerProvider).showRewarded();
+                messenger.showSnackBar(SnackBar(content: Text(l10n.devRewardedResult(outcome.name))));
+              },
+            ),
         ],
       ),
     );
