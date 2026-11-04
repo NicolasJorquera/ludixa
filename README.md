@@ -48,6 +48,12 @@ bash tool/goldens.sh --update   # regenera tras un cambio visual buscado (revisa
 
 La matriz de `apps/ludixa/test/golden_matrix_test.dart` cubre cada pantalla en claro/oscuro y es/en/pseudo. Ver ADR 0009.
 
+Rendimiento en un dispositivo (desde `apps/ludixa`, modo profile): fotogramas de las grillas y tiempos de generación en `build/perf.json`. Ver `docs/qa/rendimiento.md`.
+
+```bash
+flutter drive --profile --no-dds --flavor dev -t integration_test/perf_test.dart --driver test_driver/perf_driver.dart -d <dispositivo>
+```
+
 Idiomas (desde `apps/ludixa`). Los textos viven en `lib/l10n/app_es.arb` (plantilla, con descripciones) y `app_en.arb`. Tras editarlos:
 
 ```bash
