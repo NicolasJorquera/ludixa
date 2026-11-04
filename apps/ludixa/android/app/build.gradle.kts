@@ -88,6 +88,11 @@ android {
                 logger.warn("key.properties no encontrado: la versión release se firma con la clave de depuración.")
                 signingConfigs.getByName("debug")
             }
+            // Tabla de símbolos de las librerías nativas dentro del App Bundle:
+            // Play la usa para leer los fallos nativos en Android vitals (H8-01).
+            ndk {
+                debugSymbolLevel = "SYMBOL_TABLE"
+            }
         }
     }
 }
