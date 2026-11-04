@@ -234,11 +234,15 @@ class _LevelTable extends ConsumerWidget {
       final played = stats != null && stats.started > 0;
       final name = module.difficultyLabel(context, level);
       Widget cell(Widget child, {bool start = false}) {
-        final padded = Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
-          child: Align(
-            alignment: start ? AlignmentDirectional.centerStart : AlignmentDirectional.centerEnd,
-            child: child,
+        // 48 dp de alto como mínimo: la fila se mantiene pulsada para reiniciar.
+        final padded = ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 48),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+            child: Align(
+              alignment: start ? AlignmentDirectional.centerStart : AlignmentDirectional.centerEnd,
+              child: child,
+            ),
           ),
         );
         if (!played) return padded;

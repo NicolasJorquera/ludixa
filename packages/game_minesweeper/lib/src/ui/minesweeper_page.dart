@@ -361,6 +361,7 @@ class _Controls extends StatelessWidget {
     final p = Theme.of(context).extension<LudixaColors>()!.palette;
     final active = !c.paused && !c.game.isOver && !c.generating;
     final free = c.host.freeHintsLeft;
+    final VoidCallback? onHint = active && !c.hintsExhausted && !c.game.needsBoard ? c.requestHint : null;
     // Como la grilla, los controles escalan el texto hasta el 130 %.
     return MediaQuery.withClampedTextScaling(
       maxScaleFactor: 1.3,
@@ -385,11 +386,18 @@ class _Controls extends StatelessWidget {
             onPressed: active && c.game.canUndo ? c.undo : null,
             icon: const LudixaIcon(LudixaIcons.undo),
           ),
+          // Nombre y valor en un solo nodo ("Pista, quedan 2 gratis"), como en el
+          // Sudoku: con el nombre solo como tooltip, Android anuncia nada más el valor.
           Semantics(
+            button: true,
+            enabled: onHint != null,
+            label: l10n.hint,
             value: c.hintsExhausted ? l10n.noMoreHints : l10n.hintsLeft(free),
+            onTap: onHint,
+            excludeSemantics: true,
             child: IconButton(
               tooltip: c.hintsExhausted ? l10n.noMoreHints : l10n.hint,
-              onPressed: active && !c.hintsExhausted && !c.game.needsBoard ? c.requestHint : null,
+              onPressed: onHint,
               icon: Badge(
                 isLabelVisible: !c.hintsExhausted,
                 label: Text('$free'),

@@ -67,6 +67,9 @@ class ChallengeRows extends ConsumerWidget {
                       : LudixaButton(
                           expand: LudixaLayout.largeText(context),
                           label: status.running.containsKey(game) ? l10n.dailyContinue : l10n.dailyPlay,
+                          semanticLabel: status.running.containsKey(game)
+                              ? l10n.dailyContinueGame(module.displayName(context))
+                              : l10n.dailyPlayGame(module.displayName(context)),
                           variant: game == firstPending ? LudixaButtonVariant.primary : LudixaButtonVariant.secondary,
                           onPressed: () {
                             final running = status.running[game];

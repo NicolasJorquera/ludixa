@@ -102,6 +102,8 @@ class MonthCalendar extends StatelessWidget {
                                 container: true,
                                 label: l10n.dailyDayLabel(dayFormat.format(DateTime.utc(year, month, n)), done, suffix),
                                 button: tappable,
+                                // excludeSemantics descarta la acción del InkWell: se repite aquí.
+                                onTap: tappable ? () => onDayTap!(day) : null,
                                 excludeSemantics: true,
                                 child: InkWell(
                                   borderRadius: BorderRadius.circular(12),

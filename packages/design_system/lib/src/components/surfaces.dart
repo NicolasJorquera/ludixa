@@ -33,6 +33,9 @@ class LudixaCard extends StatelessWidget {
       container: true,
       button: onTap != null,
       label: semanticLabel,
+      // Con una etiqueta propia se excluyen los hijos, y con ellos la acción
+      // del InkWell: se repite aquí.
+      onTap: semanticLabel != null ? onTap : null,
       excludeSemantics: semanticLabel != null,
       child: Material(
         color: color ?? p.surface,

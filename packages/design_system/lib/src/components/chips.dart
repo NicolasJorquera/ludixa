@@ -39,6 +39,8 @@ class LudixaStatChip extends StatelessWidget {
     return Semantics(
       label: semanticLabel,
       button: onTap != null,
+      // excludeSemantics descarta la acción del InkWell: se repite aquí.
+      onTap: onTap,
       excludeSemantics: true,
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 48),

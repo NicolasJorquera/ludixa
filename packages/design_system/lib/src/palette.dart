@@ -97,8 +97,9 @@ final class LudixaPalette {
   /// Texto e iconos de un control deshabilitado (WCAG no exige contraste).
   Color get inkDisabled => inkMuted.withValues(alpha: 0.5);
 
-  /// Fondo del segmento elegido: en oscuro, el contorno translúcido.
-  Color get segmentSelected => brightness == Brightness.light ? surface : outline.withValues(alpha: 0.35);
+  /// Fondo del segmento elegido, en relieve sobre [surfaceMuted]. En oscuro,
+  /// [line]: deja el texto de acento por encima de 4,5:1.
+  Color get segmentSelected => brightness == Brightness.light ? surface : line;
 
   static const light = LudixaPalette(
     brightness: Brightness.light,

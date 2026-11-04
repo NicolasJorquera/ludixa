@@ -638,6 +638,18 @@ abstract class AppLocalizations {
   /// **'Continuar'**
   String get dailyContinue;
 
+  /// Lo que anuncia TalkBack en el botón Jugar de un reto: el texto visible solo dice "Jugar".
+  ///
+  /// In es, this message translates to:
+  /// **'Jugar {game}'**
+  String dailyPlayGame(String game);
+
+  /// Lo que anuncia TalkBack en el botón Continuar de un reto.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar {game}'**
+  String dailyContinueGame(String game);
+
   /// Etiqueta accesible del calendario.
   ///
   /// In es, this message translates to:

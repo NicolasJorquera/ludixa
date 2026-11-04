@@ -70,7 +70,7 @@ class _Tool extends StatelessWidget {
       children: [
         Badge(
           isLabelVisible: badge != null,
-          label: Text(badge ?? ''),
+          label: ExcludeSemantics(child: Text(badge ?? '')),
           backgroundColor: p.sudoku,
           textColor: p.onPrimary,
           child: Container(
@@ -96,6 +96,8 @@ class _Tool extends StatelessWidget {
         toggled: label == SudokuLocalizations.of(context).notes ? toggled : null,
         label: label,
         value: semanticValue,
+        // excludeSemantics descarta la acción del InkWell: se repite aquí.
+        onTap: onTap,
         excludeSemantics: true,
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
@@ -141,6 +143,7 @@ class SudokuKeypad extends StatelessWidget {
                       button: true,
                       selected: chosen,
                       label: l10n.keyRemaining(d, remaining),
+                      onTap: active ? () => c.tapDigit(d) : null,
                       excludeSemantics: true,
                       child: Material(
                         color: chosen ? p.sudokuSoft : p.surface,
