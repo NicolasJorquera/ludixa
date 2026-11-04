@@ -40,7 +40,9 @@ android {
     }
 
     defaultConfig {
-        applicationId = "io.github.nicolasjorquera.ludixa"
+        // Fijado por Play Console al crear la app; no se puede cambiar. El
+        // namespace (paquete del código Kotlin) sigue siendo el original.
+        applicationId = "com.gonisoma.ludixa"
         // Android 7.0. Se revisa al integrar AdMob (H6) por si el SDK exige más.
         minSdk = 24
         // Exigido por Google Play desde el 31-ago-2026.
