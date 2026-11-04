@@ -17,11 +17,23 @@ const _productionUnits = AdUnits(
   rewarded: String.fromEnvironment('ADMOB_REWARDED'),
 );
 
+/// Bloques que no existen: cada carga falla como si AdMob no tuviera
+/// anuncios. Solo para la QA de "sin inventario" en dev (ADS_NO_FILL).
+const _noFillUnits = AdUnits(
+  banner: 'ca-app-pub-0000000000000000/0000000000',
+  interstitial: 'ca-app-pub-0000000000000000/0000000001',
+  rewarded: 'ca-app-pub-0000000000000000/0000000002',
+);
+
 /// Bloques de cada entorno. Dev usa siempre los de prueba de Google, aunque
 /// reciba otros; prod sin sus identificadores queda sin anuncios (nunca con
 /// los de prueba).
-AdUnits? adUnitsFor(AppEnvironment environment, {AdUnits production = _productionUnits}) {
-  if (!environment.isProduction) return AdUnits.test;
+AdUnits? adUnitsFor(
+  AppEnvironment environment, {
+  AdUnits production = _productionUnits,
+  bool noFill = const bool.fromEnvironment('ADS_NO_FILL'),
+}) {
+  if (!environment.isProduction) return noFill ? _noFillUnits : AdUnits.test;
   return production.complete ? production : null;
 }
 

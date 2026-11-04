@@ -1,5 +1,6 @@
 import 'package:design_system/design_system.dart';
 import 'package:drift_flutter/drift_flutter.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:progress/progress.dart';
@@ -19,6 +20,7 @@ import 'features/settings/data/settings_repository.dart';
 /// correctos se vean desde el inicio.
 Future<void> bootstrap(AppEnvironment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
+  await lockPhonesToPortrait();
   registerDesignSystemLicenses();
   final settingsRepository = await SharedPreferencesSettingsRepository.create();
   final sudokuSettings = await PrefsSudokuSettingsStore.create();
@@ -44,4 +46,12 @@ Future<void> bootstrap(AppEnvironment environment) async {
       child: const LudixaApp(),
     ),
   );
+}
+
+/// Vertical en teléfonos y libre en tablets (ficha UX, "Adaptación a
+/// tamaños"): un teléfono tiene menos de 600 dp en su lado corto.
+Future<void> lockPhonesToPortrait() async {
+  final display = WidgetsBinding.instance.platformDispatcher.displays.first;
+  final shortestSide = display.size.shortestSide / display.devicePixelRatio;
+  if (shortestSide < 600) await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -96,6 +97,22 @@ final class AdMobAdService implements AdService {
   bool _loadingInterstitial = false;
   bool _loadingRewarded = false;
 
+  /// Si una carga falla (sin red, sin inventario) se reintenta con espera
+  /// creciente: si no, al volver la conexión no habría anuncios hasta
+  /// reiniciar la app.
+  static const _firstRetry = Duration(seconds: 30);
+  static const _maxRetry = Duration(minutes: 5);
+  Duration _interstitialRetry = _firstRetry;
+  Duration _rewardedRetry = _firstRetry;
+  Timer? _retry;
+
+  void _scheduleRetry(Duration delay) {
+    if (_retry?.isActive ?? false) return;
+    _retry = Timer(delay, preload);
+  }
+
+  static Duration _next(Duration delay) => delay * 2 > _maxRetry ? _maxRetry : delay * 2;
+
   @override
   void preload() {
     if (_interstitial == null && !_loadingInterstitial) {
@@ -107,9 +124,14 @@ final class AdMobAdService implements AdService {
           adLoadCallback: InterstitialAdLoadCallback(
             onAdLoaded: (ad) {
               _loadingInterstitial = false;
+              _interstitialRetry = _firstRetry;
               _interstitial = ad;
             },
-            onAdFailedToLoad: (_) => _loadingInterstitial = false,
+            onAdFailedToLoad: (_) {
+              _loadingInterstitial = false;
+              _scheduleRetry(_interstitialRetry);
+              _interstitialRetry = _next(_interstitialRetry);
+            },
           ),
         ),
       );
@@ -123,9 +145,14 @@ final class AdMobAdService implements AdService {
           rewardedAdLoadCallback: RewardedAdLoadCallback(
             onAdLoaded: (ad) {
               _loadingRewarded = false;
+              _rewardedRetry = _firstRetry;
               _rewarded = ad;
             },
-            onAdFailedToLoad: (_) => _loadingRewarded = false,
+            onAdFailedToLoad: (_) {
+              _loadingRewarded = false;
+              _scheduleRetry(_rewardedRetry);
+              _rewardedRetry = _next(_rewardedRetry);
+            },
           ),
         ),
       );
@@ -149,8 +176,12 @@ final class AdMobAdService implements AdService {
     return closed.future;
   }
 
+  /// Si no hay uno listo, empieza a cargarlo para la próxima vez.
   @override
-  bool get rewardedReady => _rewarded != null;
+  bool get rewardedReady {
+    if (_rewarded == null) preload();
+    return _rewarded != null;
+  }
 
   @override
   Future<RewardedOutcome> showRewarded() {
@@ -164,11 +195,20 @@ final class AdMobAdService implements AdService {
     final closed = Completer<RewardedOutcome>();
     ad.fullScreenContentCallback = FullScreenContentCallback(
       // La recompensa solo se entrega si el SDK confirma que se vio completo.
-      onAdDismissedFullScreenContent: (ad) =>
-          _finish(ad, closed, earned ? RewardedOutcome.earned : RewardedOutcome.dismissed),
+      onAdDismissedFullScreenContent: (ad) {
+        if (kDebugMode) debugPrint('Video cerrado; recompensa: $earned');
+        _finish(ad, closed, earned ? RewardedOutcome.earned : RewardedOutcome.dismissed);
+      },
       onAdFailedToShowFullScreenContent: (ad, _) => _finish(ad, closed, RewardedOutcome.unavailable),
     );
-    unawaited(ad.show(onUserEarnedReward: (_, _) => earned = true));
+    unawaited(
+      ad.show(
+        onUserEarnedReward: (_, _) {
+          earned = true;
+          if (kDebugMode) debugPrint('Video: el SDK confirmó la recompensa');
+        },
+      ),
+    );
     return closed.future;
   }
 
