@@ -8,6 +8,14 @@ import 'streak.dart';
 /// Lecturas y escrituras dentro de una transacción.
 abstract interface class ProgressStore {
   Future<List<SessionRecord>> sessions();
+
+  /// Todas las partidas sin su puzzle ni su estado, que son el JSON pesado.
+  /// Es lo que leen las estadísticas, los logros y el calendario.
+  Future<List<SessionRecord>> sessionSummaries();
+
+  /// Solo las partidas en curso, completas, para retomarlas.
+  Future<List<SessionRecord>> inProgressSessions();
+
   Future<SessionRecord?> session(String id);
   Future<void> putSession(SessionRecord session);
 

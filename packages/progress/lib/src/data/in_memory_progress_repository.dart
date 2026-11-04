@@ -27,6 +27,10 @@ final class InMemoryProgressRepository implements ProgressRepository {
   @override
   Future<List<SessionRecord>> sessions() => _store.sessions();
   @override
+  Future<List<SessionRecord>> sessionSummaries() => _store.sessionSummaries();
+  @override
+  Future<List<SessionRecord>> inProgressSessions() => _store.inProgressSessions();
+  @override
   Future<SessionRecord?> session(String id) => _store.session(id);
   @override
   Future<void> putSession(SessionRecord session) => _store.putSession(session);
@@ -75,6 +79,14 @@ final class _Store implements ProgressStore {
 
   @override
   Future<List<SessionRecord>> sessions() async => List.unmodifiable(_s.sessions.values);
+  // En memoria no hay nada que ahorrar: los resúmenes son las partidas.
+  @override
+  Future<List<SessionRecord>> sessionSummaries() => sessions();
+  @override
+  Future<List<SessionRecord>> inProgressSessions() async => [
+    for (final s in _s.sessions.values)
+      if (s.status == SessionStatus.inProgress) s,
+  ];
   @override
   Future<SessionRecord?> session(String id) async => _s.sessions[id];
   @override

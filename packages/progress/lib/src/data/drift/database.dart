@@ -49,6 +49,50 @@ final class SessionsDao extends DatabaseAccessor<ProgressDatabase> with _$Sessio
     return row == null ? null : _sessionOf(row);
   }
 
+  /// Sin las columnas de JSON pesado (puzzle y estado): con miles de partidas
+  /// es la diferencia entre leer kilobytes y megabytes.
+  Future<List<SessionRecord>> summaries() async {
+    final light = [
+      for (final column in sessions.$columns)
+        if (column != sessions.puzzleJson && column != sessions.stateJson) column,
+    ];
+    final rows = await (selectOnly(sessions)..addColumns(light)).get();
+    return [
+      for (final row in rows)
+        _sessionOf(
+          SessionRow(
+            id: row.read(sessions.id)!,
+            gameId: row.read(sessions.gameId)!,
+            difficulty: row.read(sessions.difficulty)!,
+            mode: row.read(sessions.mode)!,
+            startedAtMs: row.read(sessions.startedAtMs)!,
+            startOffsetMin: row.read(sessions.startOffsetMin)!,
+            challengeDate: row.read(sessions.challengeDate),
+            seed: row.read(sessions.seed)!,
+            generatorVersion: row.read(sessions.generatorVersion)!,
+            wordsLang: row.read(sessions.wordsLang),
+            puzzleJson: '{}',
+            stateJson: '{}',
+            status: row.read(sessions.status)!,
+            elapsedMs: row.read(sessions.elapsedMs)!,
+            hintsFree: row.read(sessions.hintsFree)!,
+            hintsRewarded: row.read(sessions.hintsRewarded)!,
+            rescued: row.read(sessions.rescued)!,
+            completedAtMs: row.read(sessions.completedAtMs),
+            themeIdsJson: row.read(sessions.themeIdsJson)!,
+            flagsPlaced: row.read(sessions.flagsPlaced),
+          ),
+        ),
+    ];
+  }
+
+  Future<List<SessionRecord>> inProgress() async => [
+    for (final row in await (select(
+      sessions,
+    )..where((s) => s.status.equals(_statuses[SessionStatus.inProgress]!))).get())
+      _sessionOf(row),
+  ];
+
   /// Inserta o reemplaza (las instantáneas actualizan la misma partida).
   Future<void> put(SessionRecord session) => into(sessions).insertOnConflictUpdate(_sessionRow(session));
 }

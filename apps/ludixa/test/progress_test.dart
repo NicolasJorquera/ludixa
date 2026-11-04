@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ludixa/features/daily/challenge_rows.dart';
 import 'package:ludixa/features/daily/daily_page.dart';
 import 'package:ludixa/features/play/play_providers.dart';
 import 'package:ludixa/features/progress/progress_page.dart';
@@ -82,6 +84,31 @@ Future<InMemoryProgressRepository> _pumpProgress(
   return repository;
 }
 
+/// 150 partidas libres al azar (con semilla fija) en los 3 juegos y sus
+/// niveles, con derrotas del Buscaminas.
+Future<List<SessionRecord>> _seedRandom(ProgressService service) async {
+  final random = Random(11);
+  const levels = {
+    GameId.sudoku: ['easy', 'medium', 'hard', 'expert'],
+    GameId.minesweeper: ['beginner', 'intermediate', 'expert'],
+    GameId.wordSearch: ['easy', 'medium', 'hard', 'expert'],
+  };
+  final all = <SessionRecord>[];
+  for (var i = 0; i < 150; i++) {
+    final game = [GameId.sudoku, GameId.minesweeper, GameId.wordSearch][random.nextInt(3)];
+    final s = _finished(
+      game,
+      levels[game]![random.nextInt(levels[game]!.length)],
+      _at(1 + i ~/ 6, hour: 8 + i % 6),
+      status: game == GameId.minesweeper && random.nextBool() ? SessionStatus.lost : SessionStatus.won,
+      elapsed: Duration(seconds: 30 + random.nextInt(1200)),
+    );
+    await service.recordResult(s);
+    all.add(s);
+  }
+  return all;
+}
+
 void main() {
   testWidgets('sin partidas: estado vacío que lleva al reto de hoy', (tester) async {
     await _pumpProgress(tester);
@@ -109,6 +136,33 @@ void main() {
     await tester.tap(find.text('Buscaminas'));
     await tester.pumpAndSettle();
     expect(find.text('0 (0\u00A0%)'), findsOneWidget);
+  });
+
+  testWidgets('con 150 partidas sembradas, Progreso muestra las cifras que dan las partidas', (tester) async {
+    late List<SessionRecord> all;
+    await _pumpProgress(tester, seed: (service) async => all = await _seedRandom(service));
+    final won = all.where((s) => s.won);
+    expect(find.bySemanticsLabel('Puzzles completados. ${won.length}'), findsOneWidget);
+    final time = all.fold(Duration.zero, (sum, s) => sum + s.elapsed);
+    expect(find.bySemanticsLabel('Tiempo total. ${formatDuration(time)}'), findsOneWidget);
+    for (final (game, name) in [
+      (GameId.sudoku, 'Sudoku'),
+      (GameId.minesweeper, 'Buscaminas'),
+      (GameId.wordSearch, 'Sopa de letras'),
+    ]) {
+      await tester.tap(find.text(name));
+      await tester.pumpAndSettle();
+      for (final level in {for (final s in all.where((s) => s.game == game)) s.difficulty}) {
+        final mine = all.where((s) => s.game == game && s.difficulty == level).toList();
+        final wins = [
+          for (final s in mine)
+            if (s.won) s.elapsed,
+        ];
+        final best = wins.reduce((a, b) => a < b ? a : b);
+        expect(find.bySemanticsLabel('Partidas: ${mine.length}'), findsWidgets, reason: '$game $level');
+        expect(find.bySemanticsLabel('Mejor: ${formatDuration(best)}'), findsWidgets, reason: '$game $level');
+      }
+    }
   });
 
   testWidgets('totales y tabla por nivel, con "Aún sin jugar"', (tester) async {

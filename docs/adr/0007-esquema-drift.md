@@ -51,3 +51,12 @@ H5 cambia el progreso en memoria por SQLite con Drift (ADR 0006). H5-01 fija el 
 - Las escrituras van en cola y en orden. El resultado espera a la última y descarta las pendientes: una instantánea atrasada nunca pisa una partida terminada.
 - `SessionSnapshot` lleva las pistas usadas. Se guardan en la partida en curso y, al retomar, el host descuenta las gratis ya usadas: antes volvían las 3.
 - La partida se retoma desde "Continuar" en Inicio. La celda seleccionada no se guarda: es estado de pantalla.
+
+## H5-04: estadísticas y logros reales
+
+- Las estadísticas, los logros y el calendario leen `sessionSummaries()`: las partidas sin el JSON del puzzle ni del estado. Con miles de partidas, eso es leer kilobytes y no megabytes. Retomar una partida lee `inProgressSessions()`, que trae solo las partidas en curso, completas.
+- Progreso calcula todos los niveles de un juego leyendo las partidas una sola vez (`statsByLevel`). Antes leía todas las partidas una vez por nivel.
+- `GameResult` lleva los datos de los logros que solo conoce el juego:
+  - Las banderas que puso el jugador, aunque después las quite. Las que el motor marca solo al ganar no cuentan.
+  - Los ids de los temas de la sopa, también en las partidas libres: antes solo contaban los del reto diario.
+- Un historial sembrado de 100 días comprueba en los dos repositorios que cifras y logros coinciden con un cálculo independiente, y que ningún logro se anuncia dos veces.

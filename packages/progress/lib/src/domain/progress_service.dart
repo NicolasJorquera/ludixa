@@ -87,7 +87,7 @@ final class ProgressService {
   bool isInArchive(LocalDay day) => DailyArchive.isAvailable(day, clock.now().day);
 
   Future<ProgressSnapshot> snapshot() async => ProgressSnapshot(
-    sessions: await repository.sessions(),
+    sessions: await repository.sessionSummaries(),
     days: await repository.days(),
     streak: await repository.streak(),
   );
@@ -102,31 +102,47 @@ final class ProgressService {
   }
 
   /// Estadísticas de un juego por dificultad, desde el último reinicio.
-  Future<DifficultyStats> stats(GameId game, Difficulty difficulty) async {
+  Future<DifficultyStats> stats(GameId game, Difficulty difficulty) async =>
+      (await statsByLevel(game, only: difficulty))[difficulty] ??
+      ProgressStats.forDifficulty(const [], game, difficulty);
+
+  /// Estadísticas de cada nivel jugado de un juego, leyendo las partidas una
+  /// sola vez. Cada nivel cuenta desde su reinicio más reciente (del juego o
+  /// del nivel).
+  Future<Map<Difficulty, DifficultyStats>> statsByLevel(GameId game, {Difficulty? only}) async {
+    final sessions = [
+      for (final s in await repository.sessionSummaries())
+        if (s.game == game && (only == null || s.difficulty == only)) s,
+    ];
     final byGame = await repository.statsResetAt(game);
-    final byLevel = await repository.statsResetAt(game, difficulty);
-    final since = byGame == null || (byLevel != null && byLevel.isAfter(byGame)) ? byLevel : byGame;
-    final sessions = (await repository.sessions()).where(
-      (s) => s.game == game && (since == null || !s.startedAt.utc.isBefore(since)),
-    );
-    return ProgressStats.forDifficulty(sessions, game, difficulty);
+    final result = <Difficulty, DifficultyStats>{};
+    for (final level in {for (final s in sessions) s.difficulty}) {
+      final byLevel = await repository.statsResetAt(game, level);
+      final since = byGame == null || (byLevel != null && byLevel.isAfter(byGame)) ? byLevel : byGame;
+      result[level] = ProgressStats.forDifficulty(
+        sessions.where((s) => since == null || !s.startedAt.utc.isBefore(since)),
+        game,
+        level,
+      );
+    }
+    return result;
   }
 
-  /// Reinicia las estadísticas de un juego o de un nivel. No toca racha,
-  /// calendario, maestría ni logros: las partidas siguen guardadas.
   /// "Reiniciar todo el progreso" de Ajustes. No toca las preferencias.
   Future<void> resetAll() => repository.clear();
 
-  /// Con [difficulty], reinicia solo ese nivel (lo que pide la ficha de
+  /// Reinicia las estadísticas de un juego o de un nivel. No toca racha,
+  /// calendario, maestría ni logros: las partidas siguen guardadas. Con
+  /// [difficulty], reinicia solo ese nivel (lo que pide la ficha de
   /// Progreso al mantener pulsada su fila).
   Future<void> resetStats(GameId game, {Difficulty? difficulty}) =>
       repository.putStatsResetAt(game, clock.now().utc, difficulty);
 
-  Future<WeekSummary> week() async => ProgressStats.week(await repository.sessions(), clock.now().day);
+  Future<WeekSummary> week() async => ProgressStats.week(await repository.sessionSummaries(), clock.now().day);
 
   Future<List<AchievementId>> _unlockReached(ProgressStore store) async {
     final p = ProgressSnapshot(
-      sessions: await store.sessions(),
+      sessions: await store.sessionSummaries(),
       days: await store.days(),
       streak: await store.streak(),
     );

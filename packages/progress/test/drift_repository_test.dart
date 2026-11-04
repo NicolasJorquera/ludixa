@@ -26,6 +26,10 @@ final class _FailingStreak implements ProgressRepository {
   @override
   Future<List<SessionRecord>> sessions() => _inner.sessions();
   @override
+  Future<List<SessionRecord>> sessionSummaries() => _inner.sessionSummaries();
+  @override
+  Future<List<SessionRecord>> inProgressSessions() => _inner.inProgressSessions();
+  @override
   Future<SessionRecord?> session(String id) => _inner.session(id);
   @override
   Future<void> putSession(SessionRecord session) => _inner.putSession(session);

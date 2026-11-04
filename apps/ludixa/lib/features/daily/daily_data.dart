@@ -39,9 +39,10 @@ final dayStatusProvider = FutureProvider.family<DayStatus, LocalDay>((ref, day) 
   ref.watch(progressRevisionProvider);
   final repository = ref.watch(progressServiceProvider).repository;
   final record = await repository.day(day);
-  final sessions = (await repository.sessions()).where((s) => s.challengeDay == day && s.mode != PuzzleMode.free);
+  bool ofDay(SessionRecord s) => s.challengeDay == day && s.mode != PuzzleMode.free;
+  final sessions = (await repository.sessionSummaries()).where(ofDay);
   final running = <GameId, SessionRecord>{};
-  for (final s in sessions.where((s) => s.status == SessionStatus.inProgress && s.state.isNotEmpty)) {
+  for (final s in (await repository.inProgressSessions()).where((s) => ofDay(s) && s.state.isNotEmpty)) {
     final current = running[s.game];
     if (current == null || s.startedAt.utc.isAfter(current.startedAt.utc)) running[s.game] = s;
   }

@@ -11,6 +11,26 @@ import 'package:wordsearch_engine/wordsearch_engine.dart';
 import 'support.dart';
 
 void main() {
+  test('los ids de los temas viajan en la instantánea y en el resultado (logro "Explora 10 temas")', () async {
+    final host = FakeHost();
+    final puzzle = controllerFor().puzzle;
+    final c = WordSearchController(
+      game: WordSearchGame(puzzle),
+      host: host,
+      themeNames: const ['Frutas'],
+      themeIds: const ['frutas'],
+    );
+    final resumed = WordSearchController.resume(c.snapshot(), host: host);
+    expect(resumed.themeIds, ['frutas']);
+    for (final p in puzzle.placements) {
+      c.dragStart(p.cells.first);
+      c.dragUpdate(p.cells.last);
+      c.dragEnd();
+    }
+    await c.reportWon();
+    expect(host.results.single.themeIds, ['frutas']);
+  });
+
   test('el ajuste a 8 direcciones: casi en diagonal es diagonal, y no sale de la grilla', () {
     // 8×8: de (0,0) a (3,2) se ajusta a la diagonal (3,3); de (0,0) a (1,4), a la fila.
     expect(WordSearchController.snap(0, 3 * 8 + 2, 8), 3 * 8 + 3);

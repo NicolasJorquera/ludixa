@@ -25,6 +25,10 @@ final class DriftProgressRepository implements ProgressRepository {
   @override
   Future<List<SessionRecord>> sessions() => db.sessionsDao.all();
   @override
+  Future<List<SessionRecord>> sessionSummaries() => db.sessionsDao.summaries();
+  @override
+  Future<List<SessionRecord>> inProgressSessions() => db.sessionsDao.inProgress();
+  @override
   Future<SessionRecord?> session(String id) => db.sessionsDao.byId(id);
   @override
   Future<void> putSession(SessionRecord session) => db.sessionsDao.put(session);
