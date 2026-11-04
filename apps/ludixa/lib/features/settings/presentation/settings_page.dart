@@ -12,6 +12,7 @@ import '../../../l10n/generated/app_localizations.dart';
 import '../../play/play_providers.dart';
 import '../application/settings_controller.dart';
 import '../domain/app_settings.dart';
+import 'backup_actions.dart';
 
 /// Versión instalada, para la fila "Versión".
 final appVersionProvider = FutureProvider<String>((ref) async {
@@ -115,6 +116,16 @@ class SettingsPage extends ConsumerWidget {
               onTap: () => context.go(AppRoutes.gameSettings(module.id)),
             ),
           LudixaSectionLabel(l10n.settingsDataSection),
+          LudixaListRow(
+            title: l10n.backupExport,
+            subtitle: l10n.backupExportHint,
+            onTap: () => exportProgress(context, ref),
+          ),
+          LudixaListRow(
+            title: l10n.backupImport,
+            subtitle: l10n.backupImportHint,
+            onTap: () => importProgress(context, ref),
+          ),
           LudixaListRow(
             title: l10n.settingsResetStats,
             subtitle: l10n.settingsResetStatsHint,

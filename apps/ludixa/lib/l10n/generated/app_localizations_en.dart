@@ -679,6 +679,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsVersion => 'Version';
+
+  @override
+  String get backupExport => 'Export progress';
+
+  @override
+  String get backupExportHint => 'Saves a file with your games, streak and achievements';
+
+  @override
+  String get backupImport => 'Import progress';
+
+  @override
+  String get backupImportHint => 'Replaces your progress with an exported file';
+
+  @override
+  String get backupExported => 'Progress exported';
+
+  @override
+  String get backupSaveFailed => 'The file couldn\'t be saved. Try another folder.';
+
+  @override
+  String get backupOpenFailed => 'The file couldn\'t be opened.';
+
+  @override
+  String get backupImportTitle => 'Replace your progress?';
+
+  @override
+  String backupImportBody(String date, int sessions, int completed, int best) {
+    String _temp0 = intl.Intl.pluralLogic(sessions, locale: localeName, other: '$sessions games', one: '1 game');
+    String _temp1 = intl.Intl.pluralLogic(best, locale: localeName, other: '$best days', one: '1 day');
+    return 'The backup from $date has $_temp0 ($completed completed) and a best streak of $_temp1. It replaces all your current progress; your settings don\'t change.';
+  }
+
+  @override
+  String get backupImportConfirm => 'Replace';
+
+  @override
+  String get backupImported => 'Progress imported';
+
+  @override
+  String get backupProblemTitle => 'Can\'t import';
+
+  @override
+  String get backupNotLudixa => 'That file isn\'t a Ludixa backup. Choose the .json file you exported from Settings.';
+
+  @override
+  String get backupNewerVersion => 'That backup is from a newer version of Ludixa. Update the app to import it.';
+
+  @override
+  String get backupCorrupt => 'The backup is damaged or incomplete. Nothing was changed.';
+
+  @override
+  String get backupProblemOk => 'Got it';
 }
 
 /// The translations for English (`en_XA`).
@@ -1359,4 +1411,58 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsVersion => '[Ṽéŕšîöñ ···]';
+
+  @override
+  String get backupExport => '[Éẋþöŕţ þŕöĝŕéšš ······]';
+
+  @override
+  String get backupExportHint => '[Šáṽéš á ƒîļé ŵîţĥ ýöûŕ ĝáɱéš, šţŕéáķ áñð áçĥîéṽéɱéñţš ··················]';
+
+  @override
+  String get backupImport => '[Îɱþöŕţ þŕöĝŕéšš ······]';
+
+  @override
+  String get backupImportHint => '[Ŕéþļáçéš ýöûŕ þŕöĝŕéšš ŵîţĥ áñ éẋþöŕţéð ƒîļé ················]';
+
+  @override
+  String get backupExported => '[Þŕöĝŕéšš éẋþöŕţéð ·······]';
+
+  @override
+  String get backupSaveFailed => '[Ţĥé ƒîļé çöûļðñ\'ţ ƀé šáṽéð. Ţŕý áñöţĥéŕ ƒöļðéŕ. ···············]';
+
+  @override
+  String get backupOpenFailed => '[Ţĥé ƒîļé çöûļðñ\'ţ ƀé öþéñéð. ·········]';
+
+  @override
+  String get backupImportTitle => '[Ŕéþļáçé ýöûŕ þŕöĝŕéšš? ········]';
+
+  @override
+  String backupImportBody(String date, int sessions, int completed, int best) {
+    String _temp0 = intl.Intl.pluralLogic(sessions, locale: localeName, other: '$sessions games', one: '1 game');
+    String _temp1 = intl.Intl.pluralLogic(best, locale: localeName, other: '$best days', one: '1 day');
+    return '[Ţĥé ƀáçķûþ ƒŕöɱ $date ĥáš $_temp0 ($completed çöɱþļéţéð) áñð á ƀéšţ šţŕéáķ öƒ $_temp1. Îţ ŕéþļáçéš áļļ ýöûŕ çûŕŕéñţ þŕöĝŕéšš; ýöûŕ šéţţîñĝš ðöñ\'ţ çĥáñĝé. ······································]';
+  }
+
+  @override
+  String get backupImportConfirm => '[Ŕéþļáçé ···]';
+
+  @override
+  String get backupImported => '[Þŕöĝŕéšš îɱþöŕţéð ·······]';
+
+  @override
+  String get backupProblemTitle => '[Çáñ\'ţ îɱþöŕţ ····]';
+
+  @override
+  String get backupNotLudixa =>
+      '[Ţĥáţ ƒîļé îšñ\'ţ á Ļûðîẋá ƀáçķûþ. Çĥööšé ţĥé .ĵšöñ ƒîļé ýöû éẋþöŕţéð ƒŕöɱ Šéţţîñĝš. ··························]';
+
+  @override
+  String get backupNewerVersion =>
+      '[Ţĥáţ ƀáçķûþ îš ƒŕöɱ á ñéŵéŕ ṽéŕšîöñ öƒ Ļûðîẋá. Ûþðáţé ţĥé áþþ ţö îɱþöŕţ îţ. ························]';
+
+  @override
+  String get backupCorrupt => '[Ţĥé ƀáçķûþ îš ðáɱáĝéð öŕ îñçöɱþļéţé. Ñöţĥîñĝ ŵáš çĥáñĝéð. ···················]';
+
+  @override
+  String get backupProblemOk => '[Ĝöţ îţ ··]';
 }

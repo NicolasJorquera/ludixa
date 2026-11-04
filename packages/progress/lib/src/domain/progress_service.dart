@@ -1,6 +1,7 @@
 import 'package:puzzle_core/puzzle_core.dart';
 
 import 'achievements.dart';
+import 'backup.dart';
 import 'clock.dart';
 import 'daily_day.dart';
 import 'progress_repository.dart';
@@ -130,6 +131,13 @@ final class ProgressService {
 
   /// "Reiniciar todo el progreso" de Ajustes. No toca las preferencias.
   Future<void> resetAll() => repository.clear();
+
+  /// Respaldo en JSON de todo el progreso (Ajustes › Exportar).
+  Future<String> exportBackup() => ProgressBackup.export(repository, now: clock.now().utc);
+
+  /// Reemplaza todo el progreso por un respaldo ya validado con
+  /// [ProgressBackup.parse].
+  Future<void> importBackup(ProgressBackupData data) => ProgressBackup.restore(repository, data);
 
   /// Reinicia las estadísticas de un juego o de un nivel. No toca racha,
   /// calendario, maestría ni logros: las partidas siguen guardadas. Con

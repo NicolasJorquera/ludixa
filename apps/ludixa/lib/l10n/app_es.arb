@@ -911,5 +911,83 @@
   "settingsVersion": "Versión",
   "@settingsVersion": {
     "description": "Fila con la versión de la app."
+  },
+  "backupExport": "Exportar progreso",
+  "@backupExport": {
+    "description": "Fila de Ajustes."
+  },
+  "backupExportHint": "Guarda un archivo con tus partidas, racha y logros",
+  "@backupExportHint": {
+    "description": "Subtítulo de la fila."
+  },
+  "backupImport": "Importar progreso",
+  "@backupImport": {
+    "description": "Fila de Ajustes."
+  },
+  "backupImportHint": "Reemplaza tu progreso por el de un archivo exportado",
+  "@backupImportHint": {
+    "description": "Subtítulo de la fila."
+  },
+  "backupExported": "Progreso exportado",
+  "@backupExported": {
+    "description": "Aviso tras guardar el archivo."
+  },
+  "backupSaveFailed": "No se pudo guardar el archivo. Prueba en otra carpeta.",
+  "@backupSaveFailed": {
+    "description": "Error al guardar."
+  },
+  "backupOpenFailed": "No se pudo abrir el archivo.",
+  "@backupOpenFailed": {
+    "description": "Error al abrir."
+  },
+  "backupImportTitle": "¿Reemplazar tu progreso?",
+  "@backupImportTitle": {
+    "description": "Título de la confirmación."
+  },
+  "backupImportBody": "El respaldo del {date} tiene {sessions, plural, =1{1 partida} other{{sessions} partidas}} ({completed, plural, =1{1 completada} other{{completed} completadas}}) y una racha máxima de {best, plural, =1{1 día} other{{best} días}}. Reemplaza todo tu progreso actual; tus ajustes no cambian.",
+  "@backupImportBody": {
+    "description": "Resumen del archivo antes de importar.",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "sessions": {
+        "type": "int"
+      },
+      "completed": {
+        "type": "int"
+      },
+      "best": {
+        "type": "int"
+      }
+    }
+  },
+  "backupImportConfirm": "Reemplazar",
+  "@backupImportConfirm": {
+    "description": "Confirma la importación."
+  },
+  "backupImported": "Progreso importado",
+  "@backupImported": {
+    "description": "Aviso tras importar."
+  },
+  "backupProblemTitle": "No se puede importar",
+  "@backupProblemTitle": {
+    "description": "Título del error al importar."
+  },
+  "backupNotLudixa": "Ese archivo no es un respaldo de Ludixa. Elige el archivo .json que exportaste desde Ajustes.",
+  "@backupNotLudixa": {
+    "description": "Archivo que no es un respaldo."
+  },
+  "backupNewerVersion": "Ese respaldo es de una versión más nueva de Ludixa. Actualiza la app para importarlo.",
+  "@backupNewerVersion": {
+    "description": "Respaldo de una versión más nueva."
+  },
+  "backupCorrupt": "El respaldo está dañado o incompleto. No se cambió nada.",
+  "@backupCorrupt": {
+    "description": "Respaldo dañado."
+  },
+  "backupProblemOk": "Entendido",
+  "@backupProblemOk": {
+    "description": "Cierra el aviso de error."
   }
 }

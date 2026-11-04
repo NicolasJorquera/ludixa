@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +9,7 @@ import 'package:game_sudoku/game_sudoku.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ludixa/features/play/play_providers.dart';
 import 'package:ludixa/features/settings/domain/app_settings.dart';
+import 'package:ludixa/features/settings/presentation/backup_actions.dart';
 import 'package:ludixa/features/settings/presentation/settings_page.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:progress/progress.dart';
@@ -18,6 +21,7 @@ Future<(InMemorySettingsRepository, InMemoryProgressRepository)> _pumpSettings(
   WidgetTester tester, {
   AppSettings initial = const AppSettings(),
   Future<void> Function(ProgressService service)? seed,
+  BackupFiles? files,
 }) async {
   tester.view.physicalSize = const Size(390, 844) * 3;
   tester.view.devicePixelRatio = 3;
@@ -31,10 +35,32 @@ Future<(InMemorySettingsRepository, InMemoryProgressRepository)> _pumpSettings(
   );
   final progress = InMemoryProgressRepository();
   await seed?.call(ProgressService(progress));
-  final settings = await pumpLudixa(tester, initial: initial, progress: progress);
+  final settings = await pumpLudixa(
+    tester,
+    initial: initial,
+    progress: progress,
+    overrides: [backupFilesProvider.overrideWithValue(files ?? _FakeFiles())],
+  );
   GoRouter.of(tester.element(find.byType(Scaffold).first)).go('/settings');
   await tester.pumpAndSettle();
   return (settings, progress);
+}
+
+/// Selector de archivos en memoria: guarda lo exportado y abre lo que se le dé.
+final class _FakeFiles implements BackupFiles {
+  _FakeFiles({this.toOpen});
+
+  Uint8List? toOpen;
+  final saved = <String, Uint8List>{};
+
+  @override
+  Future<bool> save(String fileName, Uint8List bytes) async {
+    saved[fileName] = bytes;
+    return true;
+  }
+
+  @override
+  Future<Uint8List?> open() async => toOpen;
 }
 
 Future<void> _tap(WidgetTester tester, Finder finder) async {
@@ -142,6 +168,59 @@ void main() {
     await tester.tap(find.text('Cancelar'));
     await tester.pumpAndSettle();
     expect(await progress.sessions(), hasLength(1));
+  });
+
+  group('respaldo', () {
+    testWidgets('exportar guarda un JSON de Ludixa con la fecha en el nombre', (tester) async {
+      final files = _FakeFiles();
+      await _pumpSettings(tester, seed: (service) => service.recordResult(_won()), files: files);
+      await _tap(tester, find.text('Exportar progreso'));
+      expect(find.text('Progreso exportado'), findsOneWidget);
+      final (name, bytes) = (files.saved.keys.single, files.saved.values.single);
+      expect(name, matches(RegExp(r'^ludixa-progreso-\d{4}-\d{2}-\d{2}\.json$')));
+      expect(ProgressBackup.parse(utf8.decode(bytes)).sessions.single.id, 's1');
+    });
+
+    testWidgets('importar muestra qué trae, pide confirmar y reemplaza', (tester) async {
+      final source = ProgressService(InMemoryProgressRepository());
+      await source.recordResult(_won());
+      final files = _FakeFiles(toOpen: utf8.encode(await source.exportBackup()));
+      final (_, progress) = await _pumpSettings(tester, files: files);
+      await _tap(tester, find.text('Importar progreso'));
+      expect(find.text('¿Reemplazar tu progreso?'), findsOneWidget);
+      expect(find.textContaining('1 partida (1 completada)'), findsOneWidget);
+      await tester.tap(find.text('Reemplazar'));
+      await tester.pumpAndSettle();
+      expect(find.text('Progreso importado'), findsOneWidget);
+      expect((await progress.sessions()).single.id, 's1');
+    });
+
+    testWidgets('cancelar la importación no cambia nada', (tester) async {
+      final source = ProgressService(InMemoryProgressRepository());
+      await source.recordResult(_won());
+      final files = _FakeFiles(toOpen: utf8.encode(await source.exportBackup()));
+      final (_, progress) = await _pumpSettings(tester, files: files);
+      await _tap(tester, find.text('Importar progreso'));
+      await tester.tap(find.text('Cancelar'));
+      await tester.pumpAndSettle();
+      expect(await progress.sessions(), isEmpty);
+    });
+
+    testWidgets('un archivo que no es un respaldo se rechaza con un mensaje claro', (tester) async {
+      final files = _FakeFiles(toOpen: utf8.encode('lista de compras'));
+      final (_, progress) = await _pumpSettings(tester, seed: (service) => service.recordResult(_won()), files: files);
+      await _tap(tester, find.text('Importar progreso'));
+      expect(find.text('No se puede importar'), findsOneWidget);
+      expect(find.textContaining('no es un respaldo de Ludixa'), findsOneWidget);
+      expect(await progress.sessions(), hasLength(1));
+    });
+
+    testWidgets('un respaldo de una versión más nueva pide actualizar', (tester) async {
+      final files = _FakeFiles(toOpen: utf8.encode('{"format": "ludixa-progress", "version": 99}'));
+      await _pumpSettings(tester, files: files);
+      await _tap(tester, find.text('Importar progreso'));
+      expect(find.textContaining('Actualiza la app'), findsOneWidget);
+    });
   });
 
   testWidgets('contrato de anuncios: las 5 promesas', (tester) async {

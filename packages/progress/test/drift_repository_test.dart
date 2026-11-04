@@ -24,6 +24,8 @@ final class _FailingStreak implements ProgressRepository {
   @override
   Future<void> clear() => _inner.clear();
   @override
+  Future<List<StatsReset>> statsResets() => _inner.statsResets();
+  @override
   Future<List<SessionRecord>> sessions() => _inner.sessions();
   @override
   Future<List<SessionRecord>> sessionSummaries() => _inner.sessionSummaries();

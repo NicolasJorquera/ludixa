@@ -1093,6 +1093,102 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Versión'**
   String get settingsVersion;
+
+  /// Fila de Ajustes.
+  ///
+  /// In es, this message translates to:
+  /// **'Exportar progreso'**
+  String get backupExport;
+
+  /// Subtítulo de la fila.
+  ///
+  /// In es, this message translates to:
+  /// **'Guarda un archivo con tus partidas, racha y logros'**
+  String get backupExportHint;
+
+  /// Fila de Ajustes.
+  ///
+  /// In es, this message translates to:
+  /// **'Importar progreso'**
+  String get backupImport;
+
+  /// Subtítulo de la fila.
+  ///
+  /// In es, this message translates to:
+  /// **'Reemplaza tu progreso por el de un archivo exportado'**
+  String get backupImportHint;
+
+  /// Aviso tras guardar el archivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Progreso exportado'**
+  String get backupExported;
+
+  /// Error al guardar.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar el archivo. Prueba en otra carpeta.'**
+  String get backupSaveFailed;
+
+  /// Error al abrir.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo abrir el archivo.'**
+  String get backupOpenFailed;
+
+  /// Título de la confirmación.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Reemplazar tu progreso?'**
+  String get backupImportTitle;
+
+  /// Resumen del archivo antes de importar.
+  ///
+  /// In es, this message translates to:
+  /// **'El respaldo del {date} tiene {sessions, plural, =1{1 partida} other{{sessions} partidas}} ({completed, plural, =1{1 completada} other{{completed} completadas}}) y una racha máxima de {best, plural, =1{1 día} other{{best} días}}. Reemplaza todo tu progreso actual; tus ajustes no cambian.'**
+  String backupImportBody(String date, int sessions, int completed, int best);
+
+  /// Confirma la importación.
+  ///
+  /// In es, this message translates to:
+  /// **'Reemplazar'**
+  String get backupImportConfirm;
+
+  /// Aviso tras importar.
+  ///
+  /// In es, this message translates to:
+  /// **'Progreso importado'**
+  String get backupImported;
+
+  /// Título del error al importar.
+  ///
+  /// In es, this message translates to:
+  /// **'No se puede importar'**
+  String get backupProblemTitle;
+
+  /// Archivo que no es un respaldo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ese archivo no es un respaldo de Ludixa. Elige el archivo .json que exportaste desde Ajustes.'**
+  String get backupNotLudixa;
+
+  /// Respaldo de una versión más nueva.
+  ///
+  /// In es, this message translates to:
+  /// **'Ese respaldo es de una versión más nueva de Ludixa. Actualiza la app para importarlo.'**
+  String get backupNewerVersion;
+
+  /// Respaldo dañado.
+  ///
+  /// In es, this message translates to:
+  /// **'El respaldo está dañado o incompleto. No se cambió nada.'**
+  String get backupCorrupt;
+
+  /// Cierra el aviso de error.
+  ///
+  /// In es, this message translates to:
+  /// **'Entendido'**
+  String get backupProblemOk;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

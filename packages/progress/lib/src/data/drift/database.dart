@@ -6,6 +6,7 @@ import 'package:puzzle_core/puzzle_core.dart';
 import '../../domain/achievements.dart';
 import '../../domain/clock.dart';
 import '../../domain/daily_day.dart';
+import '../../domain/progress_repository.dart';
 import '../../domain/session_record.dart';
 import '../../domain/streak.dart';
 import 'tables.dart';
@@ -165,6 +166,15 @@ final class StatsResetsDao extends DatabaseAccessor<ProgressDatabase> with _$Sta
     )..where((r) => r.gameId.equals(game.value) & r.difficulty.equals(difficulty?.value ?? ''))).getSingleOrNull();
     return row == null ? null : DateTime.fromMillisecondsSinceEpoch(row.resetAtMs, isUtc: true);
   }
+
+  Future<List<StatsReset>> all() async => [
+    for (final row in await select(statsResets).get())
+      (
+        game: GameId(row.gameId),
+        difficulty: row.difficulty.isEmpty ? null : Difficulty(row.difficulty),
+        at: _utc(row.resetAtMs),
+      ),
+  ];
 
   Future<void> put(GameId game, DateTime at, [Difficulty? difficulty]) => into(statsResets).insertOnConflictUpdate(
     StatsResetsCompanion.insert(

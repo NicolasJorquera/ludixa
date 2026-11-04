@@ -10,6 +10,7 @@ export 'src/data/drift/database.dart' show ProgressDatabase;
 export 'src/data/drift/drift_progress_repository.dart';
 export 'src/data/in_memory_progress_repository.dart';
 export 'src/domain/achievements.dart';
+export 'src/domain/backup.dart';
 export 'src/domain/clock.dart';
 export 'src/domain/daily_day.dart';
 export 'src/domain/progress_repository.dart';
