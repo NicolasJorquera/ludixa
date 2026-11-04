@@ -29,6 +29,7 @@ dependencies:
   drift_flutter: ^0.3.1
 
 dev_dependencies:
+  minesweeper_engine:
   sudoku_engine:
   flutter_lints: ^6.0.0
   flutter_test:

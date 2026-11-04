@@ -29,10 +29,19 @@ final class PuzzleRequest {
 ///
 /// [state] es JSON que define cada motor; la app lo guarda sin interpretarlo.
 final class SessionSnapshot {
-  const SessionSnapshot({required this.state, required this.elapsed});
+  const SessionSnapshot({
+    required this.state,
+    required this.elapsed,
+    this.freeHintsUsed = 0,
+    this.rewardedHintsUsed = 0,
+  });
 
   final Map<String, Object?> state;
   final Duration elapsed;
+
+  /// Pistas ya usadas: al retomar, el host no vuelve a dar las gratis.
+  final int freeHintsUsed;
+  final int rewardedHintsUsed;
 }
 
 /// Cómo terminó una partida.
