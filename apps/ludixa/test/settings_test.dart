@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_sudoku/game_sudoku.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ludixa/app/links.dart';
 import 'package:ludixa/features/play/play_providers.dart';
 import 'package:ludixa/features/settings/domain/app_settings.dart';
 import 'package:ludixa/features/settings/presentation/backup_actions.dart';
@@ -22,6 +23,7 @@ Future<(InMemorySettingsRepository, InMemoryProgressRepository)> _pumpSettings(
   AppSettings initial = const AppSettings(),
   Future<void> Function(ProgressService service)? seed,
   BackupFiles? files,
+  Future<bool> Function(Uri url)? openUrl,
 }) async {
   tester.view.physicalSize = const Size(390, 844) * 3;
   tester.view.devicePixelRatio = 3;
@@ -39,7 +41,10 @@ Future<(InMemorySettingsRepository, InMemoryProgressRepository)> _pumpSettings(
     tester,
     initial: initial,
     progress: progress,
-    overrides: [backupFilesProvider.overrideWithValue(files ?? _FakeFiles())],
+    overrides: [
+      backupFilesProvider.overrideWithValue(files ?? _FakeFiles()),
+      openUrlProvider.overrideWithValue(openUrl ?? (_) async => true),
+    ],
   );
   GoRouter.of(tester.element(find.byType(Scaffold).first)).go('/settings');
   await tester.pumpAndSettle();
@@ -229,6 +234,32 @@ void main() {
     expect(find.byType(AdsContractPage), findsOneWidget);
     expect(find.text('Nunca verás un anuncio en mitad de una partida.'), findsOneWidget);
     expect(find.text('Todos los juegos funcionan sin internet.'), findsOneWidget);
+  });
+
+  for (final (locale, row, url) in [
+    (const Locale('es'), 'Política de privacidad', 'https://ludixa.web.app/privacidad'),
+    (const Locale('en'), 'Privacy policy', 'https://ludixa.web.app/privacy'),
+  ]) {
+    testWidgets('la política de privacidad se abre en el navegador · ${locale.languageCode}', (tester) async {
+      final opened = <Uri>[];
+      await _pumpSettings(
+        tester,
+        initial: AppSettings(locale: locale),
+        openUrl: (url) async {
+          opened.add(url);
+          return true;
+        },
+      );
+      await _tap(tester, find.text(row));
+      expect(opened, [Uri.parse(url)]);
+    });
+  }
+
+  testWidgets('si no se puede abrir la política, lo avisa', (tester) async {
+    await _pumpSettings(tester, openUrl: (_) async => false);
+    await _tap(tester, find.text('Política de privacidad'));
+    await tester.pump();
+    expect(find.text('No se pudo abrir el enlace'), findsOneWidget);
   });
 
   testWidgets('en inglés la palabra es DELETE', (tester) async {

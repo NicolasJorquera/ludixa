@@ -1064,6 +1064,18 @@ abstract class AppLocalizations {
   /// **'Contrato de anuncios'**
   String get settingsAdsContract;
 
+  /// Fila de Ajustes › Información: abre la política en el navegador.
+  ///
+  /// In es, this message translates to:
+  /// **'Política de privacidad'**
+  String get settingsPrivacyPolicy;
+
+  /// Aviso cuando el teléfono no puede abrir una página web.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo abrir el enlace'**
+  String get linkOpenFailed;
+
   /// Introducción del contrato de anuncios.
   ///
   /// In es, this message translates to:

@@ -676,6 +676,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsAdsContract => 'Contrato de anuncios';
 
   @override
+  String get settingsPrivacyPolicy => 'Política de privacidad';
+
+  @override
+  String get linkOpenFailed => 'No se pudo abrir el enlace';
+
+  @override
   String get adsContractIntro => 'Ludixa es gratis gracias a los anuncios. Estas reglas no cambian:';
 
   @override

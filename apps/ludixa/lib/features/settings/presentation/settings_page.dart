@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../app/environment.dart';
+import '../../../app/links.dart';
 import '../../../app/locales.dart';
 import '../../../app/router.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -147,6 +148,7 @@ class SettingsPage extends ConsumerWidget {
           ),
           LudixaSectionLabel(l10n.settingsAboutSection),
           LudixaListRow(title: l10n.settingsAdsContract, onTap: () => context.go(AppRoutes.adsContract)),
+          LudixaListRow(title: l10n.settingsPrivacyPolicy, onTap: () => _openPrivacyPolicy(context, ref)),
           LudixaListRow(title: l10n.settingsLicenses, onTap: () => context.go(AppRoutes.licenses)),
           LudixaListRow(title: l10n.settingsVersion, value: version),
           if (!environment.isProduction)
@@ -165,6 +167,14 @@ class SettingsPage extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  /// La política vive en el sitio de Ludixa; se abre en el navegador.
+  Future<void> _openPrivacyPolicy(BuildContext context, WidgetRef ref) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final failed = AppLocalizations.of(context).linkOpenFailed;
+    final opened = await ref.read(openUrlProvider)(privacyPolicyUrl(Localizations.localeOf(context)));
+    if (!opened) messenger.showSnackBar(SnackBar(content: Text(failed)));
   }
 
   Future<void> _privacyOptions(WidgetRef ref) async {

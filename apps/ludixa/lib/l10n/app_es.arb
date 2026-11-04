@@ -902,6 +902,14 @@
   "@settingsAdsContract": {
     "description": "Fila y título de la pantalla del contrato."
   },
+  "settingsPrivacyPolicy": "Política de privacidad",
+  "@settingsPrivacyPolicy": {
+    "description": "Fila de Ajustes › Información: abre la política en el navegador."
+  },
+  "linkOpenFailed": "No se pudo abrir el enlace",
+  "@linkOpenFailed": {
+    "description": "Aviso cuando el teléfono no puede abrir una página web."
+  },
   "adsContractIntro": "Ludixa es gratis gracias a los anuncios. Estas reglas no cambian:",
   "@adsContractIntro": {
     "description": "Introducción del contrato de anuncios."
