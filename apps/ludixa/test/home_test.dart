@@ -51,13 +51,7 @@ Future<InMemoryProgressRepository> _pumpHome(
   addTearDown(tester.view.reset);
   final repository = InMemoryProgressRepository();
   await seed?.call(ProgressService(repository, clock: _FakeClock(_now)));
-  await pumpLudixa(
-    tester,
-    overrides: [
-      clockProvider.overrideWithValue(_FakeClock(_now)),
-      progressRepositoryProvider.overrideWithValue(repository),
-    ],
-  );
+  await pumpLudixa(tester, progress: repository, overrides: [clockProvider.overrideWithValue(_FakeClock(_now))]);
   return repository;
 }
 

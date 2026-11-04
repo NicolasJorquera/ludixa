@@ -7,6 +7,7 @@
 library;
 
 export 'src/data/drift/database.dart' show ProgressDatabase;
+export 'src/data/drift/drift_progress_repository.dart';
 export 'src/data/in_memory_progress_repository.dart';
 export 'src/domain/achievements.dart';
 export 'src/domain/clock.dart';

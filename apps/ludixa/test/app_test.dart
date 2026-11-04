@@ -1,7 +1,9 @@
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ludixa/app/environment.dart';
+import 'package:ludixa/features/play/play_providers.dart';
 import 'package:ludixa/features/settings/domain/app_settings.dart';
 
 import 'support/test_app.dart';
@@ -29,6 +31,12 @@ Future<void> _tapListItem(WidgetTester tester, String text) async {
 Future<void> _openLicenses(WidgetTester tester) => _tapListItem(tester, 'Licencias de código abierto');
 
 void main() {
+  test('sin la base de bootstrap no hay progreso en memoria de reserva', () {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    expect(() => container.read(progressRepositoryProvider), throwsA(anything));
+  });
+
   group('entorno', () {
     testWidgets('en desarrollo muestra la marca DEV', (tester) async {
       await pumpLudixa(tester);

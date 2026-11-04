@@ -1,6 +1,8 @@
 import 'package:design_system/design_system.dart';
+import 'package:drift_flutter/drift_flutter.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:progress/progress.dart';
 
 import 'app/app.dart';
 import 'app/environment.dart';
@@ -22,6 +24,9 @@ Future<void> bootstrap(AppEnvironment environment) async {
   final minesweeperSettings = await PrefsMinesweeperSettingsStore.create();
   final wordSearchSettings = await PrefsWordSearchSettingsStore.create();
   final lastDifficulty = await PrefsLastDifficultyStore.create();
+  // Archivo SQLite en el almacenamiento de la app; drift_flutter lo abre en
+  // otro isolate para no frenar la interfaz.
+  final progress = DriftProgressRepository(ProgressDatabase(driftDatabase(name: 'progress')));
   runApp(
     ProviderScope(
       overrides: [
@@ -31,6 +36,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
         minesweeperSettingsStoreProvider.overrideWithValue(minesweeperSettings),
         wordSearchSettingsStoreProvider.overrideWithValue(wordSearchSettings),
         lastDifficultyStoreProvider.overrideWithValue(lastDifficulty),
+        progressRepositoryProvider.overrideWithValue(progress),
       ],
       child: const LudixaApp(),
     ),
