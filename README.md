@@ -54,6 +54,12 @@ Rendimiento en un dispositivo (desde `apps/ludixa`, modo profile): fotogramas de
 flutter drive --profile --no-dds --flavor dev -t integration_test/perf_test.dart --driver test_driver/perf_driver.dart -d <dispositivo>
 ```
 
+Pruebas de punta a punta y capturas para la ficha de Play (desde `apps/ludixa`, en un dispositivo): ver `docs/qa/punta-a-punta.md`.
+
+```bash
+flutter test integration_test/e2e_test.dart --flavor dev --dart-define=ADS_QA=true -d <dispositivo>
+```
+
 Idiomas (desde `apps/ludixa`). Los textos viven en `lib/l10n/app_es.arb` (plantilla, con descripciones) y `app_en.arb`. Tras editarlos:
 
 ```bash
