@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108">
+  <!-- Icono de Ludixa: una grilla de 3×3 con la diagonal resuelta, sobre el azul primario.
+       Mismas medidas que android/.../drawable/ic_launcher_foreground.xml: grilla de 3×3 de 46 dp, dentro del círculo seguro de 66 dp (108 en total). -->
+  <rect width="108" height="108" fill="#2B4FD8"/>
+  <g fill="#FFFFFF">
+    <g fill-opacity="0.32">
+      <rect x="48" y="31" width="12" height="12" rx="3"/>
+      <rect x="65" y="31" width="12" height="12" rx="3"/>
+      <rect x="31" y="48" width="12" height="12" rx="3"/>
+      <rect x="65" y="48" width="12" height="12" rx="3"/>
+      <rect x="31" y="65" width="12" height="12" rx="3"/>
+      <rect x="48" y="65" width="12" height="12" rx="3"/>
+    </g>
+    <rect x="31" y="31" width="12" height="12" rx="3"/>
+    <rect x="48" y="48" width="12" height="12" rx="3"/>
+    <rect x="65" y="65" width="12" height="12" rx="3" fill="#FF8A57"/>
+  </g>
+</svg>

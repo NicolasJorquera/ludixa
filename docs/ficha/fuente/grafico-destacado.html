@@ -1,0 +1,50 @@
+<!doctype html>
+<!-- Gráfico destacado de Play (1024 × 500). Lo renderiza tool/ficha_imagenes.sh;
+     ?idioma=en cambia los textos y las capturas. -->
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: Bricolage; src: url(../../../packages/design_system/assets/fonts/BricolageGrotesque-Variable.ttf); }
+  @font-face { font-family: Lexend; src: url(../../../packages/design_system/assets/fonts/Lexend-Variable.ttf); }
+  html, body { margin: 0; width: 1024px; height: 500px; overflow: hidden; }
+  body {
+    background: #2B4FD8;
+    color: #fff;
+    font-family: Lexend, sans-serif;
+    position: relative;
+  }
+  .texto { position: absolute; left: 60px; top: 92px; width: 520px; }
+  .marca { display: flex; align-items: center; gap: 22px; }
+  .marca img { width: 104px; height: 104px; border-radius: 24px; box-shadow: 0 0 0 3px rgba(255,255,255,.25); }
+  h1 { font-family: Bricolage; font-weight: 750; font-size: 88px; letter-spacing: -1px; margin: 0; }
+  p { font-size: 26px; line-height: 1.3; margin: 30px 0 0; font-weight: 500; white-space: nowrap; }
+  p small { display: block; font-size: 24px; margin-top: 10px; color: rgba(255,255,255,.82); font-weight: 400; }
+  .capturas img {
+    position: absolute; width: 232px; border-radius: 22px;
+    box-shadow: 0 18px 40px rgba(8, 20, 70, .45);
+  }
+  .uno { left: 590px; top: 60px; transform: rotate(-5deg); }
+  .dos { left: 770px; top: 110px; transform: rotate(5deg); }
+</style>
+</head>
+<body>
+<div class="texto">
+  <div class="marca"><img src="icono-visible.svg" alt=""><h1>Ludixa</h1></div>
+  <p id="lema">Sudoku, Buscaminas y Sopa de letras<small id="sub">Un reto nuevo cada día, sin conexión</small></p>
+</div>
+<div class="capturas">
+  <img class="uno" id="c1" src="../capturas/03_sudoku_claro_es.png" alt="">
+  <img class="dos" id="c2" src="../capturas/05_sopa_oscuro_es.png" alt="">
+</div>
+<script>
+  if (new URLSearchParams(location.search).get('idioma') === 'en') {
+    document.documentElement.lang = 'en';
+    document.getElementById('lema').firstChild.textContent = 'Sudoku, Minesweeper and Word search';
+    document.getElementById('sub').textContent = 'A new challenge every day, offline';
+    document.getElementById('c1').src = '../capturas/03_sudoku_claro_en.png';
+    document.getElementById('c2').src = '../capturas/05_sopa_oscuro_en.png';
+  }
+</script>
+</body>
+</html>
