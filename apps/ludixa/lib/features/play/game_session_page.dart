@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:daily_challenge/daily_challenge.dart';
@@ -120,6 +121,7 @@ class GameSessionPage extends ConsumerStatefulWidget {
 
 class _GameSessionPageState extends ConsumerState<GameSessionPage> {
   late final AppGameHost _host;
+  late final AppLifecycleListener _lifecycle;
 
   GameModule get _module => widget.module;
 
@@ -151,6 +153,16 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
       onWon: _showResult,
       onPlayAgain: _playAgain,
     );
+    // En segundo plano el sistema puede matar la app: se guarda ya.
+    _lifecycle = AppLifecycleListener(onHide: () => unawaited(_host.enterBackground()), onShow: _host.enterForeground);
+  }
+
+  @override
+  void dispose() {
+    // Al salir de la partida (Guardar y salir, atrás) se escribe lo pendiente.
+    unawaited(_host.flush());
+    _lifecycle.dispose();
+    super.dispose();
   }
 
   String _levelLabel(BuildContext context) =>

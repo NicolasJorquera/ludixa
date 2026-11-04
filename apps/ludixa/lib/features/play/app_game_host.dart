@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math' as math;
+
 import 'package:game_api/game_api.dart';
 import 'package:progress/progress.dart';
 
@@ -35,6 +38,12 @@ final class FinishedGame {
 /// Servicios de la app para una partida: pistas, guardado en el progreso,
 /// pausa y otra partida. Los videos con recompensa llegan en H5: por ahora
 /// solo hay pistas gratis y el rescate responde "no disponible".
+///
+/// Guardado (H5-03): los juegos mandan una instantánea en cada jugada. El
+/// host escribe la última cada [saveDelay] y de inmediato en segundo plano,
+/// donde el sistema puede matar la app en cualquier momento. Las escrituras
+/// van en cola, y el resultado espera a la última para que una instantánea
+/// atrasada nunca pise una partida ya terminada.
 class AppGameHost implements GameHost {
   AppGameHost({
     required this.service,
@@ -44,8 +53,10 @@ class AppGameHost implements GameHost {
     required this.onPlayAgain,
     this.onChanged,
     this.freeHintsPerPuzzle = 3,
+    this.saveDelay = const Duration(milliseconds: 300),
   }) : _session = session,
-       _free = freeHintsPerPuzzle;
+       // Al retomar, las pistas gratis ya usadas no vuelven.
+       _free = math.max(0, freeHintsPerPuzzle - session.freeHints);
 
   final ProgressService service;
   final Future<PauseChoice> Function() onShowPause;
@@ -55,9 +66,15 @@ class AppGameHost implements GameHost {
   /// Después de guardar o registrar algo en el progreso.
   final void Function()? onChanged;
   final int freeHintsPerPuzzle;
+  final Duration saveDelay;
 
   SessionRecord _session;
   int _free;
+
+  SessionSnapshot? _pending;
+  Timer? _saveTimer;
+  Future<void> _writes = Future.value();
+  bool _background = false;
   bool _reported = false;
 
   SessionRecord get session => _session;
@@ -76,17 +93,51 @@ class AppGameHost implements GameHost {
   Future<RescueOutcome> requestRescue() async => RescueOutcome.unavailable;
 
   @override
-  Future<void> saveSnapshot(SessionSnapshot snapshot) async {
-    if (_reported) return;
-    _session = _session.withState(snapshot.state, snapshot.elapsed);
-    await service.saveInProgress(_session);
-    onChanged?.call();
+  Future<void> saveSnapshot(SessionSnapshot snapshot) {
+    if (_reported) return _writes;
+    _pending = snapshot;
+    if (_background) return flush();
+    _saveTimer ??= Timer(saveDelay, () => unawaited(flush()));
+    return _writes;
+  }
+
+  /// La app pasó a segundo plano: se escribe ya y cada instantánea siguiente
+  /// también, sin esperar.
+  Future<void> enterBackground() {
+    _background = true;
+    return flush();
+  }
+
+  void enterForeground() => _background = false;
+
+  /// Escribe la última instantánea pendiente, si hay. Se espera junto con
+  /// las anteriores, en orden.
+  Future<void> flush() {
+    _saveTimer?.cancel();
+    _saveTimer = null;
+    final snapshot = _pending;
+    _pending = null;
+    if (snapshot == null || _reported) return _writes;
+    return _writes = _writes.then((_) async {
+      if (_reported) return;
+      _session = _session.withState(
+        snapshot.state,
+        snapshot.elapsed,
+        freeHints: snapshot.freeHintsUsed,
+        rewardedHints: snapshot.rewardedHintsUsed,
+      );
+      await service.saveInProgress(_session);
+      onChanged?.call();
+    });
   }
 
   @override
   Future<void> reportResult(GameResult result) async {
     if (_reported) return;
     _reported = true;
+    _saveTimer?.cancel();
+    _pending = null;
+    await _writes;
     final before = await service.stats(_session.game, _session.difficulty);
     final streakBefore = (await service.streakStatus()).current;
     final finished = _session.finish(

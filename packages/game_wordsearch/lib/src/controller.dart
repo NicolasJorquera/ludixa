@@ -261,6 +261,8 @@ class WordSearchController extends ChangeNotifier {
       'rewardedHints': rewardedHints,
     },
     elapsed: _elapsed,
+    freeHintsUsed: freeHints,
+    rewardedHintsUsed: rewardedHints,
   );
 
   void _saveSnapshot() => unawaited(host.saveSnapshot(snapshot()));

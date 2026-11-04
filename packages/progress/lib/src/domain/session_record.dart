@@ -69,23 +69,27 @@ final class SessionRecord {
   bool get assisted => freeHints > 0 || rewardedHints > 0 || rescued;
   int get hintsUsed => freeHints + rewardedHints;
 
-  /// La misma partida en curso con un estado nuevo (instantánea).
-  SessionRecord withState(Map<String, Object?> state, Duration elapsed) => SessionRecord(
-    id: id,
-    game: game,
-    difficulty: difficulty,
-    mode: mode,
-    startedAt: startedAt,
-    challengeDay: challengeDay,
-    seedKey: seedKey,
-    generatorVersion: generatorVersion,
-    wordsLanguage: wordsLanguage,
-    puzzle: puzzle,
-    state: state,
-    elapsed: elapsed,
-    themeIds: themeIds,
-    flagsPlaced: flagsPlaced,
-  );
+  /// La misma partida en curso con un estado nuevo (instantánea) y las
+  /// pistas usadas hasta ahora.
+  SessionRecord withState(Map<String, Object?> state, Duration elapsed, {int? freeHints, int? rewardedHints}) =>
+      SessionRecord(
+        id: id,
+        game: game,
+        difficulty: difficulty,
+        mode: mode,
+        startedAt: startedAt,
+        challengeDay: challengeDay,
+        seedKey: seedKey,
+        generatorVersion: generatorVersion,
+        wordsLanguage: wordsLanguage,
+        puzzle: puzzle,
+        state: state,
+        elapsed: elapsed,
+        freeHints: freeHints ?? this.freeHints,
+        rewardedHints: rewardedHints ?? this.rewardedHints,
+        themeIds: themeIds,
+        flagsPlaced: flagsPlaced,
+      );
 
   SessionRecord finish({
     required SessionStatus status,

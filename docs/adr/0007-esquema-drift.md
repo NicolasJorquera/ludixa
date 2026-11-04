@@ -44,3 +44,10 @@ H5 cambia el progreso en memoria por SQLite con Drift (ADR 0006). H5-01 fija el 
 
 - `DriftProgressRepository` implementa `ProgressRepository` sobre los DAOs. `transaction` es una transacción real de SQLite: si la acción lanza, no queda nada escrito. Las 29 reglas del servicio se prueban contra los dos repositorios, el de memoria y el de Drift.
 - La app abre `progress.sqlite` con `drift_flutter` en el arranque, en otro isolate. Sin esa base, `progressRepositoryProvider` falla: no hay progreso en memoria de reserva. Las pruebas de la app ponen uno en memoria a propósito.
+
+## H5-03: guardado automático y reanudación
+
+- Los juegos mandan una instantánea en cada jugada. `AppGameHost` escribe la última cada 300 ms. Al pasar a segundo plano escribe de inmediato, y también cada instantánea que llegue mientras la app siga oculta, porque ahí el sistema puede matarla sin avisar. Al salir de la partida escribe lo pendiente.
+- Las escrituras van en cola y en orden. El resultado espera a la última y descarta las pendientes: una instantánea atrasada nunca pisa una partida terminada.
+- `SessionSnapshot` lleva las pistas usadas. Se guardan en la partida en curso y, al retomar, el host descuenta las gratis ya usadas: antes volvían las 3.
+- La partida se retoma desde "Continuar" en Inicio. La celda seleccionada no se guarda: es estado de pantalla.

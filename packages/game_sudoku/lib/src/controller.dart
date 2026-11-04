@@ -313,6 +313,8 @@ class SudokuController extends ChangeNotifier {
   SessionSnapshot snapshot() => SessionSnapshot(
     state: {'v': snapshotVersion, 'game': game.toJson(), 'freeHints': freeHints, 'rewardedHints': rewardedHints},
     elapsed: _elapsed,
+    freeHintsUsed: freeHints,
+    rewardedHintsUsed: rewardedHints,
   );
 
   bool get _blocked => _paused || solved || _hint != null;

@@ -64,6 +64,11 @@ void main() {
       expect(await host.requestRescue(), RescueOutcome.unavailable);
     });
 
+    SessionSnapshot snap(int v) => SessionSnapshot(
+      state: {'v': v},
+      elapsed: Duration(seconds: v),
+    );
+
     test('las instantáneas quedan en el progreso como partida en curso', () async {
       final host = AppGameHost(
         service: service,
@@ -72,10 +77,93 @@ void main() {
         onWon: (_) {},
         onPlayAgain: () {},
       );
-      await host.saveSnapshot(const SessionSnapshot(state: {'v': 1}, elapsed: Duration(seconds: 12)));
+      await host.saveSnapshot(snap(12));
+      await host.flush();
       final saved = (await service.repository.session('x'))!;
       expect(saved.status, SessionStatus.inProgress);
       expect(saved.elapsed, const Duration(seconds: 12));
+    });
+
+    test('jugadas seguidas se escriben una vez, con la última, a los 300 ms', () async {
+      var writes = 0;
+      final host = AppGameHost(
+        service: service,
+        session: _session(),
+        onShowPause: () async => PauseChoice.resume,
+        onWon: (_) {},
+        onPlayAgain: () {},
+        onChanged: () => writes++,
+        saveDelay: const Duration(milliseconds: 60),
+      );
+      for (var v = 1; v <= 3; v++) {
+        await host.saveSnapshot(snap(v));
+      }
+      expect(await service.repository.session('x'), isNull);
+      await Future<void>.delayed(const Duration(milliseconds: 120));
+      expect(writes, 1);
+      expect((await service.repository.session('x'))!.state, {'v': 3});
+    });
+
+    test('en segundo plano cada instantánea se escribe de inmediato', () async {
+      final host = AppGameHost(
+        service: service,
+        session: _session(),
+        onShowPause: () async => PauseChoice.resume,
+        onWon: (_) {},
+        onPlayAgain: () {},
+        saveDelay: const Duration(hours: 1),
+      );
+      unawaited(host.saveSnapshot(snap(1)));
+      await host.enterBackground();
+      expect((await service.repository.session('x'))!.state, {'v': 1});
+      await host.saveSnapshot(snap(2));
+      expect((await service.repository.session('x'))!.state, {'v': 2});
+      host.enterForeground();
+      await host.saveSnapshot(snap(3));
+      expect((await service.repository.session('x'))!.state, {'v': 2});
+    });
+
+    test('al retomar, las pistas gratis usadas no vuelven', () async {
+      final first = AppGameHost(
+        service: service,
+        session: _session(),
+        onShowPause: () async => PauseChoice.resume,
+        onWon: (_) {},
+        onPlayAgain: () {},
+      );
+      await first.requestHint();
+      await first.requestHint();
+      await first.saveSnapshot(const SessionSnapshot(state: {'v': 1}, elapsed: Duration(seconds: 5), freeHintsUsed: 2));
+      await first.flush();
+      final saved = (await service.repository.session('x'))!;
+      expect(saved.freeHints, 2);
+      final resumed = AppGameHost(
+        service: service,
+        session: saved,
+        onShowPause: () async => PauseChoice.resume,
+        onWon: (_) {},
+        onPlayAgain: () {},
+      );
+      expect(resumed.freeHintsLeft, 1);
+    });
+
+    test('una instantánea pendiente nunca pisa una partida terminada', () async {
+      final host = AppGameHost(
+        service: service,
+        session: _session(),
+        onShowPause: () async => PauseChoice.resume,
+        onWon: (_) {},
+        onPlayAgain: () {},
+        saveDelay: const Duration(milliseconds: 20),
+      );
+      await host.saveSnapshot(snap(1));
+      await host.flush();
+      await host.saveSnapshot(snap(2));
+      await host.reportResult(const GameResult(outcome: GameOutcome.won, elapsed: Duration(minutes: 4)));
+      await host.saveSnapshot(snap(3));
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+      await host.flush();
+      expect((await service.repository.session('x'))!.status, SessionStatus.won);
     });
 
     test('ganar registra y avisa con récord, maestría y racha; perder solo registra', () async {
