@@ -1,29 +1,24 @@
 # Sitio de Ludixa (P-04)
 
-Política de privacidad en español e inglés y `app-ads.txt`, para Firebase Hosting (plan gratuito Spark). Lo preparé yo; lo publica el responsable de la cuenta.
+Política de privacidad en español e inglés y `app-ads.txt`, para Firebase Hosting (plan gratuito Spark). Si el proyecto de Firebase no puede llamarse `ludixa` (los ID son únicos), cambiar las URL de este archivo y de `docs/ficha/ficha.md`.
 
 | Página | URL publicada |
 |---|---|
-| `public/index.html` | `https://<proyecto>.web.app/` |
-| `public/privacidad.html` | `https://<proyecto>.web.app/privacidad` |
-| `public/privacy.html` | `https://<proyecto>.web.app/privacy` |
-| `public/app-ads.txt` | `https://<proyecto>.web.app/app-ads.txt` |
+| `public/index.html` | `https://ludixa.web.app/` |
+| `public/privacidad.html` | `https://ludixa.web.app/privacidad` |
+| `public/privacy.html` | `https://ludixa.web.app/privacy` |
+| `public/app-ads.txt` | `https://ludixa.web.app/app-ads.txt` |
 
-## Antes de publicar
+## Contenido
 
-La política es un **borrador basado en lo que la app hace hoy**: SDK, permisos y datos que guarda, revisados en el código. Lo legal lo define Legal/Administración (P-01). Completar todas las marcas `[[...]]`:
+- Desarrollador: Gonisoma. Contacto: nicolas.jorqueramartinez@gmail.com.
+- Público objetivo: 13 años o más. En Play hay que declarar lo mismo (H8-03).
+- `app-ads.txt`: ID de editor `pub-3038495459046159`.
+- Las secciones de menores y de consultas describen lo que hace la app y cómo escribir. No citan leyes ni son asesoría legal: no hubo revisión legal. Si la app apunta a otros mercados o cambia lo que hace con los datos, conviene que la revise un abogado.
 
-| Marca | Quién la completa |
-|---|---|
-| Nombre del desarrollador y correo de contacto (el correo público de la ficha de Play) | Tú, con lo que defina P-01 |
-| Menores de edad: público objetivo y edad mínima | Legal/Administración, coherente con la declaración de público objetivo de Play (H8-03) |
-| Derechos de las personas según la ley aplicable | Legal/Administración |
-| Fecha de publicación | Al publicar |
-| `app-ads.txt`: reemplazar `pub-0000000000000000` por tu ID de editor | Tú, en AdMob (Cuenta › Información de la cuenta) |
+`firebase deploy` corre antes `tool/check_site.sh`, que no deja publicar si queda alguna marca `[[...]]` o el ID de editor de ejemplo.
 
-`firebase deploy` corre antes `tool/check_site.sh`, que no deja publicar mientras quede una marca o el ID de ejemplo.
-
-Si la app cambia lo que hace con los datos, hay que actualizar la política **antes** de publicar esa versión. Por ejemplo, Firebase Analytics (H6-05) obliga a cambiarla.
+Si la app cambia lo que hace con los datos, hay que actualizar la política **antes** de publicar esa versión, con su nueva fecha. Por ejemplo, Firebase Analytics (H6-05) obliga a cambiarla.
 
 ## Publicar
 
@@ -31,7 +26,7 @@ Si la app cambia lo que hace con los datos, hay que actualizar la política **an
 npm install -g firebase-tools
 firebase login
 cd site
-firebase use --add                  # elegir el proyecto de Firebase de Ludixa
+firebase use --add                  # elegir el proyecto de Firebase (ID previsto: ludixa)
 firebase deploy --only hosting
 ```
 
@@ -39,6 +34,6 @@ firebase deploy --only hosting
 
 1. **Play Console:**
    - poner la URL de `/privacidad` como política de privacidad de la app;
-   - en la ficha, poner `https://<proyecto>.web.app` como sitio web del desarrollador. AdMob busca `app-ads.txt` en ese dominio.
+   - en la ficha, poner `https://ludixa.web.app` como sitio web del desarrollador. AdMob busca `app-ads.txt` en ese dominio.
 2. **AdMob:** en Apps › Configuración de app-ads.txt, verificar el archivo. Puede tardar hasta 24 horas.
 3. **App:** agregar el enlace a la política en Ajustes › Información, con la URL definitiva.
