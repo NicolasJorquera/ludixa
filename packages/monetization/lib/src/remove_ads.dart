@@ -111,6 +111,9 @@ final class RemoveAds {
   Future<void>? _restoring;
   bool _disposed = false;
 
+  /// La hoja de compra de Play está abierta: su resultado todavía no llegó.
+  bool _buying = false;
+
   ValueListenable<RemoveAdsState> get state => _state;
 
   bool get owned => _state.value.owned;
@@ -156,13 +159,19 @@ final class RemoveAds {
         return;
       }
       _set(_state.value.copyWith(price: product.price));
+      _buying = true;
       final launched = await _iap.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: product));
-      // Play no abre la hoja si la cuenta ya la tiene: se restaura.
-      if (!launched) return await _restoreOrFail();
+      // Play no abrió la hoja (en Android devuelve false, sin lanzar, si la
+      // cuenta ya la tiene): se reverifica; si la tiene, queda restaurada.
+      if (!launched) {
+        _buying = false;
+        return await _restoreOrFail();
+      }
       // La hoja de Play quedó abierta encima de la app; el resultado llega
       // por el stream. Si nunca llegara, los botones no quedan bloqueados.
       if (_state.value.flow == PurchaseFlow.busy) _setFlow(PurchaseFlow.idle);
     } on Object catch (e) {
+      _buying = false;
       if (_isAlreadyOwned(e)) {
         await _restoreOrFail();
       } else {
@@ -230,7 +239,12 @@ final class RemoveAds {
   }
 
   Future<void> _onPurchases(List<PurchaseDetails> purchases) async {
-    final mine = purchases.where((p) => p.productID == removeAdsProductId).toList();
+    // Cuando Play cierra la hoja sin compra (cancelada, error o «ya la
+    // tiene»), `in_app_purchase_android` avisa con un `productID` vacío. Con
+    // una compra en curso, ese aviso es de este producto: si se descartara,
+    // la tarjeta quedaría esperando.
+    final mine = purchases.where((p) => p.productID == removeAdsProductId || (_buying && p.productID.isEmpty)).toList();
+    if (mine.any((p) => p.status != PurchaseStatus.restored)) _buying = false;
     // Primero, sin esperar, lo que pertenece a una restauración en curso.
     final batch = _restoreBatch;
     if (batch != null) batch.addAll(mine.where((p) => p.status == PurchaseStatus.restored));
@@ -243,6 +257,11 @@ final class RemoveAds {
         case PurchaseStatus.restored:
           if (_isPending(p)) {
             _setFlow(PurchaseFlow.pending);
+            continue;
+          }
+          if (p.productID.isEmpty) {
+            // Play respondió «ok» sin compras: se le pregunta qué tiene la cuenta.
+            await _restoreOrFail();
             continue;
           }
           await _saveOwned(true);

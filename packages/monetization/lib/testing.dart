@@ -12,7 +12,24 @@ import 'package:in_app_purchase_platform_interface/in_app_purchase_platform_inte
 import 'src/remove_ads.dart';
 
 /// Qué responde Play al comprar.
-enum FakeBuyResult { purchased, pending, canceled, error, alreadyOwned }
+enum FakeBuyResult {
+  purchased,
+  pending,
+
+  /// La persona cierra la hoja.
+  canceled,
+  error,
+
+  /// La cuenta ya la tiene: Play no abre la hoja y `buyNonConsumable`
+  /// devuelve false, sin lanzar (como en Android).
+  alreadyOwned,
+
+  /// Play no abre la hoja por otro motivo (devuelve false), sin compra.
+  notLaunched,
+
+  /// La hoja se abre y Play responde ITEM_ALREADY_OWNED por el stream.
+  alreadyOwnedUpdate,
+}
 
 /// Google Play Billing de prueba, sin canal nativo. [owned] es lo que la
 /// cuenta tiene en Play: sobrevive a una «instalación nueva» (otro
@@ -25,7 +42,12 @@ class FakeInAppPurchase implements InAppPurchase {
     this.owned = false,
     this.failRestore = false,
     this.price = r'US$2.99',
+    this.emptyProductIdOnFailure = true,
   });
+
+  /// Como `in_app_purchase_android`: si la hoja se cierra sin compra
+  /// (cancelada o error), el aviso llega con `productID` vacío.
+  bool emptyProductIdOnFailure;
 
   /// Play Billing responde (false: sin Play Store o sin conexión).
   bool available;
@@ -86,8 +108,10 @@ class FakeInAppPurchase implements InAppPurchase {
     if (buyResult == FakeBuyResult.alreadyOwned) {
       // Play no abre la hoja: la cuenta ya la tiene.
       owned = true;
+      acknowledged = true;
       return false;
     }
+    if (buyResult == FakeBuyResult.notLaunched) return false;
     scheduleMicrotask(() {
       switch (buyResult) {
         case FakeBuyResult.purchased:
@@ -97,10 +121,15 @@ class FakeInAppPurchase implements InAppPurchase {
           pendingInStore = true;
           _emit(PurchaseStatus.pending, complete: false);
         case FakeBuyResult.canceled:
-          _emit(PurchaseStatus.canceled, complete: false);
+          _emitFailure(PurchaseStatus.canceled, 'BillingResponse.userCanceled');
         case FakeBuyResult.error:
-          _emit(PurchaseStatus.error, complete: false);
+          _emitFailure(PurchaseStatus.error, 'BillingResponse.error');
+        case FakeBuyResult.alreadyOwnedUpdate:
+          owned = true;
+          acknowledged = true;
+          _emitFailure(PurchaseStatus.error, 'BillingResponse.itemAlreadyOwned');
         case FakeBuyResult.alreadyOwned:
+        case FakeBuyResult.notLaunched:
       }
     });
     return true;
@@ -123,9 +152,16 @@ class FakeInAppPurchase implements InAppPurchase {
   void _emit(PurchaseStatus status, {bool complete = true}) =>
       _updates.add([_details(status)..pendingCompletePurchase = complete]);
 
-  static PurchaseDetails _details(PurchaseStatus status) => PurchaseDetails(
+  /// Hoja cerrada sin compra. Con [emptyProductIdOnFailure], como el plugin
+  /// de Android: sin producto y con el código de Play en el error.
+  void _emitFailure(PurchaseStatus status, String code) => _updates.add([
+    _details(status, productId: emptyProductIdOnFailure ? '' : removeAdsProductId)
+      ..error = IAPError(source: 'google_play', code: 'purchase_error', message: code),
+  ]);
+
+  static PurchaseDetails _details(PurchaseStatus status, {String productId = removeAdsProductId}) => PurchaseDetails(
     purchaseID: 'GPA.0000-0000-0000-00000',
-    productID: removeAdsProductId,
+    productID: productId,
     verificationData: PurchaseVerificationData(localVerificationData: '', serverVerificationData: '', source: 'fake'),
     transactionDate: '0',
     status: status,

@@ -152,8 +152,10 @@ void main() {
     expect(play.acknowledged, isTrue);
   });
 
-  test('cancelada o con error: nada cambia', () async {
-    play.buyResult = FakeBuyResult.canceled;
+  test('cancelada o con error (aviso con el productID): nada cambia', () async {
+    play
+      ..buyResult = FakeBuyResult.canceled
+      ..emptyProductIdOnFailure = false;
     final (billing, store) = await install();
     await billing.buy();
     await pumpEventQueue();
@@ -166,6 +168,53 @@ void main() {
     expect(billing.state.value.flow, PurchaseFlow.error);
     expect(billing.owned, isFalse);
     expect(store.load(), isFalse);
+  });
+
+  test('aviso de Play sin productID (hoja cerrada): cancelada o error, nunca queda esperando', () async {
+    // in_app_purchase_android avisa así cuando la hoja se cierra sin compra.
+    expect(play.emptyProductIdOnFailure, isTrue);
+    final (billing, _) = await install();
+    play.buyResult = FakeBuyResult.canceled;
+    await billing.buy();
+    await pumpEventQueue();
+    expect(billing.state.value.flow, PurchaseFlow.canceled);
+
+    play.buyResult = FakeBuyResult.error;
+    await billing.buy();
+    await pumpEventQueue();
+    expect(billing.state.value.flow, PurchaseFlow.error);
+    expect(billing.owned, isFalse);
+  });
+
+  test('un aviso sin productID fuera de una compra en curso no cambia nada', () async {
+    final (billing, _) = await install();
+    play.buyResult = FakeBuyResult.canceled;
+    await billing.buy();
+    await pumpEventQueue();
+    await billing.restore();
+    expect(billing.state.value.flow, PurchaseFlow.nothingToRestore);
+    // Play repite el aviso de la hoja ya cerrada.
+    play.buyResult = FakeBuyResult.error;
+    await play.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: _anyProduct));
+    await pumpEventQueue();
+    expect(billing.state.value.flow, PurchaseFlow.nothingToRestore);
+  });
+
+  test('ITEM_ALREADY_OWNED por el stream, sin productID: se restaura', () async {
+    final (billing, _) = await install();
+    play.buyResult = FakeBuyResult.alreadyOwnedUpdate;
+    await billing.buy();
+    await pumpEventQueue();
+    expect(billing.owned, isTrue);
+    expect(billing.state.value.flow, PurchaseFlow.restored);
+  });
+
+  test('Play no abre la hoja (launch = false) y la cuenta no la tiene: error', () async {
+    final (billing, _) = await install();
+    play.buyResult = FakeBuyResult.notLaunched;
+    await billing.buy();
+    expect(billing.owned, isFalse);
+    expect(billing.state.value.flow, PurchaseFlow.error);
   });
 
   test('la cuenta ya la tenía: Play no abre la hoja y se restaura', () async {
@@ -219,3 +268,12 @@ class _BrokenStore implements RemoveAdsStore {
   @override
   Future<void> save(bool owned) => throw const FormatException();
 }
+
+final _anyProduct = ProductDetails(
+  id: removeAdsProductId,
+  title: '',
+  description: '',
+  price: '',
+  rawPrice: 0,
+  currencyCode: 'USD',
+);
