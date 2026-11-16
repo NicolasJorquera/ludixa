@@ -8,11 +8,20 @@ import 'app_game_host.dart';
 
 /// Videos y cortesía de la app para el host de una partida.
 final class AppRewardedHints implements RewardedHints {
-  AppRewardedHints({required this.context, required this.ads, required this.freeHintsPerPuzzle});
+  AppRewardedHints({
+    required this.context,
+    required this.ads,
+    required this.freeHintsPerPuzzle,
+    bool Function()? adsRemoved,
+  }) : _adsRemoved = adsRemoved ?? (() => false);
 
   final BuildContext context;
   final AdsController ads;
   final int freeHintsPerPuzzle;
+  final bool Function() _adsRemoved;
+
+  @override
+  bool get adFree => _adsRemoved();
 
   @override
   bool get videoReady => ads.rewardedReady;

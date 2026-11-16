@@ -16,6 +16,10 @@ class FakeHost implements GameHost {
   @override
   bool get rewardedAvailable => videoReady;
 
+  /// Compra «Sin anuncios»: el rescate no pide video.
+  @override
+  bool adFree = false;
+
   FakeHost({this.free = 3, this.rescueAnswer = RescueOutcome.granted});
 
   int free;

@@ -154,6 +154,75 @@ void main() {
       expect(rewards.videosShown, 2);
     });
 
+    group('con «Sin anuncios»', () {
+      test('las 3 pistas extra se entregan sin video ni hoja, con el mismo límite', () async {
+        final rewards = _FakeRewards(videoReady: false, adFree: true);
+        final host = hostWith(rewards);
+        expect(host.adFree, isTrue);
+        expect(host.freeHintsLeft, 5, reason: 'el contador incluye las extra, que no piden video');
+        final sources = <Object>[];
+        for (var i = 0; i < 6; i++) {
+          sources.add(switch (await host.requestHint()) {
+            HintGranted(:final source) => source,
+            HintDenied(:final reason) => reason,
+          });
+        }
+        expect(sources, [
+          HintSource.free,
+          HintSource.free,
+          HintSource.adFree,
+          HintSource.adFree,
+          HintSource.adFree,
+          HintDenial.limitReached,
+        ]);
+        expect(host.freeHintsLeft, 0);
+        expect(rewards.offers, isEmpty);
+        expect(rewards.videosShown, 0);
+        expect(rewards.courtesyLeft, isTrue, reason: 'la cortesía no hace falta');
+      });
+
+      test('nadie que paga queda con menos ayuda: igual cantidad de pistas que viendo videos', () async {
+        Future<int> granted(RewardedHints rewards) async {
+          final host = hostWith(rewards);
+          var n = 0;
+          while (await host.requestHint() is HintGranted) {
+            n++;
+          }
+          return n;
+        }
+
+        final withVideos = await granted(_FakeRewards());
+        expect(await granted(_FakeRewards(videoReady: false, adFree: true)), withVideos);
+        expect(await granted(_FakeRewards(adFree: true)), withVideos);
+      });
+
+      test('comprar con la partida abierta: las extra que quedan pasan a ser sin video', () async {
+        final rewards = _FakeRewards();
+        final host = hostWith(rewards);
+        for (var i = 0; i < 3; i++) {
+          await host.requestHint();
+        }
+        expect(host.freeHintsLeft, 0);
+        rewards.adFree = true;
+        expect(host.freeHintsLeft, 2);
+        expect(await host.requestHint(), isA<HintGranted>().having((g) => g.source, 'origen', HintSource.adFree));
+        expect(rewards.videosShown, 1);
+      });
+
+      test('al retomar, las extra ya usadas no vuelven', () async {
+        final saved = _session().withState(const {'v': 1}, Duration.zero, freeHints: 2, rewardedHints: 1);
+        final host = hostWith(_FakeRewards(adFree: true), session: saved);
+        expect(host.freeHintsLeft, 2);
+      });
+
+      test('rescate del Buscaminas sin video, aunque no haya uno cargado', () async {
+        final rewards = _FakeRewards(videoReady: false, adFree: true);
+        final host = hostWith(rewards);
+        expect(await host.requestRescue(), RescueOutcome.granted);
+        expect(rewards.videosShown, 0);
+      });
+    });
+
     SessionSnapshot snap(int v) => SessionSnapshot(
       state: {'v': v},
       elapsed: Duration(seconds: v),
@@ -512,6 +581,9 @@ class _Host implements GameHost {
   @override
   bool get rewardedAvailable => false;
 
+  @override
+  bool get adFree => false;
+
   const _Host();
 
   @override
@@ -537,10 +609,19 @@ class _Host implements GameHost {
 }
 
 final class _FakeRewards implements RewardedHints {
-  _FakeRewards({this.videoReady = true, this.outcome = RewardedOutcome.earned, this.choice = HintOfferChoice.video});
+  _FakeRewards({
+    this.videoReady = true,
+    this.outcome = RewardedOutcome.earned,
+    this.choice = HintOfferChoice.video,
+    this.adFree = false,
+  });
 
   @override
   bool videoReady;
+
+  /// Compra «Sin anuncios».
+  @override
+  bool adFree;
   RewardedOutcome outcome;
   HintOfferChoice choice;
   bool courtesyLeft = true;

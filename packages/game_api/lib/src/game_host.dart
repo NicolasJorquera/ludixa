@@ -10,6 +10,10 @@ enum HintSource {
 
   /// Pista de cortesía cuando no hay videos disponibles.
   courtesy,
+
+  /// Pista extra sin video, incluida en la compra «Sin anuncios»: la misma
+  /// que daría un video, dentro del mismo límite del puzzle.
+  adFree,
 }
 
 /// Por qué no se concedió una pista.
@@ -73,6 +77,11 @@ abstract interface class GameHost {
   /// Hay un video para ofrecer ahora. Sin él (sin conexión, sin inventario o
   /// sin anuncios) el Buscaminas no muestra "Deshacer con video".
   bool get rewardedAvailable;
+
+  /// Compra «Sin anuncios»: lo que hoy da un video (pistas extra, rescate) se
+  /// entrega sin video. El Buscaminas ofrece el rescate sin mencionar el
+  /// video, aunque no haya uno cargado.
+  bool get adFree;
 
   /// Guarda el estado de la partida en curso.
   Future<void> saveSnapshot(SessionSnapshot snapshot);

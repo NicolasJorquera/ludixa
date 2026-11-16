@@ -8,6 +8,9 @@ class _RecordingHost implements GameHost {
   @override
   bool get rewardedAvailable => false;
 
+  @override
+  bool get adFree => false;
+
   _RecordingHost(this.hintAnswer);
 
   final HintGrant hintAnswer;

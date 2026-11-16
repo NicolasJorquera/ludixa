@@ -248,6 +248,14 @@
   "@rescueUnavailable": {
     "description": "Rescate sin inventario o sin conexión."
   },
+  "rescueAdFree": "Deshacer el último toque",
+  "@rescueAdFree": {
+    "description": "Derrota: rescate sin video (compra «Sin anuncios»)."
+  },
+  "rescueAdFreeRule": "Una vez por partida.",
+  "@rescueAdFreeRule": {
+    "description": "Regla del rescate sin video."
+  },
   "showBoard": "Ver el tablero",
   "@showBoard": {
     "description": "Baja la hoja de derrota para revisar el tablero."

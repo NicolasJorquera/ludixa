@@ -49,6 +49,8 @@
   "rescue": "Undo the last tap with a video",
   "rescueRule": "Once per game. The video is optional.",
   "rescueUnavailable": "No videos available right now.",
+  "rescueAdFree": "Undo the last tap",
+  "rescueAdFreeRule": "Once per game.",
   "showBoard": "Show the board",
   "showOptions": "Show options",
   "hintTitle": "Hint",

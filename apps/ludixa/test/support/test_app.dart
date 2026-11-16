@@ -7,11 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ludixa/app/app.dart';
 import 'package:ludixa/app/environment.dart';
 import 'package:ludixa/features/ads/ads_providers.dart';
+import 'package:ludixa/features/ads/remove_ads.dart';
 import 'package:ludixa/features/play/play_providers.dart';
 import 'package:ludixa/features/settings/application/settings_controller.dart';
 import 'package:ludixa/features/settings/data/settings_repository.dart';
 import 'package:ludixa/features/settings/domain/app_settings.dart';
 import 'package:monetization/monetization.dart';
+import 'package:monetization/testing.dart';
 import 'package:progress/progress.dart';
 
 /// Repositorio en memoria. Solo para pruebas.
@@ -78,6 +80,10 @@ Future<InMemorySettingsRepository> pumpLudixa(
   ProgressRepository? progress,
   ConsentService? consent,
   AdsSdk? adsSdk,
+
+  /// Google Play Billing falso: por defecto responde, sin la compra hecha.
+  InAppPurchase? iap,
+  RemoveAdsStore? removeAdsStore,
 }) async {
   tester.platformDispatcher.localesTestValue = deviceLocales;
   addTearDown(tester.platformDispatcher.clearLocalesTestValue);
@@ -90,6 +96,8 @@ Future<InMemorySettingsRepository> pumpLudixa(
         progressRepositoryProvider.overrideWithValue(progress ?? InMemoryProgressRepository()),
         consentServiceProvider.overrideWithValue(consent ?? FakeConsent()),
         adsSdkProvider.overrideWithValue(adsSdk ?? FakeAdsSdk()),
+        inAppPurchaseProvider.overrideWithValue(iap ?? FakeInAppPurchase()),
+        removeAdsStoreProvider.overrideWithValue(removeAdsStore ?? InMemoryRemoveAdsStore()),
         ...overrides,
       ],
       child: const LudixaApp(),

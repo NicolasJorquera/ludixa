@@ -186,6 +186,12 @@ class MinesLocalizationsEn extends MinesLocalizations {
   String get rescueUnavailable => 'No videos available right now.';
 
   @override
+  String get rescueAdFree => 'Undo the last tap';
+
+  @override
+  String get rescueAdFreeRule => 'Once per game.';
+
+  @override
   String get showBoard => 'Show the board';
 
   @override

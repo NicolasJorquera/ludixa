@@ -8,6 +8,7 @@ import 'package:game_wordsearch/game_wordsearch.dart';
 
 import '../features/ads/ads_controller.dart';
 import '../features/ads/ads_providers.dart';
+import '../features/ads/remove_ads.dart';
 import '../features/settings/application/settings_controller.dart';
 import '../features/settings/domain/app_settings.dart';
 import '../l10n/generated/app_localizations.dart';
@@ -28,6 +29,8 @@ class LudixaApp extends ConsumerWidget {
     // política se crea ya: abrir la app es una sesión, aunque no se juegue.
     ref.listen(adsReadyProvider, (_, _) {});
     ref.listen(adPolicyProvider, (_, _) {});
+    // «Sin anuncios»: escucha las compras y reverifica con Play al abrir.
+    ref.listen(removeAdsStateProvider, (_, _) {});
     final supported = supportedLocalesFor(environment);
     final variant = settings.colorblindPalette ? PaletteVariant.colorblind : PaletteVariant.standard;
 

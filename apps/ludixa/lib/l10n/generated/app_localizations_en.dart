@@ -618,6 +618,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsGamesSection => 'Games';
 
   @override
+  String get settingsRemoveAdsSection => 'No ads';
+
+  @override
+  String get removeAdsTitle => 'Remove ads with a one-time purchase';
+
+  @override
+  String get removeAdsBody =>
+      'No banners and no ads between games. Extra hints and the Minesweeper rescue, without videos. Restores on any phone with your Google Play account.';
+
+  @override
+  String removeAdsBuy(String price) {
+    return 'Remove ads · $price';
+  }
+
+  @override
+  String get removeAdsBuyNoPrice => 'Remove ads';
+
+  @override
+  String get removeAdsRestore => 'Restore purchase';
+
+  @override
+  String get removeAdsOwned => 'No ads. Thanks for supporting Ludixa!';
+
+  @override
+  String get removeAdsRestored => 'Purchase restored: no more ads.';
+
+  @override
+  String get removeAdsPending => 'Purchase pending. Ads stay until Google Play confirms it.';
+
+  @override
+  String get removeAdsCanceled => 'Purchase canceled.';
+
+  @override
+  String get removeAdsError => 'The purchase couldn\'t be completed. Please try again.';
+
+  @override
+  String get removeAdsUnavailable =>
+      'Google Play isn\'t available right now. Check your connection and try again later.';
+
+  @override
+  String get removeAdsNothing => 'This Google Play account doesn\'t have the purchase.';
+
+  @override
   String get settingsDataSection => 'Data and privacy';
 
   @override
@@ -1412,6 +1455,49 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get settingsGamesSection => '[Ĝáɱéš ··]';
+
+  @override
+  String get settingsRemoveAdsSection => '[Ñö áðš ··]';
+
+  @override
+  String get removeAdsTitle => '[Ŕéɱöṽé áðš ŵîţĥ á öñé-ţîɱé þûŕçĥášé ············]';
+
+  @override
+  String get removeAdsBody =>
+      '[Ñö ƀáññéŕš áñð ñö áðš ƀéţŵééñ ĝáɱéš. Éẋţŕá ĥîñţš áñð ţĥé Ṁîñéšŵééþéŕ ŕéšçûé, ŵîţĥöûţ ṽîðéöš. Ŕéšţöŕéš öñ áñý þĥöñé ŵîţĥ ýöûŕ Ĝööĝļé Þļáý áççöûñţ. ················································]';
+
+  @override
+  String removeAdsBuy(String price) {
+    return '[Ŕéɱöṽé áðš · $price ····]';
+  }
+
+  @override
+  String get removeAdsBuyNoPrice => '[Ŕéɱöṽé áðš ····]';
+
+  @override
+  String get removeAdsRestore => '[Ŕéšţöŕé þûŕçĥášé ······]';
+
+  @override
+  String get removeAdsOwned => '[Ñö áðš. Ţĥáñķš ƒöŕ šûþþöŕţîñĝ Ļûðîẋá! ············]';
+
+  @override
+  String get removeAdsRestored => '[Þûŕçĥášé ŕéšţöŕéð: ñö ɱöŕé áðš. ··········]';
+
+  @override
+  String get removeAdsPending => '[Þûŕçĥášé þéñðîñĝ. Åðš šţáý ûñţîļ Ĝööĝļé Þļáý çöñƒîŕɱš îţ. ···················]';
+
+  @override
+  String get removeAdsCanceled => '[Þûŕçĥášé çáñçéļéð. ·······]';
+
+  @override
+  String get removeAdsError => '[Ţĥé þûŕçĥášé çöûļðñ\'ţ ƀé çöɱþļéţéð. Þļéášé ţŕý áĝáîñ. ··················]';
+
+  @override
+  String get removeAdsUnavailable =>
+      '[Ĝööĝļé Þļáý îšñ\'ţ áṽáîļáƀļé ŕîĝĥţ ñöŵ. Çĥéçķ ýöûŕ çöññéçţîöñ áñð ţŕý áĝáîñ ļáţéŕ. ···························]';
+
+  @override
+  String get removeAdsNothing => '[Ţĥîš Ĝööĝļé Þļáý áççöûñţ ðöéšñ\'ţ ĥáṽé ţĥé þûŕçĥášé. ·················]';
 
   @override
   String get settingsDataSection => '[Ðáţá áñð þŕîṽáçý ······]';

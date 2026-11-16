@@ -63,7 +63,7 @@ abstract interface class AdService {
 }
 
 /// Sin anuncios: sin consentimiento, sin identificadores de producción, o
-/// la futura compra que los quita.
+/// con la compra «Sin anuncios» (`RemoveAds`).
 final class NoAdsService implements AdService {
   const NoAdsService();
 

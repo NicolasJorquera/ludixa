@@ -526,9 +526,15 @@ class _DefeatPanel extends StatelessWidget {
         LudixaButton(label: l10n.retryBoard, onPressed: onRetry),
         const SizedBox(height: 8),
         LudixaButton(label: l10n.newBoard, onPressed: onNewBoard, variant: LudixaButtonVariant.secondary),
+        // Con la compra «Sin anuncios» el rescate no pide video.
+        if (c.game.canRescue && c.host.adFree) ...[
+          const SizedBox(height: 8),
+          LudixaButton(label: l10n.rescueAdFree, onPressed: c.rescue, variant: LudixaButtonVariant.tertiary),
+          Text(l10n.rescueAdFreeRule, style: text.bodySmall, textAlign: TextAlign.center),
+        ]
         // Sin video para ofrecer (sin conexión o sin anuncios), la opción no
         // aparece y quedan las dos gratuitas (ficha UX de la derrota).
-        if (c.game.canRescue && c.host.rewardedAvailable) ...[
+        else if (c.game.canRescue && c.host.rewardedAvailable) ...[
           const SizedBox(height: 8),
           if (c.rescueUnavailable)
             Text(l10n.rescueUnavailable, style: text.bodySmall)

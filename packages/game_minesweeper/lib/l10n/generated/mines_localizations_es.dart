@@ -186,6 +186,12 @@ class MinesLocalizationsEs extends MinesLocalizations {
   String get rescueUnavailable => 'Ahora no hay videos disponibles.';
 
   @override
+  String get rescueAdFree => 'Deshacer el último toque';
+
+  @override
+  String get rescueAdFreeRule => 'Una vez por partida.';
+
+  @override
   String get showBoard => 'Ver el tablero';
 
   @override

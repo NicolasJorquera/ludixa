@@ -54,6 +54,10 @@ enum HintOfferChoice { video, courtesy, cancel }
 /// Videos y cortesía para el host: los da la app (anuncios y la hoja que
 /// pregunta al jugador). Las pruebas usan uno falso.
 abstract interface class RewardedHints {
+  /// Compra «Sin anuncios»: lo que da un video se entrega sin video. Se lee
+  /// en cada pedido, porque la compra puede confirmarse con la partida abierta.
+  bool get adFree;
+
   bool get videoReady;
   Future<RewardedOutcome> showVideo();
   bool get courtesyAvailable;
@@ -66,7 +70,11 @@ abstract interface class RewardedHints {
 ///
 /// Economía de pistas (PRD, H6-04): 2 gratis por puzzle; después, hasta 3
 /// más viendo un video completo. Sin video disponible, 1 pista de cortesía
-/// al día. El rescate del Buscaminas es siempre con video (el botón lo dice).
+/// al día. El rescate del Buscaminas es con video (el botón lo dice).
+///
+/// Con «Sin anuncios» (ADR 0010) las 3 pistas extra y el rescate se entregan
+/// sin video ni hoja: las 5 pistas del puzzle cuentan como disponibles. Nadie
+/// que paga queda con menos ayuda que quien ve los videos.
 ///
 /// Guardado (H5-03): los juegos mandan una instantánea en cada jugada. El
 /// host escribe la última cada [saveDelay] y de inmediato en segundo plano,
@@ -137,7 +145,11 @@ class AppGameHost implements GameHost {
   SessionRecord get session => _session;
 
   @override
-  int get freeHintsLeft => _free;
+  bool get adFree => rewards?.adFree ?? false;
+
+  /// Con «Sin anuncios» incluye las extra que quedan: no piden video.
+  @override
+  int get freeHintsLeft => adFree ? _free + math.max(0, rewardedHintsPerPuzzle - _rewardedUsed) : _free;
 
   @override
   bool get rewardedAvailable => rewards?.videoReady ?? false;
@@ -151,6 +163,10 @@ class AppGameHost implements GameHost {
     if (_rewardedUsed >= rewardedHintsPerPuzzle) return const HintDenied(HintDenial.limitReached);
     final rewards = this.rewards;
     if (rewards == null) return const HintDenied(HintDenial.unavailable);
+    if (rewards.adFree) {
+      _rewardedUsed++;
+      return const HintGranted(HintSource.adFree);
+    }
     final videoReady = rewards.videoReady;
     final choice = await rewards.offerHint(
       HintOffer(
@@ -179,10 +195,14 @@ class AppGameHost implements GameHost {
   }
 
   /// El botón "Deshacer con video" ya dice qué pasa: no se pregunta otra vez.
+  /// Con «Sin anuncios» se concede sin video (una vez por partida, lo aplica
+  /// el motor).
   @override
   Future<RescueOutcome> requestRescue() async {
     final rewards = this.rewards;
-    if (rewards == null || !rewards.videoReady) return RescueOutcome.unavailable;
+    if (rewards == null) return RescueOutcome.unavailable;
+    if (rewards.adFree) return RescueOutcome.granted;
+    if (!rewards.videoReady) return RescueOutcome.unavailable;
     return switch (await rewards.showVideo()) {
       RewardedOutcome.earned => RescueOutcome.granted,
       RewardedOutcome.dismissed => RescueOutcome.declined,

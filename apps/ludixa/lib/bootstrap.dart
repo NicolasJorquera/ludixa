@@ -8,6 +8,7 @@ import 'package:progress/progress.dart';
 import 'app/app.dart';
 import 'app/environment.dart';
 import 'features/ads/ads_controller.dart';
+import 'features/ads/remove_ads.dart';
 import 'features/games/game_settings.dart';
 import 'features/play/last_difficulty.dart';
 import 'features/play/play_providers.dart';
@@ -31,6 +32,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
     wordSearchSettings,
     lastDifficulty,
     adPolicyStore,
+    removeAdsStore,
   ) = await (
     lockPhonesToPortrait(),
     SharedPreferencesSettingsRepository.create(),
@@ -39,6 +41,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
     PrefsWordSearchSettingsStore.create(),
     PrefsLastDifficultyStore.create(),
     PrefsAdPolicyStore.create(),
+    PrefsRemoveAdsStore.create(),
   ).wait;
   // Archivo SQLite en el almacenamiento de la app; drift_flutter lo abre en
   // otro isolate para no frenar la interfaz.
@@ -54,6 +57,7 @@ Future<void> bootstrap(AppEnvironment environment) async {
         lastDifficultyStoreProvider.overrideWithValue(lastDifficulty),
         progressRepositoryProvider.overrideWithValue(progress),
         adPolicyStoreProvider.overrideWithValue(adPolicyStore),
+        removeAdsStoreProvider.overrideWithValue(removeAdsStore),
       ],
       child: const LudixaApp(),
     ),

@@ -623,6 +623,48 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsGamesSection => 'Juegos';
 
   @override
+  String get settingsRemoveAdsSection => 'Sin anuncios';
+
+  @override
+  String get removeAdsTitle => 'Quita los anuncios con un pago único';
+
+  @override
+  String get removeAdsBody =>
+      'Sin banners ni anuncios entre partidas. Las pistas extra y el rescate del Buscaminas, sin videos. Se restaura en cualquier teléfono con tu cuenta de Google Play.';
+
+  @override
+  String removeAdsBuy(String price) {
+    return 'Quitar anuncios · $price';
+  }
+
+  @override
+  String get removeAdsBuyNoPrice => 'Quitar anuncios';
+
+  @override
+  String get removeAdsRestore => 'Restaurar compra';
+
+  @override
+  String get removeAdsOwned => 'Sin anuncios. ¡Gracias por apoyar Ludixa!';
+
+  @override
+  String get removeAdsRestored => 'Compra restaurada: ya no verás anuncios.';
+
+  @override
+  String get removeAdsPending => 'Compra pendiente. Los anuncios siguen hasta que Google Play la confirme.';
+
+  @override
+  String get removeAdsCanceled => 'Compra cancelada.';
+
+  @override
+  String get removeAdsError => 'No se pudo completar la compra. Inténtalo de nuevo.';
+
+  @override
+  String get removeAdsUnavailable => 'Google Play no está disponible ahora. Revisa tu conexión e inténtalo más tarde.';
+
+  @override
+  String get removeAdsNothing => 'Esta cuenta de Google Play no tiene la compra.';
+
+  @override
   String get settingsDataSection => 'Datos y privacidad';
 
   @override

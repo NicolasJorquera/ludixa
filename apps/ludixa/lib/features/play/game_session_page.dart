@@ -11,6 +11,7 @@ import 'package:puzzle_core/puzzle_core.dart';
 
 import '../../app/router.dart';
 import '../ads/ads_controller.dart';
+import '../ads/remove_ads.dart';
 import 'app_game_host.dart';
 import 'difficulty_sheet.dart';
 import 'hint_offer_sheet.dart';
@@ -140,7 +141,12 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
       onChanged: revision.bump,
       onPlayed: ads.played,
       onCompleted: ads.puzzleCompleted,
-      rewards: AppRewardedHints(context: context, ads: ads, freeHintsPerPuzzle: AppGameHost.freeHints),
+      rewards: AppRewardedHints(
+        context: context,
+        ads: ads,
+        freeHintsPerPuzzle: AppGameHost.freeHints,
+        adsRemoved: () => mounted && ref.read(adsRemovedProvider),
+      ),
       session:
           widget.session ??
           SessionRecord(
@@ -239,6 +245,9 @@ class _GameSessionPageState extends ConsumerState<GameSessionPage> {
 class TutorialHost implements GameHost {
   @override
   bool get rewardedAvailable => false;
+
+  @override
+  bool get adFree => false;
 
   const TutorialHost();
 
