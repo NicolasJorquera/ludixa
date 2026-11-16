@@ -129,6 +129,21 @@ bash tool/release.sh --local  # sin esos archivos: solo para revisar el paquete
   flutter symbolize -i <traza.txt> -d build/release/<versión>/simbolos-dart/app.android-arm64.symbols
   ```
 
+### Publicación automática (GitHub Actions)
+
+`.github/workflows/play-store.yml` hace lo mismo que `tool/release.sh` y sube el AAB con la cuenta de servicio:
+
+| Disparador | Pista | Estado |
+|---|---|---|
+| Merge a `main` | interna | completada |
+| Tag `v*` (p. ej. `v1.0.1`) | producción | escalonada al 20 %; se sube al 100 % en Play Console |
+| A mano (Actions → «Publicar en Play») | la que se elija | la que se elija |
+
+- **versionName** sale de `apps/ludixa/pubspec.yaml`; un tag tiene que coincidir con él. **versionCode** es el número de ejecución más `VERSION_CODE_OFFSET` (100 por defecto): siempre crece y queda por encima del 1 subido a mano. El `+N` de `pubspec.yaml` solo sirve para `tool/release.sh`.
+- Corre las pruebas de la app, se corta si falta la clave o un ID de AdMob (o si alguno es de prueba) y se niega a subir un AAB firmado con la clave de depuración.
+- Guarda como artefacto, por 90 días, el `.aab`, `mapping.txt` y **los símbolos de Dart**. Bájalos y guárdalos fuera del repositorio: sin ellos no se pueden leer los errores de esa versión.
+- Configuración en GitHub → Settings → Environments → `play-store`: secrets `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` y `PLAY_SERVICE_ACCOUNT_JSON`; variables `ADMOB_APP_ID`, `ADMOB_BANNER`, `ADMOB_INTERSTITIAL` y `ADMOB_REWARDED` (los mismos valores que `admob.properties` y `admob_prod.json`).
+
 ## Ficha de Google Play
 
 `docs/ficha/` tiene los textos de la ficha en español e inglés (`ficha.md`), el icono de 512 px, el gráfico destacado y las capturas. `bash tool/ficha_imagenes.sh` regenera las imágenes y el icono de Android 7 desde `docs/ficha/fuente/` (necesita Google Chrome). El icono adaptable de Android 8+ está en `android/app/src/main/res/drawable/ic_launcher_foreground.xml`.

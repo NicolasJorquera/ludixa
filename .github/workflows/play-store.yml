@@ -1,0 +1,181 @@
+name: Publicar en Play
+
+# Mismo patrón que Trainloop, TakeSync y Flixer (README › «Publicación automática»):
+# - merge a main  → AAB de producción (flavor prod) firmado a la pista interna;
+# - tag v*        → producción con lanzamiento escalonado del 20 % (se sube al 100 % en Play Console);
+# - a mano        → la pista y el estado que se elijan en Actions.
+# La firma, la cuenta de servicio y los IDs de AdMob salen del environment `play-store`.
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      track:
+        description: "Pista de Play"
+        type: choice
+        options: [internal, alpha, beta, production]
+        default: internal
+      status:
+        description: "Estado de la versión (draft deja la versión sin publicar en Play Console)"
+        type: choice
+        options: [completed, inProgress, draft]
+        default: completed
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play-store
+  cancel-in-progress: false
+
+env:
+  PACKAGE_NAME: com.gonisoma.ludixa
+  PUB_HOSTED_URL: https://pub.dev
+  APP_DIR: apps/ludixa
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: play-store
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.41.4
+          cache: true
+
+      # versionName: el de apps/ludixa/pubspec.yaml (un tag v* tiene que coincidir con él).
+      # versionCode: número de ejecución + desplazamiento, siempre creciente y por encima de los
+      # subidos a mano (el 1 fue la 1.0.0).
+      - name: Versión, pista y estado
+        id: version
+        env:
+          OFFSET: ${{ vars.VERSION_CODE_OFFSET || '100' }}
+          INPUT_TRACK: ${{ inputs.track }}
+          INPUT_STATUS: ${{ inputs.status }}
+        run: |
+          raw="$(grep -E '^version:' "$APP_DIR/pubspec.yaml" | awk '{print $2}')"
+          name="${raw%%+*}"
+          if [[ "$GITHUB_REF_TYPE" == "tag" && "${GITHUB_REF_NAME#v}" != "$name" ]]; then
+            echo "::error::El tag $GITHUB_REF_NAME no coincide con version: $raw de $APP_DIR/pubspec.yaml."
+            exit 1
+          fi
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            track="$INPUT_TRACK"; status="$INPUT_STATUS"
+          elif [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            track="production"; status="inProgress"
+          else
+            track="internal"; status="completed"
+          fi
+          code=$(( GITHUB_RUN_NUMBER + OFFSET ))
+          {
+            echo "name=$name"
+            echo "code=$code"
+            echo "track=$track"
+            echo "status=$status"
+          } >> "$GITHUB_OUTPUT"
+          echo "Ludixa $name ($code) → $track, $status"
+
+      # android/app/build.gradle.kts lee la clave de android/key.properties y el ID de la app de
+      # AdMob de android/admob.properties; los bloques van en admob_prod.json (--dart-define-from-file).
+      # Sin alguno de ellos, prod se compila sin anuncios o con la clave de depuración: se corta aquí.
+      - name: Clave de carga e IDs de AdMob
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ADMOB_APP_ID: ${{ vars.ADMOB_APP_ID }}
+          ADMOB_BANNER: ${{ vars.ADMOB_BANNER }}
+          ADMOB_INTERSTITIAL: ${{ vars.ADMOB_INTERSTITIAL }}
+          ADMOB_REWARDED: ${{ vars.ADMOB_REWARDED }}
+        run: |
+          missing=()
+          for v in KEYSTORE_BASE64 STORE_PASSWORD KEY_ALIAS KEY_PASSWORD ADMOB_APP_ID ADMOB_BANNER ADMOB_INTERSTITIAL ADMOB_REWARDED; do
+            [[ -n "${!v}" ]] || missing+=("$v")
+          done
+          if [[ ${#missing[@]} -gt 0 ]]; then
+            echo "::error::Faltan en el environment play-store: ${missing[*]}"
+            exit 1
+          fi
+          for v in ADMOB_APP_ID ADMOB_BANNER ADMOB_INTERSTITIAL ADMOB_REWARDED; do
+            if [[ "${!v}" == ca-app-pub-3940256099942544* ]]; then
+              echo "::error::$v es un ID de prueba de AdMob."
+              exit 1
+            fi
+          done
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/upload-keystore.jks"
+          umask 077
+          {
+            echo "storeFile=$RUNNER_TEMP/upload-keystore.jks"
+            echo "storePassword=$STORE_PASSWORD"
+            echo "keyAlias=$KEY_ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > "$APP_DIR/android/key.properties"
+          echo "appId=$ADMOB_APP_ID" > "$APP_DIR/android/admob.properties"
+          printf '{"ADMOB_BANNER":"%s","ADMOB_INTERSTITIAL":"%s","ADMOB_REWARDED":"%s"}\n' \
+            "$ADMOB_BANNER" "$ADMOB_INTERSTITIAL" "$ADMOB_REWARDED" > "$APP_DIR/admob_prod.json"
+
+      - name: Dependencias
+        run: flutter pub get
+
+      - name: Pruebas de la app
+        working-directory: ${{ env.APP_DIR }}
+        timeout-minutes: 15
+        run: flutter test
+
+      # Las mismas opciones que tool/release.sh: flavor prod, código Dart ofuscado y sus símbolos aparte.
+      - name: App bundle firmado
+        working-directory: ${{ env.APP_DIR }}
+        run: |
+          flutter build appbundle --release --flavor prod -t lib/main_prod.dart \
+            --build-name="${{ steps.version.outputs.name }}" \
+            --build-number="${{ steps.version.outputs.code }}" \
+            --obfuscate --split-debug-info="$RUNNER_TEMP/simbolos-dart" \
+            --dart-define-from-file=admob_prod.json
+
+      # Sin la clave de carga, Gradle firma con la de depuración: ese AAB no puede llegar a Play.
+      - name: Comprobar la firma
+        run: |
+          aab="$APP_DIR/build/app/outputs/bundle/prodRelease/app-prod-release.aab"
+          jarsigner -verify "$aab" | grep -q "jar verified"
+          if keytool -printcert -jarfile "$aab" | grep -q "CN=Android Debug"; then
+            echo "::error::El AAB está firmado con la clave de depuración."
+            exit 1
+          fi
+
+      # Los símbolos de Dart hacen falta para leer los errores de esta versión (flutter symbolize).
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ludixa-${{ steps.version.outputs.name }}-${{ steps.version.outputs.code }}
+          path: |
+            ${{ env.APP_DIR }}/build/app/outputs/bundle/prodRelease/app-prod-release.aab
+            ${{ env.APP_DIR }}/build/app/outputs/mapping/prodRelease/mapping.txt
+            ${{ runner.temp }}/simbolos-dart
+          retention-days: 90
+
+      - name: Subir a Play
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: ${{ env.PACKAGE_NAME }}
+          releaseFiles: ${{ env.APP_DIR }}/build/app/outputs/bundle/prodRelease/app-prod-release.aab
+          mappingFile: ${{ env.APP_DIR }}/build/app/outputs/mapping/prodRelease/mapping.txt
+          releaseName: ${{ steps.version.outputs.name }} (${{ steps.version.outputs.code }})
+          tracks: ${{ steps.version.outputs.track }}
+          status: ${{ steps.version.outputs.status }}
+          userFraction: ${{ steps.version.outputs.status == 'inProgress' && '0.2' || '' }}
+
+      - name: Borrar la clave
+        if: always()
+        run: rm -f "$RUNNER_TEMP/upload-keystore.jks" "$APP_DIR/android/key.properties"
