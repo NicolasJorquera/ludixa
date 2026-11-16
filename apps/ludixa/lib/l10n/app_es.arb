@@ -827,6 +827,64 @@
   "@settingsGamesSection": {
     "description": "Sección de Ajustes: ajustes de cada juego."
   },
+  "settingsRemoveAdsSection": "Sin anuncios",
+  "@settingsRemoveAdsSection": {
+    "description": "Sección de Ajustes: compra única que quita los anuncios."
+  },
+  "removeAdsTitle": "Quita los anuncios con un pago único",
+  "@removeAdsTitle": {
+    "description": "Título de la tarjeta de compra."
+  },
+  "removeAdsBody": "Sin banners ni anuncios entre partidas. Las pistas extra y el rescate del Buscaminas, sin videos. Se restaura en cualquier teléfono con tu cuenta de Google Play.",
+  "@removeAdsBody": {
+    "description": "Qué incluye la compra."
+  },
+  "removeAdsBuy": "Quitar anuncios · {price}",
+  "@removeAdsBuy": {
+    "description": "Botón de compra con el precio que informa Google Play (nunca uno fijo).",
+    "placeholders": {
+      "price": {
+        "type": "String",
+        "example": "US$2.99"
+      }
+    }
+  },
+  "removeAdsBuyNoPrice": "Quitar anuncios",
+  "@removeAdsBuyNoPrice": {
+    "description": "Botón de compra cuando Google Play no informó el precio."
+  },
+  "removeAdsRestore": "Restaurar compra",
+  "@removeAdsRestore": {
+    "description": "Botón que busca la compra en la cuenta de Google Play."
+  },
+  "removeAdsOwned": "Sin anuncios. ¡Gracias por apoyar Ludixa!",
+  "@removeAdsOwned": {
+    "description": "Estado: compra activa."
+  },
+  "removeAdsRestored": "Compra restaurada: ya no verás anuncios.",
+  "@removeAdsRestored": {
+    "description": "Estado: compra restaurada."
+  },
+  "removeAdsPending": "Compra pendiente. Los anuncios siguen hasta que Google Play la confirme.",
+  "@removeAdsPending": {
+    "description": "Estado: Google Play dejó la compra pendiente."
+  },
+  "removeAdsCanceled": "Compra cancelada.",
+  "@removeAdsCanceled": {
+    "description": "Estado: la persona cerró la hoja de compra."
+  },
+  "removeAdsError": "No se pudo completar la compra. Inténtalo de nuevo.",
+  "@removeAdsError": {
+    "description": "Estado: error de Google Play."
+  },
+  "removeAdsUnavailable": "Google Play no está disponible ahora. Revisa tu conexión e inténtalo más tarde.",
+  "@removeAdsUnavailable": {
+    "description": "Estado: sin Google Play, sin conexión o producto no disponible."
+  },
+  "removeAdsNothing": "Esta cuenta de Google Play no tiene la compra.",
+  "@removeAdsNothing": {
+    "description": "Estado: «Restaurar compra» no encontró nada."
+  },
   "settingsDataSection": "Datos y privacidad",
   "@settingsDataSection": {
     "description": "Sección de Ajustes."

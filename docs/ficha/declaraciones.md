@@ -1,6 +1,6 @@
 # Declaraciones de Google Play Console (H8-03)
 
-Respuestas para los formularios de Play Console › Política › Contenido de la app. Criterio: **todo lo declarado coincide con los SDK reales**. Revisado el 4 de noviembre de 2026 contra el código, el manifiesto final de la versión prod y la guía de Google.
+Respuestas para los formularios de Play Console › Política › Contenido de la app. Criterio: **todo lo declarado coincide con los SDK reales**. Revisado el 4 de noviembre de 2026 contra el código, el manifiesto final de la versión prod y la guía de Google. Actualizado el 16 de noviembre de 2026 con la compra «Sin anuncios» (ADR 0010).
 
 Si cambia algún SDK (por ejemplo, Firebase Analytics en H6-05) o lo que hace la app con los datos, hay que revisar esta página, la política (`site/`) y el formulario de Play **antes** de publicar esa versión.
 
@@ -10,13 +10,15 @@ Si cambia algún SDK (por ejemplo, Firebase Analytics en H6-05) o lo que hace la
 |---|---|---|---|
 | Google Mobile Ads (`google_mobile_ads` 9.2.0) | `play-services-ads` 25.5.0 | Anuncios: banner, intersticial y video con recompensa | **Sí**, a Google |
 | User Messaging Platform | `user-messaging-platform` 4.0.0 | Formulario de consentimiento donde la ley lo exige | **Sí**, a Google |
-| `shared_preferences` | 2.5 | Ajustes y contadores de anuncios | No |
+| Google Play Billing (`in_app_purchase` 3.3.1, `in_app_purchase_android` 0.5.0) | `billing` 8.0.0 | Compra única «Sin anuncios» (`ludixa_remove_ads`): precio, compra, reconocimiento y consulta de las compras de la cuenta | Lo gestiona Google Play (ver abajo); la app no envía nada a un servidor propio |
+| `shared_preferences` | 2.5 | Ajustes, contadores de anuncios y si se compró «Sin anuncios» | No |
 | `drift_flutter` / SQLite | 0.3 | Progreso: partidas, racha, logros, estadísticas | No |
 | `file_picker` | 13.3 | Exportar o importar el progreso a un archivo que elige el jugador | No (acción del usuario) |
 | `url_launcher` | 6.3 | Abre la política en el navegador | No (acción del usuario) |
 | `package_info_plus` | 10.2 | Muestra la versión en Ajustes | No |
 
 - No hay otro código de red: ni cliente HTTP, ni analítica, ni reporte de fallos.
+- **Compra «Sin anuncios»:** la hace Google Play con su sistema de facturación; el medio de pago y los datos de facturación nunca llegan a la app. La app solo recibe de Play si la cuenta tiene el producto y lo guarda en el teléfono. No hay servidor propio que valide la compra. **Interpretación:** no se declara "Historial de compras" ni "Información financiera", porque la app no los transmite fuera del teléfono; los datos de la transacción los recopila Google Play como tienda, no la app. Revisar contra la ayuda de Play al llenar el formulario y, si la consola indica otra cosa, anotarlo aquí.
 - La copia automática de Android la hace el sistema hacia la cuenta de Google del usuario, no la app. **Interpretación:** no se declara, porque Play define "recopilar" como lo que la app transmite fuera del teléfono.
 
 Fuentes:
@@ -68,7 +70,7 @@ Los cuatro tipos que siguen se declaran igual:
 | Apuestas o juegos de azar simulados | No |
 | Interacción entre usuarios (chat, contenido compartido) | No |
 | Comparte la ubicación del usuario con otros usuarios | No |
-| Compras digitales | No (no hay compras dentro de la app) |
+| Compras digitales | **Sí**: compras dentro de la app (una compra única, «Sin anuncios») |
 | Navegación web sin restricciones | No (solo abre la política de privacidad) |
 
 Resultado esperado: la clasificación más baja en cada región, por ejemplo ESRB "Everyone" y PEGI 3. El contenido de los anuncios no entra en el cuestionario; la app los limita a aptos como máximo para adolescentes.
@@ -87,7 +89,16 @@ Debe coincidir con la política, que dice "13 años o más".
 
 | Pregunta | Respuesta |
 |---|---|
-| ¿La app contiene anuncios? | **Sí** |
+| ¿La app contiene anuncios? | **Sí** (quien compra «Sin anuncios» deja de verlos) |
+
+## Compras dentro de la app
+
+| Pregunta | Respuesta |
+|---|---|
+| ¿La app ofrece compras dentro de la app? | **Sí** |
+| Producto | `ludixa_remove_ads`, no consumible (compra única), creado en Play Console › Monetizar › Productos integrados en la aplicación. El precio lo fija Play Console; la app muestra el que informa Play |
+| Qué da | Sin banners ni intersticiales; las pistas extra (hasta 3 por puzzle, como con video) y el rescate del Buscaminas sin video |
+| Ficha | Play muestra "Compras dentro de la app" junto a "Contiene anuncios" cuando el producto está activo |
 
 ## ID de publicidad
 
@@ -107,12 +118,13 @@ Deben coincidir con los propósitos de "Dispositivo u otros ID" en la sección d
 | Eliminación de cuentas | No aplica: la app no permite crear cuentas |
 | App de noticias | No |
 | App gubernamental | No |
-| Funciones financieras | Ninguna |
+| Funciones financieras | Ninguna (la compra única no es una función financiera) |
 | Apps de salud | No |
 | Permisos sensibles | Ninguno. El manifiesto final pide los permisos de abajo, todos normales y sin formulario propio |
 
 **Permisos del manifiesto final (prod):**
 - `INTERNET` y `ACCESS_NETWORK_STATE`;
+- `com.android.vending.BILLING`, de la librería de facturación de Google Play;
 - `WAKE_LOCK` y `FOREGROUND_SERVICE`, sin tipo. Son de las librerías del SDK de anuncios. Play pide declarar los servicios en primer plano **con tipo**, y aquí no hay ninguno;
 - `AD_ID` y los de Privacy Sandbox (`ACCESS_ADSERVICES_*`).
 
@@ -121,3 +133,4 @@ Deben coincidir con los propósitos de "Dispositivo u otros ID" en la sección d
 1. Publicar el sitio (`site/README.md`) para que la URL de la política responda.
 2. Completar los formularios con estas respuestas. La vista previa de la sección pública de seguridad de los datos debe mostrar los cuatro tipos de arriba, compartidos y cifrados.
 3. Si la consola muestra alguna advertencia, anotarla aquí con lo que se hizo.
+4. **Con la compra «Sin anuncios»** (antes de publicar la versión que la trae): crear y activar el producto `ludixa_remove_ads` en Play Console, volver a enviar el cuestionario de clasificación (compras digitales: sí), publicar el sitio con la política actualizada y revisar la sección de seguridad de los datos.

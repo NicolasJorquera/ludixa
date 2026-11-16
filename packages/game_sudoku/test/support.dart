@@ -12,6 +12,9 @@ class FakeHost implements GameHost {
   @override
   bool get rewardedAvailable => false;
 
+  @override
+  bool get adFree => false;
+
   FakeHost({this.free = 3, this.deny});
 
   int free;

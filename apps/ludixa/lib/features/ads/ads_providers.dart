@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:monetization/monetization.dart';
 
 import '../../app/environment.dart';
+import 'remove_ads.dart';
 
 /// Consentimiento con UMP. En desarrollo se puede simular el EEE:
 /// `--dart-define=UMP_DEBUG_EEA=true --dart-define=UMP_TEST_DEVICE=<hash>`
@@ -20,13 +21,19 @@ final adsSdkProvider = Provider<AdsSdk>((ref) => const MobileAdsSdk());
 
 /// Consentimiento y SDK, en cada arranque y en segundo plano: la app se
 /// muestra sin esperarlo. true cuando ya se pueden pedir anuncios.
-final adsReadyProvider = FutureProvider<bool>(
-  (ref) => AdsStartup(consent: ref.watch(consentServiceProvider), sdk: ref.watch(adsSdkProvider)).run(),
-);
+///
+/// Con «Sin anuncios» no se pide el consentimiento ni se inicia el SDK: la
+/// app no usa anuncios. Si Play revoca la compra, se vuelve a correr.
+final adsReadyProvider = FutureProvider<bool>((ref) async {
+  if (ref.watch(adsRemovedProvider)) return false;
+  return AdsStartup(consent: ref.watch(consentServiceProvider), sdk: ref.watch(adsSdkProvider)).run();
+});
 
 /// Si corresponde mostrar "Opciones de privacidad" (se sabe después de
-/// pedir el consentimiento).
+/// pedir el consentimiento). Con «Sin anuncios» no hay anuncios ni
+/// consentimiento que gestionar.
 final privacyOptionsRequiredProvider = FutureProvider<bool>((ref) async {
+  if (ref.watch(adsRemovedProvider)) return false;
   await ref.watch(adsReadyProvider.future);
   return ref.watch(consentServiceProvider).privacyOptionsRequired();
 });

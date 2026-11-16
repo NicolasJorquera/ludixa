@@ -183,6 +183,9 @@ class _NoHost implements GameHost {
   @override
   bool get rewardedAvailable => false;
 
+  @override
+  bool get adFree => false;
+
   const _NoHost();
 
   @override

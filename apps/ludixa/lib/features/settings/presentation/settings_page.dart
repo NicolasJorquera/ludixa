@@ -16,6 +16,7 @@ import '../../play/play_providers.dart';
 import '../application/settings_controller.dart';
 import '../domain/app_settings.dart';
 import 'backup_actions.dart';
+import 'remove_ads_card.dart';
 
 /// Versión instalada, para la fila "Versión".
 final appVersionProvider = FutureProvider<String>((ref) async {
@@ -23,8 +24,9 @@ final appVersionProvider = FutureProvider<String>((ref) async {
   return info.buildNumber.isEmpty ? info.version : '${info.version} (${info.buildNumber})';
 });
 
-/// Ajustes: General, Juegos, Datos y privacidad, e Información. Cada cambio
-/// se aplica al instante. Sin anuncios: aquí se gestiona la privacidad.
+/// Ajustes: General, Juegos, Sin anuncios (la compra única), Datos y
+/// privacidad, e Información. Cada cambio se aplica al instante. Sin
+/// anuncios en esta pantalla: aquí se gestiona la privacidad.
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
@@ -118,6 +120,8 @@ class SettingsPage extends ConsumerWidget {
               title: module.displayName(context),
               onTap: () => context.go(AppRoutes.gameSettings(module.id)),
             ),
+          LudixaSectionLabel(l10n.settingsRemoveAdsSection),
+          const RemoveAdsCard(),
           LudixaSectionLabel(l10n.settingsDataSection),
           // Solo donde la ley lo pide (UMP lo indica después del consentimiento).
           if (ref.watch(privacyOptionsRequiredProvider).value ?? false)

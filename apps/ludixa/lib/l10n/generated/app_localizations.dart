@@ -974,6 +974,84 @@ abstract class AppLocalizations {
   /// **'Juegos'**
   String get settingsGamesSection;
 
+  /// Sección de Ajustes: compra única que quita los anuncios.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin anuncios'**
+  String get settingsRemoveAdsSection;
+
+  /// Título de la tarjeta de compra.
+  ///
+  /// In es, this message translates to:
+  /// **'Quita los anuncios con un pago único'**
+  String get removeAdsTitle;
+
+  /// Qué incluye la compra.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin banners ni anuncios entre partidas. Las pistas extra y el rescate del Buscaminas, sin videos. Se restaura en cualquier teléfono con tu cuenta de Google Play.'**
+  String get removeAdsBody;
+
+  /// Botón de compra con el precio que informa Google Play (nunca uno fijo).
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar anuncios · {price}'**
+  String removeAdsBuy(String price);
+
+  /// Botón de compra cuando Google Play no informó el precio.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar anuncios'**
+  String get removeAdsBuyNoPrice;
+
+  /// Botón que busca la compra en la cuenta de Google Play.
+  ///
+  /// In es, this message translates to:
+  /// **'Restaurar compra'**
+  String get removeAdsRestore;
+
+  /// Estado: compra activa.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin anuncios. ¡Gracias por apoyar Ludixa!'**
+  String get removeAdsOwned;
+
+  /// Estado: compra restaurada.
+  ///
+  /// In es, this message translates to:
+  /// **'Compra restaurada: ya no verás anuncios.'**
+  String get removeAdsRestored;
+
+  /// Estado: Google Play dejó la compra pendiente.
+  ///
+  /// In es, this message translates to:
+  /// **'Compra pendiente. Los anuncios siguen hasta que Google Play la confirme.'**
+  String get removeAdsPending;
+
+  /// Estado: la persona cerró la hoja de compra.
+  ///
+  /// In es, this message translates to:
+  /// **'Compra cancelada.'**
+  String get removeAdsCanceled;
+
+  /// Estado: error de Google Play.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo completar la compra. Inténtalo de nuevo.'**
+  String get removeAdsError;
+
+  /// Estado: sin Google Play, sin conexión o producto no disponible.
+  ///
+  /// In es, this message translates to:
+  /// **'Google Play no está disponible ahora. Revisa tu conexión e inténtalo más tarde.'**
+  String get removeAdsUnavailable;
+
+  /// Estado: «Restaurar compra» no encontró nada.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta cuenta de Google Play no tiene la compra.'**
+  String get removeAdsNothing;
+
   /// Sección de Ajustes.
   ///
   /// In es, this message translates to:

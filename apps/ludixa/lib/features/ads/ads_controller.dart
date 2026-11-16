@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../app/environment.dart';
 import 'ads_providers.dart';
+import 'remove_ads.dart';
 
 /// Bloques de anuncios de producción. Solo existen en la compilación prod:
 /// `--dart-define-from-file=admob_prod.json` (ignorado por git).
@@ -104,8 +105,11 @@ final adPolicyProvider = Provider<AdPolicy>((ref) {
 });
 
 /// AdMob cuando el consentimiento y el SDK están listos y hay bloques para el
-/// entorno; si no, sin anuncios.
+/// entorno; si no, o con la compra «Sin anuncios», sin anuncios.
 final adServiceProvider = Provider<AdService>((ref) {
+  // Antes que adsReady: al comprar, adsReady conserva su valor anterior
+  // mientras se recalcula.
+  if (ref.watch(adsRemovedProvider)) return const NoAdsService();
   final ready = ref.watch(adsReadyProvider).value ?? false;
   final units = adUnitsFor(ref.watch(environmentProvider));
   if (!ready || units == null) return const NoAdsService();

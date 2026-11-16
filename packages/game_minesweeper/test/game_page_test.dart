@@ -190,6 +190,25 @@ void main() {
       expect(find.text('Deshacer el último toque con un video'), findsNothing);
     });
 
+    testWidgets('con «Sin anuncios» el rescate no menciona el video, aunque no haya uno', (tester) async {
+      final host = FakeHost()
+        ..videoReady = false
+        ..adFree = true;
+      final c = await pumpGame(tester, controller: freeController(host: host));
+      await firstTap(tester, c);
+      await tester.tap(cellAt(c, minesOf(c).first));
+      await tester.pump();
+      expect(find.text('Deshacer el último toque con un video'), findsNothing);
+      expect(find.text('Una vez por partida.'), findsOneWidget);
+      await tester.tap(find.text('Deshacer el último toque'));
+      await tester.pumpAndSettle();
+      expect(c.game.status, GameStatus.playing);
+      await tester.tap(cellAt(c, minesOf(c).first));
+      await tester.pump();
+      expect(c.lost, isTrue);
+      expect(find.text('Deshacer el último toque'), findsNothing);
+    });
+
     testWidgets('si el video falla al pedirlo, se avisa y quedan las opciones gratuitas', (tester) async {
       final (c, _) = await lose(tester, rescue: RescueOutcome.unavailable);
       await tester.tap(find.text('Deshacer el último toque con un video'));

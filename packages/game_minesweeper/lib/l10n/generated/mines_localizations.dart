@@ -386,6 +386,18 @@ abstract class MinesLocalizations {
   /// **'Ahora no hay videos disponibles.'**
   String get rescueUnavailable;
 
+  /// Derrota: rescate sin video (compra «Sin anuncios»).
+  ///
+  /// In es, this message translates to:
+  /// **'Deshacer el último toque'**
+  String get rescueAdFree;
+
+  /// Regla del rescate sin video.
+  ///
+  /// In es, this message translates to:
+  /// **'Una vez por partida.'**
+  String get rescueAdFreeRule;
+
   /// Baja la hoja de derrota para revisar el tablero.
   ///
   /// In es, this message translates to:

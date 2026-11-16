@@ -1,5 +1,5 @@
 name: monetization
-description: Anuncios de Ludixa. AdPolicy en Dart puro (límites del PRD con reloj inyectable) y consentimiento con UMP; AdMob llega en H6-03.
+description: Anuncios de Ludixa. AdPolicy en Dart puro (límites del PRD con reloj inyectable), consentimiento con UMP, AdMob y la compra única «Sin anuncios» con Google Play Billing.
 publish_to: none
 
 environment:
@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   google_mobile_ads: ^9.2.0
+  in_app_purchase: ^3.3.1
+  in_app_purchase_android: ^0.5.0
+  in_app_purchase_platform_interface: ^1.4.1
   puzzle_core:
 
 dev_dependencies:
