@@ -21,7 +21,7 @@ packages/game_sudoku/         Módulo de Sudoku: partida, pista, tutorial, ajust
 packages/game_minesweeper/    Módulo de Buscaminas: partida, zoom, derrota, pista, tutorial, ajustes y textos (es/en)
 packages/game_wordsearch/     Módulo de Sopa de letras: partida, selección, lista, pista, tutorial, ajustes e idioma (es/en)
 packages/progress/            Progreso (racha con comodines, calendario del reto, logros, maestría, estadísticas) y su base Drift
-packages/monetization/        Dart puro por ahora: AdPolicy (límites de anuncios del PRD); AdMob y UMP llegan en H6
+packages/monetization/        AdPolicy (Dart puro, límites de anuncios del PRD), consentimiento UMP, AdMob y la compra «Sin anuncios» (Play Billing)
 packages/design_system/       Tokens claro/oscuro/daltonismo, fuentes incluidas (OFL), tema
 tool/                         Scripts de desarrollo
 docs/adr/                     Decisiones de arquitectura
@@ -143,6 +143,15 @@ bash tool/release.sh --local  # sin esos archivos: solo para revisar el paquete
 - Corre las pruebas de la app, se corta si falta la clave o un ID de AdMob (o si alguno es de prueba) y se niega a subir un AAB firmado con la clave de depuración.
 - Guarda como artefacto, por 90 días, el `.aab`, `mapping.txt` y **los símbolos de Dart**. Bájalos y guárdalos fuera del repositorio: sin ellos no se pueden leer los errores de esa versión.
 - Configuración en GitHub → Settings → Environments → `play-store`: secrets `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` y `PLAY_SERVICE_ACCOUNT_JSON`; variables `ADMOB_APP_ID`, `ADMOB_BANNER`, `ADMOB_INTERSTITIAL` y `ADMOB_REWARDED` (los mismos valores que `admob.properties` y `admob_prod.json`).
+
+## Compra «Sin anuncios»
+
+Compra única con Google Play Billing, sin servidor (ADR 0010). Quita banners e intersticiales y da sin video las pistas extra y el rescate del Buscaminas.
+
+- **Producto:** `ludixa_remove_ads`, no consumible, en Play Console › Monetizar › Productos integrados en la aplicación. El precio se fija allí; la app muestra el que informa Play.
+- **Estado:** se guarda en el teléfono y se reverifica con Play en cada arranque. Si Play responde, manda (también revoca); sin red se mantiene lo guardado.
+- **Probarla de verdad:** solo con la variante prod (`com.gonisoma.ludixa`) instalada desde una pista de prueba de Play, con el producto activo y una cuenta en Play Console › Configuración › Pruebas de licencias. En dev el producto no existe y la tarjeta de Ajustes dice que no está disponible.
+- **Pruebas automáticas:** con un Play falso, `FakeInAppPurchase` de `package:monetization/testing.dart`.
 
 ## Ficha de Google Play
 
